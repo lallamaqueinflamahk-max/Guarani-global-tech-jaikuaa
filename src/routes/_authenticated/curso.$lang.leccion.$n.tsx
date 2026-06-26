@@ -396,7 +396,7 @@ function MatchStep({
                 onClick={() => setSelectedGn(gn)}
                 className={cls}
               >
-                <SpeakerButton text={gn} />
+                <Volume2 className="h-4 w-4 shrink-0" aria-hidden />
                 <span className="flex-1">{gn}</span>
               </button>
             );
