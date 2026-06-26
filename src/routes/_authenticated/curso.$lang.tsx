@@ -112,9 +112,9 @@ function CoursePage() {
                     </div>
                   </div>
                   {unlocked ? (
-                    <Button variant="cta" size="sm" asChild={false} tabIndex={-1}>
+                    <span className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md bg-accent px-3 text-sm font-medium text-accent-foreground shadow-sm transition-colors group-hover:bg-accent/90">
                       Empezar
-                    </Button>
+                    </span>
                   ) : (
                     <span className="text-xl" aria-label="Bloqueada" title="Bloqueada">
                       🔒
@@ -129,7 +129,8 @@ function CoursePage() {
                     <Link
                       to="/curso/$lang/leccion/$n"
                       params={{ lang: lang.slug, n: String(n) }}
-                      className="block"
+                      className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      aria-label={`Abrir Lección ${n}${title ? `: ${title}` : ""}`}
                     >
                       {content}
                     </Link>
