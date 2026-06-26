@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { getLanguage } from "@/lib/languages";
+import { GUARANI_LESSONS } from "@/lib/guarani-lessons";
 
 export const Route = createFileRoute("/_authenticated/curso/$lang")({
   head: ({ params }) => {
