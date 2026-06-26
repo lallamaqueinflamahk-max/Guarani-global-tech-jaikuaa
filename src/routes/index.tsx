@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -75,9 +75,12 @@ function Hero() {
         <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
           La primera plataforma paraguaya de idiomas, con el guaraní en el corazón.
         </p>
-        <div className="mt-10">
-          <Button variant="cta" size="lg">
-            Empezar gratis
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <Button variant="cta" size="lg" asChild>
+            <Link to="/auth" search={{ mode: "signup" }}>Empezar gratis</Link>
+          </Button>
+          <Button variant="ghost" size="lg" asChild>
+            <Link to="/auth" search={{ mode: "login" }}>Iniciar sesión</Link>
           </Button>
         </div>
       </div>
