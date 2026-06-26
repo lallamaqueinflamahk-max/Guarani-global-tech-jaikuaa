@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCursoLangRouteImport } from './routes/_authenticated/curso.$lang'
+import { Route as AuthenticatedCursoLangLeccionNRouteImport } from './routes/_authenticated/curso.$lang.leccion.$n'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -39,18 +40,26 @@ const AuthenticatedCursoLangRoute = AuthenticatedCursoLangRouteImport.update({
   path: '/curso/$lang',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedCursoLangLeccionNRoute =
+  AuthenticatedCursoLangLeccionNRouteImport.update({
+    id: '/leccion/$n',
+    path: '/leccion/$n',
+    getParentRoute: () => AuthenticatedCursoLangRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/curso/$lang': typeof AuthenticatedCursoLangRoute
+  '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
+  '/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/curso/$lang': typeof AuthenticatedCursoLangRoute
+  '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
+  '/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -58,13 +67,19 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
-  '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRoute
+  '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
+  '/_authenticated/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/curso/$lang'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/curso/$lang'
+    | '/curso/$lang/leccion/$n'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/curso/$lang'
+  to: '/' | '/auth' | '/dashboard' | '/curso/$lang' | '/curso/$lang/leccion/$n'
   id:
     | '__root__'
     | '/'
@@ -72,6 +87,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/dashboard'
     | '/_authenticated/curso/$lang'
+    | '/_authenticated/curso/$lang/leccion/$n'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -117,17 +133,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCursoLangRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/curso/$lang/leccion/$n': {
+      id: '/_authenticated/curso/$lang/leccion/$n'
+      path: '/leccion/$n'
+      fullPath: '/curso/$lang/leccion/$n'
+      preLoaderRoute: typeof AuthenticatedCursoLangLeccionNRouteImport
+      parentRoute: typeof AuthenticatedCursoLangRoute
+    }
   }
 }
 
+interface AuthenticatedCursoLangRouteChildren {
+  AuthenticatedCursoLangLeccionNRoute: typeof AuthenticatedCursoLangLeccionNRoute
+}
+
+const AuthenticatedCursoLangRouteChildren: AuthenticatedCursoLangRouteChildren =
+  {
+    AuthenticatedCursoLangLeccionNRoute: AuthenticatedCursoLangLeccionNRoute,
+  }
+
+const AuthenticatedCursoLangRouteWithChildren =
+  AuthenticatedCursoLangRoute._addFileChildren(
+    AuthenticatedCursoLangRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRoute
+  AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
-  AuthenticatedCursoLangRoute: AuthenticatedCursoLangRoute,
+  AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =

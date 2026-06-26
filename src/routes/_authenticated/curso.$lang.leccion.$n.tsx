@@ -13,7 +13,7 @@ export const Route = createFileRoute("/_authenticated/curso/$lang/leccion/$n")({
     const lang = getLanguage(params.lang);
     if (!lang) throw notFound();
     if (params.lang !== "guarani") {
-      return { lang, lesson: null as const };
+      return { lang, lesson: null };
     }
     const n = Number(params.n);
     const lesson = getGuaraniLesson(n);
