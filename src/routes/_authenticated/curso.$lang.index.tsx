@@ -1,28 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { GUARANI_LESSONS } from "@/lib/guarani-lessons";
+import { getLanguage } from "@/lib/languages";
 
 export const Route = createFileRoute("/_authenticated/curso/$lang/")({
   component: CourseIndex,
 });
 
 function CourseIndex() {
-  const { lang } = Route.useRouteContext({
-    select: () => ({}),
-  }) as never; // unused
-  // Read lang from parent loader data
-  const parentLang = Route.useMatch({
-    select: (m) => m,
-  });
-  void parentLang;
-  // Simpler: use useParams and getLanguage
-  return <CourseInner />;
-}
-
-import { useParams } from "@tanstack/react-router";
-import { getLanguage } from "@/lib/languages";
-
-function CourseInner() {
   const { lang: langSlug } = useParams({ from: "/_authenticated/curso/$lang/" });
   const lang = getLanguage(langSlug)!;
   const isGuarani = lang.slug === "guarani";
