@@ -14,7 +14,6 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCursoLangRouteImport } from './routes/_authenticated/curso.$lang'
-import { Route as AuthenticatedCursoLangIndexRouteImport } from './routes/_authenticated/curso.$lang.index'
 import { Route as AuthenticatedCursoLangLeccionNRouteImport } from './routes/_authenticated/curso.$lang.leccion.$n'
 
 const AuthRoute = AuthRouteImport.update({
@@ -41,12 +40,6 @@ const AuthenticatedCursoLangRoute = AuthenticatedCursoLangRouteImport.update({
   path: '/curso/$lang',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedCursoLangIndexRoute =
-  AuthenticatedCursoLangIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AuthenticatedCursoLangRoute,
-  } as any)
 const AuthenticatedCursoLangLeccionNRoute =
   AuthenticatedCursoLangLeccionNRouteImport.update({
     id: '/leccion/$n',
@@ -59,14 +52,13 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
-  '/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
   '/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/curso/$lang': typeof AuthenticatedCursoLangIndexRoute
+  '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
 export interface FileRoutesById {
@@ -76,7 +68,6 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
-  '/_authenticated/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
   '/_authenticated/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
 export interface FileRouteTypes {
@@ -86,7 +77,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/curso/$lang'
-    | '/curso/$lang/'
     | '/curso/$lang/leccion/$n'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/auth' | '/dashboard' | '/curso/$lang' | '/curso/$lang/leccion/$n'
@@ -97,7 +87,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/dashboard'
     | '/_authenticated/curso/$lang'
-    | '/_authenticated/curso/$lang/'
     | '/_authenticated/curso/$lang/leccion/$n'
   fileRoutesById: FileRoutesById
 }
@@ -144,13 +133,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCursoLangRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/curso/$lang/': {
-      id: '/_authenticated/curso/$lang/'
-      path: '/'
-      fullPath: '/curso/$lang/'
-      preLoaderRoute: typeof AuthenticatedCursoLangIndexRouteImport
-      parentRoute: typeof AuthenticatedCursoLangRoute
-    }
     '/_authenticated/curso/$lang/leccion/$n': {
       id: '/_authenticated/curso/$lang/leccion/$n'
       path: '/leccion/$n'
@@ -162,13 +144,11 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedCursoLangRouteChildren {
-  AuthenticatedCursoLangIndexRoute: typeof AuthenticatedCursoLangIndexRoute
   AuthenticatedCursoLangLeccionNRoute: typeof AuthenticatedCursoLangLeccionNRoute
 }
 
 const AuthenticatedCursoLangRouteChildren: AuthenticatedCursoLangRouteChildren =
   {
-    AuthenticatedCursoLangIndexRoute: AuthenticatedCursoLangIndexRoute,
     AuthenticatedCursoLangLeccionNRoute: AuthenticatedCursoLangLeccionNRoute,
   }
 

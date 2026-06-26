@@ -3,8 +3,7 @@ import { useMemo, useState } from "react";
 import { Volume2, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getLanguage } from "@/lib/languages";
-import { getLesson } from "@/lib/lessons";
-import type { VocabItem } from "@/lib/guarani-lessons";
+import { getGuaraniLesson, type VocabItem } from "@/lib/guarani-lessons";
 
 export const Route = createFileRoute("/_authenticated/curso/$lang/leccion/$n")({
   head: ({ params }) => ({
@@ -13,8 +12,12 @@ export const Route = createFileRoute("/_authenticated/curso/$lang/leccion/$n")({
   loader: ({ params }) => {
     const lang = getLanguage(params.lang);
     if (!lang) throw notFound();
+    if (params.lang !== "guarani") {
+      return { lang, lesson: null };
+    }
     const n = Number(params.n);
-    const lesson = getLesson(params.lang, n) ?? null;
+    const lesson = getGuaraniLesson(n);
+    if (!lesson) throw notFound();
     return { lang, lesson };
   },
   notFoundComponent: () => (
@@ -69,7 +72,7 @@ type Phase = "intro" | "vocab" | "choice" | "match" | "done";
 function LessonPage() {
   const { lang, lesson } = Route.useLoaderData();
   const navigate = useNavigate();
-  const [phase, setPhase] = useState<Phase>("vocab");
+  const [phase, setPhase] = useState<Phase>("intro");
 
   if (!lesson) {
     return (
@@ -107,7 +110,7 @@ function LessonPage() {
               navigate({ to: "/curso/$lang", params: { lang: lang.slug } })
             }
           >
-            ← Volver
+            ✕ Salir
           </Button>
         </div>
       </header>
@@ -203,36 +206,30 @@ function VocabStep({
   );
 }
 
-function stableShuffle<T>(arr: T[], seed: string): T[] {
-  return [...arr]
-    .map((item, index) => ({ item, score: stableScore(`${seed}-${index}-${JSON.stringify(item)}`) }))
-    .sort((a, b) => a.score - b.score)
-    .map(({ item }) => item);
-}
-
-function stableScore(value: string): number {
-  let hash = 0;
-  for (let i = 0; i < value.length; i++) {
-    hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
-  return hash;
+  return a;
 }
 
 function ChoiceStep({
   lesson,
   onNext,
 }: {
-  lesson: { n: number; vocab: VocabItem[] };
+  lesson: { vocab: VocabItem[] };
   onNext: () => void;
 }) {
   const questions = useMemo(() => {
     const pool = lesson.vocab;
-    const items = stableShuffle(pool, `choice-${lesson.n}`).slice(0, Math.min(5, pool.length));
+    const items = shuffle(pool).slice(0, Math.min(5, pool.length));
     return items.map((item) => {
-      const distractors = stableShuffle(pool.filter((p) => p.es !== item.es), `distractors-${lesson.n}-${item.gn}`)
+      const distractors = shuffle(pool.filter((p) => p.es !== item.es))
         .slice(0, 3)
         .map((d) => d.es);
-      return { item, options: stableShuffle([item.es, ...distractors], `options-${lesson.n}-${item.gn}`) };
+      return { item, options: shuffle([item.es, ...distractors]) };
     });
   }, [lesson]);
 
@@ -328,15 +325,15 @@ function MatchStep({
   lesson,
   onNext,
 }: {
-  lesson: { n: number; vocab: VocabItem[] };
+  lesson: { vocab: VocabItem[] };
   onNext: () => void;
 }) {
   const pairs = useMemo(
-    () => stableShuffle(lesson.vocab, `pairs-${lesson.n}`).slice(0, Math.min(6, lesson.vocab.length)),
+    () => shuffle(lesson.vocab).slice(0, Math.min(6, lesson.vocab.length)),
     [lesson],
   );
-  const leftItems = useMemo(() => stableShuffle(pairs, `left-${lesson.n}`).map((p) => p.gn), [pairs, lesson.n]);
-  const rightItems = useMemo(() => stableShuffle(pairs, `right-${lesson.n}`).map((p) => p.es), [pairs, lesson.n]);
+  const leftItems = useMemo(() => shuffle(pairs).map((p) => p.gn), [pairs]);
+  const rightItems = useMemo(() => shuffle(pairs).map((p) => p.es), [pairs]);
 
   const [selectedGn, setSelectedGn] = useState<string | null>(null);
   const [matched, setMatched] = useState<Set<string>>(new Set());
@@ -396,7 +393,7 @@ function MatchStep({
                 onClick={() => setSelectedGn(gn)}
                 className={cls}
               >
-                <Volume2 className="h-4 w-4 shrink-0" aria-hidden />
+                <SpeakerButton text={gn} />
                 <span className="flex-1">{gn}</span>
               </button>
             );
