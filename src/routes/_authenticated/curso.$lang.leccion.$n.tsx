@@ -69,7 +69,7 @@ type Phase = "intro" | "vocab" | "choice" | "match" | "done";
 function LessonPage() {
   const { lang, lesson } = Route.useLoaderData();
   const navigate = useNavigate();
-  const [phase, setPhase] = useState<Phase>("intro");
+  const [phase, setPhase] = useState<Phase>("vocab");
 
   if (!lesson) {
     return (
