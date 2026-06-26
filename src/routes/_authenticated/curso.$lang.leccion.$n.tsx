@@ -3,7 +3,8 @@ import { useMemo, useState } from "react";
 import { Volume2, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getLanguage } from "@/lib/languages";
-import { getGuaraniLesson, type VocabItem } from "@/lib/guarani-lessons";
+import { getLesson } from "@/lib/lessons";
+import type { VocabItem } from "@/lib/guarani-lessons";
 
 export const Route = createFileRoute("/_authenticated/curso/$lang/leccion/$n")({
   head: ({ params }) => ({
@@ -12,12 +13,8 @@ export const Route = createFileRoute("/_authenticated/curso/$lang/leccion/$n")({
   loader: ({ params }) => {
     const lang = getLanguage(params.lang);
     if (!lang) throw notFound();
-    if (params.lang !== "guarani") {
-      return { lang, lesson: null };
-    }
     const n = Number(params.n);
-    const lesson = getGuaraniLesson(n);
-    if (!lesson) throw notFound();
+    const lesson = getLesson(params.lang, n) ?? null;
     return { lang, lesson };
   },
   notFoundComponent: () => (
