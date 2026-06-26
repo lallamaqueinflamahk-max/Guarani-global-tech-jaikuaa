@@ -222,7 +222,7 @@ function ChoiceStep({
   lesson,
   onNext,
 }: {
-  lesson: { vocab: VocabItem[] };
+  lesson: { n: number; vocab: VocabItem[] };
   onNext: () => void;
 }) {
   const questions = useMemo(() => {
@@ -328,7 +328,7 @@ function MatchStep({
   lesson,
   onNext,
 }: {
-  lesson: { vocab: VocabItem[] };
+  lesson: { n: number; vocab: VocabItem[] };
   onNext: () => void;
 }) {
   const pairs = useMemo(
