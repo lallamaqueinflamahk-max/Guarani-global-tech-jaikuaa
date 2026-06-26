@@ -125,7 +125,7 @@ function CoursePage() {
 
               return (
                 <li key={n}>
-                  {unlocked && isGuarani ? (
+                  {unlocked ? (
                     <Link
                       to="/curso/$lang/leccion/$n"
                       params={{ lang: lang.slug, n: String(n) }}
