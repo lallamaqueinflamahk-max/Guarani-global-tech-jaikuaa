@@ -39,6 +39,8 @@ export const Route = createFileRoute("/_authenticated/curso/$lang")({
 
 function CoursePage() {
   const { lang } = Route.useLoaderData();
+  const isGuarani = lang.slug === "guarani";
+  const titles = new Map(GUARANI_LESSONS.map((l) => [l.n, l.title]));
   const lessons = Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (
@@ -80,42 +82,60 @@ function CoursePage() {
           <ol className="mt-10 space-y-3">
             {lessons.map((n) => {
               const unlocked = n === 1;
-              return (
-                <li key={n}>
-                  <div
-                    className={`flex items-center justify-between rounded-xl border p-4 sm:p-5 ${
-                      unlocked
-                        ? "border-border/60 bg-card shadow-sm"
-                        : "border-border/40 bg-muted/40 opacity-70"
-                    }`}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-sm font-bold ${
-                          unlocked
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-muted text-muted-foreground"
-                        }`}
-                      >
-                        {n}
+              const title = isGuarani ? titles.get(n) : undefined;
+              const content = (
+                <div
+                  className={`flex items-center justify-between rounded-xl border p-4 sm:p-5 transition ${
+                    unlocked
+                      ? "border-border/60 bg-card shadow-sm hover:border-accent/60 hover:shadow-md"
+                      : "border-border/40 bg-muted/40 opacity-70"
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-sm font-bold ${
+                        unlocked
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-muted text-muted-foreground"
+                      }`}
+                    >
+                      {n}
+                    </div>
+                    <div>
+                      <div className="font-display text-base font-semibold text-foreground">
+                        Lección {n}
+                        {title && <span className="text-muted-foreground"> · {title}</span>}
                       </div>
-                      <div>
-                        <div className="font-display text-base font-semibold text-foreground">
-                          Lección {n}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {unlocked ? "Disponible" : "Se desbloquea al avanzar"}
-                        </div>
+                      <div className="text-xs text-muted-foreground">
+                        {unlocked ? "Disponible" : "Se desbloquea al avanzar"}
                       </div>
                     </div>
-                    {unlocked ? (
-                      <Button variant="cta" size="sm">Empezar</Button>
-                    ) : (
-                      <span className="text-xl" aria-label="Bloqueada" title="Bloqueada">
-                        🔒
-                      </span>
-                    )}
                   </div>
+                  {unlocked ? (
+                    <Button variant="cta" size="sm" asChild={false} tabIndex={-1}>
+                      Empezar
+                    </Button>
+                  ) : (
+                    <span className="text-xl" aria-label="Bloqueada" title="Bloqueada">
+                      🔒
+                    </span>
+                  )}
+                </div>
+              );
+
+              return (
+                <li key={n}>
+                  {unlocked && isGuarani ? (
+                    <Link
+                      to="/curso/$lang/leccion/$n"
+                      params={{ lang: lang.slug, n: String(n) }}
+                      className="block"
+                    >
+                      {content}
+                    </Link>
+                  ) : (
+                    content
+                  )}
                 </li>
               );
             })}
