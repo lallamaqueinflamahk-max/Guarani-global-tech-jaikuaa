@@ -69,7 +69,7 @@ type Phase = "intro" | "vocab" | "choice" | "match" | "done";
 function LessonPage() {
   const { lang, lesson } = Route.useLoaderData();
   const navigate = useNavigate();
-  const [phase, setPhase] = useState<Phase>("intro");
+  const [phase, setPhase] = useState<Phase>("vocab");
 
   if (!lesson) {
     return (
@@ -107,7 +107,7 @@ function LessonPage() {
               navigate({ to: "/curso/$lang", params: { lang: lang.slug } })
             }
           >
-            ✕ Salir
+            ← Volver
           </Button>
         </div>
       </header>
@@ -203,30 +203,36 @@ function VocabStep({
   );
 }
 
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+function stableShuffle<T>(arr: T[], seed: string): T[] {
+  return [...arr]
+    .map((item, index) => ({ item, score: stableScore(`${seed}-${index}-${JSON.stringify(item)}`) }))
+    .sort((a, b) => a.score - b.score)
+    .map(({ item }) => item);
+}
+
+function stableScore(value: string): number {
+  let hash = 0;
+  for (let i = 0; i < value.length; i++) {
+    hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
   }
-  return a;
+  return hash;
 }
 
 function ChoiceStep({
   lesson,
   onNext,
 }: {
-  lesson: { vocab: VocabItem[] };
+  lesson: { n: number; vocab: VocabItem[] };
   onNext: () => void;
 }) {
   const questions = useMemo(() => {
     const pool = lesson.vocab;
-    const items = shuffle(pool).slice(0, Math.min(5, pool.length));
+    const items = stableShuffle(pool, `choice-${lesson.n}`).slice(0, Math.min(5, pool.length));
     return items.map((item) => {
-      const distractors = shuffle(pool.filter((p) => p.es !== item.es))
+      const distractors = stableShuffle(pool.filter((p) => p.es !== item.es), `distractors-${lesson.n}-${item.gn}`)
         .slice(0, 3)
         .map((d) => d.es);
-      return { item, options: shuffle([item.es, ...distractors]) };
+      return { item, options: stableShuffle([item.es, ...distractors], `options-${lesson.n}-${item.gn}`) };
     });
   }, [lesson]);
 
@@ -322,15 +328,15 @@ function MatchStep({
   lesson,
   onNext,
 }: {
-  lesson: { vocab: VocabItem[] };
+  lesson: { n: number; vocab: VocabItem[] };
   onNext: () => void;
 }) {
   const pairs = useMemo(
-    () => shuffle(lesson.vocab).slice(0, Math.min(6, lesson.vocab.length)),
+    () => stableShuffle(lesson.vocab, `pairs-${lesson.n}`).slice(0, Math.min(6, lesson.vocab.length)),
     [lesson],
   );
-  const leftItems = useMemo(() => shuffle(pairs).map((p) => p.gn), [pairs]);
-  const rightItems = useMemo(() => shuffle(pairs).map((p) => p.es), [pairs]);
+  const leftItems = useMemo(() => stableShuffle(pairs, `left-${lesson.n}`).map((p) => p.gn), [pairs, lesson.n]);
+  const rightItems = useMemo(() => stableShuffle(pairs, `right-${lesson.n}`).map((p) => p.es), [pairs, lesson.n]);
 
   const [selectedGn, setSelectedGn] = useState<string | null>(null);
   const [matched, setMatched] = useState<Set<string>>(new Set());
@@ -390,7 +396,7 @@ function MatchStep({
                 onClick={() => setSelectedGn(gn)}
                 className={cls}
               >
-                <SpeakerButton text={gn} />
+                <Volume2 className="h-4 w-4 shrink-0" aria-hidden />
                 <span className="flex-1">{gn}</span>
               </button>
             );
