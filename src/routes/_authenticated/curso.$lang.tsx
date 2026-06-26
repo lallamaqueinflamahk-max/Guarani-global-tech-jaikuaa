@@ -83,14 +83,8 @@ function CoursePage() {
             {lessons.map((n) => {
               const unlocked = n === 1;
               const title = isGuarani ? titles.get(n) : undefined;
-              const content = (
-                <div
-                  className={`flex items-center justify-between rounded-xl border p-4 sm:p-5 transition ${
-                    unlocked
-                      ? "border-border/60 bg-card shadow-sm hover:border-accent/60 hover:shadow-md"
-                      : "border-border/40 bg-muted/40 opacity-70"
-                  }`}
-                >
+              const inner = (
+                <>
                   <div className="flex items-center gap-4">
                     <div
                       className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-sm font-bold ${
@@ -112,15 +106,15 @@ function CoursePage() {
                     </div>
                   </div>
                   {unlocked ? (
-                    <Button variant="cta" size="sm" asChild={false} tabIndex={-1}>
-                      Empezar
-                    </Button>
+                    <span className="inline-flex h-9 items-center justify-center rounded-md bg-accent px-4 text-sm font-medium text-accent-foreground shadow transition group-hover:bg-accent/90 group-active:scale-95">
+                      Empezar →
+                    </span>
                   ) : (
                     <span className="text-xl" aria-label="Bloqueada" title="Bloqueada">
                       🔒
                     </span>
                   )}
-                </div>
+                </>
               );
 
               return (
@@ -129,12 +123,20 @@ function CoursePage() {
                     <Link
                       to="/curso/$lang/leccion/$n"
                       params={{ lang: lang.slug, n: String(n) }}
-                      className="block"
+                      className="group flex cursor-pointer items-center justify-between rounded-xl border border-border/60 bg-card p-4 shadow-sm transition hover:border-accent hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 sm:p-5"
                     >
-                      {content}
+                      {inner}
                     </Link>
                   ) : (
-                    content
+                    <div
+                      className={`flex items-center justify-between rounded-xl border p-4 sm:p-5 ${
+                        unlocked
+                          ? "border-border/60 bg-card shadow-sm"
+                          : "border-border/40 bg-muted/40 opacity-70"
+                      }`}
+                    >
+                      {inner}
+                    </div>
                   )}
                 </li>
               );
