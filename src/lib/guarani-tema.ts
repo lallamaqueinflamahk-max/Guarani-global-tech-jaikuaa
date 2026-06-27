@@ -153,7 +153,6 @@ export const TEMAS_6TO: Tema[] = [
   },
   {
     slug: "verbos",
-    eemoji: "",
     emoji: "🏃",
     title: "Verbos básicos",
     subtitle: "Verbos areales: aha, reho, oho…",
