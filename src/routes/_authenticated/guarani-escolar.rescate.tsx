@@ -480,6 +480,10 @@ function DoneScreen({
 }) {
   const feedback = feedbackFor(nota);
   useRecordOnMount({ xp: 30 + score * 5, perfectExam: nota === 5 });
+  useEffect(() => {
+    if (nota >= 3) celebrate(nota === 5 ? "big" : "small");
+  }, [nota]);
+
   const tone =
     nota === 5
       ? "from-green-500/15 to-primary/10 border-green-500/30"
