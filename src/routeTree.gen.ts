@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedGuaraniEscolarIndexRouteImport } from './routes/_authenticated/guarani-escolar.index'
 import { Route as AuthenticatedCursoLangRouteImport } from './routes/_authenticated/curso.$lang'
 import { Route as AuthenticatedCursoLangIndexRouteImport } from './routes/_authenticated/curso.$lang.index'
 import { Route as AuthenticatedCursoLangLeccionNRouteImport } from './routes/_authenticated/curso.$lang.leccion.$n'
@@ -43,6 +44,12 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedGuaraniEscolarIndexRoute =
+  AuthenticatedGuaraniEscolarIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedGuaraniEscolarRoute,
+  } as any)
 const AuthenticatedCursoLangRoute = AuthenticatedCursoLangRouteImport.update({
   id: '/curso/$lang',
   path: '/curso/$lang',
@@ -65,8 +72,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRoute
+  '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
+  '/guarani-escolar/': typeof AuthenticatedGuaraniEscolarIndexRoute
   '/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
   '/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
@@ -74,7 +82,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRoute
+  '/guarani-escolar': typeof AuthenticatedGuaraniEscolarIndexRoute
   '/curso/$lang': typeof AuthenticatedCursoLangIndexRoute
   '/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
@@ -84,8 +92,9 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
-  '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRoute
+  '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
+  '/_authenticated/guarani-escolar/': typeof AuthenticatedGuaraniEscolarIndexRoute
   '/_authenticated/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
   '/_authenticated/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/guarani-escolar'
     | '/curso/$lang'
+    | '/guarani-escolar/'
     | '/curso/$lang/'
     | '/curso/$lang/leccion/$n'
   fileRoutesByTo: FileRoutesByTo
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/guarani-escolar'
     | '/_authenticated/curso/$lang'
+    | '/_authenticated/guarani-escolar/'
     | '/_authenticated/curso/$lang/'
     | '/_authenticated/curso/$lang/leccion/$n'
   fileRoutesById: FileRoutesById
@@ -162,6 +173,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/guarani-escolar/': {
+      id: '/_authenticated/guarani-escolar/'
+      path: '/'
+      fullPath: '/guarani-escolar/'
+      preLoaderRoute: typeof AuthenticatedGuaraniEscolarIndexRouteImport
+      parentRoute: typeof AuthenticatedGuaraniEscolarRoute
+    }
     '/_authenticated/curso/$lang': {
       id: '/_authenticated/curso/$lang'
       path: '/curso/$lang'
@@ -186,6 +204,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedGuaraniEscolarRouteChildren {
+  AuthenticatedGuaraniEscolarIndexRoute: typeof AuthenticatedGuaraniEscolarIndexRoute
+}
+
+const AuthenticatedGuaraniEscolarRouteChildren: AuthenticatedGuaraniEscolarRouteChildren =
+  {
+    AuthenticatedGuaraniEscolarIndexRoute:
+      AuthenticatedGuaraniEscolarIndexRoute,
+  }
+
+const AuthenticatedGuaraniEscolarRouteWithChildren =
+  AuthenticatedGuaraniEscolarRoute._addFileChildren(
+    AuthenticatedGuaraniEscolarRouteChildren,
+  )
+
 interface AuthenticatedCursoLangRouteChildren {
   AuthenticatedCursoLangIndexRoute: typeof AuthenticatedCursoLangIndexRoute
   AuthenticatedCursoLangLeccionNRoute: typeof AuthenticatedCursoLangLeccionNRoute
@@ -204,13 +237,14 @@ const AuthenticatedCursoLangRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedGuaraniEscolarRoute: typeof AuthenticatedGuaraniEscolarRoute
+  AuthenticatedGuaraniEscolarRoute: typeof AuthenticatedGuaraniEscolarRouteWithChildren
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
-  AuthenticatedGuaraniEscolarRoute: AuthenticatedGuaraniEscolarRoute,
+  AuthenticatedGuaraniEscolarRoute:
+    AuthenticatedGuaraniEscolarRouteWithChildren,
   AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
 }
 
