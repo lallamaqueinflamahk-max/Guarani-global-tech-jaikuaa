@@ -19,7 +19,9 @@ import { Route as AuthenticatedGuaraniEscolarTemaRouteImport } from './routes/_a
 import { Route as AuthenticatedGuaraniEscolarSemanalRouteImport } from './routes/_authenticated/guarani-escolar.semanal'
 import { Route as AuthenticatedGuaraniEscolarRescateRouteImport } from './routes/_authenticated/guarani-escolar.rescate'
 import { Route as AuthenticatedCursoLangRouteImport } from './routes/_authenticated/curso.$lang'
+import { Route as AuthenticatedGuaraniEscolarTemaIndexRouteImport } from './routes/_authenticated/guarani-escolar.tema.index'
 import { Route as AuthenticatedCursoLangIndexRouteImport } from './routes/_authenticated/curso.$lang.index'
+import { Route as AuthenticatedGuaraniEscolarTemaTopicRouteImport } from './routes/_authenticated/guarani-escolar.tema.$topic'
 import { Route as AuthenticatedCursoLangLeccionNRouteImport } from './routes/_authenticated/curso.$lang.leccion.$n'
 
 const AuthRoute = AuthRouteImport.update({
@@ -76,11 +78,23 @@ const AuthenticatedCursoLangRoute = AuthenticatedCursoLangRouteImport.update({
   path: '/curso/$lang',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedGuaraniEscolarTemaIndexRoute =
+  AuthenticatedGuaraniEscolarTemaIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedGuaraniEscolarTemaRoute,
+  } as any)
 const AuthenticatedCursoLangIndexRoute =
   AuthenticatedCursoLangIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedCursoLangRoute,
+  } as any)
+const AuthenticatedGuaraniEscolarTemaTopicRoute =
+  AuthenticatedGuaraniEscolarTemaTopicRouteImport.update({
+    id: '/$topic',
+    path: '/$topic',
+    getParentRoute: () => AuthenticatedGuaraniEscolarTemaRoute,
   } as any)
 const AuthenticatedCursoLangLeccionNRoute =
   AuthenticatedCursoLangLeccionNRouteImport.update({
@@ -97,9 +111,11 @@ export interface FileRoutesByFullPath {
   '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
-  '/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRoute
+  '/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRouteWithChildren
   '/guarani-escolar/': typeof AuthenticatedGuaraniEscolarIndexRoute
+  '/guarani-escolar/tema/$topic': typeof AuthenticatedGuaraniEscolarTemaTopicRoute
   '/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
+  '/guarani-escolar/tema/': typeof AuthenticatedGuaraniEscolarTemaIndexRoute
   '/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
 export interface FileRoutesByTo {
@@ -108,9 +124,10 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
-  '/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarIndexRoute
+  '/guarani-escolar/tema/$topic': typeof AuthenticatedGuaraniEscolarTemaTopicRoute
   '/curso/$lang': typeof AuthenticatedCursoLangIndexRoute
+  '/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaIndexRoute
   '/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
 export interface FileRoutesById {
@@ -123,9 +140,11 @@ export interface FileRoutesById {
   '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/_authenticated/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/_authenticated/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
-  '/_authenticated/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRoute
+  '/_authenticated/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRouteWithChildren
   '/_authenticated/guarani-escolar/': typeof AuthenticatedGuaraniEscolarIndexRoute
+  '/_authenticated/guarani-escolar/tema/$topic': typeof AuthenticatedGuaraniEscolarTemaTopicRoute
   '/_authenticated/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
+  '/_authenticated/guarani-escolar/tema/': typeof AuthenticatedGuaraniEscolarTemaIndexRoute
   '/_authenticated/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
 export interface FileRouteTypes {
@@ -140,7 +159,9 @@ export interface FileRouteTypes {
     | '/guarani-escolar/semanal'
     | '/guarani-escolar/tema'
     | '/guarani-escolar/'
+    | '/guarani-escolar/tema/$topic'
     | '/curso/$lang/'
+    | '/guarani-escolar/tema/'
     | '/curso/$lang/leccion/$n'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -149,9 +170,10 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
-    | '/guarani-escolar/tema'
     | '/guarani-escolar'
+    | '/guarani-escolar/tema/$topic'
     | '/curso/$lang'
+    | '/guarani-escolar/tema'
     | '/curso/$lang/leccion/$n'
   id:
     | '__root__'
@@ -165,7 +187,9 @@ export interface FileRouteTypes {
     | '/_authenticated/guarani-escolar/semanal'
     | '/_authenticated/guarani-escolar/tema'
     | '/_authenticated/guarani-escolar/'
+    | '/_authenticated/guarani-escolar/tema/$topic'
     | '/_authenticated/curso/$lang/'
+    | '/_authenticated/guarani-escolar/tema/'
     | '/_authenticated/curso/$lang/leccion/$n'
   fileRoutesById: FileRoutesById
 }
@@ -247,12 +271,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCursoLangRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/guarani-escolar/tema/': {
+      id: '/_authenticated/guarani-escolar/tema/'
+      path: '/'
+      fullPath: '/guarani-escolar/tema/'
+      preLoaderRoute: typeof AuthenticatedGuaraniEscolarTemaIndexRouteImport
+      parentRoute: typeof AuthenticatedGuaraniEscolarTemaRoute
+    }
     '/_authenticated/curso/$lang/': {
       id: '/_authenticated/curso/$lang/'
       path: '/'
       fullPath: '/curso/$lang/'
       preLoaderRoute: typeof AuthenticatedCursoLangIndexRouteImport
       parentRoute: typeof AuthenticatedCursoLangRoute
+    }
+    '/_authenticated/guarani-escolar/tema/$topic': {
+      id: '/_authenticated/guarani-escolar/tema/$topic'
+      path: '/$topic'
+      fullPath: '/guarani-escolar/tema/$topic'
+      preLoaderRoute: typeof AuthenticatedGuaraniEscolarTemaTopicRouteImport
+      parentRoute: typeof AuthenticatedGuaraniEscolarTemaRoute
     }
     '/_authenticated/curso/$lang/leccion/$n': {
       id: '/_authenticated/curso/$lang/leccion/$n'
@@ -264,10 +302,28 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedGuaraniEscolarTemaRouteChildren {
+  AuthenticatedGuaraniEscolarTemaTopicRoute: typeof AuthenticatedGuaraniEscolarTemaTopicRoute
+  AuthenticatedGuaraniEscolarTemaIndexRoute: typeof AuthenticatedGuaraniEscolarTemaIndexRoute
+}
+
+const AuthenticatedGuaraniEscolarTemaRouteChildren: AuthenticatedGuaraniEscolarTemaRouteChildren =
+  {
+    AuthenticatedGuaraniEscolarTemaTopicRoute:
+      AuthenticatedGuaraniEscolarTemaTopicRoute,
+    AuthenticatedGuaraniEscolarTemaIndexRoute:
+      AuthenticatedGuaraniEscolarTemaIndexRoute,
+  }
+
+const AuthenticatedGuaraniEscolarTemaRouteWithChildren =
+  AuthenticatedGuaraniEscolarTemaRoute._addFileChildren(
+    AuthenticatedGuaraniEscolarTemaRouteChildren,
+  )
+
 interface AuthenticatedGuaraniEscolarRouteChildren {
   AuthenticatedGuaraniEscolarRescateRoute: typeof AuthenticatedGuaraniEscolarRescateRoute
   AuthenticatedGuaraniEscolarSemanalRoute: typeof AuthenticatedGuaraniEscolarSemanalRoute
-  AuthenticatedGuaraniEscolarTemaRoute: typeof AuthenticatedGuaraniEscolarTemaRoute
+  AuthenticatedGuaraniEscolarTemaRoute: typeof AuthenticatedGuaraniEscolarTemaRouteWithChildren
   AuthenticatedGuaraniEscolarIndexRoute: typeof AuthenticatedGuaraniEscolarIndexRoute
 }
 
@@ -277,7 +333,8 @@ const AuthenticatedGuaraniEscolarRouteChildren: AuthenticatedGuaraniEscolarRoute
       AuthenticatedGuaraniEscolarRescateRoute,
     AuthenticatedGuaraniEscolarSemanalRoute:
       AuthenticatedGuaraniEscolarSemanalRoute,
-    AuthenticatedGuaraniEscolarTemaRoute: AuthenticatedGuaraniEscolarTemaRoute,
+    AuthenticatedGuaraniEscolarTemaRoute:
+      AuthenticatedGuaraniEscolarTemaRouteWithChildren,
     AuthenticatedGuaraniEscolarIndexRoute:
       AuthenticatedGuaraniEscolarIndexRoute,
   }
