@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SiteFooter } from "@/components/site-footer";
@@ -55,10 +56,7 @@ function Header() {
           href="/"
           className="flex items-center gap-2 font-display text-xl font-bold tracking-tight text-primary transition-opacity hover:opacity-80"
         >
-          Aranduka
-          <span aria-hidden="true" className="text-2xl">
-            🐆
-          </span>
+          <BrandLogo />
         </a>
       </div>
     </header>

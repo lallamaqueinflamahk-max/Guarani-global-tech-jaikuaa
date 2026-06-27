@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BrandLogo } from "@/components/brand-logo";
 import { useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -55,7 +56,7 @@ function RecuperarPage() {
       <header className="border-b border-border/50">
         <div className="mx-auto flex h-16 max-w-5xl items-center px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold text-primary">
-            Aranduka <span aria-hidden>🐆</span>
+            <BrandLogo />
           </Link>
         </div>
       </header>

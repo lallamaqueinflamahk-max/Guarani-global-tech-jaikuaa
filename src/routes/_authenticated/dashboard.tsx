@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { BrandLogo } from "@/components/brand-logo";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -48,7 +49,7 @@ function Dashboard() {
       <header className="border-b border-border/50">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold text-primary">
-            Aranduka <span aria-hidden>🐆</span>
+            <BrandLogo />
           </Link>
           <Button variant="outline" size="sm" onClick={handleSignOut}>
             Cerrar sesión

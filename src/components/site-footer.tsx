@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { BrandLogo } from "@/components/brand-logo";
 
 export function SiteFooter() {
   return (
@@ -7,7 +8,7 @@ export function SiteFooter() {
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div className="text-center sm:text-left">
             <div className="flex items-center justify-center gap-2 font-display text-lg font-bold text-primary sm:justify-start">
-              Aranduka <span aria-hidden>🐆</span>
+              <BrandLogo />
             </div>
             <p className="mt-1 text-xs text-muted-foreground">
               Hecho en Paraguay 🇵🇾 con amor por nuestra lengua.

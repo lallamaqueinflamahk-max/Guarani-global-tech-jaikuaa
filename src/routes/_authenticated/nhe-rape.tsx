@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/nhe-rape")({
@@ -23,7 +24,7 @@ function NheRape() {
             to="/"
             className="flex items-center gap-2 font-display text-xl font-bold text-primary"
           >
-            Aranduka <span aria-hidden>🐆</span>
+            <BrandLogo />
           </Link>
           <Button asChild variant="outline" size="sm">
             <Link to="/dashboard">← Volver</Link>

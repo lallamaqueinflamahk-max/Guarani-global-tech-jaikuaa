@@ -1,4 +1,5 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar")({
@@ -12,7 +13,7 @@ function GuaraniEscolarLayout() {
       <header className="border-b border-border/50">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold text-primary">
-            Aranduka <span aria-hidden>🐆</span>
+            <BrandLogo />
           </Link>
           <Button asChild variant="outline" size="sm">
             <Link to="/dashboard">← Volver</Link>
