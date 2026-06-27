@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TEMAS_6TO, type QuizQuestion } from "@/lib/guarani-tema";
 import { useRecordOnMount } from "@/lib/gamification";
+import { celebrate } from "@/lib/confetti";
+
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/rescate")({
   head: () => ({ meta: [{ title: "Aranduka — Modo Rescate" }] }),
