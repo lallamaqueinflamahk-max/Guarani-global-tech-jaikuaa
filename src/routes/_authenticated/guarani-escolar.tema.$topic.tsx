@@ -245,6 +245,8 @@ function DoneStep({
 }) {
   const total = tema.quiz.length;
   const fb = feedback(score, total);
+  const xp = 15 + score * 5;
+  useRecordOnMount({ xp, perfectExam: score === total });
   return (
     <div className="rounded-2xl border border-border/60 bg-card p-8 text-center shadow-sm">
       <div className="text-6xl" aria-hidden>{fb.emoji}</div>
