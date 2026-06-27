@@ -170,7 +170,7 @@ function VocabStep({
             className="flex items-center justify-between gap-3 rounded-xl border border-border/60 bg-card p-4 shadow-sm"
           >
             <div className="flex items-center gap-3">
-              <SpeakerButton text={v.gn} />
+              <SpeakerButton gn={v.gn} />
               <div>
                 <div className="font-display text-base font-semibold text-foreground">
                   {v.gn}
@@ -249,7 +249,7 @@ function ChoiceStep({
       <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-sm">
         <p className="text-sm text-muted-foreground">¿Qué significa?</p>
         <div className="mt-3 flex items-center gap-3">
-          <SpeakerButton text={q.item.gn} />
+          <SpeakerButton gn={q.item.gn} />
           <div className="font-display text-3xl font-bold text-primary">
             {q.item.gn}
           </div>
@@ -375,7 +375,7 @@ function MatchStep({
                 onClick={() => setSelectedGn(gn)}
                 className={cls}
               >
-                <SpeakerButton text={gn} />
+                <SpeakerButton gn={gn} />
                 <span className="flex-1">{gn}</span>
               </button>
             );

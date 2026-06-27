@@ -108,7 +108,7 @@ function LearnStep({ tema, onNext }: { tema: Tema; onNext: () => void }) {
               key={v.gn}
               className="flex items-center gap-3 rounded-xl border border-border/60 bg-card p-4 shadow-sm"
             >
-              <SpeakerButton text={v.gn} />
+              <SpeakerButton gn={v.gn} />
               <div>
                 <div className="font-display text-base font-semibold text-foreground">
                   {v.gn}
