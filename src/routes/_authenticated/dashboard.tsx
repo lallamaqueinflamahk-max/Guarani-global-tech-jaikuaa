@@ -83,6 +83,7 @@ function Dashboard() {
               </span>
             </Link>
           </section>
+          <section className="mt-12">
             <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
               Elegí tu idioma
             </h2>
