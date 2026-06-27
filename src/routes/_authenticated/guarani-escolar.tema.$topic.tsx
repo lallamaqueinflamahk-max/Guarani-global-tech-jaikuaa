@@ -1,9 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Volume2, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getTema, type Tema } from "@/lib/guarani-tema";
 import { useRecordOnMount } from "@/lib/gamification";
+import { celebrate } from "@/lib/confetti";
+
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/tema/$topic")({
   head: ({ params }) => ({
