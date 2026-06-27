@@ -89,6 +89,38 @@ function Dashboard() {
               </span>
             </Link>
           </section>
+
+          <section className="mt-6 grid gap-4 sm:grid-cols-2">
+            <Link
+              to="/traductor"
+              className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-2xl" aria-hidden>🌐</span>
+                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
+                  Gratis
+                </span>
+              </div>
+              <div className="font-display text-lg font-bold text-foreground">Traductor</div>
+              <p className="text-sm text-muted-foreground">Español ⇄ Guaraní al instante con IA.</p>
+              <span className="mt-1 text-sm font-medium text-primary">Abrir →</span>
+            </Link>
+            <Link
+              to="/tutor"
+              className="group relative flex flex-col gap-2 rounded-2xl border border-accent/30 bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-2xl" aria-hidden>✨</span>
+                <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent-foreground">
+                  Premium ⭐
+                </span>
+              </div>
+              <div className="font-display text-lg font-bold text-foreground">Tutor IA</div>
+              <p className="text-sm text-muted-foreground">Chateá con tu profe de guaraní 24/7.</p>
+              <span className="mt-1 text-sm font-medium text-accent">Abrir →</span>
+            </Link>
+          </section>
+
           <section className="mt-12">
             <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
               Elegí tu idioma
