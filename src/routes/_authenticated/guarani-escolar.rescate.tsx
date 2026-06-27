@@ -477,6 +477,7 @@ function DoneScreen({
   onRetry: () => void;
 }) {
   const feedback = feedbackFor(nota);
+  useRecordOnMount({ xp: 30 + score * 5, perfectExam: nota === 5 });
   const tone =
     nota === 5
       ? "from-green-500/15 to-primary/10 border-green-500/30"
