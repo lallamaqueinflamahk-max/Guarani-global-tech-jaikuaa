@@ -310,13 +310,7 @@ function ReviewScreen({
 }) {
   const isLast = index === total - 1;
 
-  function speak(text: string) {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = "es-PY";
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(u);
-  }
+
 
   return (
     <div className="mx-auto max-w-2xl">
