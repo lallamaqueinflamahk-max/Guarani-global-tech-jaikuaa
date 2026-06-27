@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { TEMAS_6TO, type QuizQuestion } from "@/lib/guarani-tema";
 import { useRecordOnMount } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
+import { SpeakerButton } from "@/components/audio/speaker-button";
 
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/rescate")({
