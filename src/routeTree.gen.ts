@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedGuaraniEscolarIndexRouteImport } from './routes/_authenticated/guarani-escolar.index'
@@ -37,6 +38,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedLogrosRoute = AuthenticatedLogrosRouteImport.update({
+  id: '/logros',
+  path: '/logros',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedGuaraniEscolarRoute =
   AuthenticatedGuaraniEscolarRouteImport.update({
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
+  '/logros': typeof AuthenticatedLogrosRoute
   '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/logros': typeof AuthenticatedLogrosRoute
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarIndexRoute
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
+  '/_authenticated/logros': typeof AuthenticatedLogrosRoute
   '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/_authenticated/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/_authenticated/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/guarani-escolar'
+    | '/logros'
     | '/curso/$lang'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
@@ -168,6 +178,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/logros'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
     | '/guarani-escolar'
@@ -182,6 +193,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/dashboard'
     | '/_authenticated/guarani-escolar'
+    | '/_authenticated/logros'
     | '/_authenticated/curso/$lang'
     | '/_authenticated/guarani-escolar/rescate'
     | '/_authenticated/guarani-escolar/semanal'
@@ -221,6 +233,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/logros': {
+      id: '/_authenticated/logros'
+      path: '/logros'
+      fullPath: '/logros'
+      preLoaderRoute: typeof AuthenticatedLogrosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/guarani-escolar': {
       id: '/_authenticated/guarani-escolar'
@@ -363,6 +382,7 @@ const AuthenticatedCursoLangRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedGuaraniEscolarRoute: typeof AuthenticatedGuaraniEscolarRouteWithChildren
+  AuthenticatedLogrosRoute: typeof AuthenticatedLogrosRoute
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
 }
 
@@ -370,6 +390,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedGuaraniEscolarRoute:
     AuthenticatedGuaraniEscolarRouteWithChildren,
+  AuthenticatedLogrosRoute: AuthenticatedLogrosRoute,
   AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
 }
 
@@ -384,13 +405,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
