@@ -13,6 +13,8 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiTutorRouteImport } from './routes/api/tutor'
+import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
+import { Route as AuthenticatedTraductorRouteImport } from './routes/_authenticated/traductor'
 import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -44,6 +46,16 @@ const ApiTutorRoute = ApiTutorRouteImport.update({
   id: '/api/tutor',
   path: '/api/tutor',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTraductorRoute = AuthenticatedTraductorRouteImport.update({
+  id: '/traductor',
+  path: '/traductor',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedLogrosRoute = AuthenticatedLogrosRouteImport.update({
   id: '/logros',
@@ -121,6 +133,8 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/logros': typeof AuthenticatedLogrosRoute
+  '/traductor': typeof AuthenticatedTraductorRoute
+  '/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
   '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
@@ -137,6 +151,8 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/logros': typeof AuthenticatedLogrosRoute
+  '/traductor': typeof AuthenticatedTraductorRoute
+  '/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
@@ -154,6 +170,8 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/_authenticated/logros': typeof AuthenticatedLogrosRoute
+  '/_authenticated/traductor': typeof AuthenticatedTraductorRoute
+  '/_authenticated/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
   '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/_authenticated/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
@@ -173,6 +191,8 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/guarani-escolar'
     | '/logros'
+    | '/traductor'
+    | '/tutor'
     | '/api/tutor'
     | '/curso/$lang'
     | '/guarani-escolar/rescate'
@@ -189,6 +209,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/logros'
+    | '/traductor'
+    | '/tutor'
     | '/api/tutor'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
@@ -205,6 +227,8 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/guarani-escolar'
     | '/_authenticated/logros'
+    | '/_authenticated/traductor'
+    | '/_authenticated/tutor'
     | '/api/tutor'
     | '/_authenticated/curso/$lang'
     | '/_authenticated/guarani-escolar/rescate'
@@ -253,6 +277,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/tutor'
       preLoaderRoute: typeof ApiTutorRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/tutor': {
+      id: '/_authenticated/tutor'
+      path: '/tutor'
+      fullPath: '/tutor'
+      preLoaderRoute: typeof AuthenticatedTutorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/traductor': {
+      id: '/_authenticated/traductor'
+      path: '/traductor'
+      fullPath: '/traductor'
+      preLoaderRoute: typeof AuthenticatedTraductorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/logros': {
       id: '/_authenticated/logros'
@@ -403,6 +441,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedGuaraniEscolarRoute: typeof AuthenticatedGuaraniEscolarRouteWithChildren
   AuthenticatedLogrosRoute: typeof AuthenticatedLogrosRoute
+  AuthenticatedTraductorRoute: typeof AuthenticatedTraductorRoute
+  AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
 }
 
@@ -411,6 +451,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGuaraniEscolarRoute:
     AuthenticatedGuaraniEscolarRouteWithChildren,
   AuthenticatedLogrosRoute: AuthenticatedLogrosRoute,
+  AuthenticatedTraductorRoute: AuthenticatedTraductorRoute,
+  AuthenticatedTutorRoute: AuthenticatedTutorRoute,
   AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
 }
 
