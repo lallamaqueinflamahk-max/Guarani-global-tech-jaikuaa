@@ -47,29 +47,7 @@ export const Route = createFileRoute("/_authenticated/curso/$lang/leccion/$n")({
   component: LessonPage,
 });
 
-function speak(text: string) {
-  if (typeof window === "undefined") return;
-  const synth = window.speechSynthesis;
-  if (!synth) return;
-  synth.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = "es-PY";
-  u.rate = 0.85;
-  synth.speak(u);
-}
-
-function SpeakerButton({ text }: { text: string }) {
-  return (
-    <button
-      type="button"
-      onClick={() => speak(text)}
-      aria-label={`Escuchar ${text}`}
-      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition hover:bg-primary/20"
-    >
-      <Volume2 className="h-4 w-4" />
-    </button>
-  );
-}
+import { SpeakerButton } from "@/components/audio/speaker-button";
 
 type Phase = "intro" | "vocab" | "choice" | "match" | "done";
 
