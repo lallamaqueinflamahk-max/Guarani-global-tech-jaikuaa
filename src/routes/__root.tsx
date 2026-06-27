@@ -85,6 +85,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@aranduka" },
+      { name: "twitter:title", content: "Aranduka — Aprendé idiomas. Cambiá tu vida." },
+      { name: "twitter:description", content: "La primera plataforma paraguaya de idiomas, con el guaraní en el corazón." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/a9d89ab1-7850-4f9f-ac02-ea66c58b99a0" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/a9d89ab1-7850-4f9f-ac02-ea66c58b99a0" },
     ],
     links: [
       {
