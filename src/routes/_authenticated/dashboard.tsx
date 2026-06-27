@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { LANGUAGES } from "@/lib/languages";
+import { StatsBar, StreakBanner } from "@/components/gamification/stats-bar";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Aranduka — Tu panel" }] }),
@@ -63,6 +64,11 @@ function Dashboard() {
             <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
               Bienvenido/a a tu panel de Aranduka.
             </p>
+          </div>
+
+          <div className="mt-8 space-y-3">
+            <StatsBar />
+            <StreakBanner />
           </div>
 
           <section className="mt-10">
