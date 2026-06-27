@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BrandLogo } from "@/components/brand-logo";
 import { Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BADGES, useStats } from "@/lib/gamification";
@@ -19,7 +20,7 @@ function LogrosPage() {
             to="/"
             className="flex items-center gap-2 font-display text-xl font-bold text-primary"
           >
-            Aranduka <span aria-hidden>🐆</span>
+            <BrandLogo />
           </Link>
           <Button asChild variant="outline" size="sm">
             <Link to="/dashboard">← Volver al panel</Link>
