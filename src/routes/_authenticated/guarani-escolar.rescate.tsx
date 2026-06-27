@@ -361,17 +361,11 @@ function ReviewScreen({
               <div className="font-display font-semibold text-primary">{v.gn}</div>
               <div className="text-xs text-muted-foreground">{v.es}</div>
             </div>
-            <button
-              type="button"
-              onClick={() => speak(v.gn)}
-              aria-label={`Escuchar ${v.gn}`}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition hover:bg-primary/20 active:scale-95"
-            >
-              🔊
-            </button>
+            <SpeakerButton gn={v.gn} size="md" />
           </li>
         ))}
       </ul>
+
 
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <Button variant="cta" size="lg" className="flex-1" onClick={onNext}>

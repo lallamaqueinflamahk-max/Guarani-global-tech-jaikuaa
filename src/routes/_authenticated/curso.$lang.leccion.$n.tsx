@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { BrandLogo } from "@/components/brand-logo";
 import { useEffect, useMemo, useState } from "react";
-import { Volume2, Check, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { celebrate } from "@/lib/confetti";
 
 import { Button } from "@/components/ui/button";
