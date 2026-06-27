@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -37,6 +38,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTutorRoute = ApiTutorRouteImport.update({
+  id: '/api/tutor',
+  path: '/api/tutor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedLogrosRoute = AuthenticatedLogrosRouteImport.update({
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/logros': typeof AuthenticatedLogrosRoute
+  '/api/tutor': typeof ApiTutorRoute
   '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/logros': typeof AuthenticatedLogrosRoute
+  '/api/tutor': typeof ApiTutorRoute
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarIndexRoute
@@ -146,6 +154,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/_authenticated/logros': typeof AuthenticatedLogrosRoute
+  '/api/tutor': typeof ApiTutorRoute
   '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/_authenticated/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/_authenticated/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
@@ -164,6 +173,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/guarani-escolar'
     | '/logros'
+    | '/api/tutor'
     | '/curso/$lang'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
@@ -179,6 +189,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/dashboard'
     | '/logros'
+    | '/api/tutor'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
     | '/guarani-escolar'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/guarani-escolar'
     | '/_authenticated/logros'
+    | '/api/tutor'
     | '/_authenticated/curso/$lang'
     | '/_authenticated/guarani-escolar/rescate'
     | '/_authenticated/guarani-escolar/semanal'
@@ -209,6 +221,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  ApiTutorRoute: typeof ApiTutorRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tutor': {
+      id: '/api/tutor'
+      path: '/api/tutor'
+      fullPath: '/api/tutor'
+      preLoaderRoute: typeof ApiTutorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/logros': {
@@ -401,6 +421,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  ApiTutorRoute: ApiTutorRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
