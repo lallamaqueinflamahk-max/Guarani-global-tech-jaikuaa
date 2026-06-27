@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { SiteFooter } from "@/components/site-footer";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -132,13 +134,5 @@ function LanguageCard({
 }
 
 function Footer() {
-  return (
-    <footer className="border-t border-border/50 bg-background py-8">
-      <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
-        <p className="font-display text-sm font-medium tracking-wide text-muted-foreground">
-          Aprendé · Hablá · Ñane Ñe'ẽ
-        </p>
-      </div>
-    </footer>
-  );
+  return <SiteFooter />;
 }
