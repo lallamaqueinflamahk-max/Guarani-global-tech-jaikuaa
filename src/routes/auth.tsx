@@ -185,15 +185,20 @@ function AuthPage() {
               </div>
             </div>
             {isLogin && (
-              <label className="flex cursor-pointer items-center gap-2 text-sm text-foreground select-none">
-                <input
-                  type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
-                  className="h-4 w-4 cursor-pointer rounded border-input accent-accent"
-                />
-                Mantener sesión iniciada
-              </label>
+              <div className="flex items-center justify-between gap-2">
+                <label className="flex cursor-pointer items-center gap-2 text-sm text-foreground select-none">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="h-4 w-4 cursor-pointer rounded border-input accent-accent"
+                  />
+                  Mantener sesión iniciada
+                </label>
+                <Link to="/recuperar" className="text-sm font-medium text-accent hover:underline">
+                  ¿Olvidaste tu contraseña?
+                </Link>
+              </div>
             )}
             {errorMsg && (
               <div
