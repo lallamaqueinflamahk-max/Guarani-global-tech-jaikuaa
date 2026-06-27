@@ -92,6 +92,20 @@ function Dashboard() {
 
           <section className="mt-6 grid gap-4 sm:grid-cols-2">
             <Link
+              to="/nhe-rape"
+              className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-2xl" aria-hidden>📖</span>
+                <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                  Homenaje
+                </span>
+              </div>
+              <div className="font-display text-lg font-bold text-foreground">Ñe'ẽ Rape</div>
+              <p className="text-sm text-muted-foreground">El camino de la palabra. Tributo al Prof. Ramón Silva.</p>
+              <span className="mt-1 text-sm font-medium text-primary">Abrir →</span>
+            </Link>
+            <Link
               to="/traductor"
               className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
             >
