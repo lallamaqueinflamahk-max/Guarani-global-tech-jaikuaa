@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCursoLangRouteImport } from './routes/_authenticated/curso.$lang'
 import { Route as AuthenticatedCursoLangIndexRouteImport } from './routes/_authenticated/curso.$lang.index'
@@ -31,6 +32,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedGuaraniEscolarRoute =
+  AuthenticatedGuaraniEscolarRouteImport.update({
+    id: '/guarani-escolar',
+    path: '/guarani-escolar',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRoute
   '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
   '/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
@@ -66,6 +74,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRoute
   '/curso/$lang': typeof AuthenticatedCursoLangIndexRoute
   '/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
 }
@@ -75,6 +84,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRoute
   '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/_authenticated/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
   '/_authenticated/curso/$lang/leccion/$n': typeof AuthenticatedCursoLangLeccionNRoute
@@ -85,17 +95,25 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/guarani-escolar'
     | '/curso/$lang'
     | '/curso/$lang/'
     | '/curso/$lang/leccion/$n'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/curso/$lang' | '/curso/$lang/leccion/$n'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/guarani-escolar'
+    | '/curso/$lang'
+    | '/curso/$lang/leccion/$n'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/dashboard'
+    | '/_authenticated/guarani-escolar'
     | '/_authenticated/curso/$lang'
     | '/_authenticated/curso/$lang/'
     | '/_authenticated/curso/$lang/leccion/$n'
@@ -129,6 +147,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/guarani-escolar': {
+      id: '/_authenticated/guarani-escolar'
+      path: '/guarani-escolar'
+      fullPath: '/guarani-escolar'
+      preLoaderRoute: typeof AuthenticatedGuaraniEscolarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
@@ -179,11 +204,13 @@ const AuthenticatedCursoLangRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedGuaraniEscolarRoute: typeof AuthenticatedGuaraniEscolarRoute
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedGuaraniEscolarRoute: AuthenticatedGuaraniEscolarRoute,
   AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
 }
 
