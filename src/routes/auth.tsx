@@ -39,6 +39,8 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -47,26 +49,49 @@ function AuthPage() {
     });
   }, [navigate]);
 
+  // Reset error when switching between login/signup
+  useEffect(() => {
+    setErrorMsg(null);
+  }, [mode]);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setErrorMsg(null);
     setLoading(true);
     try {
       if (isLogin) {
         const parsed = loginSchema.safeParse({ email, password });
         if (!parsed.success) {
-          toast.error(parsed.error.issues[0].message);
+          setErrorMsg(parsed.error.issues[0].message);
           return;
         }
-        const { error } = await supabase.auth.signInWithPassword(parsed.data);
+        const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
         if (error) {
-          toast.error("No pudimos iniciar tu sesión. Revisá tus datos.");
+          const code = (error as { code?: string }).code;
+          const msg = error.message?.toLowerCase() ?? "";
+          if (code === "invalid_credentials" || msg.includes("invalid login")) {
+            setErrorMsg("Email o contraseña incorrectos. Si te registraste con Google, iniciá sesión con Google.");
+          } else if (msg.includes("email not confirmed")) {
+            setErrorMsg("Tenés que confirmar tu email antes de iniciar sesión.");
+          } else {
+            setErrorMsg("No pudimos iniciar tu sesión. Intentá de nuevo.");
+          }
           return;
+        }
+        if (!data.session) {
+          setErrorMsg("No pudimos iniciar tu sesión. Intentá de nuevo.");
+          return;
+        }
+        try {
+          localStorage.setItem("aranduka_remember", rememberMe ? "1" : "0");
+        } catch {
+          // ignore storage errors
         }
         navigate({ to: "/dashboard", replace: true });
       } else {
         const parsed = signupSchema.safeParse({ name, email, password });
         if (!parsed.success) {
-          toast.error(parsed.error.issues[0].message);
+          setErrorMsg(parsed.error.issues[0].message);
           return;
         }
         const { error } = await supabase.auth.signUp({
@@ -78,12 +103,15 @@ function AuthPage() {
           },
         });
         if (error) {
-          toast.error(error.message.includes("registered") ? "Ese email ya está registrado." : "No pudimos crear tu cuenta.");
+          setErrorMsg(error.message.includes("registered") ? "Ese email ya está registrado." : "No pudimos crear tu cuenta.");
           return;
         }
         toast.success("¡Cuenta creada! Revisá tu email si te lo pide.");
         navigate({ to: "/dashboard", replace: true });
       }
+    } catch (err) {
+      setErrorMsg("Ocurrió un error inesperado. Intentá de nuevo.");
+      console.error("Auth error:", err);
     } finally {
       setLoading(false);
     }
@@ -156,6 +184,26 @@ function AuthPage() {
                 </button>
               </div>
             </div>
+            {isLogin && (
+              <label className="flex cursor-pointer items-center gap-2 text-sm text-foreground select-none">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="h-4 w-4 cursor-pointer rounded border-input accent-accent"
+                />
+                Mantener sesión iniciada
+              </label>
+            )}
+            {errorMsg && (
+              <div
+                role="alert"
+                aria-live="polite"
+                className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive"
+              >
+                {errorMsg}
+              </div>
+            )}
             <Button type="submit" variant="cta" size="lg" className="w-full" disabled={loading}>
               {loading ? "Cargando..." : isLogin ? "Iniciar sesión" : "Crear cuenta"}
             </Button>
