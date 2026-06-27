@@ -7,7 +7,7 @@ export function StatsBar() {
   return (
     <section
       aria-label="Tu progreso"
-      className="grid grid-cols-3 gap-3 rounded-2xl border border-border/60 bg-card p-3 shadow-sm sm:p-4"
+      className="grid grid-cols-3 gap-3 rounded-2xl border border-border/60 bg-card p-3 shadow-elegant sm:p-4"
     >
       <Stat
         icon={<Sparkles className="h-4 w-4" />}
@@ -16,7 +16,7 @@ export function StatsBar() {
         tone="primary"
       />
       <Stat
-        icon={<Flame className="h-4 w-4" />}
+        icon={<Flame className={`h-4 w-4 ${stats.streak >= 1 ? "pulse-soft" : ""}`} />}
         label="Racha"
         value={
           <span>
@@ -24,14 +24,14 @@ export function StatsBar() {
             <span className="text-sm font-medium text-muted-foreground">
               {stats.streak === 1 ? "día" : "días"}
             </span>{" "}
-            🔥
+            <span className={stats.streak >= 1 ? "inline-block pulse-soft" : ""}>🔥</span>
           </span>
         }
         tone="accent"
       />
       <Link
         to="/logros"
-        className="group flex flex-col items-start gap-1 rounded-xl border border-transparent p-2 transition hover:border-primary/30 hover:bg-primary/5 sm:p-3"
+        className="group flex flex-col items-start gap-1 rounded-xl border border-transparent p-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-primary/5 sm:p-3"
       >
         <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
           <Trophy className="h-4 w-4 text-primary" /> Logros
@@ -46,6 +46,7 @@ export function StatsBar() {
       </Link>
     </section>
   );
+
 }
 
 function Stat({
