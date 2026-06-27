@@ -184,6 +184,26 @@ function AuthPage() {
                 </button>
               </div>
             </div>
+            {isLogin && (
+              <label className="flex cursor-pointer items-center gap-2 text-sm text-foreground select-none">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="h-4 w-4 cursor-pointer rounded border-input accent-accent"
+                />
+                Mantener sesión iniciada
+              </label>
+            )}
+            {errorMsg && (
+              <div
+                role="alert"
+                aria-live="polite"
+                className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive"
+              >
+                {errorMsg}
+              </div>
+            )}
             <Button type="submit" variant="cta" size="lg" className="w-full" disabled={loading}>
               {loading ? "Cargando..." : isLogin ? "Iniciar sesión" : "Crear cuenta"}
             </Button>
