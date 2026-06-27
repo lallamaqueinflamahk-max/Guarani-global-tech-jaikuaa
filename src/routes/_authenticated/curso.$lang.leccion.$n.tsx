@@ -444,8 +444,9 @@ function DoneStep({
 }) {
   const xp = 10 + lesson.vocab.length * 2;
   useRecordOnMount({ xp, isGuaraniLesson: langSlug === "guarani" });
+  useEffect(() => { celebrate("big"); }, []);
   return (
-    <div className="rounded-2xl border border-border/60 bg-card p-8 text-center shadow-sm">
+    <div className="rounded-2xl border border-border/60 bg-card p-8 text-center shadow-lift animate-scale-in">
       <div className="text-6xl" aria-hidden>
         🎉
       </div>
