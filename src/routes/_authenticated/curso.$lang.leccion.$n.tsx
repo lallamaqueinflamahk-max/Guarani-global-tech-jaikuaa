@@ -4,6 +4,7 @@ import { Volume2, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getLanguage } from "@/lib/languages";
 import { getGuaraniLesson, type VocabItem } from "@/lib/guarani-lessons";
+import { useRecordOnMount } from "@/lib/gamification";
 
 export const Route = createFileRoute("/_authenticated/curso/$lang/leccion/$n")({
   head: ({ params }) => ({
@@ -440,6 +441,7 @@ function DoneStep({
   langSlug: string;
 }) {
   const xp = 10 + lesson.vocab.length * 2;
+  useRecordOnMount({ xp, isGuaraniLesson: langSlug === "guarani" });
   return (
     <div className="rounded-2xl border border-border/60 bg-card p-8 text-center shadow-sm">
       <div className="text-6xl" aria-hidden>

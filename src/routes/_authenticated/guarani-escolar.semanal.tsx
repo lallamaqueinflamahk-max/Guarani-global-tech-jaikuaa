@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Check, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TEMAS_6TO } from "@/lib/guarani-tema";
+import { recordCompletion } from "@/lib/gamification";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/semanal")({
   head: () => ({ meta: [{ title: "Aranduka — Plan Semanal" }] }),
@@ -223,7 +224,11 @@ function PlanSemanal() {
                   variant={isDone ? "secondary" : "outline"}
                   size="sm"
                   onClick={() =>
-                    setCompleted((c) => ({ ...c, [d.day]: !c[d.day] }))
+                    setCompleted((c) => {
+                      const wasDone = !!c[d.day];
+                      if (!wasDone) recordCompletion({ xp: 20 });
+                      return { ...c, [d.day]: !wasDone };
+                    })
                   }
                 >
                   {isDone ? "Desmarcar" : "Marcar como completado ✅"}

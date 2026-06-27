@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TEMAS_6TO, type QuizQuestion } from "@/lib/guarani-tema";
+import { useRecordOnMount } from "@/lib/gamification";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/rescate")({
   head: () => ({ meta: [{ title: "Aranduka — Modo Rescate" }] }),
@@ -476,6 +477,7 @@ function DoneScreen({
   onRetry: () => void;
 }) {
   const feedback = feedbackFor(nota);
+  useRecordOnMount({ xp: 30 + score * 5, perfectExam: nota === 5 });
   const tone =
     nota === 5
       ? "from-green-500/15 to-primary/10 border-green-500/30"
