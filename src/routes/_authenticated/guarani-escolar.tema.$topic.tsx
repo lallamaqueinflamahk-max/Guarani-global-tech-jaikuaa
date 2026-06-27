@@ -249,9 +249,13 @@ function DoneStep({
   const fb = feedback(score, total);
   const xp = 15 + score * 5;
   useRecordOnMount({ xp, perfectExam: score === total });
+  useEffect(() => {
+    if (score / total >= 0.6) celebrate(score === total ? "big" : "small");
+  }, [score, total]);
   return (
-    <div className="rounded-2xl border border-border/60 bg-card p-8 text-center shadow-sm">
+    <div className="rounded-2xl border border-border/60 bg-card p-8 text-center shadow-lift animate-scale-in">
       <div className="text-6xl" aria-hidden>{fb.emoji}</div>
+
       <h2 className="mt-4 font-display text-3xl font-bold text-foreground">
         {fb.title}
       </h2>
