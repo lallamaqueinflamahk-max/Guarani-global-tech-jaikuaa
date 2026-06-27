@@ -179,9 +179,10 @@ function Dashboard() {
                         aria-valuemax={100}
                       >
                         <div
-                          className="h-full rounded-full bg-primary transition-all"
+                          className="h-full rounded-full bg-gradient-to-r from-primary to-primary/70 progress-fill"
                           style={{ width: `${progress}%` }}
                         />
+
                       </div>
                     </div>
 
