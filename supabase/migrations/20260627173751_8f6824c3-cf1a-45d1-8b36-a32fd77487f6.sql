@@ -1,0 +1,2 @@
+CREATE POLICY "Public can read guarani-audio" ON storage.objects FOR SELECT TO anon, authenticated USING (bucket_id = 'guarani-audio');
+CREATE POLICY "Service role manages guarani-audio" ON storage.objects FOR ALL TO service_role USING (bucket_id = 'guarani-audio') WITH CHECK (bucket_id = 'guarani-audio');

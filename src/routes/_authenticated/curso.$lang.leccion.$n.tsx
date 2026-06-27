@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { BrandLogo } from "@/components/brand-logo";
 import { useEffect, useMemo, useState } from "react";
-import { Volume2, Check, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { celebrate } from "@/lib/confetti";
 
 import { Button } from "@/components/ui/button";
@@ -47,29 +47,7 @@ export const Route = createFileRoute("/_authenticated/curso/$lang/leccion/$n")({
   component: LessonPage,
 });
 
-function speak(text: string) {
-  if (typeof window === "undefined") return;
-  const synth = window.speechSynthesis;
-  if (!synth) return;
-  synth.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = "es-PY";
-  u.rate = 0.85;
-  synth.speak(u);
-}
-
-function SpeakerButton({ text }: { text: string }) {
-  return (
-    <button
-      type="button"
-      onClick={() => speak(text)}
-      aria-label={`Escuchar ${text}`}
-      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition hover:bg-primary/20"
-    >
-      <Volume2 className="h-4 w-4" />
-    </button>
-  );
-}
+import { SpeakerButton } from "@/components/audio/speaker-button";
 
 type Phase = "intro" | "vocab" | "choice" | "match" | "done";
 
@@ -192,7 +170,7 @@ function VocabStep({
             className="flex items-center justify-between gap-3 rounded-xl border border-border/60 bg-card p-4 shadow-sm"
           >
             <div className="flex items-center gap-3">
-              <SpeakerButton text={v.gn} />
+              <SpeakerButton gn={v.gn} />
               <div>
                 <div className="font-display text-base font-semibold text-foreground">
                   {v.gn}
@@ -271,7 +249,7 @@ function ChoiceStep({
       <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-sm">
         <p className="text-sm text-muted-foreground">¿Qué significa?</p>
         <div className="mt-3 flex items-center gap-3">
-          <SpeakerButton text={q.item.gn} />
+          <SpeakerButton gn={q.item.gn} />
           <div className="font-display text-3xl font-bold text-primary">
             {q.item.gn}
           </div>
@@ -397,7 +375,7 @@ function MatchStep({
                 onClick={() => setSelectedGn(gn)}
                 className={cls}
               >
-                <SpeakerButton text={gn} />
+                <SpeakerButton gn={gn} />
                 <span className="flex-1">{gn}</span>
               </button>
             );

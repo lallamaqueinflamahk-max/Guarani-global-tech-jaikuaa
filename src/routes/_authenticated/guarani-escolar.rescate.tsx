@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { TEMAS_6TO, type QuizQuestion } from "@/lib/guarani-tema";
 import { useRecordOnMount } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
+import { SpeakerButton } from "@/components/audio/speaker-button";
 
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/rescate")({
@@ -309,13 +310,7 @@ function ReviewScreen({
 }) {
   const isLast = index === total - 1;
 
-  function speak(text: string) {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = "es-PY";
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(u);
-  }
+
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -361,17 +356,11 @@ function ReviewScreen({
               <div className="font-display font-semibold text-primary">{v.gn}</div>
               <div className="text-xs text-muted-foreground">{v.es}</div>
             </div>
-            <button
-              type="button"
-              onClick={() => speak(v.gn)}
-              aria-label={`Escuchar ${v.gn}`}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition hover:bg-primary/20 active:scale-95"
-            >
-              🔊
-            </button>
+            <SpeakerButton gn={v.gn} size="md" />
           </li>
         ))}
       </ul>
+
 
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <Button variant="cta" size="lg" className="flex-1" onClick={onNext}>

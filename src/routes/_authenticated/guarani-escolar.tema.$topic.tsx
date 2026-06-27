@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Volume2, Check, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getTema, type Tema } from "@/lib/guarani-tema";
 import { useRecordOnMount } from "@/lib/gamification";
@@ -35,29 +35,7 @@ export const Route = createFileRoute("/_authenticated/guarani-escolar/tema/$topi
   component: TemaPage,
 });
 
-function speak(text: string) {
-  if (typeof window === "undefined") return;
-  const synth = window.speechSynthesis;
-  if (!synth) return;
-  synth.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = "es-PY";
-  u.rate = 0.85;
-  synth.speak(u);
-}
-
-function SpeakerButton({ text }: { text: string }) {
-  return (
-    <button
-      type="button"
-      onClick={() => speak(text)}
-      aria-label={`Escuchar ${text}`}
-      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition hover:bg-primary/20"
-    >
-      <Volume2 className="h-4 w-4" />
-    </button>
-  );
-}
+import { SpeakerButton } from "@/components/audio/speaker-button";
 
 type Phase = "learn" | "quiz" | "done";
 
@@ -130,7 +108,7 @@ function LearnStep({ tema, onNext }: { tema: Tema; onNext: () => void }) {
               key={v.gn}
               className="flex items-center gap-3 rounded-xl border border-border/60 bg-card p-4 shadow-sm"
             >
-              <SpeakerButton text={v.gn} />
+              <SpeakerButton gn={v.gn} />
               <div>
                 <div className="font-display text-base font-semibold text-foreground">
                   {v.gn}
