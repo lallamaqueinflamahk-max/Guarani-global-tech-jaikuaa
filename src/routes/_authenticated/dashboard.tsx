@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { LANGUAGES } from "@/lib/languages";
 import { StatsBar, StreakBanner } from "@/components/gamification/stats-bar";
+import { SiteFooter } from "@/components/site-footer";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Aranduka — Tu panel" }] }),
@@ -223,6 +224,7 @@ function Dashboard() {
           </section>
         </div>
       </main>
+      <SiteFooter />
     </div>
   );
 }

@@ -232,8 +232,11 @@ function AuthPage() {
               {isLogin ? "Registrate" : "Iniciá sesión"}
             </Link>
           </p>
+
+          <TrustBadges className="mt-8" />
         </div>
       </main>
+      <SiteFooter />
     </div>
   );
 }
