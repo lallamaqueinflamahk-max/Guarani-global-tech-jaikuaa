@@ -74,7 +74,7 @@ function Dashboard() {
           <section className="mt-10">
             <Link
               to="/guarani-escolar"
-              className="group relative flex flex-col items-center justify-between gap-4 rounded-2xl border-2 border-accent bg-accent/5 p-6 shadow-md transition hover:bg-accent/10 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:flex-row sm:p-8"
+              className="group relative flex flex-col items-center justify-between gap-4 rounded-2xl border-2 border-accent bg-accent/5 p-6 shadow-elegant card-hover hover:bg-accent/10 hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:flex-row sm:p-8"
             >
               <div className="text-left">
                 <div className="flex items-center gap-2 font-display text-2xl font-bold text-accent sm:text-3xl">
@@ -93,7 +93,7 @@ function Dashboard() {
           <section className="mt-6 grid gap-4 sm:grid-cols-2">
             <Link
               to="/nhe-rape"
-              className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
+              className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-primary hover:shadow-lift"
             >
               <div className="flex items-center justify-between">
                 <span className="text-2xl" aria-hidden>📖</span>
@@ -107,7 +107,7 @@ function Dashboard() {
             </Link>
             <Link
               to="/traductor"
-              className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
+              className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-primary hover:shadow-lift"
             >
               <div className="flex items-center justify-between">
                 <span className="text-2xl" aria-hidden>🌐</span>
@@ -121,7 +121,7 @@ function Dashboard() {
             </Link>
             <Link
               to="/tutor"
-              className="group relative flex flex-col gap-2 rounded-2xl border border-accent/30 bg-card p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
+              className="group relative flex flex-col gap-2 rounded-2xl border border-accent/30 bg-card p-5 shadow-elegant card-hover hover:border-accent hover:shadow-lift"
             >
               <div className="flex items-center justify-between">
                 <span className="text-2xl" aria-hidden>✨</span>
@@ -179,9 +179,10 @@ function Dashboard() {
                         aria-valuemax={100}
                       >
                         <div
-                          className="h-full rounded-full bg-primary transition-all"
+                          className="h-full rounded-full bg-gradient-to-r from-primary to-primary/70 progress-fill"
                           style={{ width: `${progress}%` }}
                         />
+
                       </div>
                     </div>
 
@@ -198,7 +199,7 @@ function Dashboard() {
                     key={l.slug}
                     to="/curso/$lang"
                     params={{ lang: l.slug }}
-                    className="group relative flex flex-col rounded-xl border-2 border-accent bg-card p-6 text-left shadow-md transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    className="group relative flex flex-col rounded-xl border-2 border-accent bg-card p-6 text-left shadow-elegant card-hover hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     {cardBody}
                   </Link>

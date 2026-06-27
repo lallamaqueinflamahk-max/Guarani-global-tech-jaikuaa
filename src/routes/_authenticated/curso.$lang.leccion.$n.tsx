@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Volume2, Check, X } from "lucide-react";
+import { celebrate } from "@/lib/confetti";
+
 import { Button } from "@/components/ui/button";
 import { getLanguage } from "@/lib/languages";
 import { getGuaraniLesson, type VocabItem } from "@/lib/guarani-lessons";
@@ -442,8 +444,9 @@ function DoneStep({
 }) {
   const xp = 10 + lesson.vocab.length * 2;
   useRecordOnMount({ xp, isGuaraniLesson: langSlug === "guarani" });
+  useEffect(() => { celebrate("big"); }, []);
   return (
-    <div className="rounded-2xl border border-border/60 bg-card p-8 text-center shadow-sm">
+    <div className="rounded-2xl border border-border/60 bg-card p-8 text-center shadow-lift animate-scale-in">
       <div className="text-6xl" aria-hidden>
         🎉
       </div>

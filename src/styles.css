@@ -139,5 +139,56 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
+    letter-spacing: -0.01em;
   }
 }
+
+/* ===== Aranduka motion + depth utilities ===== */
+@utility shadow-elegant {
+  box-shadow:
+    0 1px 2px color-mix(in oklab, var(--primary) 8%, transparent),
+    0 8px 24px -12px color-mix(in oklab, var(--primary) 18%, transparent);
+}
+
+@utility shadow-lift {
+  box-shadow:
+    0 4px 8px color-mix(in oklab, var(--primary) 10%, transparent),
+    0 20px 40px -16px color-mix(in oklab, var(--primary) 28%, transparent);
+}
+
+@utility card-hover {
+  transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 220ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 220ms ease;
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes aranduka-page-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes aranduka-pulse-soft {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
+  50% { transform: scale(1.12); filter: drop-shadow(0 0 6px color-mix(in oklab, var(--accent) 60%, transparent)); }
+}
+
+@keyframes aranduka-progress {
+  from { width: 0%; }
+}
+
+@utility page-in {
+  animation: aranduka-page-in 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility pulse-soft {
+  animation: aranduka-pulse-soft 2.4s ease-in-out infinite;
+}
+
+@utility progress-fill {
+  animation: aranduka-progress 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: width 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
