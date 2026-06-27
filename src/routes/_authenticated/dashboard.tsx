@@ -65,7 +65,24 @@ function Dashboard() {
             </p>
           </div>
 
-          <section className="mt-12">
+          <section className="mt-10">
+            <Link
+              to="/guarani-escolar"
+              className="group relative flex flex-col items-center justify-between gap-4 rounded-2xl border-2 border-accent bg-accent/5 p-6 shadow-md transition hover:bg-accent/10 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:flex-row sm:p-8"
+            >
+              <div className="text-left">
+                <div className="flex items-center gap-2 font-display text-2xl font-bold text-accent sm:text-3xl">
+                  Guaraní Escolar <span aria-hidden>🎒</span>
+                </div>
+                <p className="mt-1 max-w-md text-sm text-muted-foreground sm:text-base">
+                  Todo lo que necesitás para entender y aprobar Guaraní en la escuela.
+                </p>
+              </div>
+              <span className="inline-flex h-10 items-center justify-center rounded-md bg-accent px-5 text-sm font-medium text-accent-foreground shadow transition group-hover:bg-accent/90 group-active:scale-95">
+                Entrar →
+              </span>
+            </Link>
+          </section>
             <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
               Elegí tu idioma
             </h2>
