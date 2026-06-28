@@ -79,6 +79,10 @@ function Hero() {
         <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
           La primera plataforma paraguaya de idiomas, con el guaraní en el corazón.
         </p>
+        <p className="mx-auto mt-3 text-sm font-medium text-primary/80">
+          +109 palabras con voz humana paraguaya 🇵🇾
+        </p>
+
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
           <Button variant="cta" size="lg" asChild>
             <Link to="/auth" search={{ mode: "signup" }}>Empezar gratis</Link>
