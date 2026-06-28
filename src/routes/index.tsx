@@ -96,7 +96,50 @@ function Hero() {
   );
 }
 
+const AUDIO_SAMPLES = [
+  { gn: "Mba'éichapa", es: "¿Cómo estás?" },
+  { gn: "Aguyje", es: "Gracias" },
+  { gn: "Jaguarete", es: "Jaguar" },
+  { gn: "Kuarahy", es: "Sol" },
+  { gn: "Yvoty", es: "Flor" },
+  { gn: "Che vy'a", es: "Estoy feliz" },
+];
+
+function LiveAudioPreview() {
+  return (
+    <section className="px-4 pb-16 sm:px-6">
+      <div className="mx-auto max-w-5xl">
+        <div className="mb-8 text-center">
+          <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+            Escuchá guaraní real 🔊
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Voces humanas paraguayas. Tocá una palabra para escucharla.
+          </p>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {AUDIO_SAMPLES.map((s) => (
+            <div
+              key={s.gn}
+              className="flex items-center gap-3 rounded-xl border border-border/60 bg-card p-4 transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-md"
+            >
+              <SpeakerButton gn={s.gn} size="md" />
+              <div className="min-w-0">
+                <div className="font-display text-base font-semibold text-card-foreground">
+                  {s.gn}
+                </div>
+                <div className="text-sm text-muted-foreground">{s.es}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function FeaturedLanguages() {
+
   return (
     <section className="px-4 pb-20 sm:px-6">
       <div className="mx-auto max-w-5xl">
