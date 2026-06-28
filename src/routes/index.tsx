@@ -43,12 +43,14 @@ function Index() {
       <Header />
       <main className="flex-1">
         <Hero />
+        <LiveAudioPreview />
         <FeaturedLanguages />
       </main>
       <Footer />
     </div>
   );
 }
+
 
 function Header() {
   return (
