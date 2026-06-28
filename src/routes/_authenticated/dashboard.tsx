@@ -81,6 +81,9 @@ function Dashboard() {
               <div className="text-left">
                 <div className="flex items-center gap-2 font-display text-2xl font-bold text-accent sm:text-3xl">
                   Guaraní Escolar <span aria-hidden>🎒</span>
+                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
+                    Gratis
+                  </span>
                 </div>
                 <p className="mt-1 max-w-md text-sm text-muted-foreground sm:text-base">
                   Todo lo que necesitás para entender y aprobar Guaraní en la escuela.
@@ -99,8 +102,8 @@ function Dashboard() {
             >
               <div className="flex items-center justify-between">
                 <span className="text-2xl" aria-hidden>📖</span>
-                <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-                  Homenaje
+                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
+                  Gratis
                 </span>
               </div>
               <div className="font-display text-lg font-bold text-foreground">Ñe'ẽ Rape</div>
@@ -151,6 +154,11 @@ function Dashboard() {
                 const isGuarani = l.slug === "guarani";
                 const cardBody = (
                   <>
+                    {isGuarani && (
+                      <span className="absolute left-4 top-4 rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-emerald-700">
+                        Gratis
+                      </span>
+                    )}
                     {l.featured && (
                       <span className="absolute right-4 top-4 rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-accent-foreground">
                         Destacado
