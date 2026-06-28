@@ -102,8 +102,8 @@ function Dashboard() {
             >
               <div className="flex items-center justify-between">
                 <span className="text-2xl" aria-hidden>📖</span>
-                <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-                  Homenaje
+                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
+                  Gratis
                 </span>
               </div>
               <div className="font-display text-lg font-bold text-foreground">Ñe'ẽ Rape</div>
