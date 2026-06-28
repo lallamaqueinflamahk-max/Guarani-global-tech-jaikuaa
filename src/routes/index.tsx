@@ -3,6 +3,8 @@ import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SiteFooter } from "@/components/site-footer";
+import { SpeakerButton } from "@/components/audio/speaker-button";
+
 
 
 export const Route = createFileRoute("/")({
