@@ -154,6 +154,11 @@ function Dashboard() {
                 const isGuarani = l.slug === "guarani";
                 const cardBody = (
                   <>
+                    {isGuarani && (
+                      <span className="absolute left-4 top-4 rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-emerald-700">
+                        Gratis
+                      </span>
+                    )}
                     {l.featured && (
                       <span className="absolute right-4 top-4 rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-accent-foreground">
                         Destacado
