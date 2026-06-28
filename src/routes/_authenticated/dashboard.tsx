@@ -81,6 +81,9 @@ function Dashboard() {
               <div className="text-left">
                 <div className="flex items-center gap-2 font-display text-2xl font-bold text-accent sm:text-3xl">
                   Guaraní Escolar <span aria-hidden>🎒</span>
+                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
+                    Gratis
+                  </span>
                 </div>
                 <p className="mt-1 max-w-md text-sm text-muted-foreground sm:text-base">
                   Todo lo que necesitás para entender y aprobar Guaraní en la escuela.
