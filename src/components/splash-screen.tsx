@@ -47,19 +47,21 @@ export function SplashScreen() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "1.25rem",
+          gap: "0.5rem",
           animation: "jaikuaa-splash-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both",
         }}
       >
         <img
           src={splashLogo.url}
           alt=""
-          width={220}
-          height={220}
+          width={320}
+          height={183}
+          loading="eager"
           style={{
-            width: "min(45vw, 220px)",
+            width: "min(60vw, 320px)",
             height: "auto",
             objectFit: "contain",
+            imageRendering: "auto",
           }}
           draggable={false}
         />
