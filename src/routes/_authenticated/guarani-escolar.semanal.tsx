@@ -6,7 +6,7 @@ import { TEMAS_6TO } from "@/lib/guarani-tema";
 import { recordCompletion } from "@/lib/gamification";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/semanal")({
-  head: () => ({ meta: [{ title: "Aranduka — Plan Semanal" }] }),
+  head: () => ({ meta: [{ title: "Jaikuaa — Plan Semanal" }] }),
   component: PlanSemanal,
 });
 

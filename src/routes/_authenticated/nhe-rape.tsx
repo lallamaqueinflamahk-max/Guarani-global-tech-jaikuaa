@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/_authenticated/nhe-rape")({
   head: () => ({
     meta: [
-      { title: "Aranduka — Ñe'ẽ Rape" },
+      { title: "Jaikuaa — Ñe'ẽ Rape" },
       {
         name: "description",
         content: "Homenaje al Prof. Ramón Silva, referente de la lengua guaraní.",
@@ -77,7 +77,7 @@ function NheRape() {
               Homenaje
             </h3>
             <p className="mt-4 leading-relaxed text-muted-foreground">
-              Aranduka honra al Prof. Ramón Silva, referente vivo del guaraní,
+              Jaikuaa honra al Prof. Ramón Silva, referente vivo del guaraní,
               cuya vida dedicada a nuestra lengua inspira este proyecto. Su
               sabiduría y su ejemplo nos guían en la misión de que el guaraní
               viva y crezca.

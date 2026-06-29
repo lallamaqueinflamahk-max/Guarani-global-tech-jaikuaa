@@ -5,8 +5,8 @@ import { SiteFooter } from "@/components/site-footer";
 export const Route = createFileRoute("/privacidad")({
   head: () => ({
     meta: [
-      { title: "Política de Privacidad — Aranduka" },
-      { name: "description", content: "Cómo Aranduka cuida y protege tus datos personales." },
+      { title: "Política de Privacidad — Jaikuaa" },
+      { name: "description", content: "Cómo Jaikuaa cuida y protege tus datos personales." },
     ],
   }),
   component: PrivacidadPage,
@@ -23,7 +23,7 @@ function PrivacidadPage() {
             Política de Privacidad
           </h1>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            En Aranduka cuidamos tu información con respeto y transparencia. Esta política explica, en lenguaje claro, qué datos recogemos y cómo los usamos.
+            En Jaikuaa cuidamos tu información con respeto y transparencia. Esta política explica, en lenguaje claro, qué datos recogemos y cómo los usamos.
           </p>
 
           <Section title="1. Qué datos recogemos">

@@ -17,8 +17,8 @@ export const Route = createFileRoute("/auth")({
   }),
   head: () => ({
     meta: [
-      { title: "Aranduka — Iniciar sesión o registrarte" },
-      { name: "description", content: "Accedé a Aranduka para aprender guaraní, inglés y portugués." },
+      { title: "Jaikuaa — Iniciar sesión o registrarte" },
+      { name: "description", content: "Accedé a Jaikuaa para aprender guaraní, inglés y portugués." },
     ],
   }),
   component: AuthPage,
@@ -153,7 +153,7 @@ function AuthPage() {
               {isLogin ? "Iniciar sesión" : "Registrarse"}
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              {isLogin ? "Bienvenido de vuelta a Aranduka." : "Creá tu cuenta y empezá a aprender hoy."}
+              {isLogin ? "Bienvenido de vuelta a Jaikuaa." : "Creá tu cuenta y empezá a aprender hoy."}
             </p>
           </div>
 

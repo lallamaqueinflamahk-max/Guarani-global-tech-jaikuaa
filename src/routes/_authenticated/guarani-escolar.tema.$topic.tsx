@@ -9,7 +9,7 @@ import { celebrate } from "@/lib/confetti";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/tema/$topic")({
   head: ({ params }) => ({
-    meta: [{ title: `Aranduka — ${params.topic}` }],
+    meta: [{ title: `Jaikuaa — ${params.topic}` }],
   }),
   loader: ({ params }) => {
     const tema = getTema(params.topic);

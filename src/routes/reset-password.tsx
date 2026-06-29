@@ -12,8 +12,8 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: "Aranduka — Nueva contraseña" },
-      { name: "description", content: "Definí una nueva contraseña para tu cuenta de Aranduka." },
+      { title: "Jaikuaa — Nueva contraseña" },
+      { name: "description", content: "Definí una nueva contraseña para tu cuenta de Jaikuaa." },
     ],
   }),
   component: ResetPasswordPage,

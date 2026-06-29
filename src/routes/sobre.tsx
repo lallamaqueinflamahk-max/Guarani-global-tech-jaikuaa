@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/sobre")({
   head: () => ({
     meta: [
-      { title: "Sobre Aranduka — Nuestra misión" },
-      { name: "description", content: "Aranduka, la plataforma paraguaya para aprender idiomas con el guaraní en el corazón." },
-      { property: "og:title", content: "Sobre Aranduka" },
+      { title: "Sobre Jaikuaa — Nuestra misión" },
+      { name: "description", content: "Jaikuaa, la plataforma paraguaya para aprender idiomas con el guaraní en el corazón." },
+      { property: "og:title", content: "Sobre Jaikuaa" },
       { property: "og:description", content: "Hecho en Paraguay 🇵🇾 con amor por nuestra lengua." },
     ],
   }),
@@ -33,10 +33,10 @@ function SobrePage() {
               Nuestra misión
             </span>
             <h1 className="mt-5 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-              Sobre <span className="text-accent">Aranduka</span>
+              Sobre <span className="text-accent">Jaikuaa</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              Aranduka es una plataforma paraguaya creada para preservar, enseñar y hacer crecer el guaraní y otros idiomas, con orgullo y identidad nacional.
+              Jaikuaa es una plataforma paraguaya creada para preservar, enseñar y hacer crecer el guaraní y otros idiomas, con orgullo y identidad nacional.
             </p>
           </div>
         </section>

@@ -5,8 +5,8 @@ import { SiteFooter } from "@/components/site-footer";
 export const Route = createFileRoute("/terminos")({
   head: () => ({
     meta: [
-      { title: "Términos y Condiciones — Aranduka" },
-      { name: "description", content: "Términos de uso de la plataforma Aranduka." },
+      { title: "Términos y Condiciones — Jaikuaa" },
+      { name: "description", content: "Términos de uso de la plataforma Jaikuaa." },
     ],
   }),
   component: TerminosPage,
@@ -29,36 +29,36 @@ function TerminosPage() {
             Términos y Condiciones
           </h1>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Bienvenido/a a Aranduka. Al usar nuestra plataforma aceptás estos términos. Los escribimos en lenguaje sencillo para que sean fáciles de entender.
+            Bienvenido/a a Jaikuaa. Al usar nuestra plataforma aceptás estos términos. Los escribimos en lenguaje sencillo para que sean fáciles de entender.
           </p>
 
-          <Section title="1. Qué es Aranduka">
+          <Section title="1. Qué es Jaikuaa">
             <p>
-              Aranduka es una plataforma educativa paraguaya para aprender idiomas, con el guaraní en el corazón. Ofrecemos lecciones, ejercicios, herramientas de práctica y contenido cultural.
+              Jaikuaa es una plataforma educativa paraguaya para aprender idiomas, con el guaraní en el corazón. Ofrecemos lecciones, ejercicios, herramientas de práctica y contenido cultural.
             </p>
           </Section>
 
           <Section title="2. Tu cuenta">
             <ul className="ml-6 list-disc space-y-1">
-              <li>Para usar Aranduka necesitás crear una cuenta con información real y vigente.</li>
+              <li>Para usar Jaikuaa necesitás crear una cuenta con información real y vigente.</li>
               <li>Sos responsable de mantener tu contraseña segura y de la actividad realizada desde tu cuenta.</li>
               <li>Si sospechás un uso no autorizado, avisanos lo antes posible.</li>
             </ul>
           </Section>
 
           <Section title="3. Uso correcto de la plataforma">
-            <p>Al usar Aranduka te comprometés a:</p>
+            <p>Al usar Jaikuaa te comprometés a:</p>
             <ul className="ml-6 list-disc space-y-1">
               <li>Respetar a otros usuarios y al equipo.</li>
               <li>No subir contenido ofensivo, discriminatorio o ilegal.</li>
               <li>No intentar dañar, interrumpir o vulnerar la plataforma ni sus contenidos.</li>
-              <li>No usar Aranduka para fines comerciales sin nuestro permiso.</li>
+              <li>No usar Jaikuaa para fines comerciales sin nuestro permiso.</li>
             </ul>
           </Section>
 
           <Section title="4. Contenido educativo">
             <p>
-              Los contenidos de Aranduka (lecciones, textos, imágenes, audios) son propiedad de Aranduka o se usan con autorización. Podés usarlos para tu aprendizaje personal; copiarlos o redistribuirlos sin permiso no está permitido.
+              Los contenidos de Jaikuaa (lecciones, textos, imágenes, audios) son propiedad de Jaikuaa o se usan con autorización. Podés usarlos para tu aprendizaje personal; copiarlos o redistribuirlos sin permiso no está permitido.
             </p>
           </Section>
 
@@ -70,7 +70,7 @@ function TerminosPage() {
 
           <Section title="6. Disponibilidad del servicio">
             <p>
-              Trabajamos para mantener Aranduka disponible y funcionando bien, pero no podemos garantizar que esté libre de interrupciones o errores en todo momento. Hacemos mejoras y mantenimiento de forma continua.
+              Trabajamos para mantener Jaikuaa disponible y funcionando bien, pero no podemos garantizar que esté libre de interrupciones o errores en todo momento. Hacemos mejoras y mantenimiento de forma continua.
             </p>
           </Section>
 

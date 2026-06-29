@@ -8,7 +8,7 @@ import { StatsBar, StreakBanner } from "@/components/gamification/stats-bar";
 import { SiteFooter } from "@/components/site-footer";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
-  head: () => ({ meta: [{ title: "Aranduka — Tu panel" }] }),
+  head: () => ({ meta: [{ title: "Jaikuaa — Tu panel" }] }),
   component: Dashboard,
 });
 
@@ -64,7 +64,7 @@ function Dashboard() {
               ¡Mba'éichapa, <span className="text-accent">{name || "..."}</span>!
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
-              Bienvenido/a a tu panel de Aranduka.
+              Bienvenido/a a tu panel de Jaikuaa.
             </p>
           </div>
 

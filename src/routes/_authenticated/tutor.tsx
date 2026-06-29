@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/_authenticated/tutor")({
-  head: () => ({ meta: [{ title: "Aranduka — Tutor IA" }] }),
+  head: () => ({ meta: [{ title: "Jaikuaa — Tutor IA" }] }),
   component: TutorPage,
 });
 

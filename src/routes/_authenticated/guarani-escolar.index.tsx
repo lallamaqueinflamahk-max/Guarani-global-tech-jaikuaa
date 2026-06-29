@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/")({
-  head: () => ({ meta: [{ title: "Aranduka — Guaraní Escolar" }] }),
+  head: () => ({ meta: [{ title: "Jaikuaa — Guaraní Escolar" }] }),
   component: GuaraniEscolarEntry,
 });
 

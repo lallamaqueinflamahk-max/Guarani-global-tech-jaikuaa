@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { translateText } from "@/lib/translate.functions";
 
 export const Route = createFileRoute("/_authenticated/traductor")({
-  head: () => ({ meta: [{ title: "Aranduka — Traductor" }] }),
+  head: () => ({ meta: [{ title: "Jaikuaa — Traductor" }] }),
   component: TraductorPage,
 });
 

@@ -5,7 +5,7 @@ import { getLanguage } from "@/lib/languages";
 export const Route = createFileRoute("/_authenticated/curso/$lang")({
   head: ({ params }) => {
     const lang = getLanguage(params.lang);
-    return { meta: [{ title: `Aranduka — Curso de ${lang?.name ?? "idioma"}` }] };
+    return { meta: [{ title: `Jaikuaa — Curso de ${lang?.name ?? "idioma"}` }] };
   },
   loader: ({ params }) => {
     const lang = getLanguage(params.lang);
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated/curso/$lang")({
     <div className="flex min-h-screen items-center justify-center bg-background px-4 text-center">
       <div>
         <h1 className="font-display text-3xl font-bold text-foreground">Idioma no encontrado</h1>
-        <p className="mt-2 text-muted-foreground">Ese curso todavía no existe en Aranduka.</p>
+        <p className="mt-2 text-muted-foreground">Ese curso todavía no existe en Jaikuaa.</p>
         <Button asChild variant="cta" className="mt-6">
           <Link to="/dashboard">Volver al panel</Link>
         </Button>

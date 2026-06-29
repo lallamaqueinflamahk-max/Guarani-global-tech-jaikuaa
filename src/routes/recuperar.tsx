@@ -10,8 +10,8 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/recuperar")({
   head: () => ({
     meta: [
-      { title: "Aranduka — Recuperar contraseña" },
-      { name: "description", content: "Recuperá el acceso a tu cuenta de Aranduka." },
+      { title: "Jaikuaa — Recuperar contraseña" },
+      { name: "description", content: "Recuperá el acceso a tu cuenta de Jaikuaa." },
     ],
   }),
   component: RecuperarPage,
