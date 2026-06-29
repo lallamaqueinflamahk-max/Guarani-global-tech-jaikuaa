@@ -6,7 +6,7 @@ import { BADGES, useStats } from "@/lib/gamification";
 import { StatsBar } from "@/components/gamification/stats-bar";
 
 export const Route = createFileRoute("/_authenticated/logros")({
-  head: () => ({ meta: [{ title: "Aranduka — Logros" }] }),
+  head: () => ({ meta: [{ title: "Jaikuaa — Logros" }] }),
   component: LogrosPage,
 });
 

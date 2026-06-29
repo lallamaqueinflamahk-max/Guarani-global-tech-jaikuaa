@@ -10,9 +10,9 @@ import { SpeakerButton } from "@/components/audio/speaker-button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Aranduka — Aprendé idiomas. Cambiá tu vida." },
+      { title: "Jaikuaa — Aprendé idiomas. Cambiá tu vida." },
       { name: "description", content: "La primera plataforma paraguaya de idiomas, con el guaraní en el corazón." },
-      { property: "og:title", content: "Aranduka — Aprendé idiomas. Cambiá tu vida." },
+      { property: "og:title", content: "Jaikuaa — Aprendé idiomas. Cambiá tu vida." },
       { property: "og:description", content: "La primera plataforma paraguaya de idiomas, con el guaraní en el corazón." },
     ],
   }),

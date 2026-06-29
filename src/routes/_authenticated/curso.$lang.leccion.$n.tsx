@@ -11,7 +11,7 @@ import { useRecordOnMount } from "@/lib/gamification";
 
 export const Route = createFileRoute("/_authenticated/curso/$lang/leccion/$n")({
   head: ({ params }) => ({
-    meta: [{ title: `Aranduka — Lección ${params.n}` }],
+    meta: [{ title: `Jaikuaa — Lección ${params.n}` }],
   }),
   loader: ({ params }) => {
     const lang = getLanguage(params.lang);

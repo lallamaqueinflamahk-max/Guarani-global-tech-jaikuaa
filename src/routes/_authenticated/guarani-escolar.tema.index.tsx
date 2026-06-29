@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { TEMAS_6TO } from "@/lib/guarani-tema";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/tema/")({
-  head: () => ({ meta: [{ title: "Aranduka — Práctica por Tema" }] }),
+  head: () => ({ meta: [{ title: "Jaikuaa — Práctica por Tema" }] }),
   component: TemaIndex,
 });
 

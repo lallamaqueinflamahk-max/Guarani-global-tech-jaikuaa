@@ -17,7 +17,7 @@ export function SiteFooter() {
 
           <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
             <Link to="/sobre" className="text-muted-foreground transition-colors hover:text-foreground">
-              Sobre Aranduka
+              Sobre Jaikuaa
             </Link>
             <Link to="/privacidad" className="text-muted-foreground transition-colors hover:text-foreground">
               Política de Privacidad
@@ -33,7 +33,7 @@ export function SiteFooter() {
             Aprendé · Hablá · Ñane Ñe'ẽ
           </p>
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Aranduka. Todos los derechos reservados.
+            © {new Date().getFullYear()} Jaikuaa. Todos los derechos reservados.
           </p>
         </div>
       </div>

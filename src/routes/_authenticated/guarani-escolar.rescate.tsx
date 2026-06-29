@@ -8,7 +8,7 @@ import { SpeakerButton } from "@/components/audio/speaker-button";
 
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/rescate")({
-  head: () => ({ meta: [{ title: "Aranduka — Modo Rescate" }] }),
+  head: () => ({ meta: [{ title: "Jaikuaa — Modo Rescate" }] }),
   component: ModoRescate,
 });
 

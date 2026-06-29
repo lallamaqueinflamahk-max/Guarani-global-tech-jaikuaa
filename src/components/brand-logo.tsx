@@ -11,14 +11,14 @@ export function BrandLogo({ className = "", size = 36, withWordmark = true }: Br
     <span className={`inline-flex items-center gap-2 font-display font-bold text-primary ${className}`}>
       <img
         src={logoAsset.url}
-        alt="Aranduka"
+        alt="Jaikuaa"
         width={size}
         height={size}
         style={{ width: size, height: size }}
         className="object-contain"
         draggable={false}
       />
-      {withWordmark && <span className="text-xl tracking-tight">Aranduka</span>}
+      {withWordmark && <span className="text-xl tracking-tight">Jaikuaa</span>}
     </span>
   );
 }
