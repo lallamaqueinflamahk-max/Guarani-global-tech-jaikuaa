@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import splashLogo from "@/assets/jaikuaa-splash.png.asset.json";
 
-const DURATION_MS = 1700;
+const DURATION_MS = 2500;
 const FADE_MS = 450;
 
 export function SplashScreen() {
@@ -47,7 +47,7 @@ export function SplashScreen() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "0.5rem",
+          gap: "0.35rem",
           animation: "jaikuaa-splash-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both",
         }}
       >
