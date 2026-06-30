@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import splashLogo from "@/assets/jaikuaa-splash.png.asset.json";
 
-const DURATION_MS = 1800;
+const DURATION_MS = 2000;
 const FADE_MS = 450;
 
 export function SplashScreen() {
