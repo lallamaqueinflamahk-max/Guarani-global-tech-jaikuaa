@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { getTema, type Tema } from "@/lib/guarani-tema";
 import { useRecordOnMount } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
+import { usePrefetchAudios } from "@/lib/audio";
+
 
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/tema/$topic")({
@@ -84,6 +86,8 @@ function TemaPage() {
 }
 
 function LearnStep({ tema, onNext }: { tema: Tema; onNext: () => void }) {
+  usePrefetchAudios(tema.vocab.map((v) => v.gn), 10);
+
   return (
     <div className="space-y-6">
       <section className="rounded-2xl border border-primary/20 bg-primary/5 p-5">
