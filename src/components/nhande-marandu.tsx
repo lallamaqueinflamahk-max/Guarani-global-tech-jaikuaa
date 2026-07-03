@@ -3,7 +3,7 @@ type NewsItem = {
   title: string;
   summary: string;
   date: string;
-  category: "SPL" | "Cultura" | "Educación" | "Comunidad";
+  category: "Cultura" | "Educación" | "Comunidad";
   emoji: string;
 };
 
