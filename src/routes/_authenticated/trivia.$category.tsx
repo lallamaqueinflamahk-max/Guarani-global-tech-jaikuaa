@@ -101,7 +101,7 @@ function TriviaQuiz() {
   const [xpEarned, setXpEarned] = useState(0);
   const [showStreakBadge, setShowStreakBadge] = useState<string | null>(null);
   const [streakBroken, setStreakBroken] = useState(false);
-  const errorSeedRef = useRef(Math.floor(Math.random() * 5));
+  const errorSeedRef = useRef(Math.floor(Math.random() * 8));
   const timerRef = useRef<number | null>(null);
   const awardedRef = useRef(false);
 
@@ -188,7 +188,7 @@ function TriviaQuiz() {
     setCorrectCount(0);
     setXpEarned(0);
     setStreakBroken(false);
-    errorSeedRef.current = Math.floor(Math.random() * 5);
+    errorSeedRef.current = Math.floor(Math.random() * 8);
     awardedRef.current = false;
   }
 
