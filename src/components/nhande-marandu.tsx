@@ -14,7 +14,7 @@ const NEWS: NewsItem[] = [
     summary:
       "La Secretaría de Políticas Lingüísticas presenta la actualización anual del corpus oficial con nuevas entradas léxicas.",
     date: "2 de julio, 2026",
-    category: "SPL",
+    category: "Cultura",
     emoji: "📚",
   },
   {
