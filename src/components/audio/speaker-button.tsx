@@ -1,5 +1,6 @@
-import { Volume2 } from "lucide-react";
-import { playGuarani } from "@/lib/audio";
+import { useEffect, useState } from "react";
+import { Volume2, VolumeX } from "lucide-react";
+import { getHumanAudioUrl } from "@/lib/audio";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -9,18 +10,55 @@ type Props = {
 };
 
 export function SpeakerButton({ gn, size = "sm", className }: Props) {
-  const dims =
-    size === "md" ? "h-9 w-9" : "h-8 w-8";
+  const dims = size === "md" ? "h-9 w-9" : "h-8 w-8";
   const icon = size === "md" ? "h-5 w-5" : "h-4 w-4";
+
+  const [url, setUrl] = useState<string | null | undefined>(undefined);
+
+  useEffect(() => {
+    let alive = true;
+    void getHumanAudioUrl(gn).then((u) => {
+      if (alive) setUrl(u);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [gn]);
+
+  const loading = url === undefined;
+  const hasAudio = Boolean(url);
+
+  if (!hasAudio && !loading) {
+    return (
+      <button
+        type="button"
+        disabled
+        aria-label={`Audio humano próximamente para ${gn}`}
+        title="Audio humano próximamente"
+        className={cn(
+          "inline-flex shrink-0 cursor-not-allowed items-center justify-center rounded-full bg-muted text-muted-foreground opacity-60",
+          dims,
+          className,
+        )}
+      >
+        <VolumeX className={icon} />
+      </button>
+    );
+  }
+
   return (
     <button
       type="button"
+      disabled={loading}
       onClick={() => {
-        void playGuarani(gn);
+        if (!url) return;
+        const audio = new Audio(url);
+        audio.preload = "auto";
+        void audio.play().catch(() => {});
       }}
       aria-label={`Escuchar ${gn}`}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition hover:bg-primary/20 active:scale-95",
+        "inline-flex shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition hover:bg-primary/20 active:scale-95 disabled:opacity-50",
         dims,
         className,
       )}
