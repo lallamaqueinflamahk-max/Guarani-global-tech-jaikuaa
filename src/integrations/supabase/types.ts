@@ -38,6 +38,251 @@ export type Database = {
         }
         Relationships: []
       }
+      trivia_categories: {
+        Row: {
+          created_at: string
+          emoji: string
+          id: string
+          sort_order: number
+          subtitle: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          emoji: string
+          id: string
+          sort_order?: number
+          subtitle: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          emoji?: string
+          id?: string
+          sort_order?: number
+          subtitle?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      trivia_question_awards: {
+        Row: {
+          answered_correctly: boolean
+          awarded_date: string
+          created_at: string
+          question_id: string
+          user_id: string
+          xp_awarded: number
+        }
+        Insert: {
+          answered_correctly?: boolean
+          awarded_date?: string
+          created_at?: string
+          question_id: string
+          user_id: string
+          xp_awarded?: number
+        }
+        Update: {
+          answered_correctly?: boolean
+          awarded_date?: string
+          created_at?: string
+          question_id?: string
+          user_id?: string
+          xp_awarded?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trivia_question_awards_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "trivia_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trivia_questions: {
+        Row: {
+          category_id: string
+          correct_index: number
+          created_at: string
+          explanation: string
+          id: string
+          options: Json
+          question: string
+          sort_order: number
+        }
+        Insert: {
+          category_id: string
+          correct_index: number
+          created_at?: string
+          explanation?: string
+          id?: string
+          options: Json
+          question: string
+          sort_order?: number
+        }
+        Update: {
+          category_id?: string
+          correct_index?: number
+          created_at?: string
+          explanation?: string
+          id?: string
+          options?: Json
+          question?: string
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trivia_questions_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "trivia_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trivia_sessions: {
+        Row: {
+          abandoned_at: string | null
+          best_streak: number
+          category_id: string
+          completed_at: string | null
+          correct_count: number
+          created_at: string
+          current_idx: number
+          current_streak: number
+          id: string
+          is_practice: boolean
+          question_ids: string[]
+          question_started_at: string | null
+          updated_at: string
+          user_id: string
+          xp_earned: number
+        }
+        Insert: {
+          abandoned_at?: string | null
+          best_streak?: number
+          category_id: string
+          completed_at?: string | null
+          correct_count?: number
+          created_at?: string
+          current_idx?: number
+          current_streak?: number
+          id?: string
+          is_practice?: boolean
+          question_ids: string[]
+          question_started_at?: string | null
+          updated_at?: string
+          user_id: string
+          xp_earned?: number
+        }
+        Update: {
+          abandoned_at?: string | null
+          best_streak?: number
+          category_id?: string
+          completed_at?: string | null
+          correct_count?: number
+          created_at?: string
+          current_idx?: number
+          current_streak?: number
+          id?: string
+          is_practice?: boolean
+          question_ids?: string[]
+          question_started_at?: string | null
+          updated_at?: string
+          user_id?: string
+          xp_earned?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trivia_sessions_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "trivia_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_stats: {
+        Row: {
+          badges: Json
+          created_at: string
+          current_streak: number
+          last_active_date: string | null
+          longest_streak: number
+          updated_at: string
+          user_id: string
+          xp: number
+        }
+        Insert: {
+          badges?: Json
+          created_at?: string
+          current_streak?: number
+          last_active_date?: string | null
+          longest_streak?: number
+          updated_at?: string
+          user_id: string
+          xp?: number
+        }
+        Update: {
+          badges?: Json
+          created_at?: string
+          current_streak?: number
+          last_active_date?: string | null
+          longest_streak?: number
+          updated_at?: string
+          user_id?: string
+          xp?: number
+        }
+        Relationships: []
+      }
+      xp_transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          metadata: Json
+          question_id: string | null
+          session_id: string | null
+          source: string
+          source_ref: string | null
+          sync_id: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          metadata?: Json
+          question_id?: string | null
+          session_id?: string | null
+          source: string
+          source_ref?: string | null
+          sync_id?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          metadata?: Json
+          question_id?: string | null
+          session_id?: string | null
+          source?: string
+          source_ref?: string | null
+          sync_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "xp_transactions_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "trivia_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
