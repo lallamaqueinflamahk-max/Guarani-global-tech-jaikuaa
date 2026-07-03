@@ -152,6 +152,20 @@ function Dashboard() {
               <p className="text-sm text-muted-foreground">Trivia: poné a prueba lo que sabés.</p>
               <span className="mt-1 text-sm font-medium text-primary">Jugar →</span>
             </Link>
+            <Link
+              to="/nhe-mbytepe"
+              className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-primary hover:shadow-lift"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-2xl" aria-hidden>🗣️</span>
+                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
+                  Gratis
+                </span>
+              </div>
+              <div className="font-display text-lg font-bold text-foreground">Ñe'ẽ Mbytépe</div>
+              <p className="text-sm text-muted-foreground">El guaraní que se habla en la calle.</p>
+              <span className="mt-1 text-sm font-medium text-primary">Explorar →</span>
+            </Link>
           </section>
 
           <section className="mt-12">

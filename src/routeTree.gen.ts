@@ -21,6 +21,7 @@ import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
 import { Route as AuthenticatedTraductorRouteImport } from './routes/_authenticated/traductor'
 import { Route as AuthenticatedNheRapeRouteImport } from './routes/_authenticated/nhe-rape'
+import { Route as AuthenticatedNheMbytepeRouteImport } from './routes/_authenticated/nhe-mbytepe'
 import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -93,6 +94,11 @@ const AuthenticatedTraductorRoute = AuthenticatedTraductorRouteImport.update({
 const AuthenticatedNheRapeRoute = AuthenticatedNheRapeRouteImport.update({
   id: '/nhe-rape',
   path: '/nhe-rape',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNheMbytepeRoute = AuthenticatedNheMbytepeRouteImport.update({
+  id: '/nhe-mbytepe',
+  path: '/nhe-mbytepe',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedLogrosRoute = AuthenticatedLogrosRouteImport.update({
@@ -188,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/logros': typeof AuthenticatedLogrosRoute
+  '/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
   '/nhe-rape': typeof AuthenticatedNheRapeRoute
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
@@ -214,6 +221,7 @@ export interface FileRoutesByTo {
   '/terminos': typeof TerminosRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/logros': typeof AuthenticatedLogrosRoute
+  '/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
   '/nhe-rape': typeof AuthenticatedNheRapeRoute
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
@@ -241,6 +249,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/_authenticated/logros': typeof AuthenticatedLogrosRoute
+  '/_authenticated/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
   '/_authenticated/nhe-rape': typeof AuthenticatedNheRapeRoute
   '/_authenticated/traductor': typeof AuthenticatedTraductorRoute
   '/_authenticated/tutor': typeof AuthenticatedTutorRoute
@@ -270,6 +279,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/guarani-escolar'
     | '/logros'
+    | '/nhe-mbytepe'
     | '/nhe-rape'
     | '/traductor'
     | '/tutor'
@@ -296,6 +306,7 @@ export interface FileRouteTypes {
     | '/terminos'
     | '/dashboard'
     | '/logros'
+    | '/nhe-mbytepe'
     | '/nhe-rape'
     | '/traductor'
     | '/tutor'
@@ -322,6 +333,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/guarani-escolar'
     | '/_authenticated/logros'
+    | '/_authenticated/nhe-mbytepe'
     | '/_authenticated/nhe-rape'
     | '/_authenticated/traductor'
     | '/_authenticated/tutor'
@@ -435,6 +447,13 @@ declare module '@tanstack/react-router' {
       path: '/nhe-rape'
       fullPath: '/nhe-rape'
       preLoaderRoute: typeof AuthenticatedNheRapeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/nhe-mbytepe': {
+      id: '/_authenticated/nhe-mbytepe'
+      path: '/nhe-mbytepe'
+      fullPath: '/nhe-mbytepe'
+      preLoaderRoute: typeof AuthenticatedNheMbytepeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/logros': {
@@ -600,6 +619,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedGuaraniEscolarRoute: typeof AuthenticatedGuaraniEscolarRouteWithChildren
   AuthenticatedLogrosRoute: typeof AuthenticatedLogrosRoute
+  AuthenticatedNheMbytepeRoute: typeof AuthenticatedNheMbytepeRoute
   AuthenticatedNheRapeRoute: typeof AuthenticatedNheRapeRoute
   AuthenticatedTraductorRoute: typeof AuthenticatedTraductorRoute
   AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
@@ -613,6 +633,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGuaraniEscolarRoute:
     AuthenticatedGuaraniEscolarRouteWithChildren,
   AuthenticatedLogrosRoute: AuthenticatedLogrosRoute,
+  AuthenticatedNheMbytepeRoute: AuthenticatedNheMbytepeRoute,
   AuthenticatedNheRapeRoute: AuthenticatedNheRapeRoute,
   AuthenticatedTraductorRoute: AuthenticatedTraductorRoute,
   AuthenticatedTutorRoute: AuthenticatedTutorRoute,
@@ -638,13 +659,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
