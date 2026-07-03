@@ -237,10 +237,10 @@ function NheMbytepe() {
             ))}
           </section>
 
-          <footer className="mx-auto mt-10 max-w-2xl rounded-xl border border-border/60 bg-muted/30 p-4 text-center text-xs italic text-muted-foreground">
-            Este contenido está en proceso de validación oficial con la Secretaría de
-            Políticas Lingüísticas del Paraguay.
+          <footer className="mx-auto mt-10 max-w-2xl rounded-xl border border-dashed border-primary/20 bg-primary/5 p-4 text-center text-xs font-medium text-primary/80">
+            Validado con hablantes nativos · en proceso de validación oficial
           </footer>
+
         </div>
       </main>
       <SiteFooter />
