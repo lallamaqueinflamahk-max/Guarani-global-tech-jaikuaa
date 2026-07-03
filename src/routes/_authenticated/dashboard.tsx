@@ -95,6 +95,9 @@ function Dashboard() {
   }, []);
 
   async function handleSignOut() {
+    try {
+      window.localStorage.removeItem(NAME_CACHE_KEY);
+    } catch {}
     await supabase.auth.signOut();
     navigate({ to: "/", replace: true });
   }
@@ -121,7 +124,15 @@ function Dashboard() {
         <div className="mx-auto max-w-5xl">
           <div className="text-center">
             <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-              {greeting.title}, <span className="text-accent">{name || "..."}</span>! {greeting.emoji}
+              {name ? (
+                <>
+                  {greeting.title}, <span className="text-accent">{name}</span>! {greeting.emoji}
+                </>
+              ) : (
+                <>
+                  {greeting.title}! {greeting.emoji}
+                </>
+              )}
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
               {greeting.subtitle}
