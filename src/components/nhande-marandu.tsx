@@ -5,44 +5,69 @@ type NewsItem = {
   date: string;
   category: "Cultura" | "Educación" | "Comunidad";
   emoji: string;
+  source: string;
 };
 
 const NEWS: NewsItem[] = [
   {
-    id: "spl-corpus-2026",
-    title: "SPL actualiza corpus de guaraní 2026",
+    id: "arandupy-2026",
+    title: "AranduPy 2026: premio a la mejor investigación lingüística",
     summary:
-      "La Secretaría de Políticas Lingüísticas presenta la actualización anual del corpus oficial con nuevas entradas léxicas.",
-    date: "2 de julio, 2026",
+      "La SPL lanza la tercera edición del premio AranduPy, que reconoce estudios sobre la riqueza lingüística del Paraguay. Primer premio: G. 10.000.000.",
+    date: "Mayo 2026",
+    category: "Cultura",
+    emoji: "🏆",
+    source: "Fuente: Paraguay TV",
+  },
+  {
+    id: "rincon-spl",
+    title: "La Biblioteca Nacional tendrá un 'Rincón SPL'",
+    summary:
+      "El ministro de la SPL, Javier Viveros, y la Biblioteca Nacional acordaron crear un 'Rincón SPL' con publicaciones sobre la diversidad lingüística del país.",
+    date: "Mayo 2026",
     category: "Cultura",
     emoji: "📚",
+    source: "Fuente: SPL",
   },
   {
-    id: "palabras-tec",
-    title: "Nuevas palabras tecnológicas en guaraní",
+    id: "diccionario-monolingue",
+    title: "Nuevo diccionario monolingüe de la lengua guaraní",
     summary:
-      "Ateneo de Lengua y Cultura Guaraní publica términos para 'nube', 'algoritmo' y 'inteligencia artificial'.",
-    date: "28 de junio, 2026",
-    category: "Cultura",
-    emoji: "💻",
-  },
-  {
-    id: "dia-lengua",
-    title: "Día de la Lengua Guaraní: eventos en Asunción",
-    summary:
-      "Conciertos, ferias y charlas gratuitas se realizarán en la Costanera y el Cabildo durante toda la semana.",
-    date: "25 de agosto, 2026",
-    category: "Comunidad",
-    emoji: "🎉",
-  },
-  {
-    id: "escuelas-bilingues",
-    title: "Más escuelas se suman al programa bilingüe",
-    summary:
-      "El MEC anuncia la incorporación de 120 instituciones al programa de educación bilingüe guaraní-español.",
-    date: "18 de junio, 2026",
+      "La Academia de la Lengua Guaraní presentó una versión corregida y aumentada del Diccionario de la Lengua Guaraní, que describe el idioma en la propia lengua y rescata su uso actual.",
+    date: "2026",
     category: "Educación",
-    emoji: "🎒",
+    emoji: "📖",
+    source: "Fuente: Academia de la Lengua Guaraní",
+  },
+  {
+    id: "convenio-chaco",
+    title: "Convenio para revitalizar lenguas indígenas del Chaco",
+    summary:
+      "La SPL firmó un Convenio Marco de Cooperación con la Coordinadora de Líderes y Lideresas Indígenas del Bajo Chaco, para promover y revitalizar las lenguas indígenas.",
+    date: "Abril 2026",
+    category: "Comunidad",
+    emoji: "🤝",
+    source: "Fuente: SPL",
+  },
+  {
+    id: "cancilleria-guarani",
+    title: "La Cancillería y la Academia difunden el guaraní en el exterior",
+    summary:
+      "El Ministerio de Relaciones Exteriores y la Academia de la Lengua Guaraní firmaron un convenio para promover la lengua guaraní en embajadas y consulados.",
+    date: "2026",
+    category: "Cultura",
+    emoji: "🌐",
+    source: "Fuente: MRE Paraguay",
+  },
+  {
+    id: "decenio-lenguas-indigenas",
+    title: "Paraguay y el Decenio Internacional de las Lenguas Indígenas",
+    summary:
+      "En el marco del Decenio Internacional de las Lenguas Indígenas de la UNESCO (2022-2032), Paraguay impulsa la preservación y revitalización de sus lenguas, entre ellas el guaraní.",
+    date: "2022-2032",
+    category: "Educación",
+    emoji: "🌍",
+    source: "Fuente: UNESCO / SPL",
   },
 ];
 
@@ -92,10 +117,9 @@ export function NhandeMarandu() {
               </h3>
               <p className="text-sm text-muted-foreground select-none" style={{ WebkitTouchCallout: "none" }}>{n.summary}</p>
               <div className="mt-auto pt-2">
-                <span className="inline-flex items-center gap-1 rounded-md border border-dashed border-primary/20 bg-primary/5 px-2 py-1 text-[10px] font-medium text-primary/80 select-none" style={{ WebkitTouchCallout: "none" }}>
-                  En proceso de validación
+                <span className="text-[10px] font-medium text-muted-foreground/80 select-none" style={{ WebkitTouchCallout: "none" }}>
+                  {n.source}
                 </span>
-
               </div>
             </div>
           </article>
