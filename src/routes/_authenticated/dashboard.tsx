@@ -251,7 +251,7 @@ function Dashboard() {
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {LANGUAGES.map((l) => {
+              {LANGUAGES.filter((l) => l.slug === "guarani").map((l) => {
                 const progress = 0;
                 const isGuarani = l.slug === "guarani";
                 const cardBody = (
