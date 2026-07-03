@@ -47,15 +47,32 @@ export function SpeakerButton({ gn, size = "sm", className }: Props) {
     );
   }
 
+  const hoverTimer = useRef<number | null>(null);
+  const startHoverPrefetch = () => {
+    if (hoverTimer.current !== null) return;
+    hoverTimer.current = window.setTimeout(() => {
+      void prefetchAudio(gn);
+      hoverTimer.current = null;
+    }, 200);
+  };
+  const cancelHoverPrefetch = () => {
+    if (hoverTimer.current !== null) {
+      window.clearTimeout(hoverTimer.current);
+      hoverTimer.current = null;
+    }
+  };
+
   return (
     <button
       type="button"
       disabled={loading}
+      onMouseEnter={startHoverPrefetch}
+      onMouseLeave={cancelHoverPrefetch}
+      onFocus={() => void prefetchAudio(gn)}
+      onTouchStart={() => void prefetchAudio(gn)}
       onClick={() => {
         if (!url) return;
-        const audio = new Audio(url);
-        audio.preload = "auto";
-        void audio.play().catch(() => {});
+        void playGuarani(gn);
       }}
       aria-label={`Escuchar ${gn}`}
       className={cn(
@@ -68,3 +85,4 @@ export function SpeakerButton({ gn, size = "sm", className }: Props) {
     </button>
   );
 }
+
