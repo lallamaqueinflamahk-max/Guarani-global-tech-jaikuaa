@@ -172,6 +172,18 @@ export const TRIVIA: Record<TriviaCategoryId, TriviaCategory> = {
         answer: 0,
         explanation: "Ñe'ẽ es palabra, lengua, el habla.",
       },
+      {
+        q: '¿Cuál es el verbo guaraní para "comer"?',
+        options: ["Karu", "Guata", "Hecha", "Jaha"],
+        answer: 0,
+        explanation: "Karu es el verbo comer en guaraní.",
+      },
+      {
+        q: '¿Cuál es el verbo guaraní para "caminar / andar"?',
+        options: ["Guata", "Karu", "Hecha", "Jaha"],
+        answer: 0,
+        explanation: "Guata significa caminar o andar.",
+      },
     ],
   },
 };
