@@ -12,38 +12,40 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
 });
 
-function greetingFor(hour: number): { title: string; subtitle: string; emoji: string } {
+function greetingFor(hour: number): { subtitle: string; emoji: string } {
   if (hour >= 6 && hour < 12)
     return {
       emoji: "🌅",
-      title: "¡Mba'éichapa",
       subtitle: "¿Listo para despertar el guaraní que llevás dentro?",
     };
   if (hour >= 12 && hour < 18)
     return {
       emoji: "☀️",
-      title: "¡Che",
       subtitle: "El sol está alto y tu ñe'ẽ también puede brillar.",
     };
   if (hour >= 18 && hour < 24)
     return {
       emoji: "🌙",
-      title: "¡Aguyje por volver",
       subtitle: "Unos minutos de guaraní antes de dormir.",
     };
   return {
     emoji: "🌙",
-    title: "¿Todavía despierto",
     subtitle: "El jaguaréte también caza de noche. ¡Practicá un poco!",
   };
 }
 
 const NAME_CACHE_KEY = "aranduka:profile-name";
 
+function firstName(fullName: string): string {
+  if (!fullName) return "";
+  const first = fullName.split(" ")[0];
+  return first ? first.charAt(0).toUpperCase() + first.slice(1) : "";
+}
+
 function readCachedName(): string {
   if (typeof window === "undefined") return "";
   try {
-    return window.localStorage.getItem(NAME_CACHE_KEY) || "";
+    return firstName(window.localStorage.getItem(NAME_CACHE_KEY) || "");
   } catch {
     return "";
   }
@@ -52,7 +54,7 @@ function readCachedName(): string {
 function writeCachedName(name: string) {
   if (typeof window === "undefined") return;
   try {
-    window.localStorage.setItem(NAME_CACHE_KEY, name);
+    window.localStorage.setItem(NAME_CACHE_KEY, firstName(name));
   } catch {}
 }
 
@@ -74,7 +76,7 @@ function Dashboard() {
         (user.user_metadata?.name as string | undefined);
       // Optimistic: use auth metadata immediately if we have no cached name.
       if (!readCachedName() && fromMeta) {
-        setName(fromMeta);
+        setName(firstName(fromMeta));
         writeCachedName(fromMeta);
       }
       const { data: profile } = await supabase
@@ -85,7 +87,7 @@ function Dashboard() {
       if (cancelled) return;
       const resolved = profile?.full_name || fromMeta || user.email?.split("@")[0] || "";
       if (resolved) {
-        setName(resolved);
+        setName(firstName(resolved));
         writeCachedName(resolved);
       }
     })();
@@ -126,11 +128,11 @@ function Dashboard() {
             <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
               {name ? (
                 <>
-                  {greeting.title}, <span className="text-accent">{name}</span>! {greeting.emoji}
+                  ¡Che, <span className="text-accent">{name}</span>! {greeting.emoji}
                 </>
               ) : (
                 <>
-                  {greeting.title}! {greeting.emoji}
+                  ¡Che! {greeting.emoji}
                 </>
               )}
             </h1>
