@@ -112,6 +112,18 @@ export const TRIVIA: Record<TriviaCategoryId, TriviaCategory> = {
         answer: 1,
         explanation: "Es la figura paraguaya del hombre lobo.",
       },
+      {
+        q: "¿Quién es el dios del trueno en la mitología guaraní?",
+        options: ["Tupã", "Ñamandu", "Jasy", "Kuarahy"],
+        answer: 0,
+        explanation: "Tupã es el dios del trueno y de las tormentas en la cosmovisión guaraní.",
+      },
+      {
+        q: "¿Qué criatura mitológica vive en el monte y tiene los pies al revés?",
+        options: ["El Pombéro", "El Kurupi", "El Jasy Jateré", "El Ao Ao"],
+        answer: 0,
+        explanation: "Al Pombéro se lo describe con los pies al revés para confundir a quienes lo persiguen.",
+      },
     ],
   },
   cultura: {
