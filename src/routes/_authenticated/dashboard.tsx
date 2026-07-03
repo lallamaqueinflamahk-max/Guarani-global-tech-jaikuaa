@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { LANGUAGES } from "@/lib/languages";
 import { StatsBar, StreakBanner } from "@/components/gamification/stats-bar";
 import { SiteFooter } from "@/components/site-footer";
+import { NhandeMarandu } from "@/components/nhande-marandu";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Jaikuaa — Tu panel" }] }),
