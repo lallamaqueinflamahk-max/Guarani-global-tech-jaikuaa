@@ -42,6 +42,7 @@ function TriviaQuiz() {
   const [xpEarned, setXpEarned] = useState(0);
   const [showStreakBadge, setShowStreakBadge] = useState<number | null>(null);
   const timerRef = useRef<number | null>(null);
+  const awardedRef = useRef(false);
 
   const total = cat.questions.length;
   const question = cat.questions[idx];
@@ -96,8 +97,10 @@ function TriviaQuiz() {
   function handleNext() {
     if (idx + 1 >= total) {
       setPhase("done");
-      // Award XP through existing gamification system
-      recordCompletion({ xp: xpEarned });
+      if (!awardedRef.current) {
+        awardedRef.current = true;
+        recordCompletion({ xp: xpEarned });
+      }
       if (correctCount === total) celebrate("big");
       else if (correctCount >= 3) celebrate("small");
       return;
@@ -118,6 +121,7 @@ function TriviaQuiz() {
     setBestStreak(0);
     setCorrectCount(0);
     setXpEarned(0);
+    awardedRef.current = false;
   }
 
   const pct = ((idx + (answered ? 1 : 0)) / total) * 100;
