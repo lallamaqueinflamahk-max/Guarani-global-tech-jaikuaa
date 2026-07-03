@@ -13,10 +13,6 @@ function slugifyAudio(gn: string): string {
   return x;
 }
 
-function encodeStoragePath(path: string): string {
-  return path.split("/").map(encodeURIComponent).join("/");
-}
-
 export const getAudioSignedUrl = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => Input.parse(d))
   .handler(async ({ data }) => {
