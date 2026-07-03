@@ -38,28 +38,60 @@ function greetingFor(hour: number): { title: string; subtitle: string; emoji: st
   };
 }
 
+const NAME_CACHE_KEY = "aranduka:profile-name";
+
+function readCachedName(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    return window.localStorage.getItem(NAME_CACHE_KEY) || "";
+  } catch {
+    return "";
+  }
+}
+
+function writeCachedName(name: string) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(NAME_CACHE_KEY, name);
+  } catch {}
+}
+
 function Dashboard() {
   const navigate = useNavigate();
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<string>(() => readCachedName());
   const [comingSoon, setComingSoon] = useState<string | null>(null);
   const greeting = useMemo(() => greetingFor(new Date().getHours()), []);
 
 
   useEffect(() => {
+    let cancelled = false;
     (async () => {
       const { data: userData } = await supabase.auth.getUser();
       const user = userData.user;
-      if (!user) return;
+      if (!user || cancelled) return;
+      const fromMeta =
+        (user.user_metadata?.full_name as string | undefined) ??
+        (user.user_metadata?.name as string | undefined);
+      // Optimistic: use auth metadata immediately if we have no cached name.
+      if (!readCachedName() && fromMeta) {
+        setName(fromMeta);
+        writeCachedName(fromMeta);
+      }
       const { data: profile } = await supabase
         .from("profiles")
         .select("full_name")
         .eq("id", user.id)
         .maybeSingle();
-      const fromMeta =
-        (user.user_metadata?.full_name as string | undefined) ??
-        (user.user_metadata?.name as string | undefined);
-      setName(profile?.full_name || fromMeta || user.email?.split("@")[0] || "amigo/a");
+      if (cancelled) return;
+      const resolved = profile?.full_name || fromMeta || user.email?.split("@")[0] || "";
+      if (resolved) {
+        setName(resolved);
+        writeCachedName(resolved);
+      }
     })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   async function handleSignOut() {
