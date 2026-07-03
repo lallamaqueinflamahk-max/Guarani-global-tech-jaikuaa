@@ -92,9 +92,10 @@ export function NhandeMarandu() {
               </h3>
               <p className="text-sm text-muted-foreground select-none" style={{ WebkitTouchCallout: "none" }}>{n.summary}</p>
               <div className="mt-auto pt-2">
-                <span className="inline-flex items-center gap-1 rounded-md border border-dashed border-border bg-muted/40 px-2 py-1 text-[10px] font-medium text-muted-foreground select-none" style={{ WebkitTouchCallout: "none" }}>
-                  ⚠️ Información en proceso de validación con la SPL
+                <span className="inline-flex items-center gap-1 rounded-md border border-dashed border-primary/20 bg-primary/5 px-2 py-1 text-[10px] font-medium text-primary/80 select-none" style={{ WebkitTouchCallout: "none" }}>
+                  En proceso de validación
                 </span>
+
               </div>
             </div>
           </article>
