@@ -25,6 +25,62 @@ export const Route = createFileRoute("/_authenticated/trivia/$category")({
 
 type Phase = "playing" | "done";
 
+// ── Rotating error messages (never repeat the same one twice in a row) ────────
+function buildErrorMessage(correctAnswer: string, index: number): string {
+  const templates = [
+    `¡Casi, che! La respuesta era **${correctAnswer}**.\n\nNo te preocupes, el guaraní ya está en vos. Solo hay que despertarlo. 🐆`,
+    `¡Uy, esa era difícil! Era **${correctAnswer}**.\n\nTu abuela también se equivocó cuando aprendió. Seguí. 💙`,
+    `¡Casi la tenés! Era **${correctAnswer}**.\n\nEl jaguaréte también tropieza, pero siempre se levanta. 🐆`,
+    `El guaraní es como el mate: se aprende tomando. 🧉\n\nLa correcta era **${correctAnswer}**. ¡Otra más!`,
+    `¡No pasa nada, che! Era **${correctAnswer}**.\n\nCada error es una palabra que ya no se te olvida. 💪`,
+  ];
+  return templates[index % templates.length];
+}
+
+function buildSuccessMessage(
+  category: TriviaCategoryId,
+  answer: string,
+  explanation: string,
+): string {
+  switch (category) {
+    case "vocabulario":
+      return `¡Añete! **${answer}**.\n\n${explanation} Ahora podés decírselo a tu abuela. Ella va a sonreír. 🐆`;
+    case "mitos":
+      return `¡Sí! **${answer}**.\n\n${explanation} Tu historia vive. 🔥`;
+    case "cultura":
+      return `¡Exacto! **${answer}**.\n\n${explanation} Vos la seguís viva. 💙`;
+  }
+}
+
+function streakLabel(n: number): string | null {
+  if (n === 2) return "¡Vas bien, che! 🔥";
+  if (n === 3) return "¡Racha x3! El jaguaréte está orgulloso. 🐆";
+  if (n === 4) return "¡Imparable! ¿Vos ya sabías guaraní en otra vida? ✨";
+  if (n >= 5) return "¡PERFECTO! El jaguaréte te nombra guerrero del Ñe'ẽ. 🐆⚔️";
+  return null;
+}
+
+// Simple markdown-lite: **bold** and newlines
+function renderCopy(text: string) {
+  const lines = text.split("\n");
+  return lines.map((line, i) => {
+    const parts = line.split(/(\*\*[^*]+\*\*)/g);
+    return (
+      <p key={i} className={i > 0 ? "mt-2" : ""}>
+        {parts.map((p, j) =>
+          p.startsWith("**") && p.endsWith("**") ? (
+            <strong key={j} className="font-bold">
+              {p.slice(2, -2)}
+            </strong>
+          ) : (
+            <span key={j}>{p}</span>
+          ),
+        )}
+      </p>
+    );
+  });
+}
+
 function TriviaQuiz() {
   const { category } = Route.useLoaderData() as { category: TriviaCategoryId };
   const cat = TRIVIA[category];
@@ -40,13 +96,16 @@ function TriviaQuiz() {
   const [bestStreak, setBestStreak] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [xpEarned, setXpEarned] = useState(0);
-  const [showStreakBadge, setShowStreakBadge] = useState<number | null>(null);
+  const [showStreakBadge, setShowStreakBadge] = useState<string | null>(null);
+  const [streakBroken, setStreakBroken] = useState(false);
+  const errorSeedRef = useRef(Math.floor(Math.random() * 5));
   const timerRef = useRef<number | null>(null);
   const awardedRef = useRef(false);
 
   const total = cat.questions.length;
   const question = cat.questions[idx];
   const answered = selected !== null || timedOut;
+  const correctAnswerText = question.options[question.answer];
 
   // Timer
   useEffect(() => {
@@ -70,6 +129,7 @@ function TriviaQuiz() {
 
   function handleTimeout() {
     setTimedOut(true);
+    if (streak >= 2) setStreakBroken(true);
     setStreak(0);
   }
 
@@ -83,18 +143,21 @@ function TriviaQuiz() {
       setBestStreak((b) => Math.max(b, newStreak));
       setCorrectCount((c) => c + 1);
       let gained = XP_PER_CORRECT;
-      if (newStreak >= 3) {
-        gained += XP_STREAK_BONUS;
-        setShowStreakBadge(newStreak);
-        window.setTimeout(() => setShowStreakBadge(null), 1400);
+      if (newStreak >= 3) gained += XP_STREAK_BONUS;
+      const label = streakLabel(newStreak);
+      if (label) {
+        setShowStreakBadge(label);
+        window.setTimeout(() => setShowStreakBadge(null), 1600);
       }
       setXpEarned((x) => x + gained);
     } else {
+      if (streak >= 2) setStreakBroken(true);
       setStreak(0);
     }
   }
 
   function handleNext() {
+    setStreakBroken(false);
     if (idx + 1 >= total) {
       setPhase("done");
       if (!awardedRef.current) {
@@ -121,6 +184,8 @@ function TriviaQuiz() {
     setBestStreak(0);
     setCorrectCount(0);
     setXpEarned(0);
+    setStreakBroken(false);
+    errorSeedRef.current = Math.floor(Math.random() * 5);
     awardedRef.current = false;
   }
 
@@ -128,6 +193,10 @@ function TriviaQuiz() {
   const timePct = (timeLeft / QUESTION_SECONDS) * 100;
   const timerColor =
     timePct > 60 ? "bg-primary" : timePct > 30 ? "bg-amber-500" : "bg-destructive";
+
+  const isCorrectAnswered = answered && selected === question.answer;
+  const errorCopy = buildErrorMessage(correctAnswerText, errorSeedRef.current + idx);
+  const successCopy = buildSuccessMessage(category, correctAnswerText, question.explanation);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -176,8 +245,8 @@ function TriviaQuiz() {
               {/* Streak badge floating */}
               {showStreakBadge && (
                 <div className="pointer-events-none fixed left-1/2 top-24 z-50 -translate-x-1/2 animate-fade-in">
-                  <div className="rounded-full bg-accent px-4 py-2 font-display text-lg font-bold text-accent-foreground shadow-lg">
-                    ¡Racha x{showStreakBadge}! 🔥
+                  <div className="max-w-xs rounded-full bg-accent px-4 py-2 text-center font-display text-sm font-bold text-accent-foreground shadow-lg sm:text-base">
+                    {showStreakBadge}
                   </div>
                 </div>
               )}
@@ -226,26 +295,34 @@ function TriviaQuiz() {
                 </div>
 
                 {answered && (
-                  <div className="mt-5 animate-fade-in">
+                  <div className="mt-5 animate-fade-in space-y-3">
                     <div
                       className={cn(
-                        "rounded-xl px-4 py-3 text-sm",
-                        selected === question.answer
+                        "rounded-xl px-4 py-3 text-sm leading-relaxed",
+                        isCorrectAnswered
                           ? "bg-emerald-50 text-emerald-900"
-                          : "bg-destructive/10 text-destructive",
+                          : "bg-primary/5 text-foreground",
                       )}
                     >
-                      {timedOut && selected === null ? (
-                        <>⏱️ Se acabó el tiempo. </>
-                      ) : selected === question.answer ? (
-                        <>✅ ¡Correcto! </>
-                      ) : (
-                        <>❌ Incorrecto. </>
-                      )}
-                      {question.explanation}
+                      {isCorrectAnswered
+                        ? renderCopy(successCopy)
+                        : timedOut && selected === null
+                          ? renderCopy(
+                              `⏱️ Se acabó el tiempo, che.\n\n${errorCopy}`,
+                            )
+                          : renderCopy(errorCopy)}
                     </div>
-                    <Button onClick={handleNext} className="mt-4 w-full" size="lg">
-                      {idx + 1 >= total ? "Ver resultado" : "Siguiente →"}
+
+                    {streakBroken && (
+                      <div className="rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm leading-relaxed text-foreground">
+                        {renderCopy(
+                          "Se cortó la racha... 😔\n\nPero no importa, che. El guaraní no se aprende de una. Tu abuela tampoco la acertó todo el primer día.\n\n**Volvé mañana. El jaguaréte te espera.** 🐆",
+                        )}
+                      </div>
+                    )}
+
+                    <Button onClick={handleNext} className="w-full" size="lg">
+                      {idx + 1 >= total ? "Ver resultado" : "¡Seguimos! →"}
                     </Button>
                   </div>
                 )}
@@ -292,19 +369,36 @@ function ResultsScreen({
   onReplay: () => void;
   onChoose: () => void;
 }) {
+  const isPerfect = correct === total;
   const verdict = useMemo(() => {
-    if (correct === total) return "¡Iporãite!";
+    if (isPerfect) return "¡Iporãite!";
     if (correct >= 3) return "¡Iporã!";
     return "¡Seguí practicando!";
-  }, [correct, total]);
+  }, [correct, total, isPerfect]);
 
   return (
     <div className="rounded-2xl border border-border/60 bg-card p-8 text-center shadow-elegant animate-fade-in">
-      <div className="text-5xl" aria-hidden>🏆</div>
+      <div className="text-5xl" aria-hidden>
+        {isPerfect ? "🐆" : "🏆"}
+      </div>
       <h2 className="mt-3 font-display text-3xl font-bold text-foreground">
         {correct} de {total} {verdict}
       </h2>
       <p className="mt-1 text-sm text-muted-foreground">{category}</p>
+
+      {isPerfect && (
+        <div className="mt-5 rounded-xl border border-accent/30 bg-accent/5 p-4 text-left text-sm leading-relaxed text-foreground">
+          <p className="font-display text-lg font-bold text-accent">
+            ¡PERFECTO, CHE! 🐆🐆🐆
+          </p>
+          <p className="mt-2">
+            El jaguaréte te nombra <strong>Guerrero del Ñe'ẽ</strong>.
+          </p>
+          <p className="mt-1">
+            Tu nombre queda grabado en las estrellas de Tupã.
+          </p>
+        </div>
+      )}
 
       <div className="mt-6 grid grid-cols-2 gap-3">
         <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">

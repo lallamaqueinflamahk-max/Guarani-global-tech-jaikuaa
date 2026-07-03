@@ -165,10 +165,18 @@ function NheMbytepe() {
             <p className="mt-2 text-base font-medium text-muted-foreground sm:text-lg">
               El guaraní que se habla en la calle
             </p>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-              El jopara es la mezcla natural de guaraní y español que usamos todos los días.
-              Aquí lo estudiamos con respeto, mostrando tanto la forma cotidiana como la forma pura.
-            </p>
+            <div className="mx-auto mt-4 max-w-2xl space-y-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              <p>
+                El jopara no es un error. Es el abrazo entre dos lenguas.
+              </p>
+              <p>
+                Así hablamos los paraguayos: sin filtros, sin vergüenza, con alma.
+              </p>
+              <p>
+                Aquí lo estudiamos con respeto, porque lo vivo también merece ser entendido.
+              </p>
+            </div>
+
 
             <div className="mx-auto mt-5 inline-flex max-w-xl items-center gap-2 rounded-full border border-amber-300/60 bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-800">
               🏛️ Contenido cultural en proceso de validación oficial con la SPL

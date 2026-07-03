@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { BrandLogo } from "@/components/brand-logo";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { LANGUAGES } from "@/lib/languages";
@@ -12,10 +12,38 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
 });
 
+function greetingFor(hour: number): { title: string; subtitle: string; emoji: string } {
+  if (hour >= 6 && hour < 12)
+    return {
+      emoji: "🌅",
+      title: "¡Mba'éichapa",
+      subtitle: "¿Listo para despertar el guaraní que llevás dentro?",
+    };
+  if (hour >= 12 && hour < 18)
+    return {
+      emoji: "☀️",
+      title: "¡Che",
+      subtitle: "El sol está alto y tu ñe'ẽ también puede brillar.",
+    };
+  if (hour >= 18 && hour < 24)
+    return {
+      emoji: "🌙",
+      title: "¡Aguyje por volver",
+      subtitle: "Unos minutos de guaraní antes de dormir.",
+    };
+  return {
+    emoji: "🌙",
+    title: "¿Todavía despierto",
+    subtitle: "El jaguaréte también caza de noche. ¡Practicá un poco!",
+  };
+}
+
 function Dashboard() {
   const navigate = useNavigate();
   const [name, setName] = useState<string>("");
   const [comingSoon, setComingSoon] = useState<string | null>(null);
+  const greeting = useMemo(() => greetingFor(new Date().getHours()), []);
+
 
   useEffect(() => {
     (async () => {
@@ -61,12 +89,13 @@ function Dashboard() {
         <div className="mx-auto max-w-5xl">
           <div className="text-center">
             <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-              ¡Mba'éichapa, <span className="text-accent">{name || "..."}</span>!
+              {greeting.title}, <span className="text-accent">{name || "..."}</span>! {greeting.emoji}
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
-              Bienvenido/a a tu panel de Jaikuaa.
+              {greeting.subtitle}
             </p>
           </div>
+
 
           <div className="mt-8 space-y-3">
             <StatsBar />
