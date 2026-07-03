@@ -28,11 +28,14 @@ type Phase = "playing" | "done";
 // ── Rotating error messages (never repeat the same one twice in a row) ────────
 function buildErrorMessage(correctAnswer: string, index: number): string {
   const templates = [
-    `¡Casi, che! La respuesta era **${correctAnswer}**.\n\nNo te preocupes, el guaraní ya está en vos. Solo hay que despertarlo. 🐆`,
-    `¡Uy, esa era difícil! Era **${correctAnswer}**.\n\nTu abuela también se equivocó cuando aprendió. Seguí. 💙`,
-    `¡Casi la tenés! Era **${correctAnswer}**.\n\nEl jaguaréte también tropieza, pero siempre se levanta. 🐆`,
+    `¡Casi, che! La respuesta era **${correctAnswer}**.\n\nNo te preocupés, el guaraní ya está en vos. Solo hay que despertarlo. 🐆`,
+    `¡Uy, esa era difícil! Era **${correctAnswer}**.\n\nNadie nace sabiendo. Cada guaraní que aprendés es una raíz que recuperás. 💙`,
+    `¡Casi la tenés! Era **${correctAnswer}**.\n\nEl jaguaréte también tropieza, pero siempre se levanta. Seguí. 🐆`,
     `El guaraní es como el mate: se aprende tomando. 🧉\n\nLa correcta era **${correctAnswer}**. ¡Otra más!`,
-    `¡No pasa nada, che! Era **${correctAnswer}**.\n\nCada error es una palabra que ya no se te olvida. 💪`,
+    `¡No pasa nada, che! Era **${correctAnswer}**.\n\nEn Paraguay nadie te juzga por equivocarte. Acá se aprende junto. 💙`,
+    `Era **${correctAnswer}**.\n\nCada error es una palabra que ya no se te olvida. Tu ñe'ẽ crece. 🌱`,
+    `¡Casi! Era **${correctAnswer}**.\n\nVos no estás aprendiendo un idioma. Estás recuperando lo que siempre fue tuyo. 🐆`,
+    `Era **${correctAnswer}**.\n\nEl que nunca se equivoca, nunca aprende. Vos ya estás un paso adelante. 💪`,
   ];
   return templates[index % templates.length];
 }
@@ -98,7 +101,7 @@ function TriviaQuiz() {
   const [xpEarned, setXpEarned] = useState(0);
   const [showStreakBadge, setShowStreakBadge] = useState<string | null>(null);
   const [streakBroken, setStreakBroken] = useState(false);
-  const errorSeedRef = useRef(Math.floor(Math.random() * 5));
+  const errorSeedRef = useRef(Math.floor(Math.random() * 8));
   const timerRef = useRef<number | null>(null);
   const awardedRef = useRef(false);
 
@@ -185,7 +188,7 @@ function TriviaQuiz() {
     setCorrectCount(0);
     setXpEarned(0);
     setStreakBroken(false);
-    errorSeedRef.current = Math.floor(Math.random() * 5);
+    errorSeedRef.current = Math.floor(Math.random() * 8);
     awardedRef.current = false;
   }
 
