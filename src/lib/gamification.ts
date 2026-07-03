@@ -150,9 +150,10 @@ export function resetStats() {
 }
 
 export function useStats(): Stats {
-  const [stats, setStats] = useState<Stats>(() => emptyStats());
+  // Read synchronously from localStorage so the UI never flashes zeros.
+  // Safe here because consumers live under the ssr:false _authenticated layout.
+  const [stats, setStats] = useState<Stats>(() => read());
   useEffect(() => {
-    setStats(read());
     const handler = () => setStats(read());
     window.addEventListener(EVENT_NAME, handler);
     window.addEventListener("storage", handler);
