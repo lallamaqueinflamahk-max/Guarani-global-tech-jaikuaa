@@ -22,10 +22,17 @@ export const getAudioSignedUrl = createServerFn({ method: "POST" })
     );
 
     const file = `${slugify(data.gn)}.mp3`;
-    const { data: signed, error } = await supabase.storage
-      .from("guarani-audio")
-      .createSignedUrl(file, 60 * 60 * 24); // 24 horas
+    try {
+      const { data: signed, error } = await supabase.storage
+        .from("guarani-audio")
+        .createSignedUrl(file, 60 * 60 * 24); // 24 horas
 
-    if (error) throw error;
-    return { signedUrl: signed.signedUrl };
+      if (error || !signed?.signedUrl) {
+        return { signedUrl: null as string | null };
+      }
+      return { signedUrl: signed.signedUrl as string | null };
+    } catch {
+      // Missing object / storage unavailable → client falls back to TTS.
+      return { signedUrl: null as string | null };
+    }
   });
