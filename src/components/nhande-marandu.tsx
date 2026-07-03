@@ -47,11 +47,11 @@ const NEWS: NewsItem[] = [
 ];
 
 const CATEGORY_STYLES: Record<NewsItem["category"], string> = {
-  SPL: "bg-primary/10 text-primary",
   Cultura: "bg-accent/15 text-accent",
   Educación: "bg-emerald-100 text-emerald-700",
   Comunidad: "bg-amber-100 text-amber-800",
 };
+
 
 export function NhandeMarandu() {
   return (
