@@ -10,7 +10,7 @@ import {
   XP_STREAK_BONUS,
   type TriviaCategoryId,
 } from "@/lib/trivia";
-import { useRecordOnMount } from "@/lib/gamification";
+import { recordCompletion } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
 import { cn } from "@/lib/utils";
 
@@ -42,6 +42,7 @@ function TriviaQuiz() {
   const [xpEarned, setXpEarned] = useState(0);
   const [showStreakBadge, setShowStreakBadge] = useState<number | null>(null);
   const timerRef = useRef<number | null>(null);
+  const awardedRef = useRef(false);
 
   const total = cat.questions.length;
   const question = cat.questions[idx];
@@ -96,6 +97,10 @@ function TriviaQuiz() {
   function handleNext() {
     if (idx + 1 >= total) {
       setPhase("done");
+      if (!awardedRef.current) {
+        awardedRef.current = true;
+        recordCompletion({ xp: xpEarned });
+      }
       if (correctCount === total) celebrate("big");
       else if (correctCount >= 3) celebrate("small");
       return;
@@ -116,6 +121,7 @@ function TriviaQuiz() {
     setBestStreak(0);
     setCorrectCount(0);
     setXpEarned(0);
+    awardedRef.current = false;
   }
 
   const pct = ((idx + (answered ? 1 : 0)) / total) * 100;
@@ -286,8 +292,6 @@ function ResultsScreen({
   onReplay: () => void;
   onChoose: () => void;
 }) {
-  useRecordOnMount({ xp });
-
   const verdict = useMemo(() => {
     if (correct === total) return "¡Iporãite!";
     if (correct >= 3) return "¡Iporã!";
