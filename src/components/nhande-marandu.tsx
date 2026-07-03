@@ -55,7 +55,7 @@ const CATEGORY_STYLES: Record<NewsItem["category"], string> = {
 
 export function NhandeMarandu() {
   return (
-    <section className="mt-12">
+    <section className="mt-12 select-none" style={{ WebkitTouchCallout: "none" }}>
       <div className="flex items-baseline justify-between gap-4">
         <div>
           <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
@@ -71,7 +71,8 @@ export function NhandeMarandu() {
         {NEWS.map((n) => (
           <article
             key={n.id}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card shadow-elegant card-hover hover:shadow-lift"
+            className="group flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-card shadow-elegant card-hover hover:shadow-lift select-none"
+            style={{ WebkitTouchCallout: "none" }}
           >
             <div className="flex h-32 items-center justify-center bg-gradient-to-br from-primary/10 via-accent/10 to-muted text-5xl" aria-hidden>
               {n.emoji}
@@ -79,18 +80,19 @@ export function NhandeMarandu() {
             <div className="flex flex-1 flex-col gap-3 p-5">
               <div className="flex items-center justify-between gap-2">
                 <span
-                  className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${CATEGORY_STYLES[n.category]}`}
+                  className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide select-none ${CATEGORY_STYLES[n.category]}`}
+                  style={{ WebkitTouchCallout: "none" }}
                 >
                   {n.category}
                 </span>
-                <span className="text-xs text-muted-foreground">{n.date}</span>
+                <span className="text-xs text-muted-foreground select-none" style={{ WebkitTouchCallout: "none" }}>{n.date}</span>
               </div>
-              <h3 className="font-display text-lg font-bold leading-snug text-foreground">
+              <h3 className="font-display text-lg font-bold leading-snug text-foreground select-none" style={{ WebkitTouchCallout: "none" }}>
                 {n.title}
               </h3>
-              <p className="text-sm text-muted-foreground">{n.summary}</p>
+              <p className="text-sm text-muted-foreground select-none" style={{ WebkitTouchCallout: "none" }}>{n.summary}</p>
               <div className="mt-auto pt-2">
-                <span className="inline-flex items-center gap-1 rounded-md border border-dashed border-border bg-muted/40 px-2 py-1 text-[10px] font-medium text-muted-foreground">
+                <span className="inline-flex items-center gap-1 rounded-md border border-dashed border-border bg-muted/40 px-2 py-1 text-[10px] font-medium text-muted-foreground select-none" style={{ WebkitTouchCallout: "none" }}>
                   ⚠️ Información en proceso de validación con la SPL
                 </span>
               </div>
