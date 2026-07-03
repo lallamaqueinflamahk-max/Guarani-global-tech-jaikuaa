@@ -24,7 +24,9 @@ import { Route as AuthenticatedNheRapeRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedTriviaIndexRouteImport } from './routes/_authenticated/trivia.index'
 import { Route as AuthenticatedGuaraniEscolarIndexRouteImport } from './routes/_authenticated/guarani-escolar.index'
+import { Route as AuthenticatedTriviaCategoryRouteImport } from './routes/_authenticated/trivia.$category'
 import { Route as AuthenticatedGuaraniEscolarTemaRouteImport } from './routes/_authenticated/guarani-escolar.tema'
 import { Route as AuthenticatedGuaraniEscolarSemanalRouteImport } from './routes/_authenticated/guarani-escolar.semanal'
 import { Route as AuthenticatedGuaraniEscolarRescateRouteImport } from './routes/_authenticated/guarani-escolar.rescate'
@@ -109,11 +111,23 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedTriviaIndexRoute =
+  AuthenticatedTriviaIndexRouteImport.update({
+    id: '/trivia/',
+    path: '/trivia/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedGuaraniEscolarIndexRoute =
   AuthenticatedGuaraniEscolarIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedGuaraniEscolarRoute,
+  } as any)
+const AuthenticatedTriviaCategoryRoute =
+  AuthenticatedTriviaCategoryRouteImport.update({
+    id: '/trivia/$category',
+    path: '/trivia/$category',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedGuaraniEscolarTemaRoute =
   AuthenticatedGuaraniEscolarTemaRouteImport.update({
@@ -182,7 +196,9 @@ export interface FileRoutesByFullPath {
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRouteWithChildren
+  '/trivia/$category': typeof AuthenticatedTriviaCategoryRoute
   '/guarani-escolar/': typeof AuthenticatedGuaraniEscolarIndexRoute
+  '/trivia/': typeof AuthenticatedTriviaIndexRoute
   '/guarani-escolar/tema/$topic': typeof AuthenticatedGuaraniEscolarTemaTopicRoute
   '/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
   '/guarani-escolar/tema/': typeof AuthenticatedGuaraniEscolarTemaIndexRoute
@@ -204,7 +220,9 @@ export interface FileRoutesByTo {
   '/api/tutor': typeof ApiTutorRoute
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
+  '/trivia/$category': typeof AuthenticatedTriviaCategoryRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarIndexRoute
+  '/trivia': typeof AuthenticatedTriviaIndexRoute
   '/guarani-escolar/tema/$topic': typeof AuthenticatedGuaraniEscolarTemaTopicRoute
   '/curso/$lang': typeof AuthenticatedCursoLangIndexRoute
   '/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaIndexRoute
@@ -231,7 +249,9 @@ export interface FileRoutesById {
   '/_authenticated/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/_authenticated/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/_authenticated/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRouteWithChildren
+  '/_authenticated/trivia/$category': typeof AuthenticatedTriviaCategoryRoute
   '/_authenticated/guarani-escolar/': typeof AuthenticatedGuaraniEscolarIndexRoute
+  '/_authenticated/trivia/': typeof AuthenticatedTriviaIndexRoute
   '/_authenticated/guarani-escolar/tema/$topic': typeof AuthenticatedGuaraniEscolarTemaTopicRoute
   '/_authenticated/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
   '/_authenticated/guarani-escolar/tema/': typeof AuthenticatedGuaraniEscolarTemaIndexRoute
@@ -258,7 +278,9 @@ export interface FileRouteTypes {
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
     | '/guarani-escolar/tema'
+    | '/trivia/$category'
     | '/guarani-escolar/'
+    | '/trivia/'
     | '/guarani-escolar/tema/$topic'
     | '/curso/$lang/'
     | '/guarani-escolar/tema/'
@@ -280,7 +302,9 @@ export interface FileRouteTypes {
     | '/api/tutor'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
+    | '/trivia/$category'
     | '/guarani-escolar'
+    | '/trivia'
     | '/guarani-escolar/tema/$topic'
     | '/curso/$lang'
     | '/guarani-escolar/tema'
@@ -306,7 +330,9 @@ export interface FileRouteTypes {
     | '/_authenticated/guarani-escolar/rescate'
     | '/_authenticated/guarani-escolar/semanal'
     | '/_authenticated/guarani-escolar/tema'
+    | '/_authenticated/trivia/$category'
     | '/_authenticated/guarani-escolar/'
+    | '/_authenticated/trivia/'
     | '/_authenticated/guarani-escolar/tema/$topic'
     | '/_authenticated/curso/$lang/'
     | '/_authenticated/guarani-escolar/tema/'
@@ -432,12 +458,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/trivia/': {
+      id: '/_authenticated/trivia/'
+      path: '/trivia'
+      fullPath: '/trivia/'
+      preLoaderRoute: typeof AuthenticatedTriviaIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/guarani-escolar/': {
       id: '/_authenticated/guarani-escolar/'
       path: '/'
       fullPath: '/guarani-escolar/'
       preLoaderRoute: typeof AuthenticatedGuaraniEscolarIndexRouteImport
       parentRoute: typeof AuthenticatedGuaraniEscolarRoute
+    }
+    '/_authenticated/trivia/$category': {
+      id: '/_authenticated/trivia/$category'
+      path: '/trivia/$category'
+      fullPath: '/trivia/$category'
+      preLoaderRoute: typeof AuthenticatedTriviaCategoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/guarani-escolar/tema': {
       id: '/_authenticated/guarani-escolar/tema'
@@ -564,6 +604,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedTraductorRoute: typeof AuthenticatedTraductorRoute
   AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
+  AuthenticatedTriviaCategoryRoute: typeof AuthenticatedTriviaCategoryRoute
+  AuthenticatedTriviaIndexRoute: typeof AuthenticatedTriviaIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -575,6 +617,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedTraductorRoute: AuthenticatedTraductorRoute,
   AuthenticatedTutorRoute: AuthenticatedTutorRoute,
   AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
+  AuthenticatedTriviaCategoryRoute: AuthenticatedTriviaCategoryRoute,
+  AuthenticatedTriviaIndexRoute: AuthenticatedTriviaIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -594,13 +638,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

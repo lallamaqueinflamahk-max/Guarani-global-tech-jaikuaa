@@ -26,7 +26,7 @@ export const Route = createFileRoute("/_authenticated/trivia/$category")({
 type Phase = "playing" | "done";
 
 function TriviaQuiz() {
-  const { category } = Route.useLoaderData();
+  const { category } = Route.useLoaderData() as { category: TriviaCategoryId };
   const cat = TRIVIA[category];
   const navigate = useNavigate();
 
