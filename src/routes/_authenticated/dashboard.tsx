@@ -334,6 +334,8 @@ function Dashboard() {
               })}
             </div>
           </section>
+
+          <NhandeMarandu />
         </div>
       </main>
       <SiteFooter />
