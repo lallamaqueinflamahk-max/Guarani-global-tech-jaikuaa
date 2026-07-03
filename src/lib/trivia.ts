@@ -52,6 +52,18 @@ export const TRIVIA: Record<TriviaCategoryId, TriviaCategory> = {
         answer: 0,
         explanation: "Aguyje expresa gratitud.",
       },
+      {
+        q: '¿Cómo se dice "mandioca" en guaraní?',
+        options: ["Mandi'o", "Kumanda", "Mba'y", "Ka'a"],
+        answer: 0,
+        explanation: "Mandi'o es la mandioca, alimento base de la cocina paraguaya.",
+      },
+      {
+        q: '¿Cómo se dice "hermano" en guaraní?',
+        options: ["Túva", "Kyra", "Hermano", "Kyvy"],
+        answer: 3,
+        explanation: "Kyvy significa hermano (de una mujer) / hermano varón en el uso común.",
+      },
     ],
   },
   mitos: {
