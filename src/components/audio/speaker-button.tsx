@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
-import { getHumanAudioUrl } from "@/lib/audio";
+import { getHumanAudioUrl, prefetchAudio, playGuarani } from "@/lib/audio";
 import { cn } from "@/lib/utils";
+
 
 type Props = {
   gn: string;
