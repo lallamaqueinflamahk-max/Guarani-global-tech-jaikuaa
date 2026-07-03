@@ -20,45 +20,18 @@ function encodeStoragePath(path: string): string {
 export const getAudioSignedUrl = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => Input.parse(d))
   .handler(async ({ data }) => {
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY;
-
-    if (!supabaseUrl || !publishableKey) {
-      return { signedUrl: null as string | null };
-    }
-
     const file = `${slugifyAudio(data.gn)}.mp3`;
-    const endpoint = `${supabaseUrl}/storage/v1/object/sign/guarani-audio/${encodeStoragePath(file)}`;
 
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          apikey: publishableKey,
-          Authorization: `Bearer ${publishableKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ expiresIn: 60 * 60 * 24 }),
-      });
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { data: signed, error } = await supabaseAdmin.storage
+        .from("guarani-audio")
+        .createSignedUrl(file, 60 * 60 * 24);
 
-      if (!response.ok) {
-        return { signedUrl: null as string | null };
-      }
-
-      const signed = (await response.json()) as { signedURL?: string; signedUrl?: string };
-      const signedPath = signed.signedURL ?? signed.signedUrl;
-
-      if (!signedPath) {
-        return { signedUrl: null as string | null };
-      }
-
-      const signedUrl = signedPath.startsWith("http")
-        ? signedPath
-        : `${supabaseUrl}/storage/v1${signedPath}`;
-
-      return { signedUrl };
+      if (error || !signed?.signedUrl) return { signedUrl: null as string | null };
+      return { signedUrl: signed.signedUrl as string | null };
     } catch {
-      // Missing object / storage unavailable → client falls back to TTS.
+      // Missing object / storage unavailable: keep the app stable, no robotic fallback.
       return { signedUrl: null as string | null };
     }
   });
