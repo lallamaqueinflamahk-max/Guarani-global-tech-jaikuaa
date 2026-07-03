@@ -65,7 +65,7 @@ function TriviaLanding() {
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">{cat.subtitle}</p>
                   <span className="mt-4 text-sm font-medium text-primary">
-                    Jugar 5 preguntas →
+                    Jugar 7 preguntas →
                   </span>
                 </Link>
               );

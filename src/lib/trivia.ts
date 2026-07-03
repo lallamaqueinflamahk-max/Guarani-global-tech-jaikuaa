@@ -52,6 +52,18 @@ export const TRIVIA: Record<TriviaCategoryId, TriviaCategory> = {
         answer: 0,
         explanation: "Aguyje expresa gratitud.",
       },
+      {
+        q: '¿Cómo se dice "mandioca" en guaraní?',
+        options: ["Mandi'o", "Kumanda", "Mba'y", "Ka'a"],
+        answer: 0,
+        explanation: "Mandi'o es la mandioca, alimento base de la cocina paraguaya.",
+      },
+      {
+        q: '¿Cómo se dice "hermano" en guaraní?',
+        options: ["Túva", "Kyra", "Hermano", "Kyvy"],
+        answer: 3,
+        explanation: "Kyvy significa hermano (de una mujer) / hermano varón en el uso común.",
+      },
     ],
   },
   mitos: {
@@ -100,6 +112,18 @@ export const TRIVIA: Record<TriviaCategoryId, TriviaCategory> = {
         answer: 1,
         explanation: "Es la figura paraguaya del hombre lobo.",
       },
+      {
+        q: "¿Quién es el dios del trueno en la mitología guaraní?",
+        options: ["Tupã", "Ñamandu", "Jasy", "Kuarahy"],
+        answer: 0,
+        explanation: "Tupã es el dios del trueno y de las tormentas en la cosmovisión guaraní.",
+      },
+      {
+        q: "¿Qué criatura mitológica vive en el monte y tiene los pies al revés?",
+        options: ["El Pombéro", "El Kurupi", "El Jasy Jateré", "El Ao Ao"],
+        answer: 0,
+        explanation: "Al Pombéro se lo describe con los pies al revés para confundir a quienes lo persiguen.",
+      },
     ],
   },
   cultura: {
@@ -147,6 +171,18 @@ export const TRIVIA: Record<TriviaCategoryId, TriviaCategory> = {
         options: ["Palabra o lengua", "Canto", "Historia", "Silencio"],
         answer: 0,
         explanation: "Ñe'ẽ es palabra, lengua, el habla.",
+      },
+      {
+        q: '¿Cuál es el verbo guaraní para "comer"?',
+        options: ["Karu", "Guata", "Hecha", "Jaha"],
+        answer: 0,
+        explanation: "Karu es el verbo comer en guaraní.",
+      },
+      {
+        q: '¿Cuál es el verbo guaraní para "caminar / andar"?',
+        options: ["Guata", "Karu", "Hecha", "Jaha"],
+        answer: 0,
+        explanation: "Guata significa caminar o andar.",
       },
     ],
   },
