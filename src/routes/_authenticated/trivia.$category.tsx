@@ -10,7 +10,7 @@ import {
   XP_STREAK_BONUS,
   type TriviaCategoryId,
 } from "@/lib/trivia";
-import { recordCompletion } from "@/lib/gamification";
+import { useRecordOnMount } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
 import { cn } from "@/lib/utils";
 
@@ -96,8 +96,6 @@ function TriviaQuiz() {
   function handleNext() {
     if (idx + 1 >= total) {
       setPhase("done");
-      // Award XP through existing gamification system
-      recordCompletion({ xp: xpEarned });
       if (correctCount === total) celebrate("big");
       else if (correctCount >= 3) celebrate("small");
       return;
@@ -288,6 +286,8 @@ function ResultsScreen({
   onReplay: () => void;
   onChoose: () => void;
 }) {
+  useRecordOnMount({ xp });
+
   const verdict = useMemo(() => {
     if (correct === total) return "¡Iporãite!";
     if (correct >= 3) return "¡Iporã!";
