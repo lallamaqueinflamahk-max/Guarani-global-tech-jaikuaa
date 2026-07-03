@@ -72,9 +72,12 @@ function TriviaLanding() {
             })}
           </section>
 
-          <p className="mt-10 text-center text-xs italic text-muted-foreground">
-            Contenido cultural en proceso de validación oficial
+          <p className="mt-10 text-center">
+            <span className="inline-flex items-center gap-1 rounded-md border border-dashed border-primary/20 bg-primary/5 px-2 py-1 text-[10px] font-medium text-primary/80">
+              En proceso de validación
+            </span>
           </p>
+
         </div>
       </main>
       <SiteFooter />

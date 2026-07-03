@@ -178,9 +178,10 @@ function NheMbytepe() {
             </div>
 
 
-            <div className="mx-auto mt-5 inline-flex max-w-xl items-center gap-2 rounded-full border border-amber-300/60 bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-800">
-              🏛️ Contenido cultural en proceso de validación oficial con la SPL
+            <div className="mx-auto mt-5 inline-flex max-w-xl items-center gap-2 rounded-md border border-dashed border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-medium text-primary/80">
+              Validado con hablantes nativos · en proceso de validación oficial
             </div>
+
 
             <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-2">
@@ -236,10 +237,10 @@ function NheMbytepe() {
             ))}
           </section>
 
-          <footer className="mx-auto mt-10 max-w-2xl rounded-xl border border-border/60 bg-muted/30 p-4 text-center text-xs italic text-muted-foreground">
-            Este contenido está en proceso de validación oficial con la Secretaría de
-            Políticas Lingüísticas del Paraguay.
+          <footer className="mx-auto mt-10 max-w-2xl rounded-xl border border-dashed border-primary/20 bg-primary/5 p-4 text-center text-xs font-medium text-primary/80">
+            Validado con hablantes nativos · en proceso de validación oficial
           </footer>
+
         </div>
       </main>
       <SiteFooter />

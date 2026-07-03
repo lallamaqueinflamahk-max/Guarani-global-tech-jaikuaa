@@ -3,7 +3,7 @@ type NewsItem = {
   title: string;
   summary: string;
   date: string;
-  category: "SPL" | "Cultura" | "Educación" | "Comunidad";
+  category: "Cultura" | "Educación" | "Comunidad";
   emoji: string;
 };
 
@@ -14,7 +14,7 @@ const NEWS: NewsItem[] = [
     summary:
       "La Secretaría de Políticas Lingüísticas presenta la actualización anual del corpus oficial con nuevas entradas léxicas.",
     date: "2 de julio, 2026",
-    category: "SPL",
+    category: "Cultura",
     emoji: "📚",
   },
   {
@@ -47,11 +47,11 @@ const NEWS: NewsItem[] = [
 ];
 
 const CATEGORY_STYLES: Record<NewsItem["category"], string> = {
-  SPL: "bg-primary/10 text-primary",
   Cultura: "bg-accent/15 text-accent",
   Educación: "bg-emerald-100 text-emerald-700",
   Comunidad: "bg-amber-100 text-amber-800",
 };
+
 
 export function NhandeMarandu() {
   return (
@@ -92,9 +92,10 @@ export function NhandeMarandu() {
               </h3>
               <p className="text-sm text-muted-foreground select-none" style={{ WebkitTouchCallout: "none" }}>{n.summary}</p>
               <div className="mt-auto pt-2">
-                <span className="inline-flex items-center gap-1 rounded-md border border-dashed border-border bg-muted/40 px-2 py-1 text-[10px] font-medium text-muted-foreground select-none" style={{ WebkitTouchCallout: "none" }}>
-                  ⚠️ Información en proceso de validación con la SPL
+                <span className="inline-flex items-center gap-1 rounded-md border border-dashed border-primary/20 bg-primary/5 px-2 py-1 text-[10px] font-medium text-primary/80 select-none" style={{ WebkitTouchCallout: "none" }}>
+                  En proceso de validación
                 </span>
+
               </div>
             </div>
           </article>
