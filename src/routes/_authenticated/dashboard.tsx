@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { LANGUAGES } from "@/lib/languages";
 import { StatsBar, StreakBanner } from "@/components/gamification/stats-bar";
 import { SiteFooter } from "@/components/site-footer";
+import { NhandeMarandu } from "@/components/nhande-marandu";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Jaikuaa — Tu panel" }] }),
@@ -251,7 +252,7 @@ function Dashboard() {
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {LANGUAGES.map((l) => {
+              {LANGUAGES.filter((l) => l.slug === "guarani").map((l) => {
                 const progress = 0;
                 const isGuarani = l.slug === "guarani";
                 const cardBody = (
@@ -333,6 +334,8 @@ function Dashboard() {
               })}
             </div>
           </section>
+
+          <NhandeMarandu />
         </div>
       </main>
       <SiteFooter />
