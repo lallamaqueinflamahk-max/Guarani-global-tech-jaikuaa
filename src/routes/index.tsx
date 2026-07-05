@@ -85,7 +85,7 @@ function Hero() {
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
           <Button variant="cta" size="lg" asChild>
-            <Link to="/auth" search={{ mode: "signup" }}>Empezar gratis</Link>
+            <Link to="/comenzar">Empezar gratis</Link>
           </Button>
           <Button variant="ghost" size="lg" asChild>
             <Link to="/auth" search={{ mode: "login" }}>Iniciar sesión</Link>
