@@ -63,6 +63,7 @@ function JaiCharacter({ size = 160 }: { size?: number }) {
         WebkitMaskSize: "contain",
         WebkitMaskRepeat: "no-repeat",
         WebkitMaskPosition: "center",
+        filter: "contrast(1.35) saturate(1.4)",
       } as React.CSSProperties}
       className="drop-shadow-md"
     />
