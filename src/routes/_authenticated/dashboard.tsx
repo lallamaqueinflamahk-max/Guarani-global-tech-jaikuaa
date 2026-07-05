@@ -3,7 +3,13 @@ import { BrandLogo } from "@/components/brand-logo";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LANGUAGES } from "@/lib/languages";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { StatsBar, StreakBanner } from "@/components/gamification/stats-bar";
 import { SiteFooter } from "@/components/site-footer";
 import { NhandeMarandu } from "@/components/nhande-marandu";
@@ -59,12 +65,13 @@ function writeCachedName(name: string) {
   } catch {}
 }
 
+type TeaserKey = "karaoke" | "vivo" | null;
+
 function Dashboard() {
   const navigate = useNavigate();
   const [name, setName] = useState<string>(() => readCachedName());
-  const [comingSoon, setComingSoon] = useState<string | null>(null);
+  const [openTeaser, setOpenTeaser] = useState<TeaserKey>(null);
   const greeting = useMemo(() => greetingFor(new Date().getHours()), []);
-
 
   useEffect(() => {
     let cancelled = false;
@@ -75,7 +82,6 @@ function Dashboard() {
       const fromMeta =
         (user.user_metadata?.full_name as string | undefined) ??
         (user.user_metadata?.name as string | undefined);
-      // Optimistic: use auth metadata immediately if we have no cached name.
       if (!readCachedName() && fromMeta) {
         setName(firstName(fromMeta));
         writeCachedName(fromMeta);
@@ -105,11 +111,6 @@ function Dashboard() {
     navigate({ to: "/", replace: true });
   }
 
-  function handleComingSoon(slug: string) {
-    setComingSoon(slug);
-    window.setTimeout(() => setComingSoon((current) => (current === slug ? null : current)), 2500);
-  }
-
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <header className="border-b border-border/50">
@@ -125,6 +126,7 @@ function Dashboard() {
 
       <main className="flex-1 px-4 py-12 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-5xl">
+          {/* 1. SALUDO + STATS */}
           <div className="text-center">
             <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
               {name ? (
@@ -132,9 +134,7 @@ function Dashboard() {
                   ¡Che, <span className="text-accent">{name}</span>! {greeting.emoji}
                 </>
               ) : (
-                <>
-                  ¡Che! {greeting.emoji}
-                </>
+                <>¡Che! {greeting.emoji}</>
               )}
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
@@ -142,316 +142,283 @@ function Dashboard() {
             </p>
           </div>
 
-
           <div className="mt-8 space-y-3">
             <StatsBar />
             <StreakBanner />
           </div>
 
-          <section className="mt-10">
-            <Link
-              to="/nhe-mbytepe"
-              className="group relative flex flex-col items-center justify-between gap-4 rounded-2xl border-2 border-primary bg-primary/5 p-6 shadow-elegant card-hover hover:bg-primary/10 hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:flex-row sm:p-8"
-            >
-              <div className="text-left">
-                <div className="flex items-center gap-2 font-display text-2xl font-bold text-primary sm:text-3xl">
-                  Ñe'ẽ Mbytépe <span aria-hidden>🗣️</span>
-                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
-                    Gratis
-                  </span>
-                </div>
-                <p className="mt-1 max-w-md text-sm text-muted-foreground sm:text-base">
-                  El guaraní que se habla en la calle.
-                </p>
-              </div>
-              <span className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground shadow transition group-hover:bg-primary/90 group-active:scale-95">
-                Explorar →
-              </span>
-            </Link>
-          </section>
-
-          <section className="mt-6">
-            <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1E3A5F] to-[#C8102E] p-6 shadow-elegant select-none sm:p-8">
-              <span className="absolute -right-6 -bottom-6 text-9xl opacity-15" aria-hidden>
-                🎵
-              </span>
-              <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="text-3xl sm:text-4xl" aria-hidden>🎤🔥</span>
-                    <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                      KARAOKE ÑE'Ẽ
-                    </h2>
-                    <span className="text-3xl sm:text-4xl" aria-hidden>🔥🎵</span>
-                  </div>
-                  <div className="mt-5 max-w-2xl space-y-4">
-                    <p className="text-lg font-semibold text-white/95 sm:text-xl">
-                      El guaraní no tiene un solo género.
-                      <br className="hidden sm:block" />
-                      Tiene ALMA.
-                    </p>
-                    <p className="text-base text-white/90 sm:text-lg">
-                      Cantá guaranías, rap, trap, reggae, cachaca, rock y más.
-                    </p>
-                    <p className="text-base text-white/90 sm:text-lg">
-                      En guaraní puro o en jopara. Tu voz, tu ritmo, tu lengua.
-                    </p>
-                    <p className="text-base text-white/90 sm:text-lg">
-                      ¿Querés competir con amigos? Adentro. ¿Preferís cantar a tu ritmo, solo? También.
-                    </p>
-                    <ul className="grid grid-cols-2 gap-x-4 gap-y-2 pt-2 text-sm font-medium text-white/90 sm:grid-cols-3 sm:text-base">
-                      <li className="flex items-center gap-2">🎤 Guaranía clásica</li>
-                      <li className="flex items-center gap-2">🎤 Rap ñe'ẽ</li>
-                      <li className="flex items-center gap-2">🎤 Trap jopara</li>
-                      <li className="flex items-center gap-2">🎤 Reggae guaraní</li>
-                      <li className="flex items-center gap-2">🎤 Cachaca/Chamamé</li>
-                      <li className="flex items-center gap-2">🎤 Rock paraguayo</li>
-                    </ul>
-                    <p className="pt-3 text-sm font-bold uppercase tracking-wide text-white">
-                      Próximamente. Prepará tu voz.
-                    </p>
-                  </div>
-                </div>
-                <span className="shrink-0 self-start rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white backdrop-blur-sm animate-pulse">
-                  Próximamente 🔜
-                </span>
-              </div>
-            </div>
-          </section>
-
-          <section className="mt-6">
-            <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#C8102E] to-[#1E3A5F] p-6 shadow-elegant select-none sm:p-8">
-              <span className="absolute -right-6 -bottom-6 text-9xl opacity-15" aria-hidden>
-                📡
-              </span>
-              <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="text-3xl sm:text-4xl" aria-hidden>🔴</span>
-                    <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                      GUARANÍ EN VIVO
-                    </h2>
-                  </div>
-                  <div className="mt-5 max-w-2xl space-y-4">
-                    <p className="text-lg font-semibold text-white/95 sm:text-xl">
-                      El guaraní no se guarda en libros.
-                      <br className="hidden sm:block" />
-                      Se habla. Se comparte. Se VIVE.
-                    </p>
-                    <p className="text-base text-white/90 sm:text-lg">
-                      Transmisiones en vivo con hablantes nativos, artistas, maestros y sabios de todo Paraguay.
-                    </p>
-                    <ul className="space-y-3 pt-2 text-sm font-medium text-white/90 sm:text-base">
-                      <li className="flex flex-col gap-0.5">
-                        <span className="flex items-center gap-2 font-semibold">🎙️ Doña María (78 años, Itapúa)</span>
-                        <span className="pl-7 text-white/80">“Cómo cambió el guaraní en 50 años”</span>
-                      </li>
-                      <li className="flex flex-col gap-0.5">
-                        <span className="flex items-center gap-2 font-semibold">🎙️ Prof. Alcibiades Brítez (SPL)</span>
-                        <span className="pl-7 text-white/80">“El jopara no es un error, es identidad”</span>
-                      </li>
-                      <li className="flex flex-col gap-0.5">
-                        <span className="flex items-center gap-2 font-semibold">🎙️ Kchiporros (rap guaraní)</span>
-                        <span className="pl-7 text-white/80">“Escribo mis letras en ñe'ẽ de la calle”</span>
-                      </li>
-                      <li className="flex flex-col gap-0.5">
-                        <span className="flex items-center gap-2 font-semibold">🎙️ Taller familiar</span>
-                        <span className="pl-7 text-white/80">“Aprendé guaraní con tus hijos”</span>
-                      </li>
-                    </ul>
-                    <p className="text-base text-white/90 sm:text-lg">
-                      Chat en vivo. Preguntá en tiempo real. La comunidad del ñe'ẽ, conectada.
-                    </p>
-                    <p className="pt-3 text-sm font-bold uppercase tracking-wide text-white">
-                      Próximamente. Prepará tus preguntas.
-                    </p>
-                  </div>
-                </div>
-                <span className="shrink-0 self-start rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white backdrop-blur-sm animate-pulse">
-                  Próximamente 🔜
-                </span>
-              </div>
-            </div>
-          </section>
-
-          <section className="mt-6">
-            <Link
-              to="/guarani-escolar"
-              className="group relative flex flex-col items-center justify-between gap-4 rounded-2xl border-2 border-accent bg-accent/5 p-6 shadow-elegant card-hover hover:bg-accent/10 hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:flex-row sm:p-8"
-            >
-              <div className="text-left">
-                <div className="flex items-center gap-2 font-display text-2xl font-bold text-accent sm:text-3xl">
-                  Guaraní Escolar <span aria-hidden>🎒</span>
-                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
-                    Gratis
-                  </span>
-                </div>
-                <p className="mt-1 max-w-md text-sm text-muted-foreground sm:text-base">
-                  Todo lo que necesitás para entender y aprobar Guaraní en la escuela.
-                </p>
-              </div>
-              <span className="inline-flex h-10 items-center justify-center rounded-md bg-accent px-5 text-sm font-medium text-accent-foreground shadow transition group-hover:bg-accent/90 group-active:scale-95">
-                Entrar →
-              </span>
-            </Link>
-          </section>
-
-          <section className="mt-6 grid gap-4 sm:grid-cols-2">
-            <Link
-              to="/nhe-rape"
-              className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-primary hover:shadow-lift"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-2xl" aria-hidden>📖</span>
-                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
-                  Gratis
-                </span>
-              </div>
-              <div className="font-display text-lg font-bold text-foreground">Ñe'ẽ Rape</div>
-              <p className="text-sm text-muted-foreground">El camino de la palabra. Tributo al Prof. Ramón Silva.</p>
-              <span className="mt-1 text-sm font-medium text-primary">Abrir →</span>
-            </Link>
-            <Link
-              to="/traductor"
-              className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-primary hover:shadow-lift"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-2xl" aria-hidden>🌐</span>
-                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
-                  Gratis
-                </span>
-              </div>
-              <div className="font-display text-lg font-bold text-foreground">Traductor</div>
-              <p className="text-sm text-muted-foreground">Español ⇄ Guaraní al instante con IA.</p>
-              <span className="mt-1 text-sm font-medium text-primary">Abrir →</span>
-            </Link>
-            <Link
-              to="/tutor"
-              className="group relative flex flex-col gap-2 rounded-2xl border border-accent/30 bg-card p-5 shadow-elegant card-hover hover:border-accent hover:shadow-lift"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-2xl" aria-hidden>✨</span>
-                <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent-foreground">
-                  Premium ⭐
-                </span>
-              </div>
-              <div className="font-display text-lg font-bold text-foreground">Tutor IA</div>
-              <p className="text-sm text-muted-foreground">Chateá con tu profe de guaraní 24/7.</p>
-              <span className="mt-1 text-sm font-medium text-accent">Abrir →</span>
-            </Link>
-            <Link
-              to="/trivia"
-              className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-primary hover:shadow-lift"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-2xl" aria-hidden>🧠</span>
-                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
-                  Gratis
-                </span>
-              </div>
-              <div className="font-display text-lg font-bold text-foreground">Jaikuaápa</div>
-              <p className="text-sm text-muted-foreground">Trivia: poné a prueba lo que sabés.</p>
-              <span className="mt-1 text-sm font-medium text-primary">Jugar →</span>
-            </Link>
-          </section>
-
+          {/* 2. SECCIONES PRINCIPALES (Gratis) */}
           <section className="mt-12">
-            <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
-              Elegí tu idioma
+            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
+              Aprendé guaraní
+            </h2>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <FreeCard
+                to="/guarani-escolar"
+                emoji="🎒"
+                title="Guaraní Escolar"
+                desc="Todo lo que necesitás para aprobar Guaraní en la escuela."
+                accent="accent"
+              />
+              <FreeCard
+                to="/nhe-mbytepe"
+                emoji="🗣️"
+                title="Ñe'ẽ Mbytépe"
+                desc="El guaraní que se habla en la calle."
+                accent="primary"
+              />
+              <FreeCard
+                to="/trivia"
+                emoji="🧠"
+                title="Jaikuaápa"
+                desc="Trivia: poné a prueba lo que sabés."
+                accent="primary"
+              />
+              <FreeCard
+                to="/traductor"
+                emoji="🌐"
+                title="Traductor"
+                desc="Español ⇄ Guaraní al instante con IA."
+                accent="primary"
+              />
+            </div>
+          </section>
+
+          {/* 3. PREMIUM */}
+          <section className="mt-10">
+            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
+              Premium
+            </h2>
+            <div className="mt-4">
+              <Link
+                to="/tutor"
+                className="group relative flex flex-col gap-2 rounded-2xl border border-accent/30 bg-card p-5 shadow-elegant card-hover hover:border-accent hover:shadow-lift"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl" aria-hidden>✨</span>
+                  <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent-foreground">
+                    Premium ⭐
+                  </span>
+                </div>
+                <div className="font-display text-lg font-bold text-foreground">Tutor IA</div>
+                <p className="text-sm text-muted-foreground">Chateá con tu profe de guaraní 24/7.</p>
+                <span className="mt-1 text-sm font-medium text-accent">Abrir →</span>
+              </Link>
+            </div>
+          </section>
+
+          {/* 4. CULTURAL */}
+          <section className="mt-10">
+            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
+              Cultura y homenajes
+            </h2>
+            <div className="mt-4">
+              <Link
+                to="/nhe-rape"
+                className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-primary hover:shadow-lift"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl" aria-hidden>📖</span>
+                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
+                    Gratis
+                  </span>
+                </div>
+                <div className="font-display text-lg font-bold text-foreground">Ñe'ẽ Rape</div>
+                <p className="text-sm text-muted-foreground">
+                  El camino de la palabra. Tributo al Prof. Ramón Silva.
+                </p>
+                <span className="mt-1 text-sm font-medium text-primary">Abrir →</span>
+              </Link>
+            </div>
+          </section>
+
+          {/* 5. FUTURO DE JAIKUAA */}
+          <section className="mt-12">
+            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
+              El futuro de Jaikuaa
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Por ahora el curso completo de Guaraní está disponible. Más idiomas muy pronto.
+              Lo que se viene. Prepará tu voz y tus preguntas.
             </p>
 
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {LANGUAGES.filter((l) => l.slug === "guarani").map((l) => {
-                const progress = 0;
-                const isGuarani = l.slug === "guarani";
-                const cardBody = (
-                  <>
-                    {isGuarani && (
-                      <span className="absolute left-4 top-4 rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-emerald-700">
-                        Gratis
-                      </span>
-                    )}
-                    {l.featured && (
-                      <span className="absolute right-4 top-4 rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-accent-foreground">
-                        Destacado
-                      </span>
-                    )}
-                    {!isGuarani && (
-                      <span className="absolute left-4 top-4 rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                        Próximamente 🔜
-                      </span>
-                    )}
-                    <div className="text-4xl" aria-hidden>
-                      {l.flag}
-                    </div>
-                    <div className="mt-4 font-display text-xl font-semibold text-foreground">
-                      {l.name}
-                    </div>
-
-                    <div className="mt-5">
-                      <div className="flex items-center justify-between text-xs text-muted-foreground">
-                        <span>Progreso</span>
-                        <span>{progress}%</span>
-                      </div>
-                      <div
-                        className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-muted"
-                        role="progressbar"
-                        aria-valuenow={progress}
-                        aria-valuemin={0}
-                        aria-valuemax={100}
-                      >
-                        <div
-                          className="h-full rounded-full bg-gradient-to-r from-primary to-primary/70 progress-fill"
-                          style={{ width: `${progress}%` }}
-                        />
-
-                      </div>
-                    </div>
-
-                    {comingSoon === l.slug && (
-                      <div className="mt-4 rounded-lg bg-accent/10 px-3 py-2 text-sm text-accent">
-                        Este curso estará disponible pronto.
-                      </div>
-                    )}
-                  </>
-                );
-
-                return isGuarani ? (
-                  <Link
-                    key={l.slug}
-                    to="/curso/$lang"
-                    params={{ lang: l.slug }}
-                    className="group relative flex flex-col rounded-xl border-2 border-accent bg-card p-6 text-left shadow-elegant card-hover hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                  >
-                    {cardBody}
-                  </Link>
-                ) : (
-                  <div
-                    key={l.slug}
-                    onClick={() => handleComingSoon(l.slug)}
-                    className="group relative flex flex-col rounded-xl border border-border/60 bg-card p-6 text-left shadow-sm opacity-80 transition hover:opacity-100 hover:shadow-md"
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") handleComingSoon(l.slug);
-                    }}
-                    aria-disabled="true"
-                  >
-                    {cardBody}
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              {/* Karaoke teaser */}
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1E3A5F] to-[#C8102E] p-5 shadow-elegant sm:p-6">
+                <span className="absolute -right-4 -bottom-4 text-7xl opacity-15" aria-hidden>🎵</span>
+                <div className="relative z-10 flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl" aria-hidden>🎤</span>
+                    <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm animate-pulse">
+                      Próximamente
+                    </span>
                   </div>
-                );
-              })}
+                  <div className="font-display text-xl font-bold text-white">Karaoke Ñe'ẽ</div>
+                  <p className="text-sm text-white/90">
+                    Cantá guaranías, rap, trap y más.
+                    <br />
+                    En guaraní puro o jopara.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setOpenTeaser("karaoke")}
+                    className="mt-1 self-start text-sm font-semibold text-white underline-offset-4 hover:underline"
+                  >
+                    Ver más →
+                  </button>
+                </div>
+              </div>
+
+              {/* Vivo teaser */}
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8102E] to-[#1E3A5F] p-5 shadow-elegant sm:p-6">
+                <span className="absolute -right-4 -bottom-4 text-7xl opacity-15" aria-hidden>📡</span>
+                <div className="relative z-10 flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl" aria-hidden>🔴</span>
+                    <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm animate-pulse">
+                      Próximamente
+                    </span>
+                  </div>
+                  <div className="font-display text-xl font-bold text-white">Guaraní en Vivo</div>
+                  <p className="text-sm text-white/90">
+                    Transmisiones en vivo con hablantes nativos.
+                    <br />
+                    La comunidad del ñe'ẽ, conectada.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setOpenTeaser("vivo")}
+                    className="mt-1 self-start text-sm font-semibold text-white underline-offset-4 hover:underline"
+                  >
+                    Ver más →
+                  </button>
+                </div>
+              </div>
             </div>
           </section>
 
+          {/* 6. NOTICIAS */}
           <NhandeMarandu />
-
         </div>
       </main>
       <SiteFooter />
+
+      {/* Teaser modals */}
+      <Dialog open={openTeaser === "karaoke"} onOpenChange={(o) => !o && setOpenTeaser(null)}>
+        <DialogContent className="max-w-2xl overflow-hidden border-0 bg-gradient-to-br from-[#1E3A5F] to-[#C8102E] p-0 text-white">
+          <div className="relative p-6 sm:p-8">
+            <span className="absolute -right-6 -bottom-6 text-9xl opacity-15" aria-hidden>🎵</span>
+            <DialogHeader className="relative z-10">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-3xl" aria-hidden>🎤🔥</span>
+                <DialogTitle className="font-display text-3xl font-bold text-white sm:text-4xl">
+                  KARAOKE ÑE'Ẽ
+                </DialogTitle>
+                <span className="text-3xl" aria-hidden>🔥🎵</span>
+              </div>
+              <DialogDescription className="text-white/90">
+                El guaraní no tiene un solo género. Tiene ALMA.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="relative z-10 mt-4 space-y-3 text-white/90">
+              <p>Cantá guaranías, rap, trap, reggae, cachaca, rock y más.</p>
+              <p>En guaraní puro o en jopara. Tu voz, tu ritmo, tu lengua.</p>
+              <p>
+                ¿Querés competir con amigos? Adentro. ¿Preferís cantar a tu ritmo, solo? También.
+              </p>
+              <ul className="grid grid-cols-2 gap-x-4 gap-y-2 pt-2 text-sm font-medium sm:grid-cols-3">
+                <li>🎤 Guaranía clásica</li>
+                <li>🎤 Rap ñe'ẽ</li>
+                <li>🎤 Trap jopara</li>
+                <li>🎤 Reggae guaraní</li>
+                <li>🎤 Cachaca/Chamamé</li>
+                <li>🎤 Rock paraguayo</li>
+              </ul>
+              <p className="pt-3 text-sm font-bold uppercase tracking-wide">
+                Próximamente. Prepará tu voz.
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={openTeaser === "vivo"} onOpenChange={(o) => !o && setOpenTeaser(null)}>
+        <DialogContent className="max-w-2xl overflow-hidden border-0 bg-gradient-to-br from-[#C8102E] to-[#1E3A5F] p-0 text-white">
+          <div className="relative p-6 sm:p-8">
+            <span className="absolute -right-6 -bottom-6 text-9xl opacity-15" aria-hidden>📡</span>
+            <DialogHeader className="relative z-10">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-3xl" aria-hidden>🔴</span>
+                <DialogTitle className="font-display text-3xl font-bold text-white sm:text-4xl">
+                  GUARANÍ EN VIVO
+                </DialogTitle>
+              </div>
+              <DialogDescription className="text-white/90">
+                El guaraní no se guarda en libros. Se habla. Se comparte. Se VIVE.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="relative z-10 mt-4 space-y-3 text-white/90">
+              <p>
+                Transmisiones en vivo con hablantes nativos, artistas, maestros y sabios de todo Paraguay.
+              </p>
+              <ul className="space-y-3 pt-2 text-sm font-medium">
+                <li className="flex flex-col gap-0.5">
+                  <span className="font-semibold">🎙️ Doña María (78 años, Itapúa)</span>
+                  <span className="pl-6 text-white/80">"Cómo cambió el guaraní en 50 años"</span>
+                </li>
+                <li className="flex flex-col gap-0.5">
+                  <span className="font-semibold">🎙️ Prof. Alcibiades Brítez (SPL)</span>
+                  <span className="pl-6 text-white/80">"El jopara no es un error, es identidad"</span>
+                </li>
+                <li className="flex flex-col gap-0.5">
+                  <span className="font-semibold">🎙️ Kchiporros (rap guaraní)</span>
+                  <span className="pl-6 text-white/80">"Escribo mis letras en ñe'ẽ de la calle"</span>
+                </li>
+                <li className="flex flex-col gap-0.5">
+                  <span className="font-semibold">🎙️ Taller familiar</span>
+                  <span className="pl-6 text-white/80">"Aprendé guaraní con tus hijos"</span>
+                </li>
+              </ul>
+              <p>Chat en vivo. Preguntá en tiempo real. La comunidad del ñe'ẽ, conectada.</p>
+              <p className="pt-3 text-sm font-bold uppercase tracking-wide">
+                Próximamente. Prepará tus preguntas.
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
+  );
+}
+
+function FreeCard({
+  to,
+  emoji,
+  title,
+  desc,
+  accent,
+}: {
+  to: string;
+  emoji: string;
+  title: string;
+  desc: string;
+  accent: "primary" | "accent";
+}) {
+  const border = accent === "accent" ? "border-accent/40 hover:border-accent" : "border-primary/30 hover:border-primary";
+  const link = accent === "accent" ? "text-accent" : "text-primary";
+  return (
+    <Link
+      to={to}
+      className={`group relative flex flex-col gap-2 rounded-2xl border ${border} bg-card p-5 shadow-elegant card-hover hover:shadow-lift`}
+    >
+      <div className="flex items-center justify-between">
+        <span className="text-2xl" aria-hidden>{emoji}</span>
+        <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
+          Gratis
+        </span>
+      </div>
+      <div className="font-display text-lg font-bold text-foreground">{title}</div>
+      <p className="text-sm text-muted-foreground">{desc}</p>
+      <span className={`mt-1 text-sm font-medium ${link}`}>Abrir →</span>
+    </Link>
   );
 }
