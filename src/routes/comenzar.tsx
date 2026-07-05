@@ -42,29 +42,18 @@ const MINI_LESSON: { gn: string; es: string }[] = [
 
 function JaiCharacter({ size = 160 }: { size?: number }) {
   return (
-    <div
-      aria-label="Jai, el jaguaréte de Jaikuaa"
-      role="img"
+    <img
+      src={jaiAsset.url}
+      alt="Jai, el jaguaréte de Jaikuaa"
+      width={size}
+      height={size}
       style={{
         width: size,
-        height: size,
+        height: "auto",
+        objectFit: "contain",
         backgroundColor: "transparent",
-        backgroundImage: `url(${jaiAsset.url})`,
-        backgroundSize: "contain",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        maskImage: `url(${jaiAsset.url})`,
-        maskMode: "luminance",
-        maskSize: "contain",
-        maskRepeat: "no-repeat",
-        maskPosition: "center",
-        WebkitMaskImage: `url(${jaiAsset.url})`,
-        WebkitMaskMode: "luminance",
-        WebkitMaskSize: "contain",
-        WebkitMaskRepeat: "no-repeat",
-        WebkitMaskPosition: "center",
-        filter: "contrast(1.35) saturate(1.4)",
-      } as React.CSSProperties}
+      }}
+      draggable={false}
       className="drop-shadow-md"
     />
   );
