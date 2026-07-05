@@ -196,6 +196,9 @@ function Dashboard() {
                     <p className="text-base text-white/90 sm:text-lg">
                       En guaraní puro o en jopara. Tu voz, tu ritmo, tu lengua.
                     </p>
+                    <p className="text-base text-white/90 sm:text-lg">
+                      ¿Querés competir con amigos? Adentro. ¿Preferís cantar a tu ritmo, solo? También.
+                    </p>
                     <ul className="grid grid-cols-2 gap-x-4 gap-y-2 pt-2 text-sm font-medium text-white/90 sm:grid-cols-3 sm:text-base">
                       <li className="flex items-center gap-2">🎤 Guaranía clásica</li>
                       <li className="flex items-center gap-2">🎤 Rap ñe'ẽ</li>
@@ -206,6 +209,61 @@ function Dashboard() {
                     </ul>
                     <p className="pt-3 text-sm font-bold uppercase tracking-wide text-white">
                       Próximamente. Prepará tu voz.
+                    </p>
+                  </div>
+                </div>
+                <span className="shrink-0 self-start rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white backdrop-blur-sm animate-pulse">
+                  Próximamente 🔜
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <section className="mt-6">
+            <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#C8102E] to-[#1E3A5F] p-6 shadow-elegant select-none sm:p-8">
+              <span className="absolute -right-6 -bottom-6 text-9xl opacity-15" aria-hidden>
+                📡
+              </span>
+              <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-3xl sm:text-4xl" aria-hidden>🔴</span>
+                    <h2 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                      GUARANÍ EN VIVO
+                    </h2>
+                  </div>
+                  <div className="mt-5 max-w-2xl space-y-4">
+                    <p className="text-lg font-semibold text-white/95 sm:text-xl">
+                      El guaraní no se guarda en libros.
+                      <br className="hidden sm:block" />
+                      Se habla. Se comparte. Se VIVE.
+                    </p>
+                    <p className="text-base text-white/90 sm:text-lg">
+                      Transmisiones en vivo con hablantes nativos, artistas, maestros y sabios de todo Paraguay.
+                    </p>
+                    <ul className="space-y-3 pt-2 text-sm font-medium text-white/90 sm:text-base">
+                      <li className="flex flex-col gap-0.5">
+                        <span className="flex items-center gap-2 font-semibold">🎙️ Doña María (78 años, Itapúa)</span>
+                        <span className="pl-7 text-white/80">“Cómo cambió el guaraní en 50 años”</span>
+                      </li>
+                      <li className="flex flex-col gap-0.5">
+                        <span className="flex items-center gap-2 font-semibold">🎙️ Prof. Alcibiades Brítez (SPL)</span>
+                        <span className="pl-7 text-white/80">“El jopara no es un error, es identidad”</span>
+                      </li>
+                      <li className="flex flex-col gap-0.5">
+                        <span className="flex items-center gap-2 font-semibold">🎙️ Kchiporros (rap guaraní)</span>
+                        <span className="pl-7 text-white/80">“Escribo mis letras en ñe'ẽ de la calle”</span>
+                      </li>
+                      <li className="flex flex-col gap-0.5">
+                        <span className="flex items-center gap-2 font-semibold">🎙️ Taller familiar</span>
+                        <span className="pl-7 text-white/80">“Aprendé guaraní con tus hijos”</span>
+                      </li>
+                    </ul>
+                    <p className="text-base text-white/90 sm:text-lg">
+                      Chat en vivo. Preguntá en tiempo real. La comunidad del ñe'ẽ, conectada.
+                    </p>
+                    <p className="pt-3 text-sm font-bold uppercase tracking-wide text-white">
+                      Próximamente. Prepará tus preguntas.
                     </p>
                   </div>
                 </div>
