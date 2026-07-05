@@ -35,9 +35,9 @@ const REACTIONS: Record<Motivation, string> = {
 };
 
 const MINI_LESSON: { gn: string; es: string }[] = [
-  { gn: "Mba'éichapa", es: "Hola / ¿Qué tal?" },
+  { gn: "Mba'éichapa", es: "¿Cómo estás?" },
+  { gn: "Iporã", es: "Bien / Está bien" },
   { gn: "Aguyje", es: "Gracias" },
-  { gn: "Jajotopa peve", es: "Hasta luego" },
 ];
 
 function JaiCharacter({ size = 160 }: { size?: number }) {
