@@ -362,20 +362,20 @@ function Dashboard() {
               </p>
               <ul className="space-y-3 pt-2 text-sm font-medium">
                 <li className="flex flex-col gap-0.5">
-                  <span className="font-semibold">🎙️ Doña María (78 años, Itapúa)</span>
-                  <span className="pl-6 text-white/80">"Cómo cambió el guaraní en 50 años"</span>
+                  <span className="font-semibold">🎙️ Referentes de la Secretaría de Políticas Lingüísticas</span>
+                  <span className="pl-6 text-white/80">Debates sobre el uso, la historia y el futuro del guaraní</span>
                 </li>
                 <li className="flex flex-col gap-0.5">
-                  <span className="font-semibold">🎙️ Prof. Alcibiades Brítez (SPL)</span>
-                  <span className="pl-6 text-white/80">"El jopara no es un error, es identidad"</span>
+                  <span className="font-semibold">🎙️ Hablantes nativos de distintas regiones</span>
+                  <span className="pl-6 text-white/80">Conversaciones en guaraní puro y jopara</span>
                 </li>
                 <li className="flex flex-col gap-0.5">
-                  <span className="font-semibold">🎙️ Kchiporros (rap guaraní)</span>
-                  <span className="pl-6 text-white/80">"Escribo mis letras en ñe'ẽ de la calle"</span>
+                  <span className="font-semibold">🎙️ Artistas del rap y la música urbana en guaraní</span>
+                  <span className="pl-6 text-white/80">Letras, ritmo y cultura en ñe'ẽ</span>
                 </li>
                 <li className="flex flex-col gap-0.5">
-                  <span className="font-semibold">🎙️ Taller familiar</span>
-                  <span className="pl-6 text-white/80">"Aprendé guaraní con tus hijos"</span>
+                  <span className="font-semibold">🎙️ Talleres familiares</span>
+                  <span className="pl-6 text-white/80">Aprendé guaraní junto a tus hijos</span>
                 </li>
               </ul>
               <p>Chat en vivo. Preguntá en tiempo real. La comunidad del ñe'ẽ, conectada.</p>
