@@ -47,7 +47,13 @@ function JaiCharacter({ size = 160 }: { size?: number }) {
       alt="Jai, el jaguaréte de Jaikuaa"
       width={size}
       height={size}
-      style={{ width: size, height: "auto", objectFit: "contain" }}
+      style={{
+        width: size,
+        height: "auto",
+        objectFit: "contain",
+        backgroundColor: "transparent",
+        mixBlendMode: "screen",
+      }}
       draggable={false}
       className="drop-shadow-md"
     />
