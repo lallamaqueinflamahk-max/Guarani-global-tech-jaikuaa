@@ -336,6 +336,30 @@ function Dashboard() {
           </section>
 
           <NhandeMarandu />
+
+          <section className="mt-12">
+            <div className="relative overflow-hidden rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/10 via-amber-50 to-background p-6 shadow-elegant select-none">
+              <span className="absolute -right-4 -bottom-2 text-8xl opacity-10" aria-hidden>
+                🎵
+              </span>
+              <div className="relative z-10 flex flex-wrap items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl" aria-hidden>🎤</span>
+                  <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">
+                    Karaoke Ñe'ẽ
+                  </h2>
+                </div>
+                <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  Próximamente 🔜
+                </span>
+              </div>
+              <p className="relative z-10 mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                Cantá guaranías clásicas, aprendé pronunciación en tiempo real,
+                <br className="hidden sm:block" /> y competí con amigos.
+                <br className="hidden sm:block" /> El guaraní no solo se habla. Se CANTA.
+              </p>
+            </div>
+          </section>
         </div>
       </main>
       <SiteFooter />
