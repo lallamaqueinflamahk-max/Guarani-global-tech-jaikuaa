@@ -192,3 +192,26 @@
   transition: width 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* ===== Disable text selection & long-press callout globally ===== */
+html, body {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Re-enable selection for editable form fields (copy/paste in inputs) */
+input,
+textarea,
+select,
+[contenteditable="true"],
+[contenteditable=""] {
+  -webkit-touch-callout: default;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+
