@@ -42,19 +42,28 @@ const MINI_LESSON: { gn: string; es: string }[] = [
 
 function JaiCharacter({ size = 160 }: { size?: number }) {
   return (
-    <img
-      src={jaiAsset.url}
-      alt="Jai, el jaguaréte de Jaikuaa"
-      width={size}
-      height={size}
+    <div
+      aria-label="Jai, el jaguaréte de Jaikuaa"
+      role="img"
       style={{
         width: size,
-        height: "auto",
-        objectFit: "contain",
+        height: size,
         backgroundColor: "transparent",
-        mixBlendMode: "screen",
+        backgroundImage: `url(${jaiAsset.url})`,
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        maskImage: `url(${jaiAsset.url})`,
+        maskMode: "luminance",
+        maskSize: "contain",
+        maskRepeat: "no-repeat",
+        maskPosition: "center",
+        WebkitMaskImage: `url(${jaiAsset.url})`,
+        WebkitMaskMode: "luminance",
+        WebkitMaskSize: "contain",
+        WebkitMaskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
       }}
-      draggable={false}
       className="drop-shadow-md"
     />
   );
