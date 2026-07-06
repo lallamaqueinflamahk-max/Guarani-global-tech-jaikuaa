@@ -9,10 +9,12 @@ import { SpeakerButton } from "@/components/audio/speaker-button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Jaikuaa — Aprendé idiomas. Cambiá tu vida." },
-      { name: "description", content: "La primera plataforma paraguaya de idiomas, con el guaraní en el corazón." },
-      { property: "og:title", content: "Jaikuaa — Aprendé idiomas. Cambiá tu vida." },
-      { property: "og:description", content: "La primera plataforma paraguaya de idiomas, con el guaraní en el corazón." },
+      { title: "Jaikuaa — Aprendé guaraní. Cambiá tu vida." },
+      { name: "description", content: "La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
+      { property: "og:title", content: "Jaikuaa — Aprendé guaraní. Cambiá tu vida." },
+      { property: "og:description", content: "La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
+      { name: "twitter:title", content: "Jaikuaa — Aprendé guaraní. Cambiá tu vida." },
+      { name: "twitter:description", content: "La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
     ],
   }),
   component: Index,
@@ -53,12 +55,12 @@ function Hero() {
     <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 lg:py-32">
       <div className="relative mx-auto max-w-3xl text-center">
         <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-          Aprendé idiomas.
+          Aprendé guaraní.
           <br />
           <span className="text-accent">Cambiá tu vida.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-          La primera plataforma paraguaya de idiomas, con el guaraní en el corazón.
+          La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón.
         </p>
         <p className="mx-auto mt-3 text-sm font-medium text-primary/80">
           +109 palabras con voz humana paraguaya 🇵🇾
