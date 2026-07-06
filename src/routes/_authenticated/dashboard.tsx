@@ -154,6 +154,13 @@ function Dashboard() {
             </h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               <FreeCard
+                to="/curso/guarani"
+                emoji="📚"
+                title="Curso de Guaraní"
+                desc="10 lecciones con audio humano real. Empezá desde cero y sumá XP."
+                accent="accent"
+              />
+              <FreeCard
                 to="/guarani-escolar"
                 emoji="🎒"
                 title="Guaraní Escolar"
