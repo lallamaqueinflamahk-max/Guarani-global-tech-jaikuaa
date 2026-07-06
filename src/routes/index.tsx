@@ -26,7 +26,6 @@ function Index() {
       <main className="flex-1">
         <Hero />
         <LiveAudioPreview />
-        <FeaturedLanguages />
       </main>
       <Footer />
     </div>
@@ -120,49 +119,6 @@ function LiveAudioPreview() {
   );
 }
 
-function FeaturedLanguages() {
-
-  return (
-    <section className="px-4 pb-20 sm:px-6">
-      <div className="mx-auto max-w-5xl">
-        <h2 className="mb-10 text-center font-display text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-          Idiomas destacados
-        </h2>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {languages.map((language) => (
-            <LanguageCard key={language.name} {...language} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function LanguageCard({
-  name,
-  flag,
-  description,
-}: {
-  name: string;
-  flag: string;
-  description: string;
-}) {
-  return (
-    <Card className="group overflow-hidden border-border/60 bg-card transition-all duration-200 hover:-translate-y-1 hover:border-accent/30 hover:shadow-lg">
-      <CardContent className="flex flex-col items-center p-8 text-center">
-        <span aria-hidden="true" className="text-5xl sm:text-6xl">
-          {flag}
-        </span>
-        <h3 className="mt-5 font-display text-2xl font-semibold tracking-tight text-card-foreground">
-          {name}
-        </h3>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          {description}
-        </p>
-      </CardContent>
-    </Card>
-  );
-}
 
 function Footer() {
   return <SiteFooter />;
