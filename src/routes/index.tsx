@@ -18,23 +18,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const languages = [
-  {
-    name: "Guaraní",
-    flag: "🇵🇾",
-    description: "Ñane ñe'ẽ. Aprendé la lengua del corazón de Paraguay.",
-  },
-  {
-    name: "Inglés",
-    flag: "🇺🇸",
-    description: "Abrí puertas al mundo con el idioma global.",
-  },
-  {
-    name: "Portugués",
-    flag: "🇧🇷",
-    description: "Conectá con vecinos, cultura y oportunidades.",
-  },
-];
 
 function Index() {
   return (
