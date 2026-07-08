@@ -369,7 +369,7 @@ function Dashboard() {
               </p>
               <ul className="space-y-3 pt-2 text-sm font-medium">
                 <li className="flex flex-col gap-0.5">
-                  <span className="font-semibold">🎙️ Referentes de la Secretaría de Políticas Lingüísticas</span>
+                  <span className="font-semibold">🎙️ Referentes y especialistas del guaraní</span>
                   <span className="pl-6 text-white/80">Debates sobre el uso, la historia y el futuro del guaraní</span>
                 </li>
                 <li className="flex flex-col gap-0.5">
