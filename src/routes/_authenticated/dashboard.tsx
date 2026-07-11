@@ -311,84 +311,133 @@ function Dashboard() {
 
       {/* Teaser modals */}
       <Dialog open={openTeaser === "karaoke"} onOpenChange={(o) => !o && setOpenTeaser(null)}>
-        <DialogContent className="max-w-2xl overflow-hidden border-0 bg-gradient-to-br from-[#1E3A5F] to-[#C8102E] p-0 text-white">
-          <div className="relative p-6 sm:p-8">
-            <span className="absolute -right-6 -bottom-6 text-9xl opacity-15" aria-hidden>🎵</span>
-            <DialogHeader className="relative z-10">
+        <DialogContent className="max-w-2xl overflow-hidden border-0 bg-gradient-to-br from-[#1E3A5F] via-[#2A4A73] to-[#C8102E] p-0 text-white">
+          <div className="relative flex flex-col p-7 sm:p-10">
+            <span className="absolute -right-6 -bottom-6 text-9xl opacity-10" aria-hidden>🎵</span>
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.10),transparent_40%)] pointer-events-none" />
+            <DialogHeader className="relative z-10 space-y-3">
               <div className="flex flex-wrap items-center gap-3">
-                <span className="text-3xl" aria-hidden>🎤🔥</span>
-                <DialogTitle className="font-display text-3xl font-bold text-white sm:text-4xl">
+                <span className="text-3xl" aria-hidden>🎤</span>
+                <DialogTitle className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
                   KARAOKE ÑE'Ẽ
                 </DialogTitle>
-                <span className="text-3xl" aria-hidden>🔥🎵</span>
               </div>
-              <DialogDescription className="text-white/90">
+              <DialogDescription className="text-base leading-relaxed text-white/90 sm:text-lg">
                 El guaraní no tiene un solo género. Tiene ALMA.
               </DialogDescription>
             </DialogHeader>
-            <div className="relative z-10 mt-4 space-y-3 text-white/90">
-              <p>Cantá guaranías, rap, trap, reggae, cachaca, rock y más.</p>
-              <p>En guaraní puro o en jopara. Tu voz, tu ritmo, tu lengua.</p>
-              <p>
-                ¿Querés competir con amigos? Adentro. ¿Preferís cantar a tu ritmo, solo? También.
-              </p>
-              <ul className="grid grid-cols-2 gap-x-4 gap-y-2 pt-2 text-sm font-medium sm:grid-cols-3">
-                <li>🎤 Guaranía clásica</li>
-                <li>🎤 Rap ñe'ẽ</li>
-                <li>🎤 Trap jopara</li>
-                <li>🎤 Reggae guaraní</li>
-                <li>🎤 Cachaca/Chamamé</li>
-                <li>🎤 Rock paraguayo</li>
+            <div className="relative z-10 mt-8 space-y-6 text-sm leading-relaxed text-white/90 sm:text-base">
+              <div className="space-y-3">
+                <p>Cantá guaranías, rap, trap, reggae, cachaca, rock y más.</p>
+                <p>En guaraní puro o en jopara. Tu voz, tu ritmo, tu lengua.</p>
+                <p>
+                  ¿Querés competir con amigos? Adentro. ¿Preferís cantar a tu ritmo, solo? También.
+                </p>
+              </div>
+              <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
+                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-sm font-medium text-white">Guaranía clásica</span>
+                </li>
+                <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
+                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-sm font-medium text-white">Rap ñe'ẽ</span>
+                </li>
+                <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
+                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-sm font-medium text-white">Trap jopara</span>
+                </li>
+                <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
+                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-sm font-medium text-white">Reggae guaraní</span>
+                </li>
+                <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
+                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-sm font-medium text-white">Cachaca/Chamamé</span>
+                </li>
+                <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
+                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-sm font-medium text-white">Rock paraguayo</span>
+                </li>
               </ul>
-              <p className="pt-3 text-sm font-bold uppercase tracking-wide">
-                Próximamente. Prepará tu voz.
-              </p>
+              <div className="flex flex-col items-center gap-3 pt-2">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-white backdrop-blur-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/80" />
+                  Próximamente
+                </span>
+                <p className="text-sm text-white/80">Prepará tu voz.</p>
+              </div>
             </div>
           </div>
         </DialogContent>
       </Dialog>
 
       <Dialog open={openTeaser === "vivo"} onOpenChange={(o) => !o && setOpenTeaser(null)}>
-        <DialogContent className="max-w-2xl overflow-hidden border-0 bg-gradient-to-br from-[#C8102E] to-[#1E3A5F] p-0 text-white">
-          <div className="relative p-6 sm:p-8">
-            <span className="absolute -right-6 -bottom-6 text-9xl opacity-15" aria-hidden>📡</span>
-            <DialogHeader className="relative z-10">
+        <DialogContent className="max-w-2xl overflow-hidden border-0 bg-gradient-to-br from-[#C8102E] via-[#A01024] to-[#1E3A5F] p-0 text-white">
+          <div className="relative flex flex-col p-7 sm:p-10">
+            <span className="absolute -right-6 -bottom-6 text-9xl opacity-10" aria-hidden>📡</span>
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.10),transparent_40%)] pointer-events-none" />
+            <DialogHeader className="relative z-10 space-y-3">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="text-3xl" aria-hidden>🔴</span>
-                <DialogTitle className="font-display text-3xl font-bold text-white sm:text-4xl">
+                <DialogTitle className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
                   GUARANÍ EN VIVO
                 </DialogTitle>
               </div>
-              <DialogDescription className="text-white/90">
+              <DialogDescription className="text-base leading-relaxed text-white/90 sm:text-lg">
                 El guaraní no se guarda en libros. Se habla. Se comparte. Se VIVE.
               </DialogDescription>
             </DialogHeader>
-            <div className="relative z-10 mt-4 space-y-3 text-white/90">
+            <div className="relative z-10 mt-8 space-y-6 text-sm leading-relaxed text-white/90 sm:text-base">
               <p>
                 Transmisiones en vivo con hablantes nativos, artistas, maestros y sabios de todo Paraguay.
               </p>
-              <ul className="space-y-3 pt-2 text-sm font-medium">
-                <li className="flex flex-col gap-0.5">
-                  <span className="font-semibold">🎙️ Referentes y especialistas del guaraní</span>
-                  <span className="pl-6 text-white/80">Debates sobre el uso, la historia y el futuro del guaraní</span>
+              <ul className="space-y-3">
+                <li className="rounded-xl border border-white/10 bg-white/10 p-4 shadow-sm backdrop-blur-sm">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl" aria-hidden>🎙️</span>
+                    <div className="flex-1">
+                      <p className="font-display text-sm font-semibold text-white">Referentes y especialistas del guaraní</p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">Debates sobre el uso, la historia y el futuro del guaraní</p>
+                    </div>
+                  </div>
                 </li>
-                <li className="flex flex-col gap-0.5">
-                  <span className="font-semibold">🎙️ Hablantes nativos de distintas regiones</span>
-                  <span className="pl-6 text-white/80">Conversaciones en guaraní puro y jopara</span>
+                <li className="rounded-xl border border-white/10 bg-white/10 p-4 shadow-sm backdrop-blur-sm">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl" aria-hidden>🎙️</span>
+                    <div className="flex-1">
+                      <p className="font-display text-sm font-semibold text-white">Hablantes nativos de distintas regiones</p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">Conversaciones en guaraní puro y jopara</p>
+                    </div>
+                  </div>
                 </li>
-                <li className="flex flex-col gap-0.5">
-                  <span className="font-semibold">🎙️ Artistas del rap y la música urbana en guaraní</span>
-                  <span className="pl-6 text-white/80">Letras, ritmo y cultura en ñe'ẽ</span>
+                <li className="rounded-xl border border-white/10 bg-white/10 p-4 shadow-sm backdrop-blur-sm">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl" aria-hidden>🎙️</span>
+                    <div className="flex-1">
+                      <p className="font-display text-sm font-semibold text-white">Artistas del rap y la música urbana en guaraní</p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">Letras, ritmo y cultura en ñe'ẽ</p>
+                    </div>
+                  </div>
                 </li>
-                <li className="flex flex-col gap-0.5">
-                  <span className="font-semibold">🎙️ Talleres familiares</span>
-                  <span className="pl-6 text-white/80">Aprendé guaraní junto a tus hijos</span>
+                <li className="rounded-xl border border-white/10 bg-white/10 p-4 shadow-sm backdrop-blur-sm">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl" aria-hidden>🎙️</span>
+                    <div className="flex-1">
+                      <p className="font-display text-sm font-semibold text-white">Talleres familiares</p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">Aprendé guaraní junto a tus hijos</p>
+                    </div>
+                  </div>
                 </li>
               </ul>
               <p>Chat en vivo. Preguntá en tiempo real. La comunidad del ñe'ẽ, conectada.</p>
-              <p className="pt-3 text-sm font-bold uppercase tracking-wide">
-                Próximamente. Prepará tus preguntas.
-              </p>
+              <div className="flex flex-col items-center gap-3 pt-2">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-white backdrop-blur-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/80" />
+                  Próximamente
+                </span>
+                <p className="text-sm text-white/80">Prepará tus preguntas.</p>
+              </div>
             </div>
           </div>
         </DialogContent>
