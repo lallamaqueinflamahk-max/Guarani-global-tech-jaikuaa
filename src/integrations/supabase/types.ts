@@ -175,6 +175,47 @@ export type Database = {
         }
         Relationships: []
       }
+      mec_capacities: {
+        Row: {
+          axis: string
+          capacity_gn: string
+          code: string
+          contents_es: string
+          created_at: string
+          level_id: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          axis: string
+          capacity_gn: string
+          code: string
+          contents_es: string
+          created_at?: string
+          level_id: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          axis?: string
+          capacity_gn?: string
+          code?: string
+          contents_es?: string
+          created_at?: string
+          level_id?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mec_capacities_level_id_fkey"
+            columns: ["level_id"]
+            isOneToOne: false
+            referencedRelation: "mec_levels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       mec_levels: {
         Row: {
           created_at: string

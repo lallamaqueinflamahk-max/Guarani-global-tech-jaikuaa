@@ -32,6 +32,7 @@ import {
   commitCorpusImport,
   deleteCorpusWord,
   getCorpusOverview,
+  getMecCapacities,
   listCorpusWords,
   publishLevel,
   previewCorpusImport as previewFn,
@@ -179,6 +180,9 @@ function CorpusAdminContent() {
           <TabsTrigger value="importar" className="flex-1">
             Importar Excel
           </TabsTrigger>
+          <TabsTrigger value="cronograma" className="flex-1">
+            Cronograma MEC
+          </TabsTrigger>
           <TabsTrigger value="niveles" className="flex-1">
             Cobertura por grado
           </TabsTrigger>
@@ -189,6 +193,9 @@ function CorpusAdminContent() {
 
         <TabsContent value="importar" className="mt-6">
           <ImportPanel levels={levels} />
+        </TabsContent>
+        <TabsContent value="cronograma" className="mt-6">
+          <CronogramaPanel />
         </TabsContent>
         <TabsContent value="niveles" className="mt-6">
           <LevelsPanel levels={levels} />
@@ -299,7 +306,9 @@ function ImportPanel({ levels }: { levels: Level[] }) {
         gn,
         es,
         levelId: resolveLevel(pick("grado", "nivel", "curso")),
-        unit: pick("unidad", "tema", "unit"),
+        unit:
+          pick("capacidad", "codigo", "código", "capacity").toUpperCase() ||
+          pick("unidad", "tema", "unit"),
         type: tipoRaw ? (tipoRaw.startsWith("or") ? "oracion" : "palabra") : type,
         notes: pick("notas", "observaciones"),
       });
@@ -322,6 +331,7 @@ function ImportPanel({ levels }: { levels: Level[] }) {
         guarani: "Aguyje",
         español: "Gracias",
         grado: "1° grado",
+        capacidad: "MEC-1G-01",
         unidad: "Saludos",
         tipo: "palabra",
         notas: "",
@@ -330,6 +340,7 @@ function ImportPanel({ levels }: { levels: Level[] }) {
         guarani: "Che sy iporã",
         español: "Mi mamá es linda",
         grado: "3° grado",
+        capacidad: "MEC-3G-01",
         unidad: "La familia",
         tipo: "oracion",
         notas: "",
@@ -347,7 +358,10 @@ function ImportPanel({ levels }: { levels: Level[] }) {
       <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5">
         <h2 className="font-display text-lg font-semibold text-primary">Cómo funciona</h2>
         <ol className="mt-2 space-y-1 text-sm text-foreground">
-          <li>1. Preparás el Excel con las columnas: guaraní · español · grado · unidad · tipo.</li>
+          <li>
+            1. Preparás el Excel: guaraní · español · grado · capacidad (código MEC) · unidad ·
+            tipo.
+          </li>
           <li>2. Lo subís acá y ves cuántas palabras son nuevas y cuántas se reusan.</li>
           <li>3. Guardás. El sistema te dice exactamente qué audios faltan grabar.</li>
           <li>4. Publicás el grado cuando la cobertura de audio esté completa.</li>
@@ -455,6 +469,17 @@ function ImportPanel({ levels }: { levels: Level[] }) {
               )}
             />
           )}
+
+          {p.unknownCapacities.length > 0 && (
+            <PreviewBox
+              tone="warn"
+              title={`${p.unknownCapacities.length} códigos de capacidad desconocidos`}
+              subtitle="No existen en el cronograma oficial del MEC"
+              items={p.unknownCapacities}
+            />
+          )}
+
+
 
           {p.audioToRecord.length > 0 && (
             <div className="rounded-2xl border border-accent/30 bg-accent/5 p-5">
@@ -727,6 +752,83 @@ function WordsPanel({ levels }: { levels: Level[] }) {
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+/* ---------------------------- CRONOGRAMA MEC ---------------------------- */
+
+function CronogramaPanel() {
+  const capsFn = useServerFn(getMecCapacities);
+  const q = useQuery({ queryKey: ["mec-capacities"], queryFn: () => capsFn() });
+
+  if (q.isLoading) {
+    return (
+      <div className="flex justify-center py-10">
+        <Loader2 className="h-5 w-5 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  const levels = q.data?.levels ?? [];
+  const caps = q.data?.capacities ?? [];
+
+  return (
+    <div className="space-y-6">
+      <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5">
+        <h2 className="font-display text-lg font-semibold text-primary">
+          Cronograma oficial del MEC
+        </h2>
+        <p className="mt-1 text-sm text-foreground">
+          {caps.length} capacidades desde 1° grado hasta 3er curso. Usá el código de cada capacidad
+          (ej. <code>MEC-2G-01</code>) en la columna <strong>capacidad</strong> del Excel para que
+          las palabras y oraciones queden atadas al currículum.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2 text-xs">
+          <Badge variant="secondary">
+            {caps.reduce((a, c) => a + c.words, 0)} palabras ligadas a capacidades
+          </Badge>
+          {q.data?.freeUnits.length ? (
+            <Badge variant="outline">{q.data.freeUnits.length} unidades libres (sin código)</Badge>
+          ) : null}
+        </div>
+      </div>
+
+      {levels.map((lv) => {
+        const list = caps.filter((c) => c.level_id === lv.id);
+        if (list.length === 0) return null;
+        return (
+          <div key={lv.id}>
+            <h3 className="font-display text-sm font-bold uppercase tracking-wide text-muted-foreground">
+              {lv.label} · {lv.stage}
+            </h3>
+            <div className="mt-2 space-y-2">
+              {list.map((c) => (
+                <div
+                  key={c.code}
+                  className="rounded-xl border border-border/60 bg-card p-4 shadow-sm"
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <code className="rounded bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
+                      {c.code}
+                    </code>
+                    <Badge variant="outline" className="text-xs">
+                      {c.axis}
+                    </Badge>
+                    <Badge variant={c.words > 0 ? "default" : "secondary"} className="text-xs">
+                      {c.words} palabras
+                    </Badge>
+                  </div>
+                  <p className="mt-2 font-display text-sm font-semibold text-foreground">
+                    {c.capacity_gn}
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">{c.contents_es}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

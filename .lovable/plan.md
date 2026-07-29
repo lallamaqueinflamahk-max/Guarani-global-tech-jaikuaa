@@ -1,75 +1,66 @@
-## 1. Dónde está hoy el corpus
+## Objetivo
 
-Verificado en el código actual:
+Convertir el cronograma oficial del MEC en la columna vertebral del corpus: cada grado deja de tener "unidades" escritas a mano y pasa a tener sus **capacidades oficiales** con código, eje curricular y contenidos. El vocabulario explícito del PDF se carga ya, asignado a su capacidad.
 
-| Fuente | Entradas |
-|---|---|
-| `guarani-lessons.ts` (Curso, 10 lecciones) | 80 |
-| `guarani-tema.ts` (Guaraní Escolar, 6 temas) | 46 |
-| `comenzar.tsx` (onboarding) | 3 |
-| `index.tsx` (landing) | 6 |
-| **Total de entradas** | **135** |
-| **Palabras únicas** | **109** |
-| Audios humanos en `docs/audio-filenames.md` | **109** (cobertura 100%) |
+## Qué contiene el cronograma
 
-Hay 26 repeticiones porque la misma palabra (ej. *Aguyje*, *Iporã*, *Mba'éichapa*) está escrita en varios archivos. No existe una fuente única: por eso hoy no se puede responder "cuántas palabras tiene tal grado" sin contarlas a mano.
-
-## 2. Respuesta a tu pregunta de fondo
-
-**El corpus no se multiplica por grado: se comparte.** La palabra es el activo (con su audio humano); el grado es solo una etiqueta de uso.
-
-- Una palabra puede pertenecer a varios grados a la vez (*Sy* aparece en 1° y se reusa en 4°).
-- Al subir un grado nuevo, el sistema compara contra el corpus existente y separa **palabras ya existentes** (0 audio nuevo) de **palabras nuevas** (requieren grabación).
-- Las oraciones **no son entradas del corpus**: son combinaciones de palabras ya existentes. Cada oración se guarda con la lista de palabras que la componen, y el audio se reproduce palabra por palabra reusando los 109 (y los que vengan).
-
-Estimación realista con 9 niveles (1° básica → 3er curso), asumiendo ~120–180 palabras clave nuevas por nivel en los primeros grados y menos en los superiores (por solapamiento creciente): el corpus final ronda **900–1.300 palabras únicas**, no ~1.600 entradas sueltas. El solapamiento entre grados es el que te ahorra grabaciones.
-
-## 3. Arquitectura a construir
-
-### Tablas nuevas (base de datos)
+22 capacidades oficiales repartidas en los 12 niveles que ya existen en la app:
 
 ```text
-corpus_words          — la palabra: gn, es, slug de audio, tiene_audio, notas, estado
-corpus_word_levels    — qué grado(s) usan cada palabra (palabra ↔ nivel ↔ unidad MEC)
-corpus_sentences      — oración en guaraní + traducción + nivel + unidad
-corpus_sentence_words — orden de las palabras dentro de la oración (enlaza al corpus)
-mec_levels            — 1° básica … 3er curso, con las unidades del cronograma
+1° grado  MEC-1G-01 · 1G-02 · 1G-03    3° curso EM  MEC-EM-03
+2° grado  MEC-2G-01 · 2G-02
+3° grado  MEC-3G-01 · 3G-02            + 3 reglas ortográficas
+4° grado  MEC-4G-01 · 4G-02              obligatorias (ALG Ley 4251/10):
+5° grado  MEC-5G-01 · 5G-02              aglutinación de afijos,
+6° grado  MEC-6G-01 · 6G-02              armonía nasal (-pe / -me),
+7° grado  MEC-7G-01 · 7G-02              grafemario oficial (K, J, Y, pusó)
+8° grado  MEC-8G-01 · 8G-02
+9° grado  MEC-9G-01 · 9G-02
+1° y 2° curso EM  MEC-EM-01 · EM-02
 ```
 
-Regla clave: `corpus_words.gn` es **único**. Si la profesora sube "Aguyje" en 3° y ya existía en 1°, no se duplica: solo se agrega una fila en `corpus_word_levels`.
+## 1. Base de datos
 
-El slug de audio se calcula con **las mismas 7 reglas** que ya usa la app (`docs/audio-filenames.md`), así el audio existente se enlaza automáticamente.
+Nueva tabla `mec_capacities` con: código (`MEC-1G-01`), nivel, eje curricular (Ohendu/Ñe'ẽ, Moñe'ẽrã, Haipyre, Gramática…), capacidad oficial en guaraní, contenidos clave en español y orden. Lectura pública, escritura solo admin.
 
-### Panel de carga (`/admin/corpus`)
+Las 22 filas se cargan con los textos exactos del PDF.
 
-- **Importar Excel**: subís el .xlsx validado por la profesora, con columnas `guarani | español | grado | unidad | tipo (palabra/oración)`.
-- **Vista previa antes de guardar**, con tres listas:
-  - ✅ Ya en el corpus → se reusan, sin costo de audio
-  - 🆕 Nuevas → se crean, marcadas "sin audio"
-  - ⚠️ Conflictos → misma palabra con traducción distinta, para que decidas
-- **Tablero de cobertura**: palabras totales, con audio, sin audio, y el listado exacto de slugs a grabar por grado.
-- Editar / corregir / dar de baja una palabra sin tocar código.
-- Acceso restringido a administradores (tabla de roles separada, sin roles en el perfil).
+Cambio en el corpus: `corpus_word_levels.unit` y `corpus_sentences.unit` pasan a guardar el **código de capacidad** en vez de texto libre. Las filas actuales (109 palabras ya mapeadas a 6° grado) se reasignan a la capacidad que corresponda o quedan sin capacidad hasta que se revise.
 
-### Migración del contenido actual
+## 2. Léxico del cronograma
 
-Las 109 palabras existentes se cargan a `corpus_words` con su audio ya enlazado y su grado tentativo. Las lecciones y temas actuales **siguen funcionando igual** (pasan a leer del corpus en vez de los archivos), sin tocar XP, timer, audio ni trivia.
+Se cargan las palabras nombradas explícitamente en el documento, cada una a su capacidad. Las que ya existen en el corpus se reutilizan (no se duplican, no se vuelve a grabar audio); las nuevas entran como pendientes de grabación.
 
-## 4. Tu flujo de trabajo después
+- **1G-01** Mba'éichapa, Mba'evéichante, Aguyje, Eguerahapyre
+- **1G-02** las 33 letras del Achegety, pu'ae orales y nasales, pusó
+- **1G-03** Sy, Túva, Joyke'y, Mbo'ehára, Haiha, Kuatia
+- **2G-01** Jagua, Mbarakaja, Yvyra, Yvoty, -kuéra / -nguéra
+- **2G-02** Pytã, Hovy, Sa'yju, y los números Peteĩ a Pa (1–10)
+- **3G-01** ógape, ñemuháme (ejemplos de armonía)
+- **4G-01** prefijos A-, Re-, O-, Ja-/Ña-, Ro-, Pe-
+- **4G-02** ári, iguýpe, ndive, ypýpe
+- **5G-01** -kuri, -va'ekue · **5G-02** Pychãichĩ, Pláta Yvyguy
+- **6G-01** -se, -pota, -ve, -pa
+- **7G-01** Tete/Sete/Rete, Tova/Sova/Rova · **7G-02** Jasy Jatere, Kurupi, Luisõ, Moñái, Ao Ao
+- **8G-01** Ha, Téra, Bepémo, Hag̃ua, Gui · **8G-02** -ha, -hára, -py
+- **9G-01** -ta, -ne, -va'erã
 
-1. Generás el Excel de un grado con la IA que prefieras.
-2. La profesora lo valida.
-3. Lo subís al panel → ves cuántas palabras son nuevas y cuántas se reusan.
-4. El panel te da la lista exacta de audios a grabar (solo las nuevas).
-5. Publicás el grado cuando la cobertura de audio llega al 100%.
+Todo entra como **borrador**, nada se publica hasta que tu profesora lo revise desde el panel.
 
-## 5. Detalles técnicos
+## 3. Panel /admin/corpus
 
-- Tablas con RLS: lectura pública (`anon`, `authenticated`) para el contenido publicado; escritura solo para rol `admin` vía función `has_role`, con los `GRANT` correspondientes.
-- Importación de Excel parseada en el cliente y persistida por una server function validada con Zod.
-- Estado `draft | published` por palabra/oración, para que nada aparezca en la app hasta que lo apruebes.
-- El `audio_slug` se genera con la función de slug existente en `src/lib/audio.ts` para garantizar compatibilidad con el bucket actual.
+- Nueva pestaña **Cronograma MEC**: la malla completa por ciclo, con código, eje, capacidad en guaraní y contenidos, más cuántas palabras y oraciones tiene cargada cada capacidad y cuántas tienen audio.
+- En **Importar**: la columna `unidad` del Excel ahora acepta el código de capacidad (`MEC-2G-01`) y el previsualizador avisa si un código no existe.
+- En **Palabras**: filtro por capacidad además de por grado.
+- Bloque fijo con las 3 reglas ortográficas obligatorias visible al cargar contenido, para que quien escriba el Excel las tenga a la vista.
 
-## 6. Pendiente de tu lado
+## 4. Sin generación automática
 
-Necesito el **cronograma del MEC** (no llegó el archivo). Con él defino la tabla `mec_levels` con las unidades reales de cada grado; sin él, arranco con niveles genéricos 1°–9° y las unidades se cargan después desde el panel.
+No se genera vocabulario ni oraciones con IA. La app solo carga lo que está escrito en el documento oficial y lo que subas por Excel.
+
+## Notas técnicas
+
+- Migración: `CREATE TABLE public.mec_capacities` + GRANT anon/authenticated SELECT, service_role ALL, RLS con política admin para escritura; FK a `mec_levels(id)`.
+- Seed de las 22 capacidades y del léxico vía inserts; las palabras existentes se detectan por `audio_slug` para no duplicar.
+- `src/lib/corpus.functions.ts`: nueva `listMecCapacities`, validación de código en `previewCorpusImport`, y `getCorpusOverview` agregado por capacidad.
+- Nuevo componente de pestaña en `src/routes/_authenticated/admin.corpus.tsx`.
