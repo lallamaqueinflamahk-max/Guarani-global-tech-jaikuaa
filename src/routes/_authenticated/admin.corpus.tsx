@@ -755,3 +755,80 @@ function WordsPanel({ levels }: { levels: Level[] }) {
     </div>
   );
 }
+
+/* ---------------------------- CRONOGRAMA MEC ---------------------------- */
+
+function CronogramaPanel() {
+  const capsFn = useServerFn(getMecCapacities);
+  const q = useQuery({ queryKey: ["mec-capacities"], queryFn: () => capsFn() });
+
+  if (q.isLoading) {
+    return (
+      <div className="flex justify-center py-10">
+        <Loader2 className="h-5 w-5 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  const levels = q.data?.levels ?? [];
+  const caps = q.data?.capacities ?? [];
+
+  return (
+    <div className="space-y-6">
+      <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5">
+        <h2 className="font-display text-lg font-semibold text-primary">
+          Cronograma oficial del MEC
+        </h2>
+        <p className="mt-1 text-sm text-foreground">
+          {caps.length} capacidades desde 1° grado hasta 3er curso. Usá el código de cada capacidad
+          (ej. <code>MEC-2G-01</code>) en la columna <strong>capacidad</strong> del Excel para que
+          las palabras y oraciones queden atadas al currículum.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2 text-xs">
+          <Badge variant="secondary">
+            {caps.reduce((a, c) => a + c.words, 0)} palabras ligadas a capacidades
+          </Badge>
+          {q.data?.freeUnits.length ? (
+            <Badge variant="outline">{q.data.freeUnits.length} unidades libres (sin código)</Badge>
+          ) : null}
+        </div>
+      </div>
+
+      {levels.map((lv) => {
+        const list = caps.filter((c) => c.level_id === lv.id);
+        if (list.length === 0) return null;
+        return (
+          <div key={lv.id}>
+            <h3 className="font-display text-sm font-bold uppercase tracking-wide text-muted-foreground">
+              {lv.label} · {lv.stage}
+            </h3>
+            <div className="mt-2 space-y-2">
+              {list.map((c) => (
+                <div
+                  key={c.code}
+                  className="rounded-xl border border-border/60 bg-card p-4 shadow-sm"
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <code className="rounded bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
+                      {c.code}
+                    </code>
+                    <Badge variant="outline" className="text-xs">
+                      {c.axis}
+                    </Badge>
+                    <Badge variant={c.words > 0 ? "default" : "secondary"} className="text-xs">
+                      {c.words} palabras
+                    </Badge>
+                  </div>
+                  <p className="mt-2 font-display text-sm font-semibold text-foreground">
+                    {c.capacity_gn}
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">{c.contents_es}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
