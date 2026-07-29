@@ -138,11 +138,20 @@ export const previewCorpusImport = createServerFn({ method: "POST" })
     await assertAdmin(context.supabase, context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const [existingRes, audioSlugs] = await Promise.all([
+    const [existingRes, capsRes, audioSlugs] = await Promise.all([
       supabaseAdmin.from("corpus_words").select("id, gn, es, has_audio"),
+      supabaseAdmin.from("mec_capacities").select("code, level_id"),
       listAudioSlugs(),
     ]);
     const existing = new Map((existingRes.data ?? []).map((w) => [w.gn.trim(), w]));
+    const caps = capsRes.data ?? [];
+    const unknownCapacities = [
+      ...new Set(
+        data.rows
+          .map((r) => r.unit.trim())
+          .filter((u) => /^MEC-/i.test(u) && !caps.some((c) => c.code === u.toUpperCase())),
+      ),
+    ];
 
     const reused: { gn: string; es: string; hasAudio: boolean }[] = [];
     const created: { gn: string; es: string; slug: string; hasAudio: boolean }[] = [];
