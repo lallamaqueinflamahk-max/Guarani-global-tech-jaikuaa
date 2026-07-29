@@ -14,6 +14,38 @@ const RowSchema = z.object({
   notes: z.string().default(""),
 });
 
+/** Cronograma oficial del MEC: capacidades por grado, con léxico asociado. */
+export const getMecCapacities = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const [capsRes, levelsRes, linksRes] = await Promise.all([
+      supabaseAdmin
+        .from("mec_capacities")
+        .select("code, level_id, axis, capacity_gn, contents_es, sort_order")
+        .order("sort_order"),
+      supabaseAdmin.from("mec_levels").select("id, label, stage, sort_order").order("sort_order"),
+      supabaseAdmin.from("corpus_word_levels").select("word_id, level_id, unit"),
+    ]);
+
+    const links = linksRes.data ?? [];
+    const caps = (capsRes.data ?? []).map((c) => ({
+      ...c,
+      words: links.filter((l) => l.unit === c.code).length,
+    }));
+
+    return {
+      levels: levelsRes.data ?? [],
+      capacities: caps,
+      freeUnits: [
+        ...new Set(links.filter((l) => l.unit && !caps.some((c) => c.code === l.unit)).map((l) => `${l.level_id} · ${l.unit}`)),
+      ].sort(),
+      unassigned: links.filter((l) => !l.unit).length,
+    };
+  });
+
 const ImportSchema = z.object({ rows: z.array(RowSchema).max(5000) });
 
 async function assertAdmin<
