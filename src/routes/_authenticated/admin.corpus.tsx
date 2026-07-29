@@ -180,6 +180,9 @@ function CorpusAdminContent() {
           <TabsTrigger value="importar" className="flex-1">
             Importar Excel
           </TabsTrigger>
+          <TabsTrigger value="cronograma" className="flex-1">
+            Cronograma MEC
+          </TabsTrigger>
           <TabsTrigger value="niveles" className="flex-1">
             Cobertura por grado
           </TabsTrigger>
@@ -190,6 +193,9 @@ function CorpusAdminContent() {
 
         <TabsContent value="importar" className="mt-6">
           <ImportPanel levels={levels} />
+        </TabsContent>
+        <TabsContent value="cronograma" className="mt-6">
+          <CronogramaPanel />
         </TabsContent>
         <TabsContent value="niveles" className="mt-6">
           <LevelsPanel levels={levels} />
