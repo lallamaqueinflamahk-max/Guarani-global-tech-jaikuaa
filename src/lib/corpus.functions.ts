@@ -190,6 +190,7 @@ export const previewCorpusImport = createServerFn({ method: "POST" })
       conflicts,
       sentences,
       audioToRecord: created.filter((c) => !c.hasAudio).map((c) => `${c.slug}.mp3`),
+      unknownCapacities,
     };
   });
 
