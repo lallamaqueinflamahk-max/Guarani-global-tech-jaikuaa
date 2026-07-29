@@ -306,7 +306,9 @@ function ImportPanel({ levels }: { levels: Level[] }) {
         gn,
         es,
         levelId: resolveLevel(pick("grado", "nivel", "curso")),
-        unit: pick("unidad", "tema", "unit"),
+        unit:
+          pick("capacidad", "codigo", "código", "capacity").toUpperCase() ||
+          pick("unidad", "tema", "unit"),
         type: tipoRaw ? (tipoRaw.startsWith("or") ? "oracion" : "palabra") : type,
         notes: pick("notas", "observaciones"),
       });
