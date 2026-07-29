@@ -1,76 +1,75 @@
-# Auditoría de Aranduka — listo para demo al gobierno
+## 1. Dónde está hoy el corpus
 
-Resumen ejecutivo: la app está en muy buen estado para mostrar. No encontré bugs bloqueantes en los flujos principales. El audio guaraní está 100% cubierto. Hay 5–6 ajustes menores recomendables antes de la demo (UX y polish), pero ninguno impide mostrarla hoy.
+Verificado en el código actual:
 
----
+| Fuente | Entradas |
+|---|---|
+| `guarani-lessons.ts` (Curso, 10 lecciones) | 80 |
+| `guarani-tema.ts` (Guaraní Escolar, 6 temas) | 46 |
+| `comenzar.tsx` (onboarding) | 3 |
+| `index.tsx` (landing) | 6 |
+| **Total de entradas** | **135** |
+| **Palabras únicas** | **109** |
+| Audios humanos en `docs/audio-filenames.md` | **109** (cobertura 100%) |
 
-## 1. CRITICAL (revisar antes de mostrar)
+Hay 26 repeticiones porque la misma palabra (ej. *Aguyje*, *Iporã*, *Mba'éichapa*) está escrita en varios archivos. No existe una fuente única: por eso hoy no se puede responder "cuántas palabras tiene tal grado" sin contarlas a mano.
 
-**Ninguno bloqueante.** Los flujos principales funcionan:
-- Landing → Empezar gratis → /auth (signup) ✅
-- Login email/password con error messages en rojo ✅
-- Login con Google (redirect a `/auth` con listener) ✅
-- Dashboard saluda con "¡Mba'éichapa, [nombre]!" ✅
-- Curso Guaraní → Lección 1 desbloqueada, 2–10 con 🔒 ✅
-- Guaraní Escolar → Modo Rescate, Plan Semanal, Práctica por Tema (6 temas, todos con quiz) ✅
-- Tutor IA, Traductor, Ñe'ẽ Rape ✅
-- Gamificación (XP/Racha/Logros) con persistencia local ✅
+## 2. Respuesta a tu pregunta de fondo
 
-Un único riesgo real para mencionar: **Signup con email** llama `navigate("/dashboard")` aunque Supabase responda sin sesión (caso "confirma tu email"). Si en la config de auth está activado *confirm email*, el usuario verá un parpadeo y será rebotado a `/auth`. Antes del demo: registrarse con un email nuevo en preview para verificar que entra directo. Si no entra, hay que desactivar "confirm email" en Cloud → Users → Auth Settings, o agregar un mensaje "revisá tu email". Fix sugerido: en `src/routes/auth.tsx` línea ~118, no navegar si `data.session` es null.
+**El corpus no se multiplica por grado: se comparte.** La palabra es el activo (con su audio humano); el grado es solo una etiqueta de uso.
 
----
+- Una palabra puede pertenecer a varios grados a la vez (*Sy* aparece en 1° y se reusa en 4°).
+- Al subir un grado nuevo, el sistema compara contra el corpus existente y separa **palabras ya existentes** (0 audio nuevo) de **palabras nuevas** (requieren grabación).
+- Las oraciones **no son entradas del corpus**: son combinaciones de palabras ya existentes. Cada oración se guarda con la lista de palabras que la componen, y el audio se reproduce palabra por palabra reusando los 109 (y los que vengan).
 
-## 2. AUDIO (109 palabras guaraní)
+Estimación realista con 9 niveles (1° básica → 3er curso), asumiendo ~120–180 palabras clave nuevas por nivel en los primeros grados y menos en los superiores (por solapamiento creciente): el corpus final ronda **900–1.300 palabras únicas**, no ~1.600 entradas sueltas. El solapamiento entre grados es el que te ahorra grabaciones.
 
-**Estado: 100% cubierto.** Verifiqué directamente contra el bucket `guarani-audio`:
+## 3. Arquitectura a construir
 
-- Slugs esperados según `docs/audio-filenames.md`: 109
-- Archivos presentes en el bucket: los 109 esperados (más algunos duplicados `-2.mp3`/`-3.mp3` que la app ignora — no molestan).
-- Cero palabras de lecciones, temas o examen Rescate caen al fallback TTS.
+### Tablas nuevas (base de datos)
 
-**Latencia**: cada click de 🔊 genera una URL firmada vía server function (~150–400ms en buenas redes) antes de reproducir. En vivo, la primera reproducción puede tener un mínimo delay perceptible. Nice-to-have: pre-cachear la URL al hacer hover/focus del botón. No es crítico.
+```text
+corpus_words          — la palabra: gn, es, slug de audio, tiene_audio, notas, estado
+corpus_word_levels    — qué grado(s) usan cada palabra (palabra ↔ nivel ↔ unidad MEC)
+corpus_sentences      — oración en guaraní + traducción + nivel + unidad
+corpus_sentence_words — orden de las palabras dentro de la oración (enlaza al corpus)
+mec_levels            — 1° básica … 3er curso, con las unidades del cronograma
+```
 
----
+Regla clave: `corpus_words.gn` es **único**. Si la profesora sube "Aguyje" en 3° y ya existía en 1°, no se duplica: solo se agrega una fila en `corpus_word_levels`.
 
-## 3. MOBILE
+El slug de audio se calcula con **las mismas 7 reglas** que ya usa la app (`docs/audio-filenames.md`), así el audio existente se enlaza automáticamente.
 
-Revisé el markup de todas las páginas principales. Todo usa Tailwind responsive (`sm:`, `lg:`, `max-w-*`, `px-4`). No detecté overflow ni texto cortado en breakpoints típicos. Puntos a confirmar en vivo en un teléfono real antes del demo:
+### Panel de carga (`/admin/corpus`)
 
-- **Tutor IA** usa `h-screen` (línea 46) en lugar de `min-h-screen`/`h-dvh`. En iOS Safari con la barra dinámica, el textarea inferior puede quedar tapado por la barra de navegación. Recomendado: cambiar `h-screen` → `min-h-dvh` o `h-[100dvh]`.
-- **Hero** título h1 escala hasta `lg:text-7xl`; en mobile va bien (`text-4xl`).
-- **Dashboard cards** apilan a 1 columna en mobile correctamente.
+- **Importar Excel**: subís el .xlsx validado por la profesora, con columnas `guarani | español | grado | unidad | tipo (palabra/oración)`.
+- **Vista previa antes de guardar**, con tres listas:
+  - ✅ Ya en el corpus → se reusan, sin costo de audio
+  - 🆕 Nuevas → se crean, marcadas "sin audio"
+  - ⚠️ Conflictos → misma palabra con traducción distinta, para que decidas
+- **Tablero de cobertura**: palabras totales, con audio, sin audio, y el listado exacto de slugs a grabar por grado.
+- Editar / corregir / dar de baja una palabra sin tocar código.
+- Acceso restringido a administradores (tabla de roles separada, sin roles en el perfil).
 
----
+### Migración del contenido actual
 
-## 4. POLISH / PROFESIONALISMO
+Las 109 palabras existentes se cargan a `corpus_words` con su audio ya enlazado y su grado tentativo. Las lecciones y temas actuales **siguen funcionando igual** (pasan a leer del corpus en vez de los archivos), sin tocar XP, timer, audio ni trivia.
 
-- **Favicon**: existe en `public/favicon.png` y está referenciado en `__root.tsx`. ✅
-- **OG image** (`__root.tsx` línea 90) apunta a `https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/…`. Funciona pero la URL parece interna de la plataforma. Si se comparte el link en WhatsApp/Telegram durante la reunión, conviene confirmar que renderiza con el logo del jaguar. Si falla, subir el logo a `public/og-image.png` y actualizar la meta.
-- **Landing → "Idiomas destacados"** muestra solo 3 idiomas (Guaraní, Inglés, Portugués). El dashboard sí muestra los 5 (con "Próximamente" en 4). Es consistente con la narrativa "Guaraní en el corazón", pero si en el pitch se habla de 5 idiomas conviene agregar Francés y Español acá también.
-- **Sin placeholder ni lorem ipsum** en ninguna ruta. Todo el copy está en español paraguayo.
-- **Header del Dashboard**: el botón "Cerrar sesión" está siempre visible — está bien para la demo, pero ocupa espacio en mobile. Nice-to-have: meterlo en un dropdown con el nombre del usuario.
+## 4. Tu flujo de trabajo después
 
----
+1. Generás el Excel de un grado con la IA que prefieras.
+2. La profesora lo valida.
+3. Lo subís al panel → ves cuántas palabras son nuevas y cuántas se reusan.
+4. El panel te da la lista exacta de audios a grabar (solo las nuevas).
+5. Publicás el grado cuando la cobertura de audio llega al 100%.
 
-## 5. PERFORMANCE
+## 5. Detalles técnicos
 
-- Fuentes Google (Inter + Space Grotesk) cargan con `preconnect` ✅
-- Sin imágenes pesadas en landing (todo emoji/SVG inline).
-- `defaultPreloadStaleTime: 0` en el router — los hovers sobre `<Link>` no pre-cachean. Para una demo en vivo con WiFi de hotel, **subir a `defaultPreloadStaleTime: 30_000`** en `src/router.tsx` acelera la navegación percibida notablemente.
-- Cada palabra 🔊 hace un roundtrip de server function. Si demuestran una lección reproduciendo varias palabras seguidas, hay un pequeño delay por click. No es bloqueante.
+- Tablas con RLS: lectura pública (`anon`, `authenticated`) para el contenido publicado; escritura solo para rol `admin` vía función `has_role`, con los `GRANT` correspondientes.
+- Importación de Excel parseada en el cliente y persistida por una server function validada con Zod.
+- Estado `draft | published` por palabra/oración, para que nada aparezca en la app hasta que lo apruebes.
+- El `audio_slug` se genera con la función de slug existente en `src/lib/audio.ts` para garantizar compatibilidad con el bucket actual.
 
----
+## 6. Pendiente de tu lado
 
-## Prioridades sugeridas antes del demo
-
-**Importante (15 min):**
-1. Probar signup con email nuevo en preview para verificar comportamiento de confirmación de email; si rebota, desactivar "confirm email" en Cloud → Users → Auth Settings.
-2. Probar la app desde un iPhone real, especialmente la pantalla del Tutor IA (problema potencial de `h-screen`).
-3. Compartir el link `https://arandukapy.com` por WhatsApp para verificar que el preview con el logo del jaguar se ve bien.
-
-**Nice-to-have (si hay tiempo):**
-4. Cambiar `h-screen` → `min-h-dvh` en `src/routes/_authenticated/tutor.tsx` línea 46.
-5. Subir `defaultPreloadStaleTime` a 30000 en `src/router.tsx` para navegación más fluida.
-6. Agregar Francés y Español a "Idiomas destacados" en la landing si en el pitch se menciona "5 idiomas".
-
-¿Querés que aplique alguno o todos estos ajustes? Decime cuáles y los implemento sin tocar nada más.
+Necesito el **cronograma del MEC** (no llegó el archivo). Con él defino la tabla `mec_levels` con las unidades reales de cada grado; sin él, arranco con niveles genéricos 1°–9° y las unidades se cargan después desde el panel.

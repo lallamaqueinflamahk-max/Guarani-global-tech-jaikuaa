@@ -33,6 +33,7 @@ import { Route as AuthenticatedGuaraniEscolarTemaRouteImport } from './routes/_a
 import { Route as AuthenticatedGuaraniEscolarSemanalRouteImport } from './routes/_authenticated/guarani-escolar.semanal'
 import { Route as AuthenticatedGuaraniEscolarRescateRouteImport } from './routes/_authenticated/guarani-escolar.rescate'
 import { Route as AuthenticatedCursoLangRouteImport } from './routes/_authenticated/curso.$lang'
+import { Route as AuthenticatedAdminCorpusRouteImport } from './routes/_authenticated/admin.corpus'
 import { Route as AuthenticatedGuaraniEscolarTemaIndexRouteImport } from './routes/_authenticated/guarani-escolar.tema.index'
 import { Route as AuthenticatedCursoLangIndexRouteImport } from './routes/_authenticated/curso.$lang.index'
 import { Route as AuthenticatedGuaraniEscolarTemaTopicRouteImport } from './routes/_authenticated/guarani-escolar.tema.$topic'
@@ -164,6 +165,12 @@ const AuthenticatedCursoLangRoute = AuthenticatedCursoLangRouteImport.update({
   path: '/curso/$lang',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminCorpusRoute =
+  AuthenticatedAdminCorpusRouteImport.update({
+    id: '/admin/corpus',
+    path: '/admin/corpus',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedGuaraniEscolarTemaIndexRoute =
   AuthenticatedGuaraniEscolarTemaIndexRouteImport.update({
     id: '/',
@@ -206,6 +213,7 @@ export interface FileRoutesByFullPath {
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
+  '/admin/corpus': typeof AuthenticatedAdminCorpusRoute
   '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
@@ -234,6 +242,7 @@ export interface FileRoutesByTo {
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
+  '/admin/corpus': typeof AuthenticatedAdminCorpusRoute
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/trivia/$category': typeof AuthenticatedTriviaCategoryRoute
@@ -263,6 +272,7 @@ export interface FileRoutesById {
   '/_authenticated/traductor': typeof AuthenticatedTraductorRoute
   '/_authenticated/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
+  '/_authenticated/admin/corpus': typeof AuthenticatedAdminCorpusRoute
   '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/_authenticated/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/_authenticated/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
@@ -294,6 +304,7 @@ export interface FileRouteTypes {
     | '/traductor'
     | '/tutor'
     | '/api/tutor'
+    | '/admin/corpus'
     | '/curso/$lang'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
@@ -322,6 +333,7 @@ export interface FileRouteTypes {
     | '/traductor'
     | '/tutor'
     | '/api/tutor'
+    | '/admin/corpus'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
     | '/trivia/$category'
@@ -350,6 +362,7 @@ export interface FileRouteTypes {
     | '/_authenticated/traductor'
     | '/_authenticated/tutor'
     | '/api/tutor'
+    | '/_authenticated/admin/corpus'
     | '/_authenticated/curso/$lang'
     | '/_authenticated/guarani-escolar/rescate'
     | '/_authenticated/guarani-escolar/semanal'
@@ -546,6 +559,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCursoLangRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/corpus': {
+      id: '/_authenticated/admin/corpus'
+      path: '/admin/corpus'
+      fullPath: '/admin/corpus'
+      preLoaderRoute: typeof AuthenticatedAdminCorpusRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/guarani-escolar/tema/': {
       id: '/_authenticated/guarani-escolar/tema/'
       path: '/'
@@ -643,6 +663,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedNheRapeRoute: typeof AuthenticatedNheRapeRoute
   AuthenticatedTraductorRoute: typeof AuthenticatedTraductorRoute
   AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
+  AuthenticatedAdminCorpusRoute: typeof AuthenticatedAdminCorpusRoute
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
   AuthenticatedTriviaCategoryRoute: typeof AuthenticatedTriviaCategoryRoute
   AuthenticatedTriviaIndexRoute: typeof AuthenticatedTriviaIndexRoute
@@ -657,6 +678,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedNheRapeRoute: AuthenticatedNheRapeRoute,
   AuthenticatedTraductorRoute: AuthenticatedTraductorRoute,
   AuthenticatedTutorRoute: AuthenticatedTutorRoute,
+  AuthenticatedAdminCorpusRoute: AuthenticatedAdminCorpusRoute,
   AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
   AuthenticatedTriviaCategoryRoute: AuthenticatedTriviaCategoryRoute,
   AuthenticatedTriviaIndexRoute: AuthenticatedTriviaIndexRoute,
@@ -680,13 +702,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

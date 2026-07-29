@@ -14,6 +14,197 @@ export type Database = {
   }
   public: {
     Tables: {
+      corpus_sentence_words: {
+        Row: {
+          created_at: string
+          id: string
+          position: number
+          sentence_id: string
+          token: string
+          word_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          position: number
+          sentence_id: string
+          token: string
+          word_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          position?: number
+          sentence_id?: string
+          token?: string
+          word_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "corpus_sentence_words_sentence_id_fkey"
+            columns: ["sentence_id"]
+            isOneToOne: false
+            referencedRelation: "corpus_sentences"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "corpus_sentence_words_word_id_fkey"
+            columns: ["word_id"]
+            isOneToOne: false
+            referencedRelation: "corpus_words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      corpus_sentences: {
+        Row: {
+          created_at: string
+          es: string
+          gn: string
+          id: string
+          level_id: string | null
+          notes: string
+          status: string
+          unit: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          es: string
+          gn: string
+          id?: string
+          level_id?: string | null
+          notes?: string
+          status?: string
+          unit?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          es?: string
+          gn?: string
+          id?: string
+          level_id?: string | null
+          notes?: string
+          status?: string
+          unit?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "corpus_sentences_level_id_fkey"
+            columns: ["level_id"]
+            isOneToOne: false
+            referencedRelation: "mec_levels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      corpus_word_levels: {
+        Row: {
+          created_at: string
+          id: string
+          level_id: string
+          unit: string
+          word_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          level_id: string
+          unit?: string
+          word_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          level_id?: string
+          unit?: string
+          word_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "corpus_word_levels_level_id_fkey"
+            columns: ["level_id"]
+            isOneToOne: false
+            referencedRelation: "mec_levels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "corpus_word_levels_word_id_fkey"
+            columns: ["word_id"]
+            isOneToOne: false
+            referencedRelation: "corpus_words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      corpus_words: {
+        Row: {
+          audio_slug: string
+          created_at: string
+          es: string
+          gn: string
+          has_audio: boolean
+          id: string
+          notes: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          audio_slug: string
+          created_at?: string
+          es: string
+          gn: string
+          has_audio?: boolean
+          id?: string
+          notes?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          audio_slug?: string
+          created_at?: string
+          es?: string
+          gn?: string
+          has_audio?: boolean
+          id?: string
+          notes?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      mec_levels: {
+        Row: {
+          created_at: string
+          id: string
+          label: string
+          sort_order: number
+          stage: string
+          units: Json
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          label: string
+          sort_order?: number
+          stage: string
+          units?: Json
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          label?: string
+          sort_order?: number
+          stage?: string
+          units?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -203,6 +394,27 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_stats: {
         Row: {
           badges: Json
@@ -288,10 +500,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "editor" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -418,6 +636,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "editor", "user"],
+    },
   },
 } as const

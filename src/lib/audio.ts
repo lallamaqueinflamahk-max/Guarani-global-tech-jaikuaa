@@ -4,16 +4,10 @@
 
 import { useEffect } from "react";
 import { getAudioSignedUrl } from "./audio.functions";
+import { slugify } from "./slug";
 
-export function slugify(gn: string): string {
-  let x = gn.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  x = x.toLowerCase();
-  x = x.replace(/ñ/g, "n");
-  x = x.replace(/['\u2019\u02BC\u02B9\u2018]/g, "");
-  x = x.replace(/[^a-z0-9]+/g, "-");
-  x = x.replace(/^-+|-+$/g, "");
-  return x;
-}
+export { slugify };
+
 
 // In-memory signed-URL cache + preloaded <audio> element cache (LRU, cap 50).
 const urlCache = new Map<string, string | null>();
