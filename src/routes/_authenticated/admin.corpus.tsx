@@ -32,6 +32,7 @@ import {
   commitCorpusImport,
   deleteCorpusWord,
   getCorpusOverview,
+  getMecCapacities,
   listCorpusWords,
   publishLevel,
   previewCorpusImport as previewFn,
