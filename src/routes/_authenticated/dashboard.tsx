@@ -13,6 +13,7 @@ import {
 import { StatsBar, StreakBanner } from "@/components/gamification/stats-bar";
 import { SiteFooter } from "@/components/site-footer";
 import { NhandeMarandu } from "@/components/nhande-marandu";
+import { AdminCorpusLink } from "@/components/admin-corpus-link";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Jaikuaa — Tu panel" }] }),
@@ -115,12 +116,18 @@ function Dashboard() {
     <div className="flex min-h-screen flex-col bg-background">
       <header className="border-b border-border/50">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold text-primary">
+          <Link
+            to="/"
+            className="flex items-center gap-2 font-display text-xl font-bold text-primary"
+          >
             <BrandLogo />
           </Link>
-          <Button variant="outline" size="sm" onClick={handleSignOut}>
-            Cerrar sesión
-          </Button>
+          <div className="flex items-center gap-2">
+            <AdminCorpusLink />
+            <Button variant="outline" size="sm" onClick={handleSignOut}>
+              Cerrar sesión
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -193,22 +200,24 @@ function Dashboard() {
 
           {/* 3. PREMIUM */}
           <section className="mt-10">
-            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
-              Premium
-            </h2>
+            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">Premium</h2>
             <div className="mt-4">
               <Link
                 to="/tutor"
                 className="group relative flex flex-col gap-2 rounded-2xl border border-accent/30 bg-card p-5 shadow-elegant card-hover hover:border-accent hover:shadow-lift"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl" aria-hidden>✨</span>
+                  <span className="text-2xl" aria-hidden>
+                    ✨
+                  </span>
                   <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent-foreground">
                     Premium ⭐
                   </span>
                 </div>
                 <div className="font-display text-lg font-bold text-foreground">Tutor IA</div>
-                <p className="text-sm text-muted-foreground">Chateá con tu profe de guaraní 24/7.</p>
+                <p className="text-sm text-muted-foreground">
+                  Chateá con tu profe de guaraní 24/7.
+                </p>
                 <span className="mt-1 text-sm font-medium text-accent">Abrir →</span>
               </Link>
             </div>
@@ -225,7 +234,9 @@ function Dashboard() {
                 className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-primary hover:shadow-lift"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl" aria-hidden>📖</span>
+                  <span className="text-2xl" aria-hidden>
+                    📖
+                  </span>
                   <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
                     Gratis
                   </span>
@@ -251,10 +262,14 @@ function Dashboard() {
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {/* Karaoke teaser */}
               <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1E3A5F] to-[#C8102E] p-5 shadow-elegant sm:p-6">
-                <span className="absolute -right-4 -bottom-4 text-7xl opacity-15" aria-hidden>🎵</span>
+                <span className="absolute -right-4 -bottom-4 text-7xl opacity-15" aria-hidden>
+                  🎵
+                </span>
                 <div className="relative z-10 flex flex-col gap-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl" aria-hidden>🎤</span>
+                    <span className="text-2xl" aria-hidden>
+                      🎤
+                    </span>
                     <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm animate-pulse">
                       Próximamente
                     </span>
@@ -277,10 +292,14 @@ function Dashboard() {
 
               {/* Vivo teaser */}
               <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8102E] to-[#1E3A5F] p-5 shadow-elegant sm:p-6">
-                <span className="absolute -right-4 -bottom-4 text-7xl opacity-15" aria-hidden>📡</span>
+                <span className="absolute -right-4 -bottom-4 text-7xl opacity-15" aria-hidden>
+                  📡
+                </span>
                 <div className="relative z-10 flex flex-col gap-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl" aria-hidden>🔴</span>
+                    <span className="text-2xl" aria-hidden>
+                      🔴
+                    </span>
                     <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm animate-pulse">
                       Próximamente
                     </span>
@@ -313,11 +332,15 @@ function Dashboard() {
       <Dialog open={openTeaser === "karaoke"} onOpenChange={(o) => !o && setOpenTeaser(null)}>
         <DialogContent className="max-w-2xl overflow-hidden border-0 bg-gradient-to-br from-[#1E3A5F] via-[#2A4A73] to-[#C8102E] p-0 text-white">
           <div className="relative flex flex-col p-7 sm:p-10">
-            <span className="absolute -right-6 -bottom-6 text-9xl opacity-10" aria-hidden>🎵</span>
+            <span className="absolute -right-6 -bottom-6 text-9xl opacity-10" aria-hidden>
+              🎵
+            </span>
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.10),transparent_40%)] pointer-events-none" />
             <DialogHeader className="relative z-10 space-y-3">
               <div className="flex flex-wrap items-center gap-3">
-                <span className="text-3xl" aria-hidden>🎤</span>
+                <span className="text-3xl" aria-hidden>
+                  🎤
+                </span>
                 <DialogTitle className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
                   KARAOKE ÑE'Ẽ
                 </DialogTitle>
@@ -336,27 +359,39 @@ function Dashboard() {
               </div>
               <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
-                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-lg" aria-hidden>
+                    🎤
+                  </span>
                   <span className="text-sm font-medium text-white">Guaranía clásica</span>
                 </li>
                 <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
-                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-lg" aria-hidden>
+                    🎤
+                  </span>
                   <span className="text-sm font-medium text-white">Rap ñe'ẽ</span>
                 </li>
                 <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
-                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-lg" aria-hidden>
+                    🎤
+                  </span>
                   <span className="text-sm font-medium text-white">Trap jopara</span>
                 </li>
                 <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
-                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-lg" aria-hidden>
+                    🎤
+                  </span>
                   <span className="text-sm font-medium text-white">Reggae guaraní</span>
                 </li>
                 <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
-                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-lg" aria-hidden>
+                    🎤
+                  </span>
                   <span className="text-sm font-medium text-white">Cachaca/Chamamé</span>
                 </li>
                 <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/10 p-3 shadow-sm backdrop-blur-sm">
-                  <span className="text-lg" aria-hidden>🎤</span>
+                  <span className="text-lg" aria-hidden>
+                    🎤
+                  </span>
                   <span className="text-sm font-medium text-white">Rock paraguayo</span>
                 </li>
               </ul>
@@ -375,11 +410,15 @@ function Dashboard() {
       <Dialog open={openTeaser === "vivo"} onOpenChange={(o) => !o && setOpenTeaser(null)}>
         <DialogContent className="max-w-2xl overflow-hidden border-0 bg-gradient-to-br from-[#C8102E] via-[#A01024] to-[#1E3A5F] p-0 text-white">
           <div className="relative flex flex-col p-7 sm:p-10">
-            <span className="absolute -right-6 -bottom-6 text-9xl opacity-10" aria-hidden>📡</span>
+            <span className="absolute -right-6 -bottom-6 text-9xl opacity-10" aria-hidden>
+              📡
+            </span>
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.10),transparent_40%)] pointer-events-none" />
             <DialogHeader className="relative z-10 space-y-3">
               <div className="flex flex-wrap items-center gap-3">
-                <span className="text-3xl" aria-hidden>🔴</span>
+                <span className="text-3xl" aria-hidden>
+                  🔴
+                </span>
                 <DialogTitle className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
                   GUARANÍ EN VIVO
                 </DialogTitle>
@@ -390,42 +429,67 @@ function Dashboard() {
             </DialogHeader>
             <div className="relative z-10 mt-8 space-y-6 text-sm leading-relaxed text-white/90 sm:text-base">
               <p>
-                Transmisiones en vivo con hablantes nativos, artistas, maestros y sabios de todo Paraguay.
+                Transmisiones en vivo con hablantes nativos, artistas, maestros y sabios de todo
+                Paraguay.
               </p>
               <ul className="space-y-3">
                 <li className="rounded-xl border border-white/10 bg-white/10 p-4 shadow-sm backdrop-blur-sm">
                   <div className="flex items-start gap-3">
-                    <span className="text-xl" aria-hidden>🎙️</span>
+                    <span className="text-xl" aria-hidden>
+                      🎙️
+                    </span>
                     <div className="flex-1">
-                      <p className="font-display text-sm font-semibold text-white">Referentes y especialistas del guaraní</p>
-                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">Debates sobre el uso, la historia y el futuro del guaraní</p>
+                      <p className="font-display text-sm font-semibold text-white">
+                        Referentes y especialistas del guaraní
+                      </p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">
+                        Debates sobre el uso, la historia y el futuro del guaraní
+                      </p>
                     </div>
                   </div>
                 </li>
                 <li className="rounded-xl border border-white/10 bg-white/10 p-4 shadow-sm backdrop-blur-sm">
                   <div className="flex items-start gap-3">
-                    <span className="text-xl" aria-hidden>🎙️</span>
+                    <span className="text-xl" aria-hidden>
+                      🎙️
+                    </span>
                     <div className="flex-1">
-                      <p className="font-display text-sm font-semibold text-white">Hablantes nativos de distintas regiones</p>
-                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">Conversaciones en guaraní puro y jopara</p>
+                      <p className="font-display text-sm font-semibold text-white">
+                        Hablantes nativos de distintas regiones
+                      </p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">
+                        Conversaciones en guaraní puro y jopara
+                      </p>
                     </div>
                   </div>
                 </li>
                 <li className="rounded-xl border border-white/10 bg-white/10 p-4 shadow-sm backdrop-blur-sm">
                   <div className="flex items-start gap-3">
-                    <span className="text-xl" aria-hidden>🎙️</span>
+                    <span className="text-xl" aria-hidden>
+                      🎙️
+                    </span>
                     <div className="flex-1">
-                      <p className="font-display text-sm font-semibold text-white">Artistas del rap y la música urbana en guaraní</p>
-                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">Letras, ritmo y cultura en ñe'ẽ</p>
+                      <p className="font-display text-sm font-semibold text-white">
+                        Artistas del rap y la música urbana en guaraní
+                      </p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">
+                        Letras, ritmo y cultura en ñe'ẽ
+                      </p>
                     </div>
                   </div>
                 </li>
                 <li className="rounded-xl border border-white/10 bg-white/10 p-4 shadow-sm backdrop-blur-sm">
                   <div className="flex items-start gap-3">
-                    <span className="text-xl" aria-hidden>🎙️</span>
+                    <span className="text-xl" aria-hidden>
+                      🎙️
+                    </span>
                     <div className="flex-1">
-                      <p className="font-display text-sm font-semibold text-white">Talleres familiares</p>
-                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">Aprendé guaraní junto a tus hijos</p>
+                      <p className="font-display text-sm font-semibold text-white">
+                        Talleres familiares
+                      </p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-white/80">
+                        Aprendé guaraní junto a tus hijos
+                      </p>
                     </div>
                   </div>
                 </li>
@@ -459,7 +523,10 @@ function FreeCard({
   desc: string;
   accent: "primary" | "accent";
 }) {
-  const border = accent === "accent" ? "border-accent/40 hover:border-accent" : "border-primary/30 hover:border-primary";
+  const border =
+    accent === "accent"
+      ? "border-accent/40 hover:border-accent"
+      : "border-primary/30 hover:border-primary";
   const link = accent === "accent" ? "text-accent" : "text-primary";
   return (
     <Link
@@ -467,7 +534,9 @@ function FreeCard({
       className={`group relative flex flex-col gap-2 rounded-2xl border ${border} bg-card p-5 shadow-elegant card-hover hover:shadow-lift`}
     >
       <div className="flex items-center justify-between">
-        <span className="text-2xl" aria-hidden>{emoji}</span>
+        <span className="text-2xl" aria-hidden>
+          {emoji}
+        </span>
         <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
           Gratis
         </span>
