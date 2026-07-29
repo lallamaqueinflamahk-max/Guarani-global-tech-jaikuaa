@@ -470,6 +470,17 @@ function ImportPanel({ levels }: { levels: Level[] }) {
             />
           )}
 
+          {p.unknownCapacities.length > 0 && (
+            <PreviewBox
+              tone="warn"
+              title={`${p.unknownCapacities.length} códigos de capacidad desconocidos`}
+              subtitle="No existen en el cronograma oficial del MEC"
+              items={p.unknownCapacities}
+            />
+          )}
+
+
+
           {p.audioToRecord.length > 0 && (
             <div className="rounded-2xl border border-accent/30 bg-accent/5 p-5">
               <h3 className="flex items-center gap-2 font-display font-semibold text-accent">
