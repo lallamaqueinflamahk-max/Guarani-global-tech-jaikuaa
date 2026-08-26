@@ -42,7 +42,7 @@ import { SpeakerButton } from "@/components/audio/speaker-button";
 type Phase = "learn" | "quiz" | "done";
 
 function TemaPage() {
-  const { tema } = Route.useLoaderData();
+  const { tema } = Route.useLoaderData() as unknown as { tema: Tema };
   const [phase, setPhase] = useState<Phase>("learn");
   const [score, setScore] = useState(0);
 

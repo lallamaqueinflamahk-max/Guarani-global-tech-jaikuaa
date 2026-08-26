@@ -52,7 +52,10 @@ import { SpeakerButton } from "@/components/audio/speaker-button";
 type Phase = "intro" | "vocab" | "choice" | "match" | "done";
 
 function LessonPage() {
-  const { lang, lesson } = Route.useLoaderData();
+  const { lang, lesson } = Route.useLoaderData() as unknown as {
+    lang: NonNullable<ReturnType<typeof getLanguage>>;
+    lesson: ReturnType<typeof getGuaraniLesson> | null;
+  };
   const navigate = useNavigate();
   const [phase, setPhase] = useState<Phase>("intro");
 
