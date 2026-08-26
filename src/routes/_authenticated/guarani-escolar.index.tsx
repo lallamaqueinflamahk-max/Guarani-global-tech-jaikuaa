@@ -79,7 +79,7 @@ function GuaraniEscolarEntry() {
           <Link
             key={path.to}
             to={path.to}
-            search={{ grado: grade }}
+            
             className={`group flex flex-col rounded-2xl border bg-card p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${path.style}`}
           >
             <div className="text-4xl" aria-hidden>
