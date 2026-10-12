@@ -11,11 +11,12 @@ async function readSettings() {
   const { data } = await supabaseAdmin
     .from("app_settings")
     .select("key, value")
-    .in("key", ["pilot_page_status", "pilot_contact"]);
+    .in("key", ["pilot_page_status", "pilot_contact", "penales_led"]);
   const m = new Map((data ?? []).map((r) => [r.key, r.value]));
   return {
     status: (m.get("pilot_page_status") === "published" ? "published" : "draft") as Status,
     contact: m.get("pilot_contact") ?? "",
+    ledText: m.get("penales_led") ?? "JAIKUAA · TU MARCA AQUÍ",
   };
 }
 
@@ -88,6 +89,7 @@ export const savePilotSettings = createServerFn({ method: "POST" })
       .object({
         status: z.enum(["draft", "published"]).optional(),
         contact: z.string().trim().max(200).optional(),
+        ledText: z.string().trim().min(1).max(160).optional(),
       })
       .parse(d),
   )
@@ -97,6 +99,7 @@ export const savePilotSettings = createServerFn({ method: "POST" })
     const rows = [
       ...(data.status ? [{ key: "pilot_page_status", value: data.status }] : []),
       ...(data.contact !== undefined ? [{ key: "pilot_contact", value: data.contact }] : []),
+      ...(data.ledText !== undefined ? [{ key: "penales_led", value: data.ledText }] : []),
     ].map((r) => ({ ...r, updated_at: new Date().toISOString() }));
     if (rows.length) {
       const { error } = await supabaseAdmin.from("app_settings").upsert(rows);

@@ -20,16 +20,18 @@ export function PilotPageSettings() {
   const refresh = () => void qc.invalidateQueries({ queryKey: ["pilot-admin"] });
 
   const [contact, setContact] = useState("");
+  const [ledText, setLedText] = useState("");
   useEffect(() => {
-    if (q.data) setContact(q.data.contact);
+    if (q.data) { setContact(q.data.contact); setLedText(q.data.ledText); }
   }, [q.data]);
 
   const save = useMutation({
-    mutationFn: (v: { status?: "draft" | "published"; contact?: string }) => saveFn({ data: v }),
+    mutationFn: (v: { status?: "draft" | "published"; contact?: string; ledText?: string }) => saveFn({ data: v }),
     onSuccess: () => {
       toast.success("Guardado.");
       refresh();
       void qc.invalidateQueries({ queryKey: ["pilot-page"] });
+      void qc.invalidateQueries({ queryKey: ["penales-led"] });
     },
     onError: () => toast.error("No se pudo guardar."),
   });
@@ -105,6 +107,12 @@ export function PilotPageSettings() {
       </form>
 
       <div className="space-y-3">
+        <form className="flex flex-wrap items-end gap-2" onSubmit={(e) => { e.preventDefault(); save.mutate({ ledText }); }}>
+          <label className="min-w-0 flex-1 text-sm font-semibold">Publicidad LED de Penales
+            <Input aria-label="Publicidad LED de Penales" value={ledText} onChange={(e) => setLedText(e.target.value)} maxLength={160} className="mt-2" />
+          </label>
+          <Button type="submit" variant="outline" disabled={save.isPending || !ledText.trim()}>Guardar publicidad</Button>
+        </form>
         <div className="font-display font-semibold text-foreground">Códigos de invitación</div>
         <p className="text-xs text-muted-foreground">
           El código solo asigna el grupo. El rol de Docente validador se asigna a mano en la pestaña Docentes.

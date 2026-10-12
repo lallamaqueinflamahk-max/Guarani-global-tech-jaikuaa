@@ -15,6 +15,8 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
       { name: "twitter:title", content: "Jaikuaa — Aprendé guaraní. Cambiá tu vida." },
       { name: "twitter:description", content: "La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Index,
