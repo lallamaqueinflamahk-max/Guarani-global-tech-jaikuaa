@@ -1,7 +1,9 @@
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
-import { GUARANI_LESSONS } from "@/lib/guarani-lessons";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { listCourseLessons } from "@/lib/lessons.functions";
 import { getLanguage } from "@/lib/languages";
 
 export const Route = createFileRoute("/_authenticated/curso/$lang/")({
@@ -12,8 +14,18 @@ function CourseIndex() {
   const { lang: langSlug } = useParams({ from: "/_authenticated/curso/$lang/" });
   const lang = getLanguage(langSlug)!;
   const isGuarani = lang.slug === "guarani";
-  const titles = new Map(GUARANI_LESSONS.map((l) => [l.n, l.title]));
-  const lessons = Array.from({ length: 10 }, (_, i) => i + 1);
+  const listFn = useServerFn(listCourseLessons);
+  const lessonsQ = useQuery({
+    queryKey: ["course-lessons"],
+    queryFn: () => listFn(),
+    enabled: isGuarani,
+  });
+  const dbLessons = lessonsQ.data?.lessons ?? [];
+  const byN = new Map(dbLessons.map((l) => [l.n, l]));
+  const firstN = dbLessons[0]?.n ?? 1;
+  const lessons = isGuarani
+    ? dbLessons.map((l) => l.n)
+    : Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -46,15 +58,17 @@ function CourseIndex() {
                 )}
               </div>
               <p className="mt-1 text-sm text-muted-foreground">
-                10 lecciones · Empezá por la Lección 1
+                {isGuarani ? `${lessons.length} lecciones` : "10 lecciones"} · Empezá por la Lección {isGuarani ? firstN : 1}
               </p>
             </div>
           </div>
 
           <ol className="mt-10 space-y-3">
             {lessons.map((n) => {
-              const unlocked = n === 1;
-              const title = isGuarani ? titles.get(n) : undefined;
+              const info = isGuarani ? byN.get(n) : undefined;
+              const inValidation = !!info && info.publishedWords === 0;
+              const unlocked = n === firstN && !inValidation;
+              const title = info?.title;
               const inner = (
                 <>
                   <div className="flex items-center gap-4">
@@ -73,7 +87,11 @@ function CourseIndex() {
                         {title && <span className="text-muted-foreground"> · {title}</span>}
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        {unlocked ? "Disponible" : "Se desbloquea al avanzar"}
+                        {inValidation
+                          ? "En validación"
+                          : unlocked
+                            ? "Disponible"
+                            : "Se desbloquea al avanzar"}
                       </div>
                     </div>
                   </div>

@@ -6,21 +6,22 @@ import { celebrate } from "@/lib/confetti";
 
 import { Button } from "@/components/ui/button";
 import { getLanguage } from "@/lib/languages";
-import { getGuaraniLesson, type VocabItem } from "@/lib/guarani-lessons";
+import { getCourseLesson, type CourseLesson, type CourseVocabItem as VocabItem } from "@/lib/lessons.functions";
 import { useRecordOnMount, useRecordVisit } from "@/lib/gamification";
 
 export const Route = createFileRoute("/_authenticated/curso/$lang/leccion/$n")({
   head: ({ params }) => ({
     meta: [{ title: `Jaikuaa — Lección ${params.n}` }],
   }),
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const lang = getLanguage(params.lang);
     if (!lang) throw notFound();
     if (params.lang !== "guarani") {
       return { lang, lesson: null };
     }
     const n = Number(params.n);
-    const lesson = getGuaraniLesson(n);
+    if (!Number.isInteger(n) || n < 1) throw notFound();
+    const { lesson } = await getCourseLesson({ data: { n } });
     if (!lesson) throw notFound();
     return { lang, lesson };
   },
@@ -54,7 +55,7 @@ type Phase = "intro" | "vocab" | "choice" | "match" | "done";
 function LessonPage() {
   const { lang, lesson } = Route.useLoaderData() as unknown as {
     lang: NonNullable<ReturnType<typeof getLanguage>>;
-    lesson: ReturnType<typeof getGuaraniLesson> | null;
+    lesson: CourseLesson | null;
   };
   const navigate = useNavigate();
   const [phase, setPhase] = useState<Phase>("intro");
@@ -68,6 +69,22 @@ function LessonPage() {
         </h1>
         <p className="mt-2 max-w-md text-muted-foreground">
           Las lecciones de {lang.name} estarán disponibles muy pronto.
+        </p>
+        <Button asChild variant="cta" className="mt-6">
+          <Link to="/curso/$lang" params={{ lang: lang.slug }}>
+            Volver al curso
+          </Link>
+        </Button>
+      </div>
+    );
+  }
+
+  if (lesson.vocab.length === 0) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 text-center">
+        <h1 className="font-display text-2xl font-bold text-foreground">En validación</h1>
+        <p className="mt-2 max-w-md text-muted-foreground">
+          Las palabras de esta lección todavía están siendo revisadas por docentes.
         </p>
         <Button asChild variant="cta" className="mt-6">
           <Link to="/curso/$lang" params={{ lang: lang.slug }}>
@@ -182,6 +199,11 @@ function VocabStep({
                 <div className="text-sm text-muted-foreground">{v.es}</div>
               </div>
             </div>
+            {v.validated && (
+              <span className="shrink-0 text-[11px] font-medium text-primary/80">
+                ✓ Validado por docente
+              </span>
+            )}
           </li>
         ))}
       </ul>
