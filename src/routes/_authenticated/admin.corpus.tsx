@@ -1181,9 +1181,9 @@ function DashboardPanel() {
 
   function downloadCsv() {
     if (!d) return;
-    const header = "fecha,activos,nuevos,lecciones,pruebas,xp,palabras_validadas";
+    const header = "fecha,activos,nuevos,lecciones,pruebas,partidas_juegos,xp,palabras_validadas";
     const lines = d.series.map((x) =>
-      [x.date, x.active, x.newUsers, x.lessons, x.exams, x.xp, x.validated].join(","),
+      [x.date, x.active, x.newUsers, x.lessons, x.exams, x.games, x.xp, x.validated].join(","),
     );
     const blob = new Blob([[header, ...lines].join("\n")], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -1242,6 +1242,7 @@ function DashboardPanel() {
             <StatCard label="Activos últimos 7 días" value={d.active7} accent />
             <StatCard label="Lecciones completadas" value={d.lessons} />
             <StatCard label="Pruebas completadas" value={d.exams} />
+            <StatCard label="Partidas de juegos" value={d.games} />
             <StatCard label="XP total ganado" value={d.xp} />
             <StatCard label="Docentes validadores activos" value={d.activeValidators} />
             <StatCard label="Palabras validadas en el período" value={d.validatedInPeriod} />

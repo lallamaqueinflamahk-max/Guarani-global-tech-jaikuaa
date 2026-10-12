@@ -52,7 +52,7 @@ export type Stats = {
   ownerId?: string;
 };
 
-export type ActivitySource = "lesson" | "exam" | "trivia" | "weekly" | "onboarding";
+export type ActivitySource = "lesson" | "exam" | "trivia" | "weekly" | "onboarding" | "game";
 
 /*
  * La fuente de verdad es la base de datos (user_stats + xp_transactions).

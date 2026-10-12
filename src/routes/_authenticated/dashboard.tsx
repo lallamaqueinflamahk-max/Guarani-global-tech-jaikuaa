@@ -199,6 +199,31 @@ function Dashboard() {
             </div>
           </section>
 
+          {/* 2b. JUEGOS (Gratis) */}
+          <section className="mt-10">
+            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">Juegos</h2>
+            <div className="mt-4">
+              <Link
+                to="/juegos"
+                className="group relative flex flex-col gap-2 rounded-2xl border border-accent/40 bg-card p-5 shadow-elegant card-hover hover:border-accent hover:shadow-lift"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl" aria-hidden>
+                    🎮
+                  </span>
+                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
+                    Gratis
+                  </span>
+                </div>
+                <div className="font-display text-lg font-bold text-foreground">Juegos</div>
+                <p className="text-sm text-muted-foreground">
+                  Ahorcado con chipas, sopa de letras, memoria y la palabra del día.
+                </p>
+                <span className="mt-1 text-sm font-medium text-accent">Jugar →</span>
+              </Link>
+            </div>
+          </section>
+
           {/* 3. PREMIUM */}
           <section className="mt-10">
             <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">Premium</h2>

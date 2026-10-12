@@ -691,6 +691,7 @@ export const getPilotDashboard = createServerFn({ method: "POST" })
         newUsers: profiles.filter((p) => pyDay(p.created_at) === day).length,
         lessons: dt.filter((x) => x.source === "lesson").length,
         exams: dt.filter((x) => x.source === "exam").length,
+        games: dt.filter((x) => x.source === "game").length,
         xp: dt.reduce((a, x) => a + x.amount, 0),
         validated: pval.filter((w) => w.day === day).length,
       };
@@ -705,6 +706,7 @@ export const getPilotDashboard = createServerFn({ method: "POST" })
       active7: new Set(txs.filter((x) => x.day >= last7 && x.day <= today).map((x) => x.user_id)).size,
       lessons: ptx.filter((x) => x.source === "lesson").length,
       exams: ptx.filter((x) => x.source === "exam").length,
+      games: ptx.filter((x) => x.source === "game").length,
       xp: ptx.reduce((a, x) => a + x.amount, 0),
       activeValidators: new Set(pval.filter((w) => editors.has(w.by)).map((w) => w.by)).size,
       validatedInPeriod: pval.length,
