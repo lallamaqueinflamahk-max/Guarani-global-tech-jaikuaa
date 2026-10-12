@@ -27,8 +27,12 @@ import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedTriviaIndexRouteImport } from './routes/_authenticated/trivia.index'
+import { Route as AuthenticatedJuegosIndexRouteImport } from './routes/_authenticated/juegos.index'
 import { Route as AuthenticatedGuaraniEscolarIndexRouteImport } from './routes/_authenticated/guarani-escolar.index'
 import { Route as AuthenticatedTriviaCategoryRouteImport } from './routes/_authenticated/trivia.$category'
+import { Route as AuthenticatedJuegosPalabraDelDiaRouteImport } from './routes/_authenticated/juegos.palabra-del-dia'
+import { Route as AuthenticatedJuegosMemoriaRouteImport } from './routes/_authenticated/juegos.memoria'
+import { Route as AuthenticatedJuegosAhorcadoRouteImport } from './routes/_authenticated/juegos.ahorcado'
 import { Route as AuthenticatedGuaraniEscolarTemaRouteImport } from './routes/_authenticated/guarani-escolar.tema'
 import { Route as AuthenticatedGuaraniEscolarSemanalRouteImport } from './routes/_authenticated/guarani-escolar.semanal'
 import { Route as AuthenticatedGuaraniEscolarRescateRouteImport } from './routes/_authenticated/guarani-escolar.rescate'
@@ -130,6 +134,12 @@ const AuthenticatedTriviaIndexRoute =
     path: '/trivia/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedJuegosIndexRoute =
+  AuthenticatedJuegosIndexRouteImport.update({
+    id: '/juegos/',
+    path: '/juegos/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedGuaraniEscolarIndexRoute =
   AuthenticatedGuaraniEscolarIndexRouteImport.update({
     id: '/',
@@ -140,6 +150,24 @@ const AuthenticatedTriviaCategoryRoute =
   AuthenticatedTriviaCategoryRouteImport.update({
     id: '/trivia/$category',
     path: '/trivia/$category',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedJuegosPalabraDelDiaRoute =
+  AuthenticatedJuegosPalabraDelDiaRouteImport.update({
+    id: '/juegos/palabra-del-dia',
+    path: '/juegos/palabra-del-dia',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedJuegosMemoriaRoute =
+  AuthenticatedJuegosMemoriaRouteImport.update({
+    id: '/juegos/memoria',
+    path: '/juegos/memoria',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedJuegosAhorcadoRoute =
+  AuthenticatedJuegosAhorcadoRouteImport.update({
+    id: '/juegos/ahorcado',
+    path: '/juegos/ahorcado',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedGuaraniEscolarTemaRoute =
@@ -218,8 +246,12 @@ export interface FileRoutesByFullPath {
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRouteWithChildren
+  '/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
+  '/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
+  '/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
   '/trivia/$category': typeof AuthenticatedTriviaCategoryRoute
   '/guarani-escolar/': typeof AuthenticatedGuaraniEscolarIndexRoute
+  '/juegos/': typeof AuthenticatedJuegosIndexRoute
   '/trivia/': typeof AuthenticatedTriviaIndexRoute
   '/guarani-escolar/tema/$topic': typeof AuthenticatedGuaraniEscolarTemaTopicRoute
   '/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
@@ -245,8 +277,12 @@ export interface FileRoutesByTo {
   '/admin/corpus': typeof AuthenticatedAdminCorpusRoute
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
+  '/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
+  '/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
+  '/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
   '/trivia/$category': typeof AuthenticatedTriviaCategoryRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarIndexRoute
+  '/juegos': typeof AuthenticatedJuegosIndexRoute
   '/trivia': typeof AuthenticatedTriviaIndexRoute
   '/guarani-escolar/tema/$topic': typeof AuthenticatedGuaraniEscolarTemaTopicRoute
   '/curso/$lang': typeof AuthenticatedCursoLangIndexRoute
@@ -277,8 +313,12 @@ export interface FileRoutesById {
   '/_authenticated/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/_authenticated/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/_authenticated/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRouteWithChildren
+  '/_authenticated/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
+  '/_authenticated/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
+  '/_authenticated/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
   '/_authenticated/trivia/$category': typeof AuthenticatedTriviaCategoryRoute
   '/_authenticated/guarani-escolar/': typeof AuthenticatedGuaraniEscolarIndexRoute
+  '/_authenticated/juegos/': typeof AuthenticatedJuegosIndexRoute
   '/_authenticated/trivia/': typeof AuthenticatedTriviaIndexRoute
   '/_authenticated/guarani-escolar/tema/$topic': typeof AuthenticatedGuaraniEscolarTemaTopicRoute
   '/_authenticated/curso/$lang/': typeof AuthenticatedCursoLangIndexRoute
@@ -309,8 +349,12 @@ export interface FileRouteTypes {
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
     | '/guarani-escolar/tema'
+    | '/juegos/ahorcado'
+    | '/juegos/memoria'
+    | '/juegos/palabra-del-dia'
     | '/trivia/$category'
     | '/guarani-escolar/'
+    | '/juegos/'
     | '/trivia/'
     | '/guarani-escolar/tema/$topic'
     | '/curso/$lang/'
@@ -336,8 +380,12 @@ export interface FileRouteTypes {
     | '/admin/corpus'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
+    | '/juegos/ahorcado'
+    | '/juegos/memoria'
+    | '/juegos/palabra-del-dia'
     | '/trivia/$category'
     | '/guarani-escolar'
+    | '/juegos'
     | '/trivia'
     | '/guarani-escolar/tema/$topic'
     | '/curso/$lang'
@@ -367,8 +415,12 @@ export interface FileRouteTypes {
     | '/_authenticated/guarani-escolar/rescate'
     | '/_authenticated/guarani-escolar/semanal'
     | '/_authenticated/guarani-escolar/tema'
+    | '/_authenticated/juegos/ahorcado'
+    | '/_authenticated/juegos/memoria'
+    | '/_authenticated/juegos/palabra-del-dia'
     | '/_authenticated/trivia/$category'
     | '/_authenticated/guarani-escolar/'
+    | '/_authenticated/juegos/'
     | '/_authenticated/trivia/'
     | '/_authenticated/guarani-escolar/tema/$topic'
     | '/_authenticated/curso/$lang/'
@@ -517,6 +569,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTriviaIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/juegos/': {
+      id: '/_authenticated/juegos/'
+      path: '/juegos'
+      fullPath: '/juegos/'
+      preLoaderRoute: typeof AuthenticatedJuegosIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/guarani-escolar/': {
       id: '/_authenticated/guarani-escolar/'
       path: '/'
@@ -529,6 +588,27 @@ declare module '@tanstack/react-router' {
       path: '/trivia/$category'
       fullPath: '/trivia/$category'
       preLoaderRoute: typeof AuthenticatedTriviaCategoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/juegos/palabra-del-dia': {
+      id: '/_authenticated/juegos/palabra-del-dia'
+      path: '/juegos/palabra-del-dia'
+      fullPath: '/juegos/palabra-del-dia'
+      preLoaderRoute: typeof AuthenticatedJuegosPalabraDelDiaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/juegos/memoria': {
+      id: '/_authenticated/juegos/memoria'
+      path: '/juegos/memoria'
+      fullPath: '/juegos/memoria'
+      preLoaderRoute: typeof AuthenticatedJuegosMemoriaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/juegos/ahorcado': {
+      id: '/_authenticated/juegos/ahorcado'
+      path: '/juegos/ahorcado'
+      fullPath: '/juegos/ahorcado'
+      preLoaderRoute: typeof AuthenticatedJuegosAhorcadoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/guarani-escolar/tema': {
@@ -665,7 +745,11 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
   AuthenticatedAdminCorpusRoute: typeof AuthenticatedAdminCorpusRoute
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
+  AuthenticatedJuegosAhorcadoRoute: typeof AuthenticatedJuegosAhorcadoRoute
+  AuthenticatedJuegosMemoriaRoute: typeof AuthenticatedJuegosMemoriaRoute
+  AuthenticatedJuegosPalabraDelDiaRoute: typeof AuthenticatedJuegosPalabraDelDiaRoute
   AuthenticatedTriviaCategoryRoute: typeof AuthenticatedTriviaCategoryRoute
+  AuthenticatedJuegosIndexRoute: typeof AuthenticatedJuegosIndexRoute
   AuthenticatedTriviaIndexRoute: typeof AuthenticatedTriviaIndexRoute
 }
 
@@ -680,7 +764,11 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedTutorRoute: AuthenticatedTutorRoute,
   AuthenticatedAdminCorpusRoute: AuthenticatedAdminCorpusRoute,
   AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
+  AuthenticatedJuegosAhorcadoRoute: AuthenticatedJuegosAhorcadoRoute,
+  AuthenticatedJuegosMemoriaRoute: AuthenticatedJuegosMemoriaRoute,
+  AuthenticatedJuegosPalabraDelDiaRoute: AuthenticatedJuegosPalabraDelDiaRoute,
   AuthenticatedTriviaCategoryRoute: AuthenticatedTriviaCategoryRoute,
+  AuthenticatedJuegosIndexRoute: AuthenticatedJuegosIndexRoute,
   AuthenticatedTriviaIndexRoute: AuthenticatedTriviaIndexRoute,
 }
 
