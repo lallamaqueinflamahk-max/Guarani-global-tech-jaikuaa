@@ -6,11 +6,14 @@ import { BrandLogo } from "@/components/brand-logo";
 import { SiteFooter } from "@/components/site-footer";
 import { listCourseLessons } from "@/lib/lessons.functions";
 import { getGameWords, type GameWord } from "@/lib/games.functions";
+import { GameKit, GameCompanion, GameSoundButton, LaceBackground } from './game-kit';
+import { GameHelp } from './game-help';
 
 export function GameShell({ title, emoji, children }: { title: string; emoji: string; children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <header className="border-b border-border/50">
+    <GameKit><div className="game-shell relative isolate flex min-h-screen flex-col bg-background">
+      {title !== 'Penales' && <LaceBackground/>}
+      <header className="relative border-b border-border/50 bg-background/90">
         <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4 sm:px-6">
           <Link to="/dashboard" className="flex items-center gap-2 font-display text-xl font-bold text-primary">
             <BrandLogo />
@@ -20,16 +23,18 @@ export function GameShell({ title, emoji, children }: { title: string; emoji: st
           </Link>
         </div>
       </header>
-      <main className="flex-1 px-4 py-6 sm:px-6 sm:py-10">
+      <main className="relative flex-1 px-4 py-6 sm:px-6 sm:py-10">
         <div className="mx-auto max-w-3xl">
-          <h1 className="text-center font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <div className="mb-4 flex justify-end gap-2"><GameHelp title={title}/><GameSoundButton/></div>
+          <h1 className="text-center font-display text-3xl font-bold tracking-normal text-foreground sm:text-4xl">
             <span aria-hidden>{emoji}</span> {title}
           </h1>
+          {title !== 'Penales' && <div className="mx-auto mt-4 max-w-lg"><GameCompanion/></div>}
           <div className="mt-6">{children}</div>
         </div>
       </main>
       <SiteFooter />
-    </div>
+    </div></GameKit>
   );
 }
 

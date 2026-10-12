@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GameShell, LessonFilter, NotEnough, XpNote, pickDistinct, shuffle, useGameWords } from "@/components/games/game-shell";
+import { useGameFeedback } from "@/components/games/game-kit";
 import { playGuarani } from "@/lib/audio";
 import { recordCompletion } from "@/lib/gamification";
 import type { GameWord } from "@/lib/games.functions";
@@ -58,6 +59,7 @@ function Memory() {
 type Card = { id: number; pair: number; kind: "gn" | "es"; text: string; word: GameWord };
 
 function Board({ words, onNext }: { words: GameWord[]; onNext: () => void }) {
+  const feedback = useGameFeedback();
   const cards = useMemo<Card[]>(
     () =>
       shuffle(
@@ -78,6 +80,7 @@ function Board({ words, onNext }: { words: GameWord[]; onNext: () => void }) {
   useEffect(() => {
     if (!done || recorded.current) return;
     recorded.current = true;
+    feedback("victory");
     recordCompletion({ source: "game", sourceRef: "memoria", xp });
   }, [done, xp]);
 
@@ -88,11 +91,14 @@ function Board({ words, onNext }: { words: GameWord[]; onNext: () => void }) {
     setOpen(next);
     if (next.length === 2) {
       setAttempts((a) => a + 1);
-      const [a, b] = next.map((id) => cards.find((x) => x.id === id)!);
-      if (a!.pair === b!.pair) {
-        setMatched((m) => new Set(m).add(a!.pair));
+      const [a, b] = next.map((id) => cards.find((x) => x.id === id));
+      if (!a || !b) return;
+      if (a.pair === b.pair) {
+        feedback("success");
+        setMatched((m) => new Set(m).add(a.pair));
         setOpen([]);
       } else {
+        feedback("error");
         window.setTimeout(() => setOpen([]), 900);
       }
     }
@@ -107,11 +113,11 @@ function Board({ words, onNext }: { words: GameWord[]; onNext: () => void }) {
         {cards.map((c) => {
           const shown = open.includes(c.id) || matched.has(c.pair);
           return (
-            <button
+            <Button variant="ghost"
               key={c.id}
               type="button"
               onClick={() => flip(c)}
-              className={`flex aspect-[3/4] items-center justify-center rounded-xl border-2 p-2 text-center text-sm font-semibold transition sm:text-base ${
+              className={`flex h-auto whitespace-normal break-words aspect-[3/4] items-center justify-center rounded-xl border-2 p-2 text-center text-sm font-semibold transition sm:text-base ${
                 matched.has(c.pair)
                   ? "border-primary/40 bg-primary/10 text-primary"
                   : shown
@@ -122,7 +128,7 @@ function Board({ words, onNext }: { words: GameWord[]; onNext: () => void }) {
               }`}
             >
               {shown ? c.text : <span className="text-2xl" aria-hidden>?</span>}
-            </button>
+            </Button>
           );
         })}
       </div>

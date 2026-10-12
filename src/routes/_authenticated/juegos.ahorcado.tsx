@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SpeakerButton } from "@/components/audio/speaker-button";
 import { GameShell, LessonFilter, NotEnough, XpNote, pickDistinct, useGameWords } from "@/components/games/game-shell";
+import { useGameFeedback } from "@/components/games/game-kit";
 import { ACHEGETY, displayLetter, splitAchegety } from "@/lib/achegety";
 import { playGuarani } from "@/lib/audio";
 import { recordCompletion } from "@/lib/gamification";
@@ -54,6 +55,7 @@ function Hangman() {
 }
 
 function Board({ word, onNext }: { word: GameWord; onNext: () => void }) {
+  const feedback = useGameFeedback();
   const tokens = useMemo(() => splitAchegety(word.gn.trim()) ?? [], [word]);
   const [guessed, setGuessed] = useState<Set<string>>(new Set());
   const wrong = [...guessed].filter((g) => !tokens.includes(g)).length;
@@ -65,6 +67,7 @@ function Board({ word, onNext }: { word: GameWord; onNext: () => void }) {
   useEffect(() => {
     if (!done || recorded.current) return;
     recorded.current = true;
+    feedback(won ? "victory" : "error");
     recordCompletion({ source: "game", sourceRef: "ahorcado", xp: won ? XP_WIN : XP_LOSS });
     if (word.hasAudio) void playGuarani(word.gn);
   }, [done, won, word]);
@@ -114,11 +117,11 @@ function Board({ word, onNext }: { word: GameWord; onNext: () => void }) {
             const used = guessed.has(k);
             const hit = used && tokens.includes(k);
             return (
-              <button
+              <Button variant="ghost"
                 key={k}
                 type="button"
                 disabled={used}
-                onClick={() => setGuessed((s) => new Set(s).add(k))}
+                onClick={() => { feedback(tokens.includes(k) ? "success" : "error"); setGuessed((s) => new Set(s).add(k)); }}
                 className={`h-11 rounded-lg border font-display text-base font-bold transition ${
                   !used
                     ? "border-primary/30 bg-card text-foreground hover:border-primary hover:bg-primary/5"
@@ -128,7 +131,7 @@ function Board({ word, onNext }: { word: GameWord; onNext: () => void }) {
                 }`}
               >
                 {displayLetter(k)}
-              </button>
+              </Button>
             );
           })}
         </div>

@@ -1,10 +1,14 @@
 export class StadiumSound {
  private context:AudioContext|null=null;
  muted=false;
- play(kind:'kick'|'hit'|'cheer'|'answer'){
+ play(kind:'kick'|'hit'|'cheer'|'answer'|'success'|'error'|'victory'){
   if(this.muted)return;
   try{
    const a=this.context??(this.context=new AudioContext());void a.resume();
+   if(kind==='success'||kind==='error'||kind==='victory'){
+    const notes=kind==='error'?[220,165]:kind==='victory'?[523,659,784,1047]:[660,880];
+    notes.forEach((frequency,i)=>{const osc=a.createOscillator(),gain=a.createGain(),t=a.currentTime+i*.12;osc.type='sine';osc.frequency.value=frequency;gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(.09,t+.015);gain.gain.exponentialRampToValueAtTime(.0001,t+.18);osc.connect(gain).connect(a.destination);osc.start(t);osc.stop(t+.2);});return;
+   }
    const duration=kind==='cheer'?1.2:kind==='kick'?.12:.2;
    const b=a.createBuffer(1,Math.ceil(a.sampleRate*duration),a.sampleRate),ch=b.getChannelData(0);
    for(let i=0;i<ch.length;i++)ch[i]=(Math.random()*2-1)*(1-i/ch.length);

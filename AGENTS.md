@@ -14,3 +14,4 @@
 
 - Penales keeps canvas physics and rendering in isolated browser-safe modules; React owns questions and match state to keep animation independent of UI updates.
 - Penales LED text is an app_settings value accessed through authenticated server functions; only the existing admin settings function writes it.
+- Games share mascot, synthesized effects, mute preference and help through the game kit; keep match rules and server progress unchanged so presentation does not duplicate domain logic.

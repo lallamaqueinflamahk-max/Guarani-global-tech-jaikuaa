@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GameShell } from "@/components/games/game-shell";
 import { useRecordVisit } from "@/lib/gamification";
+import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal } from 'lucide-react';
 
 export const Route = createFileRoute("/_authenticated/juegos/")({
   head: () => ({
@@ -17,11 +18,11 @@ export const Route = createFileRoute("/_authenticated/juegos/")({
 });
 
 const GAMES = [
-  { to: "/juegos/ahorcado", emoji: "🥯", title: "Ahorcado con chipas", desc: "Adiviná la palabra antes de que se acaben las 6 chipas.", xp: "hasta 15 XP" },
-  { to: "/juegos/sopa-de-letras", emoji: "🔤", title: "Sopa de letras", desc: "Encontrá 6 palabras escondidas en la grilla.", xp: "20 XP" },
-  { to: "/juegos/memoria", emoji: "🃏", title: "Memoria", desc: "Uní cada palabra en guaraní con su traducción.", xp: "hasta 20 XP" },
-  { to: "/juegos/penales", emoji: "⚽", title: "Penales", desc: "Acertá el significado y pateá al arco. Tanda de 5 penales.", xp: "hasta 20 XP" },
-  { to: "/juegos/palabra-del-dia", emoji: "📅", title: "Palabra del día", desc: "Escuchala y elegí su significado. Una vez por día.", xp: "5 XP" },
+  { to: "/juegos/ahorcado", tone: "chipa", icon: CircleDashed, title: "Ahorcado con chipas", desc: "Adiviná la palabra antes de que se acaben las 6 chipas.", xp: "hasta 15 XP" },
+  { to: "/juegos/sopa-de-letras", tone: "search", icon: Grid2X2, title: "Sopa de letras", desc: "Encontrá 6 palabras escondidas en la grilla.", xp: "20 XP" },
+  { to: "/juegos/memoria", tone: "memory", icon: Layers, title: "Memoria", desc: "Uní cada palabra en guaraní con su traducción.", xp: "hasta 20 XP" },
+  { to: "/juegos/penales", tone: "football", icon: Goal, title: "Penales", desc: "Respondé la palabra y pateá al arco. Solo o Duelo.", xp: "hasta 20 XP" },
+  { to: "/juegos/palabra-del-dia", tone: "daily", icon: CalendarDays, title: "Palabra del día", desc: "Escuchala y elegí su significado. Una vez por día.", xp: "5 XP" },
 ] as const;
 
 function GamesHome() {
@@ -36,11 +37,11 @@ function GamesHome() {
           <Link
             key={g.to}
             to={g.to}
-            className="flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-accent hover:shadow-lift"
+            className={`game-card game-card-${g.tone} flex flex-col gap-3 rounded-lg border border-border bg-card p-5 shadow-elegant card-hover hover:shadow-lift`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-3xl" aria-hidden>{g.emoji}</span>
-              <span className="rounded-full bg-accent/10 px-2 py-0.5 text-[11px] font-semibold text-accent">{g.xp}</span>
+              <span className="game-card-icon flex h-16 w-16 items-center justify-center rounded-lg" aria-hidden><g.icon size={34} strokeWidth={1.7}/></span>
+              <span className="game-card-xp rounded-md px-2 py-1 text-xs font-semibold">{g.xp}</span>
             </div>
             <div className="font-display text-lg font-bold text-foreground">{g.title}</div>
             <p className="text-sm text-muted-foreground">{g.desc}</p>
