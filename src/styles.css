@@ -217,7 +217,7 @@ select,
 
 
 /* Penales: stadium illustration palette, shared by canvas and mascot. */
-.penalties-game {
+.penalties-game, .game-kit {
   --stadium-night: #071222;
   --stadium-sky: #0f2740;
   --stadium-grass: #1f6b3a;
@@ -241,3 +241,34 @@ select,
 .penalties-stars { color: var(--stadium-gold); }
 @keyframes penalties-bob { 50% { transform: translateY(-4px); } }
 @media (prefers-reduced-motion: reduce) { .penalties-mascot { animation: none; } }
+
+/* Shared game surfaces and Paraguayan lace, kept behind readable content. */
+.game-kit {
+  --game-chipa: oklch(.59 .16 32);
+  --game-search: oklch(.49 .12 175);
+  --game-memory: oklch(.51 .16 320);
+  --game-daily: oklch(.53 .13 75);
+  --game-football: oklch(.46 .13 145);
+}
+.game-lace-background { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: -1; }
+.game-lace { position: absolute; width: 560px; max-width: 115%; stroke: var(--accent); stroke-width: .9; opacity: .075; top: 100px; left: -300px; animation: game-lace-turn 180s linear infinite; }
+.game-lace:nth-child(2) { stroke: var(--game-search); top: 510px; left: auto; right: -300px; animation-direction: reverse; }
+.game-lace g:nth-child(3n) { stroke: var(--game-memory); }
+.game-card { --game-tone: var(--game-chipa); border-top: 4px solid var(--game-tone); }
+.game-card-search { --game-tone: var(--game-search); }
+.game-card-memory { --game-tone: var(--game-memory); }
+.game-card-daily { --game-tone: var(--game-daily); }
+.game-card-football { --game-tone: var(--game-football); }
+.game-card-icon, .game-card-xp { color: var(--game-tone); background: color-mix(in oklab, var(--game-tone) 10%, var(--card)); }
+.game-reaction-success, .game-reaction-victory { animation: game-bounce 450ms ease-out; }
+.game-reaction-error { animation: game-shake 350ms ease-out; }
+.game-mascot-victory .penalties-mascot { animation: game-bounce 650ms ease-out 2; }
+.game-mascot-error .penalties-mascot { transform: rotate(-5deg); }
+.game-help { letter-spacing: 0; }
+.game-help [data-radix-collection-item] { letter-spacing: 0; }
+@keyframes game-lace-turn { to { transform: rotate(360deg); } }
+@keyframes game-bounce { 40% { transform: translateY(-7px); } 70% { transform: translateY(2px); } }
+@keyframes game-shake { 20%,60% { transform: translateX(-4px); } 40%,80% { transform: translateX(4px); } }
+@media (prefers-reduced-motion: reduce) {
+ .game-kit *, .game-help { animation: none !important; transition: none !important; }
+}

@@ -2,13 +2,14 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useServerFn } from '@tanstack/react-start';
-import { Loader2, Volume2, VolumeX, UserRound, UsersRound, RotateCcw, Share2 } from 'lucide-react';
+import { Loader2, UserRound, UsersRound, RotateCcw, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SpeakerButton } from '@/components/audio/speaker-button';
 import { GameShell, LessonFilter, NotEnough, shuffle, useGameWords } from '@/components/games/game-shell';
 import { PenaltyPitch } from '@/components/games/penalties/pitch';
-import { PenaltyMascot } from '@/components/games/penalties/mascot';
+import { GameMascot as PenaltyMascot } from '@/components/games/game-mascot';
+import { useGameKit } from '@/components/games/game-kit';
 import { duelFinished, isGoal, labels, xpFor, type Outcome } from '@/components/games/penalties/physics';
 import { getPenaltiesLed } from '@/lib/penalties.functions';
 import { playGuarani } from '@/lib/audio';
@@ -19,13 +20,15 @@ import type { GameWord } from '@/lib/games.functions';
 export const Route=createFileRoute('/_authenticated/juegos/penales')({
  head:()=>({meta:[{title:'Penales: Solo y Duelo | Jaikuaa'},{name:'description',content:'Palabras, estadio y una tanda de penales. Jugá solo o compartí un duelo en el mismo celular.'},{property:'og:title',content:'Penales: Solo y Duelo | Jaikuaa'},{property:'og:description',content:'Una tanda de penales con vocabulario publicado y audio de voces reales.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'}]}),component:Penalties,
 });
-function Penalties(){
+function Penalties(){return <GameShell title="Penales" emoji="⚽"><PenaltiesContent/></GameShell>;}
+function PenaltiesContent(){
+ const {muted}=useGameKit();
  const [lesson,setLesson]=useState<number|null>(null),q=useGameWords(lesson);
  const fn=useServerFn(getPenaltiesLed),led=useQuery({queryKey:['penales-led'],queryFn:()=>fn()});
- const [mode,setMode]=useState<'solo'|'duel'>('solo'),[names,setNames]=useState<[string,string]>(['','']),[started,setStarted]=useState(false),[round,setRound]=useState(0),[muted,setMuted]=useState(false);
+ const [mode,setMode]=useState<'solo'|'duel'>('solo'),[names,setNames]=useState<[string,string]>(['','']),[started,setStarted]=useState(false),[round,setRound]=useState(0);
  const words=useMemo(()=>{const seen=new Set<string>();return (q.data?.words??[]).filter(w=>{const key=w.es.trim().toLowerCase();if(!key||seen.has(key))return false;seen.add(key);return true;});},[q.data]);
- return <GameShell title="Penales" emoji="⚽"><div className="penalties-game mx-auto max-w-xl">
- <div className="flex flex-wrap items-center justify-between gap-2"><LessonFilter value={lesson} onChange={v=>{setLesson(v);setStarted(false);setRound(r=>r+1);}}/><Button variant="outline" size="icon" title={muted?'Activar sonido':'Silenciar sonido'} aria-label={muted?'Activar sonido':'Silenciar sonido'} aria-pressed={muted} onClick={()=>setMuted(v=>!v)}>{muted?<VolumeX/>:<Volume2/>}</Button></div>
+ return <div className="penalties-game mx-auto max-w-xl">
+ <div className="flex flex-wrap items-center justify-center gap-2"><LessonFilter value={lesson} onChange={v=>{setLesson(v);setStarted(false);setRound(r=>r+1);}}/></div>
  {q.isLoading?<div className="flex justify-center py-10"><Loader2 className="animate-spin"/></div>:q.isError?<p className="py-8 text-center">No se pudieron cargar las palabras. Volvé a intentar.</p>:words.length<5?<NotEnough min={5}/>:!started?<div className="space-y-5 py-6">
  <PenaltyMascot message="¡El estadio está listo! Hoy jugamos con palabras y puntería."/>
  <PenaltyPitch knew={false} ready={false} muted={muted} ledText={led.data?.text??'JAIKUAA · TU MARCA AQUÍ'} onShot={()=>{}}/>
@@ -33,7 +36,7 @@ function Penalties(){
  {mode==='duel'&&<div className="grid gap-3 sm:grid-cols-2">{[0,1].map(i=><label key={i} className="text-sm font-semibold">Jugador {i+1}<Input aria-label={`Nombre del Jugador ${i+1}`} placeholder={`Jugador ${i+1}`} maxLength={20} value={names[i]} onChange={e=>setNames(old=>i===0?[e.target.value,old[1]]:[old[0],e.target.value])} className="mt-2"/></label>)}</div>}
  <Button variant="cta" size="lg" className="w-full" onClick={()=>setStarted(true)}>Empezar tanda</Button>
  </div>:<Match key={`${round}:${lesson}:${mode}`} words={words} duel={mode==='duel'} names={[names[0].trim()||'Jugador 1',names[1].trim()||'Jugador 2']} ledText={led.data?.text??'JAIKUAA · TU MARCA AQUÍ'} muted={muted} onAgain={()=>setRound(r=>r+1)} onModes={()=>setStarted(false)}/>}
- </div></GameShell>;
+ </div>;
 }
 type Played={word:GameWord;outcome:Outcome;player:number};
 const messages:Record<Outcome,string>={goal:'¡Gran gol! El público lo festeja con vos.',angle:'¡Al ángulo! Una definición espectacular.',save:'El arquero llegó. La próxima buscá el rincón.',post:'¡Por centímetros! La pelota dio en el palo.',over:'Se fue por arriba. Un poquito menos de fuerza.',wide:'Se fue afuera. La revancha está cerca.'};

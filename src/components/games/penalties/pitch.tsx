@@ -1,7 +1,7 @@
 import { useEffect, useRef, type KeyboardEvent, type PointerEvent } from 'react';
 import { drawStadium } from './stadium';
 import { freshScene, G, H, W, labels, powerAt, resolveShot, type Outcome, type Scene } from './physics';
-import { StadiumSound } from './sound';
+import { StadiumSound } from '../game-sound';
 import { celebrate } from '@/lib/confetti';
 
 export function PenaltyPitch({knew,ready,ledText,muted,onShot}:{knew:boolean;ready:boolean;ledText:string;muted:boolean;onShot:(o:Outcome)=>void}){
