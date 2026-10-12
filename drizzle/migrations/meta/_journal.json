@@ -29,6 +29,13 @@
       "when": 1791841668966,
       "tag": "0003_sync_id_unique_per_user",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791842583078,
+      "tag": "0004_ai_usage_and_rate_limits",
+      "breakpoints": true
     }
   ]
 }

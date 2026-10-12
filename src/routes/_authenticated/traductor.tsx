@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
@@ -17,12 +17,29 @@ function TraductorPage() {
   const [text, setText] = useState("");
   const [direction, setDirection] = useState<"es-gn" | "gn-es">("es-gn");
   const [result, setResult] = useState("");
+  const [limitMsg, setLimitMsg] = useState("");
+  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: async (input: { text: string; direction: "es-gn" | "gn-es" }) =>
       translateFn({ data: input }),
-    onSuccess: (data) => setResult(data.translation),
-    onError: (err) => setResult(`Error: ${err instanceof Error ? err.message : "intentá de nuevo"}`),
+    onSuccess: (data) => {
+      if (data.limited) {
+        setResult("");
+        setLimitMsg(data.message);
+        return;
+      }
+      setLimitMsg("");
+      setResult(data.translation);
+    },
+    onError: (err) => {
+      const msg = err instanceof Error ? err.message : "";
+      if (/unauthorized/i.test(msg)) {
+        void navigate({ to: "/auth", search: { mode: "login" } });
+        return;
+      }
+      setResult(`Error: ${msg || "intentá de nuevo"}`);
+    },
   });
 
   const [from, to] = direction === "es-gn" ? ["Español", "Guaraní"] : ["Guaraní", "Español"];
@@ -95,6 +112,12 @@ function TraductorPage() {
             )}
           </Button>
         </form>
+
+        {limitMsg && (
+          <div role="alert" className="mt-6 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm font-medium text-amber-900">
+            {limitMsg}
+          </div>
+        )}
 
         {result && (
           <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-5">
