@@ -43,13 +43,16 @@ function TraductorPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <div role="note" className="sticky top-0 z-20 border-b border-amber-300 bg-amber-50 px-4 py-2.5 text-center text-xs font-medium text-amber-900 sm:text-sm">
+        ⚠️ Función experimental. Este contenido lo genera una inteligencia artificial y no está validado por especialistas en lengua guaraní. Puede contener errores: no lo uses como referencia oficial.
+      </div>
       <header className="border-b border-border/50">
         <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4 sm:px-6">
           <Link to="/dashboard" className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4" /> Volver
           </Link>
-          <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-emerald-700">
-            Gratuito
+          <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-amber-800">
+            Experimental
           </span>
         </div>
       </header>
@@ -97,6 +100,7 @@ function TraductorPage() {
           <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-5">
             <div className="text-xs font-semibold uppercase tracking-wide text-primary">{to}</div>
             <p className="mt-2 whitespace-pre-wrap text-lg text-foreground">{result}</p>
+            <p className="mt-3 text-xs text-muted-foreground">Traducción automática no validada.</p>
           </div>
         )}
       </main>

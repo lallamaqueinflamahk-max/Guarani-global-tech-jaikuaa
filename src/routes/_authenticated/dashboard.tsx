@@ -517,6 +517,7 @@ function FreeCard({
   title,
   desc,
   accent,
+  experimental,
 }: {
   to: string;
   emoji: string;
