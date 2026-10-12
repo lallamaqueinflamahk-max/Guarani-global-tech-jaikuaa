@@ -241,7 +241,7 @@ function Pitch({
         <defs>
           <pattern id="stripes" width="8" height="8" patternUnits="userSpaceOnUse">
             <rect width="4" height="8" fill="var(--accent)" />
-            <rect x="4" width="4" height="8" fill="var(--background)" />
+            <rect x="4" width="4" height="8" fill="#ffffff" />
           </pattern>
         </defs>
         {/* Césped con franjas */}
