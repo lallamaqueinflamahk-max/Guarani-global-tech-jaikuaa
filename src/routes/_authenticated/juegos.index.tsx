@@ -20,6 +20,7 @@ const GAMES = [
   { to: "/juegos/ahorcado", emoji: "🥯", title: "Ahorcado con chipas", desc: "Adiviná la palabra antes de que se acaben las 6 chipas.", xp: "hasta 15 XP" },
   { to: "/juegos/sopa-de-letras", emoji: "🔤", title: "Sopa de letras", desc: "Encontrá 6 palabras escondidas en la grilla.", xp: "20 XP" },
   { to: "/juegos/memoria", emoji: "🃏", title: "Memoria", desc: "Uní cada palabra en guaraní con su traducción.", xp: "hasta 20 XP" },
+  { to: "/juegos/penales", emoji: "⚽", title: "Penales", desc: "Acertá el significado y pateá al arco. Tanda de 5 penales.", xp: "hasta 20 XP" },
   { to: "/juegos/palabra-del-dia", emoji: "📅", title: "Palabra del día", desc: "Escuchala y elegí su significado. Una vez por día.", xp: "5 XP" },
 ] as const;
 
