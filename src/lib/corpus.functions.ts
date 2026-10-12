@@ -713,3 +713,173 @@ export const getPilotDashboard = createServerFn({ method: "POST" })
       series,
     };
   });
+
+/* ------------------------------ LECCIONES ------------------------------ */
+
+const LessonFields = z.object({
+  sortOrder: z.number().int().min(1).max(10000),
+  title: z.string().trim().min(1).max(120),
+  theme: z.string().trim().max(240).default(""),
+  levelId: z.string().trim().min(1).max(40).nullable().default(null),
+  capacityCode: z.string().trim().min(1).max(40).nullable().default(null),
+});
+
+export const listAdminLessons = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const r = await assertRole(context.supabase, context.userId, "editor");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const [{ data: lessons }, links] = await Promise.all([
+      supabaseAdmin
+        .from("lessons")
+        .select("id, sort_order, title, theme, level_id, capacity_code, status")
+        .order("sort_order"),
+      fetchAll<{ lesson_id: string; corpus_words: { status: string } | null }>((f, t) =>
+        supabaseAdmin.from("lesson_words").select("lesson_id, corpus_words(status)").range(f, t),
+      ),
+    ]);
+    return {
+      isAdmin: r.isAdmin,
+      lessons: (lessons ?? []).map((l) => {
+        const mine = links.filter((x) => x.lesson_id === l.id);
+        return {
+          ...l,
+          published: mine.filter((x) => x.corpus_words?.status === "published").length,
+          drafts: mine.filter((x) => x.corpus_words?.status !== "published").length,
+        };
+      }),
+    };
+  });
+
+export const saveLesson = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    LessonFields.extend({ id: z.string().uuid().nullable().default(null) }).parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "admin");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const row = {
+      sort_order: data.sortOrder,
+      title: data.title,
+      theme: data.theme,
+      level_id: data.levelId,
+      capacity_code: data.capacityCode,
+    };
+    const { error } = data.id
+      ? await supabaseAdmin.from("lessons").update(row).eq("id", data.id)
+      : await supabaseAdmin.from("lessons").insert({ ...row, status: "draft" });
+    if (error) {
+      if (error.code === "23505") return { ok: false as const, error: "Ya existe una lección con ese número de orden." };
+      throw new Error(error.message);
+    }
+    return { ok: true as const };
+  });
+
+export const setLessonStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({ id: z.string().uuid(), status: z.enum(["draft", "published"]) }).parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "admin");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("lessons").update({ status: data.status }).eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+export const deleteLesson = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "admin");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("lessons").delete().eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+export const getLessonWords = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ lessonId: z.string().uuid() }).parse(d))
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "editor");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: rows, error } = await supabaseAdmin
+      .from("lesson_words")
+      .select("id, position, word_id, corpus_words(gn, es, status, has_audio, validated_by)")
+      .eq("lesson_id", data.lessonId)
+      .order("position");
+    if (error) throw new Error(error.message);
+    return {
+      words: (rows ?? []).map((r) => {
+        const w = r.corpus_words as unknown as {
+          gn: string;
+          es: string;
+          status: string;
+          has_audio: boolean;
+          validated_by: string | null;
+        };
+        return { linkId: r.id, wordId: r.word_id, position: r.position, ...w };
+      }),
+    };
+  });
+
+export const addLessonWord = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({ lessonId: z.string().uuid(), wordId: z.string().uuid() }).parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "editor");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: last } = await supabaseAdmin
+      .from("lesson_words")
+      .select("position")
+      .eq("lesson_id", data.lessonId)
+      .order("position", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    const { error } = await supabaseAdmin.from("lesson_words").insert({
+      lesson_id: data.lessonId,
+      word_id: data.wordId,
+      position: (last?.position ?? -1) + 1,
+    });
+    if (error) {
+      if (error.code === "23505") return { ok: false as const, error: "Esa palabra ya está en la lección." };
+      throw new Error(error.message);
+    }
+    return { ok: true as const };
+  });
+
+export const removeLessonWord = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ linkId: z.string().uuid() }).parse(d))
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "editor");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("lesson_words").delete().eq("id", data.linkId);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+export const reorderLessonWords = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({ lessonId: z.string().uuid(), linkIds: z.array(z.string().uuid()).max(500) })
+      .parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "editor");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    for (let i = 0; i < data.linkIds.length; i++) {
+      await supabaseAdmin
+        .from("lesson_words")
+        .update({ position: i })
+        .eq("id", data.linkIds[i])
+        .eq("lesson_id", data.lessonId);
+    }
+    return { ok: true };
+  });
