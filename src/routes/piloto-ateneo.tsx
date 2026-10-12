@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
@@ -179,7 +179,7 @@ function Buttons({ signedIn, dark }: { signedIn: boolean; dark?: boolean }) {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section>
       <h2 className="mb-4 font-display text-2xl font-bold text-foreground">{title}</h2>
@@ -201,6 +201,6 @@ function List({ items }: { items: string[] }) {
   );
 }
 
-function Note({ children }: { children: React.ReactNode }) {
+function Note({ children }: { children: ReactNode }) {
   return <p className="mt-4 rounded-xl bg-accent/10 px-4 py-3 text-sm font-medium text-accent">{children}</p>;
 }

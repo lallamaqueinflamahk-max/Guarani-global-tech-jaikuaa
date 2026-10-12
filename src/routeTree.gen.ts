@@ -14,6 +14,7 @@ import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RecuperarRouteImport } from './routes/recuperar'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
+import { Route as PilotoAteneoRouteImport } from './routes/piloto-ateneo'
 import { Route as ComenzarRouteImport } from './routes/comenzar'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -68,6 +69,11 @@ const RecuperarRoute = RecuperarRouteImport.update({
 const PrivacidadRoute = PrivacidadRouteImport.update({
   id: '/privacidad',
   path: '/privacidad',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PilotoAteneoRoute = PilotoAteneoRouteImport.update({
+  id: '/piloto-ateneo',
+  path: '/piloto-ateneo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ComenzarRoute = ComenzarRouteImport.update({
@@ -242,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/comenzar': typeof ComenzarRoute
+  '/piloto-ateneo': typeof PilotoAteneoRoute
   '/privacidad': typeof PrivacidadRoute
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -278,6 +285,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/comenzar': typeof ComenzarRoute
+  '/piloto-ateneo': typeof PilotoAteneoRoute
   '/privacidad': typeof PrivacidadRoute
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -313,6 +321,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/comenzar': typeof ComenzarRoute
+  '/piloto-ateneo': typeof PilotoAteneoRoute
   '/privacidad': typeof PrivacidadRoute
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -351,6 +360,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/comenzar'
+    | '/piloto-ateneo'
     | '/privacidad'
     | '/recuperar'
     | '/reset-password'
@@ -387,6 +397,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/comenzar'
+    | '/piloto-ateneo'
     | '/privacidad'
     | '/recuperar'
     | '/reset-password'
@@ -421,6 +432,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/comenzar'
+    | '/piloto-ateneo'
     | '/privacidad'
     | '/recuperar'
     | '/reset-password'
@@ -459,6 +471,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ComenzarRoute: typeof ComenzarRoute
+  PilotoAteneoRoute: typeof PilotoAteneoRoute
   PrivacidadRoute: typeof PrivacidadRoute
   RecuperarRoute: typeof RecuperarRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -502,6 +515,13 @@ declare module '@tanstack/react-router' {
       path: '/privacidad'
       fullPath: '/privacidad'
       preLoaderRoute: typeof PrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/piloto-ateneo': {
+      id: '/piloto-ateneo'
+      path: '/piloto-ateneo'
+      fullPath: '/piloto-ateneo'
+      preLoaderRoute: typeof PilotoAteneoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/comenzar': {
@@ -824,6 +844,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ComenzarRoute: ComenzarRoute,
+  PilotoAteneoRoute: PilotoAteneoRoute,
   PrivacidadRoute: PrivacidadRoute,
   RecuperarRoute: RecuperarRoute,
   ResetPasswordRoute: ResetPasswordRoute,
