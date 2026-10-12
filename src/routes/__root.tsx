@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SplashScreen } from "@/components/splash-screen";
+import { supabase } from "@/integrations/supabase/client";
+import { redeemPendingPilotCode } from "@/lib/pilot-code";
 
 function NotFoundComponent() {
   return (
@@ -142,6 +144,15 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // Código de invitación del piloto guardado antes de iniciar sesión: se canjea al entrar.
+  useEffect(() => {
+    void redeemPendingPilotCode();
+    const { data } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN") void redeemPendingPilotCode();
+    });
+    return () => data.subscription.unsubscribe();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
