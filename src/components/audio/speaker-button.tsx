@@ -15,6 +15,8 @@ export function SpeakerButton({ gn, size = "sm", className }: Props) {
   const icon = size === "md" ? "h-5 w-5" : "h-4 w-4";
 
   const [url, setUrl] = useState<string | null | undefined>(undefined);
+  // Todos los hooks van antes de cualquier return (regla de React).
+  const hoverTimer = useRef<number | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -47,7 +49,6 @@ export function SpeakerButton({ gn, size = "sm", className }: Props) {
     );
   }
 
-  const hoverTimer = useRef<number | null>(null);
   const startHoverPrefetch = () => {
     if (hoverTimer.current !== null) return;
     hoverTimer.current = window.setTimeout(() => {
