@@ -213,6 +213,96 @@ export type Database = {
           },
         ]
       }
+      lesson_words: {
+        Row: {
+          created_at: string
+          id: string
+          lesson_id: string
+          position: number
+          word_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          lesson_id: string
+          position?: number
+          word_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          lesson_id?: string
+          position?: number
+          word_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lesson_words_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lesson_words_word_id_fkey"
+            columns: ["word_id"]
+            isOneToOne: false
+            referencedRelation: "corpus_words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lessons: {
+        Row: {
+          capacity_code: string | null
+          created_at: string
+          id: string
+          level_id: string | null
+          sort_order: number
+          status: string
+          theme: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          capacity_code?: string | null
+          created_at?: string
+          id?: string
+          level_id?: string | null
+          sort_order: number
+          status?: string
+          theme?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          capacity_code?: string | null
+          created_at?: string
+          id?: string
+          level_id?: string | null
+          sort_order?: number
+          status?: string
+          theme?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lessons_capacity_code_fkey"
+            columns: ["capacity_code"]
+            isOneToOne: false
+            referencedRelation: "mec_capacities"
+            referencedColumns: ["code"]
+          },
+          {
+            foreignKeyName: "lessons_level_id_fkey"
+            columns: ["level_id"]
+            isOneToOne: false
+            referencedRelation: "mec_levels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       mec_capacities: {
         Row: {
           axis: string
