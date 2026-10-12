@@ -1,0 +1,1 @@
+ALTER TABLE public.xp_transactions DROP CONSTRAINT IF EXISTS xp_transactions_sync_id_key;

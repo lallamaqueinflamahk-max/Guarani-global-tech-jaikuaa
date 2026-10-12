@@ -15,6 +15,20 @@
       "when": 1791841335362,
       "tag": "0001_server_progress_and_cohorts",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791841645682,
+      "tag": "0002_lock_stats_and_cohort",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791841668966,
+      "tag": "0003_sync_id_unique_per_user",
+      "breakpoints": true
     }
   ]
 }
