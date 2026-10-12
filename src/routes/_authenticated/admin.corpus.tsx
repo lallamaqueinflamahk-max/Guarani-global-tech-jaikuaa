@@ -15,6 +15,10 @@ import {
   Search,
   Trash2,
   Upload,
+  Pencil,
+  UserCheck,
+  UserPlus,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,6 +42,9 @@ import {
   previewCorpusImport as previewFn,
   refreshAudioCoverage,
   updateCorpusWord,
+  listValidators,
+  addValidator,
+  removeValidator,
 } from "@/lib/corpus.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/corpus")({
@@ -95,12 +102,12 @@ function CorpusAdminPage() {
     );
   }
 
-  if (!adminQ.data?.isAdmin) {
+  if (!adminQ.data?.canAccess) {
     return (
       <div className="mx-auto max-w-xl py-20 text-center">
         <h1 className="font-display text-2xl font-bold text-foreground">Acceso restringido</h1>
         <p className="mt-2 text-muted-foreground">
-          Este panel es solo para administradores del corpus de Jaikuaa.
+          Este panel es solo para administradores y docentes validadores de Jaikuaa.
         </p>
         <Button asChild variant="cta" className="mt-6">
           <Link to="/dashboard">Volver al panel</Link>
@@ -109,10 +116,10 @@ function CorpusAdminPage() {
     );
   }
 
-  return <CorpusAdminContent />;
+  return <CorpusAdminContent isAdmin={adminQ.data.isAdmin} />;
 }
 
-function CorpusAdminContent() {
+function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
   const qc = useQueryClient();
   const overviewFn = useServerFn(getCorpusOverview);
   const refreshFn = useServerFn(refreshAudioCoverage);
@@ -159,6 +166,7 @@ function CorpusAdminContent() {
         <StatCard label="Oraciones" value={totals?.sentences ?? 0} />
       </div>
 
+      {isAdmin && (
       <div className="mt-4 flex justify-end">
         <Button
           variant="outline"
@@ -174,12 +182,15 @@ function CorpusAdminContent() {
           Re-escanear audios
         </Button>
       </div>
+      )}
 
-      <Tabs defaultValue="importar" className="mt-8">
-        <TabsList className="w-full">
-          <TabsTrigger value="importar" className="flex-1">
-            Importar Excel
-          </TabsTrigger>
+      <Tabs defaultValue={isAdmin ? "importar" : "palabras"} className="mt-8">
+        <TabsList className="h-auto w-full flex-wrap">
+          {isAdmin && (
+            <TabsTrigger value="importar" className="flex-1">
+              Importar Excel
+            </TabsTrigger>
+          )}
           <TabsTrigger value="cronograma" className="flex-1">
             Cronograma MEC
           </TabsTrigger>
@@ -189,20 +200,32 @@ function CorpusAdminContent() {
           <TabsTrigger value="palabras" className="flex-1">
             Palabras
           </TabsTrigger>
+          {isAdmin && (
+            <TabsTrigger value="docentes" className="flex-1">
+              Docentes validadores
+            </TabsTrigger>
+          )}
         </TabsList>
 
-        <TabsContent value="importar" className="mt-6">
-          <ImportPanel levels={levels} />
-        </TabsContent>
+        {isAdmin && (
+          <TabsContent value="importar" className="mt-6">
+            <ImportPanel levels={levels} />
+          </TabsContent>
+        )}
         <TabsContent value="cronograma" className="mt-6">
           <CronogramaPanel />
         </TabsContent>
         <TabsContent value="niveles" className="mt-6">
-          <LevelsPanel levels={levels} />
+          <LevelsPanel levels={levels} isAdmin={isAdmin} />
         </TabsContent>
         <TabsContent value="palabras" className="mt-6">
-          <WordsPanel levels={levels} />
+          <WordsPanel levels={levels} isAdmin={isAdmin} />
         </TabsContent>
+        {isAdmin && (
+          <TabsContent value="docentes" className="mt-6">
+            <ValidatorsPanel />
+          </TabsContent>
+        )}
       </Tabs>
     </div>
   );
@@ -578,7 +601,7 @@ function PreviewBox({
 
 /* ------------------------------ NIVELES ------------------------------ */
 
-function LevelsPanel({ levels }: { levels: Level[] }) {
+function LevelsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) {
   const qc = useQueryClient();
   const publish = useServerFn(publishLevel);
   const publishM = useMutation({
@@ -611,14 +634,16 @@ function LevelsPanel({ levels }: { levels: Level[] }) {
               </Badge>
               <Badge variant="outline">{lv.published} publicadas</Badge>
             </div>
-            <Button
-              size="sm"
-              variant="outline"
-              disabled={lv.words === 0 || publishM.isPending}
-              onClick={() => publishM.mutate(lv.id)}
-            >
-              Publicar
-            </Button>
+            {isAdmin && (
+              <Button
+                size="sm"
+                variant="outline"
+                disabled={lv.words === 0 || publishM.isPending}
+                onClick={() => publishM.mutate(lv.id)}
+              >
+                Publicar
+              </Button>
+            )}
           </div>
         );
       })}
@@ -628,24 +653,27 @@ function LevelsPanel({ levels }: { levels: Level[] }) {
 
 /* ------------------------------ PALABRAS ------------------------------ */
 
-function WordsPanel({ levels }: { levels: Level[] }) {
+function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) {
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
   const [levelId, setLevelId] = useState<string>("todos");
   const [onlyMissing, setOnlyMissing] = useState(false);
+  const [onlyPending, setOnlyPending] = useState(false);
+  const [editing, setEditing] = useState<{ id: string; es: string; notes: string } | null>(null);
 
   const listFn = useServerFn(listCorpusWords);
   const updateFn = useServerFn(updateCorpusWord);
   const deleteFn = useServerFn(deleteCorpusWord);
 
   const wordsQ = useQuery({
-    queryKey: ["corpus-words", search, levelId, onlyMissing],
+    queryKey: ["corpus-words", search, levelId, onlyMissing, onlyPending],
     queryFn: () =>
       listFn({
         data: {
           search,
           levelId: levelId === "todos" ? undefined : levelId,
           onlyMissingAudio: onlyMissing,
+          onlyPendingValidation: onlyPending,
           limit: 300,
         },
       }),
@@ -657,9 +685,12 @@ function WordsPanel({ levels }: { levels: Level[] }) {
   };
 
   const updateM = useMutation({
-    mutationFn: (v: { id: string; status?: "draft" | "published"; es?: string }) =>
+    mutationFn: (v: { id: string; status?: "draft" | "published"; es?: string; notes?: string }) =>
       updateFn({ data: v }),
-    onSuccess: invalidate,
+    onSuccess: () => {
+      setEditing(null);
+      invalidate();
+    },
     onError: () => toast.error("No se pudo actualizar."),
   });
 
@@ -703,6 +734,10 @@ function WordsPanel({ levels }: { levels: Level[] }) {
           <Mic className="mr-2 h-4 w-4" />
           Sin audio
         </Button>
+        <Button variant={onlyPending ? "cta" : "outline"} onClick={() => setOnlyPending((v) => !v)}>
+          <UserCheck className="mr-2 h-4 w-4" />
+          Pendientes de validación docente
+        </Button>
       </div>
 
       {wordsQ.isLoading ? (
@@ -722,7 +757,54 @@ function WordsPanel({ levels }: { levels: Level[] }) {
             >
               <div className="min-w-[10rem] flex-1">
                 <div className="font-display font-semibold text-foreground">{w.gn}</div>
-                <div className="text-sm text-muted-foreground">{w.es}</div>
+                {editing?.id === w.id ? (
+                  <div className="mt-2 space-y-2">
+                    <Input
+                      value={editing.es}
+                      onChange={(e) => setEditing({ ...editing, es: e.target.value })}
+                      placeholder="Traducción al español"
+                      maxLength={500}
+                    />
+                    <Input
+                      value={editing.notes}
+                      onChange={(e) => setEditing({ ...editing, notes: e.target.value })}
+                      placeholder="Notas"
+                      maxLength={1000}
+                    />
+                    <div className="flex gap-2">
+                      <Button
+                        size="sm"
+                        variant="cta"
+                        disabled={!editing.es.trim() || updateM.isPending}
+                        onClick={() =>
+                          updateM.mutate({ id: w.id, es: editing.es.trim(), notes: editing.notes })
+                        }
+                      >
+                        Guardar
+                      </Button>
+                      <Button size="sm" variant="ghost" onClick={() => setEditing(null)}>
+                        Cancelar
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="text-sm text-muted-foreground">{w.es}</div>
+                    {w.notes && <div className="text-xs text-muted-foreground/80">{w.notes}</div>}
+                  </>
+                )}
+                {w.status === "published" &&
+                  (w.validated_by ? (
+                    <div className="mt-1 text-xs text-primary">
+                      Validado por {w.validatorName}
+                      {w.validated_at &&
+                        ` · ${new Date(w.validated_at).toLocaleDateString("es-PY")}`}
+                    </div>
+                  ) : (
+                    <Badge variant="outline" className="mt-1 border-amber-400 text-amber-700">
+                      Sin validación docente
+                    </Badge>
+                  ))}
               </div>
               <code className="text-xs text-muted-foreground">{w.audio_slug}.mp3</code>
               <Badge variant={w.has_audio ? "default" : "outline"}>
@@ -743,11 +825,21 @@ function WordsPanel({ levels }: { levels: Level[] }) {
               <Button
                 size="icon"
                 variant="ghost"
-                aria-label={`Eliminar ${w.gn}`}
-                onClick={() => deleteM.mutate(w.id)}
+                aria-label={`Editar ${w.gn}`}
+                onClick={() => setEditing({ id: w.id, es: w.es, notes: w.notes ?? "" })}
               >
-                <Trash2 className="h-4 w-4 text-destructive" />
+                <Pencil className="h-4 w-4" />
               </Button>
+              {isAdmin && (
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  aria-label={`Eliminar ${w.gn}`}
+                  onClick={() => deleteM.mutate(w.id)}
+                >
+                  <Trash2 className="h-4 w-4 text-destructive" />
+                </Button>
+              )}
             </div>
           ))}
         </div>
@@ -829,6 +921,101 @@ function CronogramaPanel() {
           </div>
         );
       })}
+    </div>
+  );
+}
+
+/* ------------------------- DOCENTES VALIDADORES ------------------------- */
+
+function ValidatorsPanel() {
+  const qc = useQueryClient();
+  const [email, setEmail] = useState("");
+  const listFn = useServerFn(listValidators);
+  const addFn = useServerFn(addValidator);
+  const removeFn = useServerFn(removeValidator);
+  const q = useQuery({ queryKey: ["corpus-validators"], queryFn: () => listFn() });
+
+  const addM = useMutation({
+    mutationFn: (e: string) => addFn({ data: { email: e } }),
+    onSuccess: (r) => {
+      if (!r.ok) {
+        toast.error(r.error);
+        return;
+      }
+      toast.success("Docente validador agregado.");
+      setEmail("");
+      void qc.invalidateQueries({ queryKey: ["corpus-validators"] });
+    },
+    onError: () => toast.error("Email inválido o no se pudo agregar."),
+  });
+  const removeM = useMutation({
+    mutationFn: (userId: string) => removeFn({ data: { userId } }),
+    onSuccess: () => {
+      toast.success("Rol de docente quitado.");
+      void qc.invalidateQueries({ queryKey: ["corpus-validators"] });
+    },
+    onError: () => toast.error("No se pudo quitar el rol."),
+  });
+
+  const list = q.data?.validators ?? [];
+
+  return (
+    <div className="space-y-4">
+      <form
+        className="flex flex-wrap gap-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (email.trim()) addM.mutate(email.trim());
+        }}
+      >
+        <Input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="email del docente"
+          className="min-w-[14rem] flex-1"
+          maxLength={255}
+        />
+        <Button type="submit" variant="cta" disabled={addM.isPending || !email.trim()}>
+          <UserPlus className="mr-2 h-4 w-4" />
+          Agregar docente
+        </Button>
+      </form>
+      {q.isLoading ? (
+        <div className="flex justify-center py-10">
+          <Loader2 className="h-5 w-5 animate-spin text-primary" />
+        </div>
+      ) : list.length === 0 ? (
+        <p className="py-10 text-center text-sm text-muted-foreground">
+          Todavía no hay docentes validadores.
+        </p>
+      ) : (
+        <div className="overflow-hidden rounded-xl border border-border/60">
+          {list.map((v) => (
+            <div
+              key={v.userId}
+              className="flex flex-wrap items-center gap-3 border-b border-border/40 bg-card p-3 last:border-0"
+            >
+              <div className="min-w-[10rem] flex-1">
+                <div className="font-display font-semibold text-foreground">
+                  {v.name || "Sin nombre"}
+                </div>
+                <div className="text-sm text-muted-foreground">{v.email}</div>
+              </div>
+              <Badge variant="secondary">{v.validated} palabras validadas</Badge>
+              <Button
+                size="sm"
+                variant="ghost"
+                disabled={removeM.isPending}
+                onClick={() => removeM.mutate(v.userId)}
+              >
+                <X className="mr-1 h-4 w-4 text-destructive" />
+                Quitar rol
+              </Button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

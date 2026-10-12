@@ -192,8 +192,9 @@ function Dashboard() {
                 to="/traductor"
                 emoji="🌐"
                 title="Traductor"
-                desc="Español ⇄ Guaraní al instante con IA."
+                desc="Prueba con inteligencia artificial. No validado por especialistas."
                 accent="primary"
+                experimental
               />
             </div>
           </section>
@@ -210,13 +211,13 @@ function Dashboard() {
                   <span className="text-2xl" aria-hidden>
                     ✨
                   </span>
-                  <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-accent-foreground">
-                    Premium ⭐
+                  <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-800">
+                    Experimental
                   </span>
                 </div>
                 <div className="font-display text-lg font-bold text-foreground">Tutor IA</div>
                 <p className="text-sm text-muted-foreground">
-                  Chateá con tu profe de guaraní 24/7.
+                  Conversá con un asistente de IA. Contenido no validado por especialistas.
                 </p>
                 <span className="mt-1 text-sm font-medium text-accent">Abrir →</span>
               </Link>
@@ -522,6 +523,7 @@ function FreeCard({
   title: string;
   desc: string;
   accent: "primary" | "accent";
+  experimental?: boolean;
 }) {
   const border =
     accent === "accent"
@@ -537,9 +539,15 @@ function FreeCard({
         <span className="text-2xl" aria-hidden>
           {emoji}
         </span>
-        <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
-          Gratis
-        </span>
+        {experimental ? (
+          <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-800">
+            Experimental
+          </span>
+        ) : (
+          <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
+            Gratis
+          </span>
+        )}
       </div>
       <div className="font-display text-lg font-bold text-foreground">{title}</div>
       <p className="text-sm text-muted-foreground">{desc}</p>

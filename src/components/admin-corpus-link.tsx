@@ -5,7 +5,7 @@ import { Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { checkCorpusAdmin } from "@/lib/corpus.functions";
 
-/** Acceso al panel del corpus. Solo se renderiza para administradores. */
+/** Acceso al panel del corpus. Visible para administradores y docentes validadores. */
 export function AdminCorpusLink() {
   const check = useServerFn(checkCorpusAdmin);
   const { data } = useQuery({
@@ -15,13 +15,13 @@ export function AdminCorpusLink() {
     retry: false,
   });
 
-  if (!data?.isAdmin) return null;
+  if (!data?.canAccess) return null;
 
   return (
     <Button asChild variant="outline" size="sm">
       <Link to="/admin/corpus">
         <Database className="mr-2 h-4 w-4" />
-        Corpus
+        Panel de validación
       </Link>
     </Button>
   );
