@@ -43,6 +43,13 @@
       "when": 1791843209136,
       "tag": "0005_lessons_from_corpus",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791845617260,
+      "tag": "0006_pilot_page_and_invites",
+      "breakpoints": true
     }
   ]
 }

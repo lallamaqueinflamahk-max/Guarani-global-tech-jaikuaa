@@ -33,6 +33,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { PilotPageSettings } from "@/components/pilot-page-settings";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   checkCorpusAdmin,
@@ -1100,6 +1101,7 @@ function PilotPanel() {
 
   return (
     <div className="space-y-4">
+      <PilotPageSettings />
       <form
         className="flex flex-wrap gap-2"
         onSubmit={(e) => {
