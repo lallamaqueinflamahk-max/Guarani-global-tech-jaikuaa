@@ -10,20 +10,23 @@ export { slugify };
 
 
 // In-memory signed-URL cache + preloaded <audio> element cache (LRU, cap 50).
-const urlCache = new Map<string, string | null>();
+// Signed URLs expire after 1 hour on the server, so cached entries carry an expiry.
+const URL_TTL_MS = 50 * 60 * 1000;
+const urlCache = new Map<string, { url: string | null; exp: number }>();
 const audioCache = new Map<string, HTMLAudioElement>();
 const MAX_AUDIO_CACHE = 50;
 
 // Persist signed URLs in sessionStorage so repeat visits within the tab
 // skip the round-trip to the server function.
-const SS_KEY = "aranduka:audio-urls";
+const SS_KEY = "aranduka:audio-urls:v2";
 function loadPersistedUrls() {
   if (typeof window === "undefined") return;
   try {
     const raw = window.sessionStorage.getItem(SS_KEY);
     if (!raw) return;
-    const obj = JSON.parse(raw) as Record<string, string | null>;
-    for (const [k, v] of Object.entries(obj)) urlCache.set(k, v);
+    const obj = JSON.parse(raw) as Record<string, { url: string | null; exp: number }>;
+    const now = Date.now();
+    for (const [k, v] of Object.entries(obj)) if (v && v.exp > now) urlCache.set(k, v);
   } catch {}
 }
 let loaded = false;
@@ -35,7 +38,7 @@ function ensureLoaded() {
 function persistUrls() {
   if (typeof window === "undefined") return;
   try {
-    const obj: Record<string, string | null> = {};
+    const obj: Record<string, { url: string | null; exp: number }> = {};
     urlCache.forEach((v, k) => (obj[k] = v));
     window.sessionStorage.setItem(SS_KEY, JSON.stringify(obj));
   } catch {}
@@ -55,12 +58,16 @@ function touchAudio(slug: string, audio: HTMLAudioElement) {
 export async function getHumanAudioUrl(gn: string): Promise<string | null> {
   ensureLoaded();
   const slug = slugify(gn);
-  if (urlCache.has(slug)) return urlCache.get(slug) ?? null;
+  const hit = urlCache.get(slug);
+  if (hit && hit.exp > Date.now()) return hit.url;
   try {
-    const { signedUrl } = await getAudioSignedUrl({ data: { gn } });
+    const { signedUrl, denied } = await getAudioSignedUrl({ data: { gn } });
     const url = signedUrl ?? null;
-    urlCache.set(slug, url);
-    persistUrls();
+    // Denied (sin sesión / límite) no se cachea, para reintentar luego.
+    if (!denied) {
+      urlCache.set(slug, { url, exp: Date.now() + URL_TTL_MS });
+      persistUrls();
+    }
     if (typeof window !== "undefined") {
       // eslint-disable-next-line no-console
       console.log(
@@ -69,7 +76,6 @@ export async function getHumanAudioUrl(gn: string): Promise<string | null> {
     }
     return url;
   } catch {
-    urlCache.set(slug, null);
     return null;
   }
 }
