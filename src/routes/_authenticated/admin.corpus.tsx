@@ -19,6 +19,9 @@ import {
   UserCheck,
   UserPlus,
   X,
+  ArrowUp,
+  ArrowDown,
+  Plus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,6 +51,14 @@ import {
   listCohortMembers,
   setUserCohort,
   getPilotDashboard,
+  listAdminLessons,
+  saveLesson,
+  setLessonStatus,
+  deleteLesson,
+  getLessonWords,
+  addLessonWord,
+  removeLessonWord,
+  reorderLessonWords,
 } from "@/lib/corpus.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/corpus")({
@@ -203,6 +214,9 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
           <TabsTrigger value="palabras" className="flex-1">
             Palabras
           </TabsTrigger>
+          <TabsTrigger value="lecciones" className="flex-1">
+            Lecciones
+          </TabsTrigger>
           {isAdmin && (
             <TabsTrigger value="docentes" className="flex-1">
               Docentes validadores
@@ -233,6 +247,9 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
         </TabsContent>
         <TabsContent value="palabras" className="mt-6">
           <WordsPanel levels={levels} isAdmin={isAdmin} />
+        </TabsContent>
+        <TabsContent value="lecciones" className="mt-6">
+          <LessonsPanel levels={levels} isAdmin={isAdmin} />
         </TabsContent>
         {isAdmin && (
           <TabsContent value="docentes" className="mt-6">
@@ -1253,6 +1270,402 @@ function DashboardPanel() {
             </div>
           </div>
         </>
+      )}
+    </div>
+  );
+}
+
+/* ------------------------------ LECCIONES ------------------------------ */
+
+type LessonForm = {
+  id: string | null;
+  sortOrder: string;
+  title: string;
+  theme: string;
+  levelId: string;
+  capacityCode: string;
+};
+
+function LessonsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) {
+  const qc = useQueryClient();
+  const listFn = useServerFn(listAdminLessons);
+  const saveFn = useServerFn(saveLesson);
+  const statusFn = useServerFn(setLessonStatus);
+  const deleteFn = useServerFn(deleteLesson);
+  const capsFn = useServerFn(getMecCapacities);
+  const q = useQuery({ queryKey: ["admin-lessons"], queryFn: () => listFn() });
+  const capsQ = useQuery({ queryKey: ["mec-capacities"], queryFn: () => capsFn() });
+  const [form, setForm] = useState<LessonForm | null>(null);
+  const [openId, setOpenId] = useState<string | null>(null);
+
+  const invalidate = () => {
+    void qc.invalidateQueries({ queryKey: ["admin-lessons"] });
+    void qc.invalidateQueries({ queryKey: ["course-lessons"] });
+  };
+  const saveM = useMutation({
+    mutationFn: (f: LessonForm) =>
+      saveFn({
+        data: {
+          id: f.id,
+          sortOrder: Number(f.sortOrder),
+          title: f.title,
+          theme: f.theme,
+          levelId: f.levelId || null,
+          capacityCode: f.capacityCode || null,
+        },
+      }),
+    onSuccess: (r) => {
+      if (!r.ok) return toast.error(r.error);
+      toast.success("Lección guardada.");
+      setForm(null);
+      invalidate();
+    },
+    onError: () => toast.error("No se pudo guardar la lección."),
+  });
+  const statusM = useMutation({
+    mutationFn: (v: { id: string; status: "draft" | "published" }) => statusFn({ data: v }),
+    onSuccess: invalidate,
+    onError: () => toast.error("No se pudo cambiar el estado."),
+  });
+  const deleteM = useMutation({
+    mutationFn: (id: string) => deleteFn({ data: { id } }),
+    onSuccess: () => {
+      toast.success("Lección eliminada.");
+      invalidate();
+    },
+    onError: () => toast.error("No se pudo eliminar."),
+  });
+
+  const lessons = q.data?.lessons ?? [];
+  const caps = capsQ.data?.capacities ?? [];
+  const nextOrder = String((lessons.at(-1)?.sort_order ?? 0) + 1);
+
+  return (
+    <div className="space-y-4">
+      {isAdmin && !form && (
+        <Button
+          variant="cta"
+          onClick={() =>
+            setForm({ id: null, sortOrder: nextOrder, title: "", theme: "", levelId: "", capacityCode: "" })
+          }
+        >
+          <Plus className="mr-2 h-4 w-4" />
+          Nueva lección
+        </Button>
+      )}
+
+      {isAdmin && form && (
+        <form
+          className="grid gap-2 rounded-xl border border-border/60 bg-card p-4 shadow-sm sm:grid-cols-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (form.title.trim() && Number(form.sortOrder) >= 1) saveM.mutate(form);
+          }}
+        >
+          <Input
+            type="number"
+            min={1}
+            value={form.sortOrder}
+            onChange={(e) => setForm({ ...form, sortOrder: e.target.value })}
+            placeholder="Orden"
+          />
+          <Input
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+            placeholder="Título"
+            maxLength={120}
+          />
+          <Input
+            className="sm:col-span-2"
+            value={form.theme}
+            onChange={(e) => setForm({ ...form, theme: e.target.value })}
+            placeholder="Tema"
+            maxLength={240}
+          />
+          <Select
+            value={form.levelId || "none"}
+            onValueChange={(v) => setForm({ ...form, levelId: v === "none" ? "" : v })}
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="none">Sin nivel</SelectItem>
+              {levels.map((lv) => (
+                <SelectItem key={lv.id} value={lv.id}>
+                  {lv.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select
+            value={form.capacityCode || "none"}
+            onValueChange={(v) => setForm({ ...form, capacityCode: v === "none" ? "" : v })}
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="none">Sin capacidad MEC</SelectItem>
+              {caps
+                .filter((c) => !form.levelId || c.level_id === form.levelId)
+                .map((c) => (
+                  <SelectItem key={c.code} value={c.code}>
+                    {c.code}
+                  </SelectItem>
+                ))}
+            </SelectContent>
+          </Select>
+          <div className="flex gap-2 sm:col-span-2">
+            <Button type="submit" variant="cta" disabled={saveM.isPending || !form.title.trim()}>
+              Guardar
+            </Button>
+            <Button type="button" variant="ghost" onClick={() => setForm(null)}>
+              Cancelar
+            </Button>
+          </div>
+        </form>
+      )}
+
+      {q.isLoading ? (
+        <div className="flex justify-center py-10">
+          <Loader2 className="h-5 w-5 animate-spin text-primary" />
+        </div>
+      ) : lessons.length === 0 ? (
+        <p className="py-10 text-center text-sm text-muted-foreground">Todavía no hay lecciones.</p>
+      ) : (
+        <div className="space-y-2">
+          {lessons.map((l) => (
+            <div key={l.id} className="rounded-xl border border-border/60 bg-card shadow-sm">
+              <div className="flex flex-wrap items-center gap-3 p-4">
+                <div className="min-w-[10rem] flex-1">
+                  <div className="font-display font-semibold text-foreground">
+                    {l.sort_order}. {l.title}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {l.theme}
+                    {l.level_id ? ` · ${l.level_id}` : ""}
+                    {l.capacity_code ? ` · ${l.capacity_code}` : ""}
+                  </div>
+                </div>
+                <Badge variant={l.status === "published" ? "default" : "outline"}>
+                  {l.status === "published" ? "Publicada" : "Borrador"}
+                </Badge>
+                <Badge variant="secondary">{l.published} publicadas</Badge>
+                <Badge variant="outline">{l.drafts} en borrador</Badge>
+                <Button size="sm" variant="outline" onClick={() => setOpenId(openId === l.id ? null : l.id)}>
+                  {openId === l.id ? "Cerrar" : "Palabras"}
+                </Button>
+                {isAdmin && (
+                  <>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() =>
+                        setForm({
+                          id: l.id,
+                          sortOrder: String(l.sort_order),
+                          title: l.title,
+                          theme: l.theme,
+                          levelId: l.level_id ?? "",
+                          capacityCode: l.capacity_code ?? "",
+                        })
+                      }
+                      aria-label={`Editar lección ${l.sort_order}`}
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      disabled={statusM.isPending}
+                      onClick={() =>
+                        statusM.mutate({
+                          id: l.id,
+                          status: l.status === "published" ? "draft" : "published",
+                        })
+                      }
+                    >
+                      {l.status === "published" ? "Pasar a borrador" : "Publicar"}
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      aria-label={`Eliminar lección ${l.sort_order}`}
+                      onClick={() => {
+                        if (window.confirm(`¿Eliminar la lección "${l.title}"? Las palabras siguen en el corpus.`))
+                          deleteM.mutate(l.id);
+                      }}
+                    >
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
+                  </>
+                )}
+              </div>
+              {openId === l.id && <LessonWordsEditor lessonId={l.id} onChanged={invalidate} />}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function LessonWordsEditor({ lessonId, onChanged }: { lessonId: string; onChanged: () => void }) {
+  const qc = useQueryClient();
+  const wordsFn = useServerFn(getLessonWords);
+  const addFn = useServerFn(addLessonWord);
+  const removeFn = useServerFn(removeLessonWord);
+  const reorderFn = useServerFn(reorderLessonWords);
+  const updateFn = useServerFn(updateCorpusWord);
+  const searchFn = useServerFn(listCorpusWords);
+  const [search, setSearch] = useState("");
+  const [onlyDrafts, setOnlyDrafts] = useState(false);
+
+  const key = ["lesson-words", lessonId];
+  const q = useQuery({ queryKey: key, queryFn: () => wordsFn({ data: { lessonId } }) });
+  const searchQ = useQuery({
+    queryKey: ["lesson-word-search", search],
+    queryFn: () => searchFn({ data: { search, limit: 20 } }),
+    enabled: search.trim().length >= 2,
+  });
+  const refresh = () => {
+    void qc.invalidateQueries({ queryKey: key });
+    void qc.invalidateQueries({ queryKey: ["corpus-words"] });
+    void qc.invalidateQueries({ queryKey: ["corpus-overview"] });
+    onChanged();
+  };
+  const addM = useMutation({
+    mutationFn: (wordId: string) => addFn({ data: { lessonId, wordId } }),
+    onSuccess: (r) => {
+      if (!r.ok) return toast.error(r.error);
+      refresh();
+    },
+    onError: () => toast.error("No se pudo agregar."),
+  });
+  const removeM = useMutation({
+    mutationFn: (linkId: string) => removeFn({ data: { linkId } }),
+    onSuccess: refresh,
+    onError: () => toast.error("No se pudo quitar."),
+  });
+  const reorderM = useMutation({
+    mutationFn: (linkIds: string[]) => reorderFn({ data: { lessonId, linkIds } }),
+    onSuccess: refresh,
+    onError: () => toast.error("No se pudo reordenar."),
+  });
+  const validateM = useMutation({
+    mutationFn: (id: string) => updateFn({ data: { id, status: "published" } }),
+    onSuccess: () => {
+      toast.success("Palabra validada y publicada.");
+      refresh();
+    },
+    onError: () => toast.error("No se pudo validar."),
+  });
+
+  const words = q.data?.words ?? [];
+  const shown = onlyDrafts ? words.filter((w) => w.status !== "published") : words;
+  const drafts = words.filter((w) => w.status !== "published").length;
+  const inLesson = new Set(words.map((w) => w.wordId));
+
+  function move(idx: number, dir: -1 | 1) {
+    const ids = words.map((w) => w.linkId);
+    const j = idx + dir;
+    if (j < 0 || j >= ids.length) return;
+    [ids[idx], ids[j]] = [ids[j], ids[idx]];
+    reorderM.mutate(ids);
+  }
+
+  return (
+    <div className="space-y-3 border-t border-border/40 p-4">
+      <div className="flex flex-wrap items-center gap-2">
+        <div className="relative min-w-[12rem] flex-1">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Buscar palabra del corpus para agregar…"
+            className="pl-9"
+          />
+        </div>
+        <Button
+          size="sm"
+          variant={onlyDrafts ? "cta" : "outline"}
+          onClick={() => setOnlyDrafts((v) => !v)}
+        >
+          <UserCheck className="mr-2 h-4 w-4" />
+          Validar borradores ({drafts})
+        </Button>
+      </div>
+
+      {search.trim().length >= 2 && (
+        <div className="max-h-56 overflow-y-auto rounded-lg border border-border/40">
+          {(searchQ.data?.words ?? []).map((w) => (
+            <div key={w.id} className="flex items-center gap-2 border-b border-border/30 p-2 text-sm last:border-0">
+              <div className="flex-1">
+                <span className="font-semibold text-foreground">{w.gn}</span>{" "}
+                <span className="text-muted-foreground">· {w.es}</span>
+              </div>
+              <Badge variant="outline">{w.status === "published" ? "publicada" : "borrador"}</Badge>
+              <Button
+                size="sm"
+                variant="outline"
+                disabled={inLesson.has(w.id) || addM.isPending}
+                onClick={() => addM.mutate(w.id)}
+              >
+                {inLesson.has(w.id) ? "Ya está" : "Agregar"}
+              </Button>
+            </div>
+          ))}
+          {searchQ.data && searchQ.data.words.length === 0 && (
+            <p className="p-3 text-center text-xs text-muted-foreground">Sin resultados en el corpus.</p>
+          )}
+        </div>
+      )}
+
+      {q.isLoading ? (
+        <Loader2 className="mx-auto h-5 w-5 animate-spin text-primary" />
+      ) : shown.length === 0 ? (
+        <p className="py-4 text-center text-sm text-muted-foreground">
+          {onlyDrafts ? "No hay palabras en borrador en esta lección." : "Esta lección no tiene palabras."}
+        </p>
+      ) : (
+        <ol className="space-y-1">
+          {shown.map((w) => {
+            const idx = words.findIndex((x) => x.linkId === w.linkId);
+            return (
+              <li key={w.linkId} className="flex flex-wrap items-center gap-2 rounded-lg bg-muted/40 p-2 text-sm">
+                <span className="w-6 text-xs text-muted-foreground">{idx + 1}</span>
+                <div className="min-w-[8rem] flex-1">
+                  <span className="font-semibold text-foreground">{w.gn}</span>{" "}
+                  <span className="text-muted-foreground">· {w.es}</span>
+                </div>
+                <Badge variant={w.status === "published" ? "default" : "outline"}>
+                  {w.status === "published" ? "publicada" : "borrador"}
+                </Badge>
+                {!w.has_audio && <Badge variant="outline">sin audio</Badge>}
+                {w.status !== "published" && (
+                  <Button size="sm" variant="cta" disabled={validateM.isPending} onClick={() => validateM.mutate(w.wordId)}>
+                    <CheckCircle2 className="mr-1 h-4 w-4" />
+                    Validar
+                  </Button>
+                )}
+                {!onlyDrafts && (
+                  <>
+                    <Button size="icon" variant="ghost" aria-label="Subir" disabled={idx === 0 || reorderM.isPending} onClick={() => move(idx, -1)}>
+                      <ArrowUp className="h-4 w-4" />
+                    </Button>
+                    <Button size="icon" variant="ghost" aria-label="Bajar" disabled={idx === words.length - 1 || reorderM.isPending} onClick={() => move(idx, 1)}>
+                      <ArrowDown className="h-4 w-4" />
+                    </Button>
+                  </>
+                )}
+                <Button size="icon" variant="ghost" aria-label={`Quitar ${w.gn}`} disabled={removeM.isPending} onClick={() => removeM.mutate(w.linkId)}>
+                  <X className="h-4 w-4 text-destructive" />
+                </Button>
+              </li>
+            );
+          })}
+        </ol>
       )}
     </div>
   );

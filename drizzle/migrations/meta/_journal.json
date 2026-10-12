@@ -36,6 +36,13 @@
       "when": 1791842583078,
       "tag": "0004_ai_usage_and_rate_limits",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1791843209136,
+      "tag": "0005_lessons_from_corpus",
+      "breakpoints": true
     }
   ]
 }
