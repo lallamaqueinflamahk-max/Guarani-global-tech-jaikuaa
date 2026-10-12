@@ -10,7 +10,11 @@ const XP_CAP: Record<string, number> = {
   weekly: 20,
   onboarding: 15,
   visit: 0,
+  game: 20,
 };
+
+/** Juegos que se registran con recordActivity (la Palabra del día tiene su propio flujo). */
+const GAME_REFS = new Set(["ahorcado", "sopa-de-letras", "memoria"]);
 
 const BADGE_IDS = ["primer-paso", "guaranihablante", "estudiante-estrella", "racha-fuego"] as const;
 
@@ -76,7 +80,7 @@ export const recordActivity = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) =>
     z
       .object({
-        source: z.enum(["lesson", "exam", "trivia", "weekly", "onboarding", "visit"]),
+        source: z.enum(["lesson", "exam", "trivia", "weekly", "onboarding", "visit", "game"]),
         sourceRef: z.string().trim().max(120).default(""),
         xp: z.number().int().min(0).max(1000).default(0),
         syncId: z.string().trim().min(8).max(80),
@@ -87,6 +91,7 @@ export const recordActivity = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    if (data.source === "game" && !GAME_REFS.has(data.sourceRef)) throw new Error("Juego no válido");
     const amount = Math.min(data.xp, XP_CAP[data.source] ?? 0);
     // Visitas: como máximo una por día por usuario (sync_id fijo por fecha).
     const syncId = data.source === "visit" ? `visit:${asuncionToday()}` : data.syncId;
