@@ -489,7 +489,14 @@ export const listValidators = createServerFn({ method: "GET" })
 
 export const addValidator = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ email: z.string().trim().email().max(255) }).parse(d))
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        email: z.string().trim().email().max(255),
+        cohort: z.string().trim().min(1).max(60).nullable().default(null),
+      })
+      .parse(d),
+  )
   .handler(async ({ data, context }) => {
     await assertRole(context.supabase, context.userId, "admin");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -511,6 +518,9 @@ export const addValidator = createServerFn({ method: "POST" })
         .insert({ user_id: prof.id, role: "editor" });
       if (error) throw new Error(error.message);
     }
+    if (data.cohort) {
+      await supabaseAdmin.from("profiles").update({ cohort: data.cohort }).eq("id", prof.id);
+    }
     return { ok: true as const };
   });
 
@@ -527,4 +537,179 @@ export const removeValidator = createServerFn({ method: "POST" })
       .eq("role", "editor");
     if (error) throw new Error(error.message);
     return { ok: true };
+  });
+
+/* ------------------------------- PILOTO ------------------------------- */
+
+/** Usuarios con grupo asignado y lista de grupos existentes. */
+export const listCohortMembers = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertRole(context.supabase, context.userId, "admin");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data } = await supabaseAdmin
+      .from("profiles")
+      .select("id, full_name, email, cohort")
+      .not("cohort", "is", null)
+      .order("cohort");
+    const members = (data ?? []).map((p) => ({
+      userId: p.id,
+      name: p.full_name || "",
+      email: p.email || "",
+      cohort: p.cohort as string,
+    }));
+    return { members, cohorts: [...new Set(members.map((m) => m.cohort))].sort() };
+  });
+
+export const setUserCohort = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        email: z.string().trim().email().max(255),
+        cohort: z.string().trim().min(1).max(60).nullable(),
+      })
+      .parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "admin");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: prof } = await supabaseAdmin
+      .from("profiles")
+      .select("id")
+      .ilike("email", data.email)
+      .maybeSingle();
+    if (!prof) return { ok: false as const, error: "Primero tiene que crear su cuenta en Jaikuaa" };
+    const { error } = await supabaseAdmin
+      .from("profiles")
+      .update({ cohort: data.cohort })
+      .eq("id", prof.id);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+function pyDay(ts: string | Date): string {
+  return new Date(ts).toLocaleDateString("en-CA", { timeZone: "America/Asuncion" });
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function fetchAll<T>(build: (from: number, to: number) => any): Promise<T[]> {
+  const out: T[] = [];
+  for (let page = 0; page < 100; page++) {
+    const { data, error } = await build(page * 1000, page * 1000 + 999);
+    if (error) throw new Error(error.message);
+    out.push(...((data ?? []) as T[]));
+    if (!data || data.length < 1000) break;
+  }
+  return out;
+}
+
+/** Métricas reales del piloto, calculadas desde la base de datos. */
+export const getPilotDashboard = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        cohort: z.string().trim().max(60).nullable().default(null),
+        period: z.enum(["7", "30", "all"]).default("30"),
+      })
+      .parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "admin");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const today = pyDay(new Date());
+    const dayMinus = (n: number) => {
+      const d = new Date(`${today}T12:00:00Z`);
+      d.setUTCDate(d.getUTCDate() - n);
+      return d.toISOString().slice(0, 10);
+    };
+    const last7 = dayMinus(6);
+
+    const profiles = await fetchAll<{ id: string; created_at: string; cohort: string | null }>(
+      (f, t) => {
+        let q = supabaseAdmin.from("profiles").select("id, created_at, cohort").range(f, t);
+        if (data.cohort) q = q.eq("cohort", data.cohort);
+        return q;
+      },
+    );
+    const userIds = new Set(profiles.map((p) => p.id));
+
+    const startDay =
+      data.period === "all"
+        ? profiles.reduce((m, p) => (pyDay(p.created_at) < m ? pyDay(p.created_at) : m), today)
+        : dayMinus(Number(data.period) - 1);
+    // Desde 1 día antes en UTC para cubrir la diferencia horaria; se filtra por día de Paraguay.
+    const fetchFrom = new Date(`${(startDay < last7 ? startDay : last7)}T00:00:00Z`);
+    fetchFrom.setUTCDate(fetchFrom.getUTCDate() - 1);
+
+    const txs = (
+      await fetchAll<{ user_id: string; amount: number; source: string; created_at: string }>(
+        (f, t) =>
+          supabaseAdmin
+            .from("xp_transactions")
+            .select("user_id, amount, source, created_at")
+            .gte("created_at", fetchFrom.toISOString())
+            .neq("source", "local-migration")
+            .range(f, t),
+      )
+    )
+      .filter((x) => userIds.has(x.user_id))
+      .map((x) => ({ ...x, day: pyDay(x.created_at) }));
+
+    const { data: editorRows } = await supabaseAdmin
+      .from("user_roles")
+      .select("user_id")
+      .eq("role", "editor");
+    const editors = new Set((editorRows ?? []).map((r) => r.user_id));
+
+    const validatedAll = await fetchAll<{ validated_by: string | null; validated_at: string | null; status: string }>(
+      (f, t) => supabaseAdmin.from("corpus_words").select("validated_by, validated_at, status").range(f, t),
+    );
+    const validatedInScope = validatedAll
+      .filter((w) => w.validated_by && w.validated_at && (!data.cohort || userIds.has(w.validated_by)))
+      .map((w) => ({ by: w.validated_by as string, day: pyDay(w.validated_at as string) }));
+
+    const inPeriod = (day: string) => day >= startDay && day <= today;
+    const ptx = txs.filter((x) => inPeriod(x.day));
+    const pval = validatedInScope.filter((w) => inPeriod(w.day));
+
+    const days: string[] = [];
+    for (let d = startDay; d <= today; ) {
+      days.push(d);
+      const n = new Date(`${d}T12:00:00Z`);
+      n.setUTCDate(n.getUTCDate() + 1);
+      d = n.toISOString().slice(0, 10);
+      if (days.length > 2000) break;
+    }
+    const series = days.map((day) => {
+      const dt = ptx.filter((x) => x.day === day);
+      return {
+        date: day,
+        active: new Set(dt.map((x) => x.user_id)).size,
+        newUsers: profiles.filter((p) => pyDay(p.created_at) === day).length,
+        lessons: dt.filter((x) => x.source === "lesson").length,
+        exams: dt.filter((x) => x.source === "exam").length,
+        xp: dt.reduce((a, x) => a + x.amount, 0),
+        validated: pval.filter((w) => w.day === day).length,
+      };
+    });
+
+    return {
+      startDay,
+      today,
+      registered: profiles.length,
+      newUsers: profiles.filter((p) => inPeriod(pyDay(p.created_at))).length,
+      activeUsers: new Set(ptx.map((x) => x.user_id)).size,
+      active7: new Set(txs.filter((x) => x.day >= last7 && x.day <= today).map((x) => x.user_id)).size,
+      lessons: ptx.filter((x) => x.source === "lesson").length,
+      exams: ptx.filter((x) => x.source === "exam").length,
+      xp: ptx.reduce((a, x) => a + x.amount, 0),
+      activeValidators: new Set(pval.filter((w) => editors.has(w.by)).map((w) => w.by)).size,
+      validatedInPeriod: pval.length,
+      validatedTotal: validatedAll.filter((w) => w.validated_by).length,
+      pendingValidation: validatedAll.filter((w) => w.status === "draft" || !w.validated_by).length,
+      series,
+    };
   });

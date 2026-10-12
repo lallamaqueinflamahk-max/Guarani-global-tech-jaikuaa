@@ -262,6 +262,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          cohort: string | null
           created_at: string
           email: string | null
           full_name: string | null
@@ -269,6 +270,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          cohort?: string | null
           created_at?: string
           email?: string | null
           full_name?: string | null
@@ -276,6 +278,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          cohort?: string | null
           created_at?: string
           email?: string | null
           full_name?: string | null
@@ -561,6 +564,29 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      migrate_local_progress: {
+        Args: {
+          _badges: Json
+          _last_date: string
+          _lessons: number
+          _streak: number
+          _user_id: string
+          _xp: number
+        }
+        Returns: boolean
+      }
+      record_activity: {
+        Args: {
+          _amount: number
+          _metadata: Json
+          _perfect: boolean
+          _source: string
+          _source_ref: string
+          _sync_id: string
+          _user_id: string
+        }
+        Returns: Json
       }
     }
     Enums: {

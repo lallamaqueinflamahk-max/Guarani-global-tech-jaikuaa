@@ -8,6 +8,13 @@
       "when": 1791840754581,
       "tag": "0000_corpus_validators",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791841335362,
+      "tag": "0001_server_progress_and_cohorts",
+      "breakpoints": true
     }
   ]
 }

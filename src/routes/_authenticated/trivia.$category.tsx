@@ -10,7 +10,7 @@ import {
   XP_STREAK_BONUS,
   type TriviaCategoryId,
 } from "@/lib/trivia";
-import { recordCompletion } from "@/lib/gamification";
+import { recordCompletion, useRecordVisit } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
 import { cn } from "@/lib/utils";
 
@@ -86,6 +86,7 @@ function renderCopy(text: string) {
 
 function TriviaQuiz() {
   const { category } = Route.useLoaderData() as { category: TriviaCategoryId };
+  useRecordVisit(`trivia:${category}`);
   const cat = TRIVIA[category];
   const navigate = useNavigate();
 
@@ -165,7 +166,7 @@ function TriviaQuiz() {
       setPhase("done");
       if (!awardedRef.current) {
         awardedRef.current = true;
-        recordCompletion({ xp: xpEarned });
+        recordCompletion({ xp: xpEarned, source: "trivia", sourceRef: category });
       }
       if (correctCount === total) celebrate("big");
       else if (correctCount >= 3) celebrate("small");

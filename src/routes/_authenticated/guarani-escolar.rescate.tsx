@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TEMAS_6TO, type QuizQuestion } from "@/lib/guarani-tema";
-import { useRecordOnMount } from "@/lib/gamification";
+import { useRecordOnMount, useRecordVisit } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
 import { SpeakerButton } from "@/components/audio/speaker-button";
 
@@ -58,6 +58,7 @@ function feedbackFor(nota: number): string {
 }
 
 function ModoRescate() {
+  useRecordVisit("rescate");
   const [when, setWhen] = useState<When | null>(null);
   const [grade, setGrade] = useState<Grade>("6° grado");
   const [phase, setPhase] = useState<Phase>({ kind: "setup" });
@@ -468,7 +469,7 @@ function DoneScreen({
   onRetry: () => void;
 }) {
   const feedback = feedbackFor(nota);
-  useRecordOnMount({ xp: 30 + score * 5, perfectExam: nota === 5 });
+  useRecordOnMount({ xp: 30 + score * 5, perfectExam: nota === 5, source: "exam", sourceRef: "rescate" });
   useEffect(() => {
     if (nota >= 3) celebrate(nota === 5 ? "big" : "small");
   }, [nota]);
