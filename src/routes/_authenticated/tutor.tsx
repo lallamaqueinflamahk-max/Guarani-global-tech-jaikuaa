@@ -44,14 +44,17 @@ function TutorPage() {
 
   return (
     <div className="flex min-h-dvh flex-col bg-background">
+      <div role="note" className="sticky top-0 z-20 border-b border-amber-300 bg-amber-50 px-4 py-2.5 text-center text-xs font-medium text-amber-900 sm:text-sm">
+        ⚠️ Función experimental. Este contenido lo genera una inteligencia artificial y no está validado por especialistas en lengua guaraní. Puede contener errores: no lo uses como referencia oficial.
+      </div>
       <header className="border-b border-border/50">
         <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4 sm:px-6">
           <Link to="/dashboard" className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4" /> Volver
           </Link>
           <div className="flex items-center gap-2">
-            <span className="rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-accent-foreground">
-              Premium ⭐
+            <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-amber-800">
+              Experimental
             </span>
           </div>
         </div>

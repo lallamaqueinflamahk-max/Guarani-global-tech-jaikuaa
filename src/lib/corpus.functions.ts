@@ -18,7 +18,7 @@ const RowSchema = z.object({
 export const getMecCapacities = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertRole(context.supabase, context.userId, "editor");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const [capsRes, levelsRes, linksRes] = await Promise.all([
@@ -48,23 +48,39 @@ export const getMecCapacities = createServerFn({ method: "GET" })
 
 const ImportSchema = z.object({ rows: z.array(RowSchema).max(5000) });
 
-async function assertAdmin<
+type Role = "admin" | "editor";
+
+async function getRoles(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  T extends { rpc: (fn: any, args: any) => any },
->(supabase: T, userId: string) {
-  const { data } = await supabase.rpc("has_role", { _user_id: userId, _role: "admin" });
-  if (data !== true) throw new Error("Forbidden");
+  supabase: { rpc: (fn: any, args: any) => any },
+  userId: string,
+) {
+  const [a, e] = await Promise.all([
+    supabase.rpc("has_role", { _user_id: userId, _role: "admin" }),
+    supabase.rpc("has_role", { _user_id: userId, _role: "editor" }),
+  ]);
+  return { isAdmin: a.data === true, isEditor: e.data === true };
 }
 
-/** ¿El usuario actual es administrador del corpus? */
+/** Chequeo de rol según la acción: "admin" solo admin; "editor" admin o docente validador. */
+async function assertRole(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: { rpc: (fn: any, args: any) => any },
+  userId: string,
+  min: Role,
+) {
+  const r = await getRoles(supabase, userId);
+  if (r.isAdmin) return r;
+  if (min === "editor" && r.isEditor) return r;
+  throw new Error("Forbidden");
+}
+
+/** Roles del usuario actual en el panel de validación. */
 export const checkCorpusAdmin = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
-    return { isAdmin: data === true };
+    const r = await getRoles(context.supabase, context.userId);
+    return { ...r, canAccess: r.isAdmin || r.isEditor };
   });
 
 /** Lista de slugs de audio realmente presentes en el bucket. */
@@ -90,7 +106,7 @@ async function listAudioSlugs(): Promise<Set<string>> {
 export const getCorpusOverview = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertRole(context.supabase, context.userId, "editor");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const [levelsRes, wordsRes, linksRes, sentencesRes] = await Promise.all([
@@ -135,7 +151,7 @@ export const previewCorpusImport = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => ImportSchema.parse(d))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertRole(context.supabase, context.userId, "admin");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const [existingRes, capsRes, audioSlugs] = await Promise.all([
@@ -201,7 +217,7 @@ export const commitCorpusImport = createServerFn({ method: "POST" })
     ImportSchema.extend({ overwriteTranslations: z.boolean().default(false) }).parse(d),
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertRole(context.supabase, context.userId, "admin");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const audioSlugs = await listAudioSlugs();
 
@@ -302,12 +318,13 @@ export const listCorpusWords = createServerFn({ method: "POST" })
         levelId: z.string().optional(),
         search: z.string().default(""),
         onlyMissingAudio: z.boolean().default(false),
+        onlyPendingValidation: z.boolean().default(false),
         limit: z.number().min(1).max(500).default(200),
       })
       .parse(d),
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertRole(context.supabase, context.userId, "editor");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     let ids: string[] | null = null;
@@ -322,17 +339,32 @@ export const listCorpusWords = createServerFn({ method: "POST" })
 
     let q = supabaseAdmin
       .from("corpus_words")
-      .select("id, gn, es, audio_slug, has_audio, status, notes")
+      .select("id, gn, es, audio_slug, has_audio, status, notes, validated_by, validated_at")
       .order("gn")
       .limit(data.limit);
     if (ids) q = q.in("id", ids);
     if (data.search.trim())
       q = q.or(`gn.ilike.%${data.search.trim()}%,es.ilike.%${data.search.trim()}%`);
     if (data.onlyMissingAudio) q = q.eq("has_audio", false);
+    if (data.onlyPendingValidation) q = q.or("status.eq.draft,validated_by.is.null");
 
     const { data: words, error } = await q;
     if (error) throw new Error(error.message);
-    return { words: words ?? [] };
+    const vIds = [...new Set((words ?? []).map((w) => w.validated_by).filter(Boolean))] as string[];
+    const names = new Map<string, string>();
+    if (vIds.length > 0) {
+      const { data: profs } = await supabaseAdmin
+        .from("profiles")
+        .select("id, full_name, email")
+        .in("id", vIds);
+      for (const p of profs ?? []) names.set(p.id, p.full_name || p.email || "Docente");
+    }
+    return {
+      words: (words ?? []).map((w) => ({
+        ...w,
+        validatorName: w.validated_by ? (names.get(w.validated_by) ?? "Docente") : null,
+      })),
+    };
   });
 
 /** Editar, publicar o borrar una palabra. */
@@ -349,10 +381,18 @@ export const updateCorpusWord = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertRole(context.supabase, context.userId, "editor");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { id, ...patch } = data;
-    const { error } = await supabaseAdmin.from("corpus_words").update(patch).eq("id", id);
+    const { id, ...rest } = data;
+    const patch: Record<string, unknown> = { ...rest };
+    if (rest.status === "published") {
+      patch.validated_by = context.userId;
+      patch.validated_at = new Date().toISOString();
+    } else if (rest.status === "draft") {
+      patch.validated_by = null;
+      patch.validated_at = null;
+    }
+    const { error } = await supabaseAdmin.from("corpus_words").update(patch as never).eq("id", id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -361,7 +401,7 @@ export const deleteCorpusWord = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertRole(context.supabase, context.userId, "admin");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("corpus_words").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
@@ -373,7 +413,7 @@ export const publishLevel = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ levelId: z.string().min(1) }).parse(d))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertRole(context.supabase, context.userId, "admin");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: links } = await supabaseAdmin
       .from("corpus_word_levels")
@@ -383,9 +423,14 @@ export const publishLevel = createServerFn({ method: "POST" })
     if (ids.length === 0) return { published: 0 };
     const { data: updated, error } = await supabaseAdmin
       .from("corpus_words")
-      .update({ status: "published" })
+      .update({
+        status: "published",
+        validated_by: context.userId,
+        validated_at: new Date().toISOString(),
+      })
       .in("id", ids)
       .eq("has_audio", true)
+      .eq("status", "draft")
       .select("id");
     if (error) throw new Error(error.message);
     return { published: updated?.length ?? 0 };
@@ -395,7 +440,7 @@ export const publishLevel = createServerFn({ method: "POST" })
 export const refreshAudioCoverage = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    await assertRole(context.supabase, context.userId, "admin");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const slugs = await listAudioSlugs();
     const { data: words } = await supabaseAdmin
@@ -410,4 +455,76 @@ export const refreshAudioCoverage = createServerFn({ method: "POST" })
       }
     }
     return { changed, audioFiles: slugs.size };
+  });
+
+/* --------------------------- DOCENTES VALIDADORES --------------------------- */
+
+export const listValidators = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertRole(context.supabase, context.userId, "admin");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: roles } = await supabaseAdmin
+      .from("user_roles")
+      .select("user_id")
+      .eq("role", "editor");
+    const ids = (roles ?? []).map((r) => r.user_id);
+    if (ids.length === 0) return { validators: [] };
+    const [profs, words] = await Promise.all([
+      supabaseAdmin.from("profiles").select("id, full_name, email").in("id", ids),
+      supabaseAdmin.from("corpus_words").select("validated_by").in("validated_by", ids),
+    ]);
+    return {
+      validators: ids.map((id) => {
+        const p = profs.data?.find((x) => x.id === id);
+        return {
+          userId: id,
+          name: p?.full_name || "",
+          email: p?.email || "",
+          validated: (words.data ?? []).filter((w) => w.validated_by === id).length,
+        };
+      }),
+    };
+  });
+
+export const addValidator = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ email: z.string().trim().email().max(255) }).parse(d))
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "admin");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: prof } = await supabaseAdmin
+      .from("profiles")
+      .select("id")
+      .ilike("email", data.email)
+      .maybeSingle();
+    if (!prof) return { ok: false as const, error: "Primero tiene que crear su cuenta en Jaikuaa" };
+    const { data: existing } = await supabaseAdmin
+      .from("user_roles")
+      .select("id")
+      .eq("user_id", prof.id)
+      .eq("role", "editor")
+      .maybeSingle();
+    if (!existing) {
+      const { error } = await supabaseAdmin
+        .from("user_roles")
+        .insert({ user_id: prof.id, role: "editor" });
+      if (error) throw new Error(error.message);
+    }
+    return { ok: true as const };
+  });
+
+export const removeValidator = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ userId: z.string().uuid() }).parse(d))
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "admin");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("user_roles")
+      .delete()
+      .eq("user_id", data.userId)
+      .eq("role", "editor");
+    if (error) throw new Error(error.message);
+    return { ok: true };
   });
