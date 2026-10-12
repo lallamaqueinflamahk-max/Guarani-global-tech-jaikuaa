@@ -215,3 +215,29 @@ select,
 }
 
 
+
+/* Penales: stadium illustration palette, shared by canvas and mascot. */
+.penalties-game {
+  --stadium-night: #071222;
+  --stadium-sky: #0f2740;
+  --stadium-grass: #1f6b3a;
+  --stadium-grass-dark: #16532d;
+  --stadium-stripe: #1a5c32;
+  --stadium-white: #f4f7f2;
+  --stadium-black: #04090e;
+  --stadium-kit-dark: #0b1722;
+  --stadium-red: #c8102e;
+  --stadium-blue: #2a5bd7;
+  --stadium-gold: #ffd23f;
+  --stadium-green: #2ecc71;
+  --stadium-miss: #ff7466;
+  --stadium-skin: #c98f5e;
+  --stadium-shell: #d9a25c;
+  --stadium-shell-dark: #a86f33;
+  --stadium-shell-light: #f2d3a0;
+  --stadium-cheek: #f29aa8;
+}
+.penalties-mascot { animation: penalties-bob 2.6s ease-in-out infinite; }
+.penalties-stars { color: var(--stadium-gold); }
+@keyframes penalties-bob { 50% { transform: translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .penalties-mascot { animation: none; } }
