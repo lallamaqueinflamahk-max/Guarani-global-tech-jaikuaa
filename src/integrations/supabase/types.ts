@@ -38,6 +38,24 @@ export type Database = {
         }
         Relationships: []
       }
+      app_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: string
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: string
+        }
+        Relationships: []
+      }
       corpus_sentence_words: {
         Row: {
           created_at: string
@@ -209,6 +227,65 @@ export type Database = {
             columns: ["validated_by"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invite_codes: {
+        Row: {
+          active: boolean
+          code: string
+          cohort: string
+          created_at: string
+          expires_at: string | null
+          id: string
+          max_uses: number
+          uses: number
+        }
+        Insert: {
+          active?: boolean
+          code: string
+          cohort?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          max_uses?: number
+          uses?: number
+        }
+        Update: {
+          active?: boolean
+          code?: string
+          cohort?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          max_uses?: number
+          uses?: number
+        }
+        Relationships: []
+      }
+      invite_redemptions: {
+        Row: {
+          code_id: string
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          code_id: string
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          code_id?: string
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invite_redemptions_code_id_fkey"
+            columns: ["code_id"]
+            isOneToOne: false
+            referencedRelation: "invite_codes"
             referencedColumns: ["id"]
           },
         ]
@@ -727,6 +804,10 @@ export type Database = {
           _user_id: string
         }
         Returns: Json
+      }
+      redeem_invite: {
+        Args: { _code: string; _user_id: string }
+        Returns: string
       }
     }
     Enums: {
