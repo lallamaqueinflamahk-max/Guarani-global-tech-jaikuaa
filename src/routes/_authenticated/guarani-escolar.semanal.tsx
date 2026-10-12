@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Check, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TEMAS_6TO } from "@/lib/guarani-tema";
-import { recordCompletion } from "@/lib/gamification";
+import { recordCompletion, useRecordVisit } from "@/lib/gamification";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/semanal")({
   head: () => ({ meta: [{ title: "Jaikuaa — Plan Semanal" }] }),
@@ -49,6 +49,7 @@ function loadState(): Saved {
 }
 
 function PlanSemanal() {
+  useRecordVisit("semanal");
   const [phase, setPhase] = useState<"setup" | "plan">("setup");
   const [grade, setGrade] = useState<Grade>("6° grado");
   const [completed, setCompleted] = useState<Record<string, boolean>>({});
@@ -226,7 +227,7 @@ function PlanSemanal() {
                   onClick={() =>
                     setCompleted((c) => {
                       const wasDone = !!c[d.day];
-                      if (!wasDone) recordCompletion({ xp: 20 });
+                      if (!wasDone) recordCompletion({ xp: 20, source: "weekly", sourceRef: `semanal:${d.day}` });
                       return { ...c, [d.day]: !wasDone };
                     })
                   }

@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getTema, type Tema } from "@/lib/guarani-tema";
-import { useRecordOnMount } from "@/lib/gamification";
+import { useRecordOnMount, useRecordVisit } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
 import { usePrefetchAudios } from "@/lib/audio";
 
@@ -43,6 +43,7 @@ type Phase = "learn" | "quiz" | "done";
 
 function TemaPage() {
   const { tema } = Route.useLoaderData() as unknown as { tema: Tema };
+  useRecordVisit(`tema:${tema.slug}`);
   const [phase, setPhase] = useState<Phase>("learn");
   const [score, setScore] = useState(0);
 
@@ -230,7 +231,7 @@ function DoneStep({
   const total = tema.quiz.length;
   const fb = feedback(score, total);
   const xp = 15 + score * 5;
-  useRecordOnMount({ xp, perfectExam: score === total });
+  useRecordOnMount({ xp, perfectExam: score === total, source: "exam", sourceRef: `tema:${tema.slug}` });
   useEffect(() => {
     if (score / total >= 0.6) celebrate(score === total ? "big" : "small");
   }, [score, total]);

@@ -105,7 +105,7 @@ function Onboarding() {
   const completeLesson = () => {
     // Award XP through the existing system — do not modify it.
     try {
-      recordCompletion({ xp: 15 });
+      recordCompletion({ xp: 15, source: "onboarding", sourceRef: "comenzar" });
     } catch {}
     setLessonDone(true);
     celebrate("big");
