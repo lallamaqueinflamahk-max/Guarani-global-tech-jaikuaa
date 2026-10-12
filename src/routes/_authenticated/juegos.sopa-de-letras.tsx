@@ -4,6 +4,7 @@ import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SpeakerButton } from "@/components/audio/speaker-button";
 import { GameShell, LessonFilter, NotEnough, XpNote, shuffle, useGameWords, useIsWide } from "@/components/games/game-shell";
+import { useGameFeedback } from "@/components/games/game-kit";
 import { ACHEGETY, displayLetter, splitAchegety } from "@/lib/achegety";
 import { playGuarani } from "@/lib/audio";
 import { recordCompletion } from "@/lib/gamification";
@@ -97,6 +98,7 @@ function WordSearch() {
 }
 
 function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
+  const feedback = useGameFeedback();
   const { size, grid, placed } = puzzle;
   const [start, setStart] = useState<number | null>(null);
   const [found, setFound] = useState<Set<number>>(new Set());
@@ -107,6 +109,7 @@ function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
   useEffect(() => {
     if (!done || recorded.current) return;
     recorded.current = true;
+    feedback("victory");
     recordCompletion({ source: "game", sourceRef: "sopa-de-letras", xp: XP });
   }, [done]);
 
@@ -125,9 +128,11 @@ function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
       (p, i) => !found.has(i) && p.cells.length === line.length && p.cells.every((x, j) => x === line[j]),
     );
     if (idx >= 0) {
+      feedback("success");
       setFound((f) => new Set(f).add(idx));
       if (placed[idx]!.word.hasAudio) void playGuarani(placed[idx]!.word.gn);
     } else {
+      feedback("error");
       setMiss(line.length ? line : [start, cell]);
       window.setTimeout(() => setMiss([]), 600);
     }
@@ -143,11 +148,11 @@ function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
         style={{ gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))` }}
       >
         {grid.map((t, i) => (
-          <button
+          <Button variant="ghost"
             key={i}
             type="button"
             onClick={() => tap(i)}
-            className={`flex aspect-square items-center justify-center rounded-md border text-sm font-bold sm:text-base ${
+            className={`flex h-auto aspect-square p-0 items-center justify-center rounded-md border text-sm font-bold sm:text-base ${
               foundCells.has(i)
                 ? "border-primary bg-primary text-primary-foreground"
                 : start === i
@@ -158,7 +163,7 @@ function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
             }`}
           >
             {displayLetter(t)}
-          </button>
+          </Button>
         ))}
       </div>
 

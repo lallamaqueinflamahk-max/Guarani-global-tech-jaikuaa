@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useGameFeedback } from "@/components/games/game-kit";
 import { SpeakerButton } from "@/components/audio/speaker-button";
 import { GameShell, XpNote } from "@/components/games/game-shell";
 import { answerWordOfDay, getWordOfDay } from "@/lib/games.functions";
@@ -22,7 +24,10 @@ export const Route = createFileRoute("/_authenticated/juegos/palabra-del-dia")({
   component: WordOfDay,
 });
 
-function WordOfDay() {
+function WordOfDay() { return <GameShell title="Palabra del día" emoji="📅"><WordOfDayContent/></GameShell>; }
+
+function WordOfDayContent() {
+  const feedback = useGameFeedback();
   const getFn = useServerFn(getWordOfDay);
   const answerFn = useServerFn(answerWordOfDay);
   const qc = useQueryClient();
@@ -39,6 +44,7 @@ function WordOfDay() {
     try {
       const r = await answerFn({ data: { choice } });
       setResult({ choice, correct: r.correct, answer: r.answer });
+      feedback(r.correct ? "victory" : "error");
       void syncStats();
       void qc.invalidateQueries({ queryKey: ["word-of-day"] });
     } finally {
@@ -47,7 +53,7 @@ function WordOfDay() {
   }
 
   return (
-    <GameShell title="Palabra del día" emoji="📅">
+    <>
       {q.isLoading || !d ? (
         <div className="flex justify-center py-10"><Loader2 className="h-5 w-5 animate-spin text-primary" /></div>
       ) : !d.word ? (
@@ -65,12 +71,12 @@ function WordOfDay() {
               const isAnswer = played && o === played.answer;
               const isWrongChoice = played && o === played.choice && !played.correct;
               return (
-                <button
+                <Button variant="ghost"
                   key={o}
                   type="button"
                   disabled={!!played || busy}
                   onClick={() => void choose(o)}
-                  className={`rounded-xl border-2 p-4 text-left font-semibold transition ${
+                  className={`h-auto whitespace-normal break-words justify-start rounded-lg border-2 p-4 text-left font-semibold transition ${
                     isAnswer
                       ? "border-primary bg-primary/10 text-primary"
                       : isWrongChoice
@@ -79,7 +85,7 @@ function WordOfDay() {
                   }`}
                 >
                   {o}
-                </button>
+                </Button>
               );
             })}
           </div>
@@ -94,6 +100,6 @@ function WordOfDay() {
           )}
         </div>
       )}
-    </GameShell>
+    </>
   );
 }
