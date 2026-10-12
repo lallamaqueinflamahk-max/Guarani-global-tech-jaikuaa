@@ -4,11 +4,12 @@ const alpha=(role: string, opacity: number)=>`color-mix(in srgb, ${palette[role]
 const crowd=Array.from({length:240},(_,i)=>({x:(i*53)%W,y:14+((i*37)%70),c:i%3,ph:i*1.7}));
 const inGoal=(p: {x:number;y:number})=>p.x>G.x-40&&p.x<G.x+G.w+40&&p.y>G.y-40&&p.y<G.y+G.h;
 const hover=S.aim;
+const KEEP={y:278};
 const zone=()=>powerZone(S.knew);
 const power=(t:number)=>powerAt(t,S.powerStart,S.knew);
 const wobble=(t:number)=>S.knew||reduce?{x:0,y:0}:{x:Math.sin(t/170)*22,y:Math.cos(t/230)*14};
 function drawNet(now: number){const n=S.net,k=n?Math.max(0,1-(now-n.t)/900):0;ctx.strokeStyle=alpha('white', .3);ctx.lineWidth=1;
-  const bulge=(x: number,y: number): [number, number]=>{if(!k)return[x,y];const d=Math.hypot(x-n.x,y-n.y),f=Math.max(0,1-d/120)*k*14;return[x+(x-n.x)/(d||1)*f*.4,y-f*.2+f];};
+  const bulge=(x: number,y: number): [number, number]=>{if(!k||!n)return[x,y];const d=Math.hypot(x-n.x,y-n.y),f=Math.max(0,1-d/120)*k*14;return[x+(x-n.x)/(d||1)*f*.4,y-f*.2+f];};
   for(let x=G.x;x<=G.x+G.w;x+=20){ctx.beginPath();for(let y=G.y;y<=G.y+G.h;y+=10){const[a,b]=bulge(x,y);y===G.y?ctx.moveTo(a,b):ctx.lineTo(a,b);}ctx.stroke();}
   for(let y=G.y;y<=G.y+G.h;y+=20){ctx.beginPath();for(let x=G.x;x<=G.x+G.w;x+=10){const[a,b]=bulge(x,y);x===G.x?ctx.moveTo(a,b):ctx.lineTo(a,b);}ctx.stroke();}}
 function drawKeeper(now: number){const k=S.keeper,idle=(S.phase==='aim'||S.phase==='power')&&!reduce?Math.sin(now/(S.knew?420:200))*(S.knew?6:16):0;

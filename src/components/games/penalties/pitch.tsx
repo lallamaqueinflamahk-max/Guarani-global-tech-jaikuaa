@@ -1,0 +1,39 @@
+import { useEffect, useRef, type KeyboardEvent, type PointerEvent } from 'react';
+import { drawStadium } from './stadium';
+import { freshScene, G, H, W, labels, powerAt, resolveShot, type Outcome, type Scene } from './physics';
+import { StadiumSound } from './sound';
+import { celebrate } from '@/lib/confetti';
+
+export function PenaltyPitch({knew,ready,ledText,muted,onShot}:{knew:boolean;ready:boolean;ledText:string;muted:boolean;onShot:(o:Outcome)=>void}){
+ const canvas=useRef<HTMLCanvasElement>(null),scene=useRef<Scene>(freshScene()),animation=useRef<((now:number)=>void)|null>(null),sound=useRef(new StadiumSound());
+ const callback=useRef(onShot);callback.current=onShot;
+ const settings=useRef({ledText,muted});settings.current={ledText,muted};
+ useEffect(()=>{scene.current.knew=knew;if(ready){scene.current.phase='aim';canvas.current?.focus({preventScroll:true});sound.current.muted=muted;sound.current.play('answer');}},[ready,knew]);
+ useEffect(()=>{
+  const el=canvas.current,ctx=el?.getContext('2d');if(!el||!ctx)return;
+  const css=getComputedStyle(el),palette:Record<string,string>={};for(const k of ['night','sky','grass','grass-dark','stripe','white','black','kit-dark','red','blue','gold','green','miss','skin'])palette[k]=css.getPropertyValue(`--stadium-${k}`).trim();
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;let frame=0,last=0;
+  function tick(now:number){if(!ctx)return;animation.current?.(now);if(now-last>30){drawStadium(ctx,scene.current,now,settings.current.ledText,reduce,palette);last=now;}frame=requestAnimationFrame(tick);}
+  frame=requestAnimationFrame(tick);return()=>{cancelAnimationFrame(frame);sound.current.dispose();};
+ },[]);
+ function kick(){
+  const s=scene.current;if(s.phase!=='power'||!s.aim)return;
+  const now=performance.now(),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const shot=resolveShot(s.aim,powerAt(now,s.powerStart,s.knew),s.knew,now,reduce);s.phase='shot';sound.current.muted=settings.current.muted;sound.current.play('kick');
+  animation.current=(t)=>{
+   const q=Math.min(1,(t-now)/shot.duration),e=1-Math.pow(1-q,2.2);
+   s.ball={x:400+(shot.end.x-400)*e,y:520+(shot.end.y-520)*e-Math.sin(q*Math.PI)*50,r:16-6*e};
+   const kq=reduce?q:Math.max(0,Math.min(1,((t-now)/1000-shot.react)/Math.max(.05,shot.T-shot.react))),ke=1-Math.pow(1-kq,2);
+   s.keeper={x:400+(shot.keeper.x-400)*ke,y:278+(shot.keeper.y-278)*ke,ang:Math.sign(shot.keeper.x-400)*Math.min(1.2,Math.abs(shot.keeper.x-400)/170)*ke,stretch:ke};
+   if(q>=1){animation.current=null;s.phase='result';const goal=shot.outcome==='goal'||shot.outcome==='angle';s.banner={t,txt:labels[shot.outcome],c:getComputedStyle(canvas.current??document.documentElement).getPropertyValue(goal?'--stadium-gold':'--stadium-miss')};
+    if(goal){s.cheer=t;s.net={...shot.end,t};celebrate(shot.outcome==='angle'?'big':'small');}sound.current.play(goal?'cheer':'hit');
+    if(!reduce)try{navigator.vibrate?.(goal?[40,30,60]:30);}catch{}
+    callback.current(shot.outcome);
+   }
+  };
+ }
+ function activate(point?:{x:number;y:number}){const s=scene.current;if(s.phase==='aim'){const p=point??s.aim;if(!p)return;if(p.x<G.x-40||p.x>G.x+G.w+40||p.y<G.y-40||p.y>G.y+G.h)return;s.aim=p;s.powerStart=performance.now();s.phase='power';}else if(s.phase==='power')kick();}
+ function pointer(e:PointerEvent<HTMLCanvasElement>){e.preventDefault();const r=e.currentTarget.getBoundingClientRect();activate({x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height});}
+ function keyboard(e:KeyboardEvent<HTMLCanvasElement>){const s=scene.current;const delta:Record<string,[number,number]>={ArrowLeft:[-25,0],ArrowRight:[25,0],ArrowUp:[0,-20],ArrowDown:[0,20]};const d=delta[e.key];if(d&&s.phase==='aim'){e.preventDefault();const p=s.aim??{x:400,y:225};s.aim={x:Math.max(120,Math.min(680,p.x+d[0])),y:Math.max(80,Math.min(330,p.y+d[1]))};}if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}}
+ return <canvas ref={canvas} width={W} height={H} tabIndex={0} onPointerDown={pointer} onKeyDown={keyboard} className="block aspect-[4/3] w-full touch-none rounded-lg focus-visible:outline-2 focus-visible:outline-accent" aria-label="Arco: tocá para apuntar y otra vez para patear"/>;
+}
