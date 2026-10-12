@@ -1,4 +1,4 @@
-- [ ] Portar el estadio y la mecánica de la demo a Penales con vocabulario publicado.
-- [ ] Implementar Solo y Duelo, sonidos, resumen y XP de Jugador 1.
-- [ ] Guardar publicidad LED editable solo por admin en Piloto.
-- [ ] Verificar ambos modos en celular y el registro de XP.
+- [x] Portar el estadio y la mecánica de la demo a Penales con vocabulario publicado.
+- [x] Implementar Solo y Duelo, sonidos, resumen y XP de Jugador 1.
+- [x] Guardar publicidad LED editable solo por admin en Piloto.
+- [x] Verificar ambos modos en celular y el registro de XP.
