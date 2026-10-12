@@ -45,6 +45,9 @@ import {
   listValidators,
   addValidator,
   removeValidator,
+  listCohortMembers,
+  setUserCohort,
+  getPilotDashboard,
 } from "@/lib/corpus.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/corpus")({
@@ -205,6 +208,16 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
               Docentes validadores
             </TabsTrigger>
           )}
+          {isAdmin && (
+            <TabsTrigger value="piloto" className="flex-1">
+              Piloto
+            </TabsTrigger>
+          )}
+          {isAdmin && (
+            <TabsTrigger value="tablero" className="flex-1">
+              Tablero
+            </TabsTrigger>
+          )}
         </TabsList>
 
         {isAdmin && (
@@ -224,6 +237,16 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
         {isAdmin && (
           <TabsContent value="docentes" className="mt-6">
             <ValidatorsPanel />
+          </TabsContent>
+        )}
+        {isAdmin && (
+          <TabsContent value="piloto" className="mt-6">
+            <PilotPanel />
+          </TabsContent>
+        )}
+        {isAdmin && (
+          <TabsContent value="tablero" className="mt-6">
+            <DashboardPanel />
           </TabsContent>
         )}
       </Tabs>
@@ -930,13 +953,15 @@ function CronogramaPanel() {
 function ValidatorsPanel() {
   const qc = useQueryClient();
   const [email, setEmail] = useState("");
+  const [withPilot, setWithPilot] = useState(true);
   const listFn = useServerFn(listValidators);
   const addFn = useServerFn(addValidator);
   const removeFn = useServerFn(removeValidator);
   const q = useQuery({ queryKey: ["corpus-validators"], queryFn: () => listFn() });
 
   const addM = useMutation({
-    mutationFn: (e: string) => addFn({ data: { email: e } }),
+    mutationFn: (e: string) =>
+      addFn({ data: { email: e, cohort: withPilot ? PILOT_COHORT : null } }),
     onSuccess: (r) => {
       if (!r.ok) {
         toast.error(r.error);
@@ -945,6 +970,7 @@ function ValidatorsPanel() {
       toast.success("Docente validador agregado.");
       setEmail("");
       void qc.invalidateQueries({ queryKey: ["corpus-validators"] });
+      void qc.invalidateQueries({ queryKey: ["pilot-members"] });
     },
     onError: () => toast.error("Email inválido o no se pudo agregar."),
   });
@@ -980,6 +1006,14 @@ function ValidatorsPanel() {
           <UserPlus className="mr-2 h-4 w-4" />
           Agregar docente
         </Button>
+        <label className="flex w-full items-center gap-2 text-sm text-muted-foreground">
+          <input
+            type="checkbox"
+            checked={withPilot}
+            onChange={(e) => setWithPilot(e.target.checked)}
+          />
+          Asignarle también el grupo "{PILOT_COHORT}"
+        </label>
       </form>
       {q.isLoading ? (
         <div className="flex justify-center py-10">
@@ -1015,6 +1049,210 @@ function ValidatorsPanel() {
             </div>
           ))}
         </div>
+      )}
+    </div>
+  );
+}
+
+const PILOT_COHORT = "Piloto Ateneo";
+
+/* -------------------------------- PILOTO -------------------------------- */
+
+function PilotPanel() {
+  const qc = useQueryClient();
+  const [email, setEmail] = useState("");
+  const [cohort, setCohort] = useState(PILOT_COHORT);
+  const listFn = useServerFn(listCohortMembers);
+  const setFn = useServerFn(setUserCohort);
+  const q = useQuery({ queryKey: ["pilot-members"], queryFn: () => listFn() });
+  const setM = useMutation({
+    mutationFn: (v: { email: string; cohort: string | null }) => setFn({ data: v }),
+    onSuccess: (r, v) => {
+      if (!r.ok) {
+        toast.error(r.error);
+        return;
+      }
+      toast.success(v.cohort ? `Asignado a "${v.cohort}".` : "Grupo quitado.");
+      if (v.cohort) setEmail("");
+      void qc.invalidateQueries({ queryKey: ["pilot-members"] });
+      void qc.invalidateQueries({ queryKey: ["pilot-dashboard"] });
+    },
+    onError: () => toast.error("Email inválido o no se pudo guardar."),
+  });
+  const members = q.data?.members ?? [];
+
+  return (
+    <div className="space-y-4">
+      <form
+        className="flex flex-wrap gap-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (email.trim() && cohort.trim())
+            setM.mutate({ email: email.trim(), cohort: cohort.trim() });
+        }}
+      >
+        <Input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="email del usuario"
+          className="min-w-[14rem] flex-1"
+          maxLength={255}
+        />
+        <Input
+          value={cohort}
+          onChange={(e) => setCohort(e.target.value)}
+          placeholder="Grupo"
+          className="w-[12rem]"
+          maxLength={60}
+        />
+        <Button type="submit" variant="cta" disabled={setM.isPending || !email.trim() || !cohort.trim()}>
+          Asignar grupo
+        </Button>
+      </form>
+      {q.isLoading ? (
+        <div className="flex justify-center py-10">
+          <Loader2 className="h-5 w-5 animate-spin text-primary" />
+        </div>
+      ) : members.length === 0 ? (
+        <p className="py-10 text-center text-sm text-muted-foreground">
+          Todavía no hay usuarios con grupo asignado.
+        </p>
+      ) : (
+        <div className="overflow-hidden rounded-xl border border-border/60">
+          {members.map((m) => (
+            <div
+              key={m.userId}
+              className="flex flex-wrap items-center gap-3 border-b border-border/40 bg-card p-3 last:border-0"
+            >
+              <div className="min-w-[10rem] flex-1">
+                <div className="font-display font-semibold text-foreground">{m.name || "Sin nombre"}</div>
+                <div className="text-sm text-muted-foreground">{m.email}</div>
+              </div>
+              <Badge variant="secondary">{m.cohort}</Badge>
+              <Button
+                size="sm"
+                variant="ghost"
+                disabled={setM.isPending || !m.email}
+                onClick={() => setM.mutate({ email: m.email, cohort: null })}
+              >
+                <X className="mr-1 h-4 w-4 text-destructive" />
+                Quitar grupo
+              </Button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* -------------------------------- TABLERO -------------------------------- */
+
+function DashboardPanel() {
+  const [cohort, setCohort] = useState<string>("todos");
+  const [period, setPeriod] = useState<"7" | "30" | "all">("30");
+  const membersFn = useServerFn(listCohortMembers);
+  const dashFn = useServerFn(getPilotDashboard);
+  const cohortsQ = useQuery({ queryKey: ["pilot-members"], queryFn: () => membersFn() });
+  const q = useQuery({
+    queryKey: ["pilot-dashboard", cohort, period],
+    queryFn: () => dashFn({ data: { cohort: cohort === "todos" ? null : cohort, period } }),
+  });
+  const d = q.data;
+  const maxActive = Math.max(1, ...(d?.series ?? []).map((x) => x.active));
+
+  function downloadCsv() {
+    if (!d) return;
+    const header = "fecha,activos,nuevos,lecciones,pruebas,xp,palabras_validadas";
+    const lines = d.series.map((x) =>
+      [x.date, x.active, x.newUsers, x.lessons, x.exams, x.xp, x.validated].join(","),
+    );
+    const blob = new Blob([[header, ...lines].join("\n")], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `jaikuaa-tablero-${cohort === "todos" ? "todos" : cohort.replace(/\s+/g, "-")}-${d.startDay}_${d.today}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center gap-3">
+        <Select value={cohort} onValueChange={setCohort}>
+          <SelectTrigger className="w-[12rem]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="todos">Todos</SelectItem>
+            {(cohortsQ.data?.cohorts ?? []).map((c) => (
+              <SelectItem key={c} value={c}>
+                {c}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select value={period} onValueChange={(v) => setPeriod(v as "7" | "30" | "all")}>
+          <SelectTrigger className="w-[12rem]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="7">Últimos 7 días</SelectItem>
+            <SelectItem value="30">Últimos 30 días</SelectItem>
+            <SelectItem value="all">Desde el inicio</SelectItem>
+          </SelectContent>
+        </Select>
+        <Button variant="outline" className="ml-auto" disabled={!d} onClick={downloadCsv}>
+          <Download className="mr-2 h-4 w-4" />
+          Descargar CSV
+        </Button>
+      </div>
+
+      {q.isLoading || !d ? (
+        <div className="flex justify-center py-10">
+          <Loader2 className="h-5 w-5 animate-spin text-primary" />
+        </div>
+      ) : (
+        <>
+          <p className="text-xs text-muted-foreground">
+            Período: {d.startDay} al {d.today} (hora de Paraguay)
+          </p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            <StatCard label="Usuarios registrados" value={d.registered} />
+            <StatCard label="Nuevos en el período" value={d.newUsers} />
+            <StatCard label="Activos en el período" value={d.activeUsers} accent />
+            <StatCard label="Activos últimos 7 días" value={d.active7} accent />
+            <StatCard label="Lecciones completadas" value={d.lessons} />
+            <StatCard label="Pruebas completadas" value={d.exams} />
+            <StatCard label="XP total ganado" value={d.xp} />
+            <StatCard label="Docentes validadores activos" value={d.activeValidators} />
+            <StatCard label="Palabras validadas en el período" value={d.validatedInPeriod} />
+            <StatCard label="Palabras con validación docente" value={d.validatedTotal} />
+            <StatCard label="Pendientes de validación" value={d.pendingValidation} />
+          </div>
+
+          <div className="rounded-xl border border-border/60 bg-card p-4 shadow-sm">
+            <div className="mb-3 font-display font-semibold text-foreground">
+              Usuarios activos por día
+            </div>
+            <div className="flex h-40 items-end gap-px overflow-x-auto">
+              {d.series.map((x) => (
+                <div
+                  key={x.date}
+                  title={`${x.date}: ${x.active}`}
+                  className="min-w-[4px] flex-1 rounded-t bg-primary/80"
+                  style={{ height: `${(x.active / maxActive) * 100}%`, minHeight: x.active ? 2 : 0 }}
+                />
+              ))}
+            </div>
+            <div className="mt-1 flex justify-between text-[10px] text-muted-foreground">
+              <span>{d.startDay}</span>
+              <span>máx. {Math.max(0, ...d.series.map((x) => x.active))}</span>
+              <span>{d.today}</span>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
