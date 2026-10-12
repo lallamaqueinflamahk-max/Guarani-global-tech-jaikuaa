@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { supabase } from "@/integrations/supabase/client";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { useEffect, useRef, useState } from "react";
@@ -19,9 +20,23 @@ const SUGGESTIONS = [
 ];
 
 function TutorPage() {
-  const { messages, sendMessage, status, error } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/tutor" }),
-  });
+  const navigate = useNavigate();
+  const [transport] = useState(
+    () =>
+      new DefaultChatTransport({
+        api: "/api/tutor",
+        headers: async (): Promise<Record<string, string>> => {
+          const { data } = await supabase.auth.getSession();
+          const token = data.session?.access_token;
+          return token ? { Authorization: `Bearer ${token}` } : {};
+        },
+      }),
+  );
+  const { messages, sendMessage, status, error } = useChat({ transport });
+  const isUnauthorized = !!error && /unauthorized/i.test(error.message);
+  useEffect(() => {
+    if (isUnauthorized) void navigate({ to: "/auth", search: { mode: "login" } });
+  }, [isUnauthorized, navigate]);
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -122,8 +137,10 @@ function TutorPage() {
           )}
 
           {error && (
-            <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
-              Error: {error.message}
+            <div className={`rounded-lg border p-3 text-sm ${/l[ií]mite diario/i.test(error.message) ? "border-amber-300 bg-amber-50 font-medium text-amber-900" : "border-destructive/30 bg-destructive/5 text-destructive"}`}>
+              {/l[ií]mite diario/i.test(error.message)
+                ? "Llegaste al límite diario de esta función experimental. Volvé mañana."
+                : `Error: ${error.message}`}
             </div>
           )}
         </div>
