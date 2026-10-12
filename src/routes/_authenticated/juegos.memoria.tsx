@@ -91,10 +91,11 @@ function Board({ words, onNext }: { words: GameWord[]; onNext: () => void }) {
     setOpen(next);
     if (next.length === 2) {
       setAttempts((a) => a + 1);
-      const [a, b] = next.map((id) => cards.find((x) => x.id === id)!);
-      if (a!.pair === b!.pair) {
+      const [a, b] = next.map((id) => cards.find((x) => x.id === id));
+      if (!a || !b) return;
+      if (a.pair === b.pair) {
         feedback("success");
-        setMatched((m) => new Set(m).add(a!.pair));
+        setMatched((m) => new Set(m).add(a.pair));
         setOpen([]);
       } else {
         feedback("error");
