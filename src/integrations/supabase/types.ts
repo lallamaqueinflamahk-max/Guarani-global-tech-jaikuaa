@@ -150,6 +150,8 @@ export type Database = {
           notes: string
           status: string
           updated_at: string
+          validated_at: string | null
+          validated_by: string | null
         }
         Insert: {
           audio_slug: string
@@ -161,6 +163,8 @@ export type Database = {
           notes?: string
           status?: string
           updated_at?: string
+          validated_at?: string | null
+          validated_by?: string | null
         }
         Update: {
           audio_slug?: string
@@ -172,8 +176,18 @@ export type Database = {
           notes?: string
           status?: string
           updated_at?: string
+          validated_at?: string | null
+          validated_by?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "corpus_words_validated_by_fkey"
+            columns: ["validated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       mec_capacities: {
         Row: {
