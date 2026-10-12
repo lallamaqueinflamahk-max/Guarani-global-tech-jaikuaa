@@ -30,6 +30,7 @@ import { Route as AuthenticatedTriviaIndexRouteImport } from './routes/_authenti
 import { Route as AuthenticatedJuegosIndexRouteImport } from './routes/_authenticated/juegos.index'
 import { Route as AuthenticatedGuaraniEscolarIndexRouteImport } from './routes/_authenticated/guarani-escolar.index'
 import { Route as AuthenticatedTriviaCategoryRouteImport } from './routes/_authenticated/trivia.$category'
+import { Route as AuthenticatedJuegosSopaDeLetrasRouteImport } from './routes/_authenticated/juegos.sopa-de-letras'
 import { Route as AuthenticatedJuegosPalabraDelDiaRouteImport } from './routes/_authenticated/juegos.palabra-del-dia'
 import { Route as AuthenticatedJuegosMemoriaRouteImport } from './routes/_authenticated/juegos.memoria'
 import { Route as AuthenticatedJuegosAhorcadoRouteImport } from './routes/_authenticated/juegos.ahorcado'
@@ -152,6 +153,12 @@ const AuthenticatedTriviaCategoryRoute =
     path: '/trivia/$category',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedJuegosSopaDeLetrasRoute =
+  AuthenticatedJuegosSopaDeLetrasRouteImport.update({
+    id: '/juegos/sopa-de-letras',
+    path: '/juegos/sopa-de-letras',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedJuegosPalabraDelDiaRoute =
   AuthenticatedJuegosPalabraDelDiaRouteImport.update({
     id: '/juegos/palabra-del-dia',
@@ -249,6 +256,7 @@ export interface FileRoutesByFullPath {
   '/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
   '/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
   '/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
+  '/juegos/sopa-de-letras': typeof AuthenticatedJuegosSopaDeLetrasRoute
   '/trivia/$category': typeof AuthenticatedTriviaCategoryRoute
   '/guarani-escolar/': typeof AuthenticatedGuaraniEscolarIndexRoute
   '/juegos/': typeof AuthenticatedJuegosIndexRoute
@@ -280,6 +288,7 @@ export interface FileRoutesByTo {
   '/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
   '/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
   '/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
+  '/juegos/sopa-de-letras': typeof AuthenticatedJuegosSopaDeLetrasRoute
   '/trivia/$category': typeof AuthenticatedTriviaCategoryRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarIndexRoute
   '/juegos': typeof AuthenticatedJuegosIndexRoute
@@ -316,6 +325,7 @@ export interface FileRoutesById {
   '/_authenticated/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
   '/_authenticated/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
   '/_authenticated/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
+  '/_authenticated/juegos/sopa-de-letras': typeof AuthenticatedJuegosSopaDeLetrasRoute
   '/_authenticated/trivia/$category': typeof AuthenticatedTriviaCategoryRoute
   '/_authenticated/guarani-escolar/': typeof AuthenticatedGuaraniEscolarIndexRoute
   '/_authenticated/juegos/': typeof AuthenticatedJuegosIndexRoute
@@ -352,6 +362,7 @@ export interface FileRouteTypes {
     | '/juegos/ahorcado'
     | '/juegos/memoria'
     | '/juegos/palabra-del-dia'
+    | '/juegos/sopa-de-letras'
     | '/trivia/$category'
     | '/guarani-escolar/'
     | '/juegos/'
@@ -383,6 +394,7 @@ export interface FileRouteTypes {
     | '/juegos/ahorcado'
     | '/juegos/memoria'
     | '/juegos/palabra-del-dia'
+    | '/juegos/sopa-de-letras'
     | '/trivia/$category'
     | '/guarani-escolar'
     | '/juegos'
@@ -418,6 +430,7 @@ export interface FileRouteTypes {
     | '/_authenticated/juegos/ahorcado'
     | '/_authenticated/juegos/memoria'
     | '/_authenticated/juegos/palabra-del-dia'
+    | '/_authenticated/juegos/sopa-de-letras'
     | '/_authenticated/trivia/$category'
     | '/_authenticated/guarani-escolar/'
     | '/_authenticated/juegos/'
@@ -590,6 +603,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTriviaCategoryRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/juegos/sopa-de-letras': {
+      id: '/_authenticated/juegos/sopa-de-letras'
+      path: '/juegos/sopa-de-letras'
+      fullPath: '/juegos/sopa-de-letras'
+      preLoaderRoute: typeof AuthenticatedJuegosSopaDeLetrasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/juegos/palabra-del-dia': {
       id: '/_authenticated/juegos/palabra-del-dia'
       path: '/juegos/palabra-del-dia'
@@ -748,6 +768,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedJuegosAhorcadoRoute: typeof AuthenticatedJuegosAhorcadoRoute
   AuthenticatedJuegosMemoriaRoute: typeof AuthenticatedJuegosMemoriaRoute
   AuthenticatedJuegosPalabraDelDiaRoute: typeof AuthenticatedJuegosPalabraDelDiaRoute
+  AuthenticatedJuegosSopaDeLetrasRoute: typeof AuthenticatedJuegosSopaDeLetrasRoute
   AuthenticatedTriviaCategoryRoute: typeof AuthenticatedTriviaCategoryRoute
   AuthenticatedJuegosIndexRoute: typeof AuthenticatedJuegosIndexRoute
   AuthenticatedTriviaIndexRoute: typeof AuthenticatedTriviaIndexRoute
@@ -767,6 +788,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedJuegosAhorcadoRoute: AuthenticatedJuegosAhorcadoRoute,
   AuthenticatedJuegosMemoriaRoute: AuthenticatedJuegosMemoriaRoute,
   AuthenticatedJuegosPalabraDelDiaRoute: AuthenticatedJuegosPalabraDelDiaRoute,
+  AuthenticatedJuegosSopaDeLetrasRoute: AuthenticatedJuegosSopaDeLetrasRoute,
   AuthenticatedTriviaCategoryRoute: AuthenticatedTriviaCategoryRoute,
   AuthenticatedJuegosIndexRoute: AuthenticatedJuegosIndexRoute,
   AuthenticatedTriviaIndexRoute: AuthenticatedTriviaIndexRoute,
