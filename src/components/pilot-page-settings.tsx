@@ -68,7 +68,7 @@ export function PilotPageSettings() {
   return (
     <div className="space-y-6 rounded-xl border border-border/60 bg-card p-4">
       <div className="flex flex-wrap items-center gap-3">
-        <div className="flex-1">
+        <div className="w-full sm:w-auto sm:flex-1">
           <div className="font-display font-semibold text-foreground">Página del piloto: Borrador / Publicada</div>
           <div className="text-xs text-muted-foreground">
             Dirección: /piloto-ateneo · En Borrador solo la ve el admin.
