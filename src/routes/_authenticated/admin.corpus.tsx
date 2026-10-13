@@ -694,6 +694,205 @@ function LevelsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean })
 
 /* ------------------------------ PALABRAS ------------------------------ */
 
+type NewWord = {
+  gn: string;
+  es: string;
+  levelId: string;
+  capacityCode: string;
+  unit: string;
+  type: "palabra" | "oracion";
+  notes: string;
+};
+const EMPTY_WORD: NewWord = {
+  gn: "",
+  es: "",
+  levelId: "",
+  capacityCode: "",
+  unit: "",
+  type: "palabra",
+  notes: "",
+};
+
+/** Alta de una palabra u oración reutilizando la importación del Excel con una sola fila. */
+function NewWordForm({ levels, onSaved }: { levels: Level[]; onSaved: () => void }) {
+  const preview = useServerFn(previewFn);
+  const commit = useServerFn(commitCorpusImport);
+  const capsFn = useServerFn(getMecCapacities);
+  const [open, setOpen] = useState(false);
+  const [f, setF] = useState<NewWord>(EMPTY_WORD);
+  const [result, setResult] = useState<
+    | { kind: "exists"; gn: string; es: string; conflict: string | null }
+    | { kind: "created"; gn: string; audio: string | null }
+    | { kind: "sentence"; gn: string; missing: string[] }
+    | null
+  >(null);
+  const capsQ = useQuery({
+    queryKey: ["mec-capacities"],
+    queryFn: () => capsFn(),
+    enabled: open,
+  });
+  const caps = capsQ.data?.capacities ?? [];
+
+  const saveM = useMutation({
+    mutationFn: async (v: NewWord) => {
+      const notes = [v.capacityCode && v.unit.trim() ? `Unidad / tema: ${v.unit.trim()}` : "", v.notes.trim()]
+        .filter(Boolean)
+        .join(" · ");
+      const row = {
+        gn: v.gn.trim(),
+        es: v.es.trim(),
+        levelId: v.levelId,
+        unit: v.capacityCode || v.unit.trim(),
+        type: v.type,
+        notes,
+      };
+      const p = await preview({ data: { rows: [row] } });
+      if (v.type === "oracion") {
+        await commit({ data: { rows: [row], overwriteTranslations: false } });
+        return { kind: "sentence" as const, gn: row.gn, missing: p.sentences[0]?.missingWords ?? [] };
+      }
+      if (p.reused.length > 0) {
+        const r = p.reused[0];
+        return {
+          kind: "exists" as const,
+          gn: r.gn,
+          es: r.es,
+          conflict: p.conflicts[0]?.nuevo ?? null,
+        };
+      }
+      await commit({ data: { rows: [row], overwriteTranslations: false } });
+      const c = p.created[0];
+      return { kind: "created" as const, gn: row.gn, audio: c && !c.hasAudio ? `${c.slug}.mp3` : null };
+    },
+    onSuccess: (r) => {
+      setResult(r);
+      if (r.kind !== "exists") {
+        setF({ ...EMPTY_WORD, levelId: f.levelId, type: f.type });
+        onSaved();
+      }
+    },
+    onError: () => toast.error("No se pudo guardar."),
+  });
+
+  if (!open) {
+    return (
+      <Button variant="cta" onClick={() => setOpen(true)} className="w-full sm:w-auto">
+        <Plus className="mr-2 h-4 w-4" />
+        Nueva palabra
+      </Button>
+    );
+  }
+
+  const valid = f.gn.trim() && f.es.trim() && f.levelId;
+  return (
+    <div className="rounded-xl border bg-card p-4">
+      <h3 className="font-semibold">Nueva palabra</h3>
+      <p className="mt-1 text-xs text-muted-foreground">
+        Queda en borrador, pendiente de validación docente.
+      </p>
+      <form
+        className="mt-3 grid gap-3 sm:grid-cols-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (valid) saveM.mutate(f);
+        }}
+      >
+        <Input value={f.gn} onChange={(e) => setF({ ...f, gn: e.target.value })} placeholder="Guaraní *" maxLength={500} />
+        <Input value={f.es} onChange={(e) => setF({ ...f, es: e.target.value })} placeholder="Español *" maxLength={500} />
+        <Select value={f.levelId || undefined} onValueChange={(v) => setF({ ...f, levelId: v, capacityCode: "" })}>
+          <SelectTrigger>
+            <SelectValue placeholder="Grado *" />
+          </SelectTrigger>
+          <SelectContent>
+            {levels.map((lv) => (
+              <SelectItem key={lv.id} value={lv.id}>
+                {lv.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select
+          value={f.capacityCode || "none"}
+          onValueChange={(v) => setF({ ...f, capacityCode: v === "none" ? "" : v })}
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none">Sin capacidad MEC</SelectItem>
+            {caps
+              .filter((c) => !f.levelId || c.level_id === f.levelId)
+              .map((c) => (
+                <SelectItem key={c.code} value={c.code}>
+                  {c.code}
+                </SelectItem>
+              ))}
+          </SelectContent>
+        </Select>
+        <Input value={f.unit} onChange={(e) => setF({ ...f, unit: e.target.value })} placeholder="Unidad / tema (opcional)" maxLength={240} />
+        <Select value={f.type} onValueChange={(v) => setF({ ...f, type: v as NewWord["type"] })}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="palabra">Palabra</SelectItem>
+            <SelectItem value="oracion">Oración</SelectItem>
+          </SelectContent>
+        </Select>
+        <Input className="sm:col-span-2" value={f.notes} onChange={(e) => setF({ ...f, notes: e.target.value })} placeholder="Notas (opcional)" maxLength={1000} />
+        <div className="flex flex-wrap gap-2 sm:col-span-2">
+          <Button type="submit" variant="cta" disabled={!valid || saveM.isPending}>
+            {saveM.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            Guardar
+          </Button>
+          <Button type="button" variant="outline" onClick={() => { setOpen(false); setResult(null); setF(EMPTY_WORD); }}>
+            Cerrar
+          </Button>
+        </div>
+      </form>
+      {result?.kind === "exists" && (
+        <div className="mt-3 rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 text-sm">
+          <p className="flex items-center gap-2 font-semibold">
+            <AlertTriangle className="h-4 w-4" /> Ya está en el corpus
+          </p>
+          <p className="mt-1">
+            «{result.gn}» ya existe con la traducción «{result.es}». No se creó otra.
+          </p>
+          {result.conflict && (
+            <p className="mt-1 text-muted-foreground">
+              La traducción que escribiste («{result.conflict}») es distinta: si hay que corregirla, editala en la lista.
+            </p>
+          )}
+        </div>
+      )}
+      {result?.kind === "created" && (
+        <div className="mt-3 rounded-lg border bg-muted/40 p-3 text-sm">
+          <p className="flex items-center gap-2 font-semibold">
+            <CheckCircle2 className="h-4 w-4" /> «{result.gn}» quedó en borrador
+          </p>
+          {result.audio ? (
+            <p className="mt-1">
+              Audio que falta grabar: <code className="break-all font-mono">{result.audio}</code>
+            </p>
+          ) : (
+            <p className="mt-1">Ya hay un audio grabado con su nombre.</p>
+          )}
+        </div>
+      )}
+      {result?.kind === "sentence" && (
+        <div className="mt-3 rounded-lg border bg-muted/40 p-3 text-sm">
+          <p className="flex items-center gap-2 font-semibold">
+            <CheckCircle2 className="h-4 w-4" /> Oración guardada
+          </p>
+          {result.missing.length > 0 && (
+            <p className="mt-1">Palabras que todavía no están en el corpus: {result.missing.join(", ")}</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) {
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
@@ -748,6 +947,7 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
 
   return (
     <div className="space-y-4">
+      <NewWordForm levels={levels} onSaved={invalidate} />
       <div className="flex flex-wrap gap-3">
         <div className="relative min-w-[12rem] flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
