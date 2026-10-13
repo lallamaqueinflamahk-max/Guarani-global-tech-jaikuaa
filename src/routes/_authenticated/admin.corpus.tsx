@@ -34,6 +34,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PilotPageSettings } from "@/components/pilot-page-settings";
+import { CORPUS_CATEGORIES, type CorpusCategory } from "@/lib/corpus-categories";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   checkCorpusAdmin,
@@ -702,6 +703,7 @@ type NewWord = {
   unit: string;
   type: "palabra" | "oracion";
   notes: string;
+  category: string;
 };
 const EMPTY_WORD: NewWord = {
   gn: "",
@@ -711,6 +713,7 @@ const EMPTY_WORD: NewWord = {
   unit: "",
   type: "palabra",
   notes: "",
+  category: "",
 };
 
 /** Alta de una palabra u oración reutilizando la importación del Excel con una sola fila. */
@@ -745,6 +748,7 @@ function NewWordForm({ levels, onSaved }: { levels: Level[]; onSaved: () => void
         unit: v.capacityCode || v.unit.trim(),
         type: v.type,
         notes,
+        category: (v.category || null) as CorpusCategory | null,
       };
       const p = await preview({ data: { rows: [row] } });
       if (v.type === "oracion") {
@@ -839,7 +843,20 @@ function NewWordForm({ levels, onSaved }: { levels: Level[]; onSaved: () => void
             <SelectItem value="oracion">Oración</SelectItem>
           </SelectContent>
         </Select>
-        <Input className="sm:col-span-2" value={f.notes} onChange={(e) => setF({ ...f, notes: e.target.value })} placeholder="Notas (opcional)" maxLength={1000} />
+        <Select value={f.category || "none"} onValueChange={(v) => setF({ ...f, category: v === "none" ? "" : v })}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none">Sin categoría temática</SelectItem>
+            {CORPUS_CATEGORIES.map((c) => (
+              <SelectItem key={c} value={c}>
+                {c}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Input value={f.notes} onChange={(e) => setF({ ...f, notes: e.target.value })} placeholder="Notas (opcional)" maxLength={1000} />
         <div className="flex flex-wrap gap-2 sm:col-span-2">
           <Button type="submit" variant="cta" disabled={!valid || saveM.isPending}>
             {saveM.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -899,14 +916,20 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
   const [levelId, setLevelId] = useState<string>("todos");
   const [onlyMissing, setOnlyMissing] = useState(false);
   const [onlyPending, setOnlyPending] = useState(false);
-  const [editing, setEditing] = useState<{ id: string; es: string; notes: string } | null>(null);
+  const [category, setCategory] = useState<string>("todas");
+  const [editing, setEditing] = useState<{
+    id: string;
+    es: string;
+    notes: string;
+    category: string;
+  } | null>(null);
 
   const listFn = useServerFn(listCorpusWords);
   const updateFn = useServerFn(updateCorpusWord);
   const deleteFn = useServerFn(deleteCorpusWord);
 
   const wordsQ = useQuery({
-    queryKey: ["corpus-words", search, levelId, onlyMissing, onlyPending],
+    queryKey: ["corpus-words", search, levelId, onlyMissing, onlyPending, category],
     queryFn: () =>
       listFn({
         data: {
@@ -914,6 +937,8 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
           levelId: levelId === "todos" ? undefined : levelId,
           onlyMissingAudio: onlyMissing,
           onlyPendingValidation: onlyPending,
+          category:
+            category === "todas" ? undefined : category === "sin" ? "none" : (category as CorpusCategory),
           limit: 300,
         },
       }),
@@ -925,8 +950,13 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
   };
 
   const updateM = useMutation({
-    mutationFn: (v: { id: string; status?: "draft" | "published"; es?: string; notes?: string }) =>
-      updateFn({ data: v }),
+    mutationFn: (v: {
+      id: string;
+      status?: "draft" | "published";
+      es?: string;
+      notes?: string;
+      category?: CorpusCategory | null;
+    }) => updateFn({ data: v }),
     onSuccess: () => {
       setEditing(null);
       invalidate();
@@ -967,6 +997,20 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
             {levels.map((lv) => (
               <SelectItem key={lv.id} value={lv.id}>
                 {lv.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select value={category} onValueChange={setCategory}>
+          <SelectTrigger className="w-[13rem]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="todas">Todas las categorías</SelectItem>
+            <SelectItem value="sin">Sin categoría</SelectItem>
+            {CORPUS_CATEGORIES.map((c) => (
+              <SelectItem key={c} value={c}>
+                {c}
               </SelectItem>
             ))}
           </SelectContent>
@@ -1012,13 +1056,34 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
                       placeholder="Notas"
                       maxLength={1000}
                     />
+                    <Select
+                      value={editing.category || "none"}
+                      onValueChange={(v) => setEditing({ ...editing, category: v === "none" ? "" : v })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">Sin categoría temática</SelectItem>
+                        {CORPUS_CATEGORIES.map((c) => (
+                          <SelectItem key={c} value={c}>
+                            {c}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <div className="flex gap-2">
                       <Button
                         size="sm"
                         variant="cta"
                         disabled={!editing.es.trim() || updateM.isPending}
                         onClick={() =>
-                          updateM.mutate({ id: w.id, es: editing.es.trim(), notes: editing.notes })
+                          updateM.mutate({
+                            id: w.id,
+                            es: editing.es.trim(),
+                            notes: editing.notes,
+                            category: (editing.category || null) as CorpusCategory | null,
+                          })
                         }
                       >
                         Guardar
@@ -1031,6 +1096,11 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
                 ) : (
                   <>
                     <div className="text-sm text-muted-foreground">{w.es}</div>
+                    {w.category && (
+                      <Badge variant="secondary" className="mt-1 text-xs">
+                        {w.category}
+                      </Badge>
+                    )}
                     {w.notes && <div className="text-xs text-muted-foreground/80">{w.notes}</div>}
                   </>
                 )}
@@ -1067,7 +1137,9 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
                 size="icon"
                 variant="ghost"
                 aria-label={`Editar ${w.gn}`}
-                onClick={() => setEditing({ id: w.id, es: w.es, notes: w.notes ?? "" })}
+                onClick={() =>
+                  setEditing({ id: w.id, es: w.es, notes: w.notes ?? "", category: w.category ?? "" })
+                }
               >
                 <Pencil className="h-4 w-4" />
               </Button>
