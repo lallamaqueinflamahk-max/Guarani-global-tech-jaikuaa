@@ -1055,13 +1055,34 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
                       placeholder="Notas"
                       maxLength={1000}
                     />
+                    <Select
+                      value={editing.category || "none"}
+                      onValueChange={(v) => setEditing({ ...editing, category: v === "none" ? "" : v })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">Sin categoría temática</SelectItem>
+                        {CORPUS_CATEGORIES.map((c) => (
+                          <SelectItem key={c} value={c}>
+                            {c}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <div className="flex gap-2">
                       <Button
                         size="sm"
                         variant="cta"
                         disabled={!editing.es.trim() || updateM.isPending}
                         onClick={() =>
-                          updateM.mutate({ id: w.id, es: editing.es.trim(), notes: editing.notes })
+                          updateM.mutate({
+                            id: w.id,
+                            es: editing.es.trim(),
+                            notes: editing.notes,
+                            category: (editing.category || null) as CorpusCategory | null,
+                          })
                         }
                       >
                         Guardar
@@ -1074,6 +1095,11 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
                 ) : (
                   <>
                     <div className="text-sm text-muted-foreground">{w.es}</div>
+                    {w.category && (
+                      <Badge variant="secondary" className="mt-1 text-xs">
+                        {w.category}
+                      </Badge>
+                    )}
                     {w.notes && <div className="text-xs text-muted-foreground/80">{w.notes}</div>}
                   </>
                 )}
@@ -1110,7 +1136,9 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
                 size="icon"
                 variant="ghost"
                 aria-label={`Editar ${w.gn}`}
-                onClick={() => setEditing({ id: w.id, es: w.es, notes: w.notes ?? "" })}
+                onClick={() =>
+                  setEditing({ id: w.id, es: w.es, notes: w.notes ?? "", category: w.category ?? "" })
+                }
               >
                 <Pencil className="h-4 w-4" />
               </Button>
