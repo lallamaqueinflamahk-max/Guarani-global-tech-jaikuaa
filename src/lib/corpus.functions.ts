@@ -151,7 +151,8 @@ export const previewCorpusImport = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => ImportSchema.parse(d))
   .handler(async ({ data, context }) => {
-    await assertRole(context.supabase, context.userId, "admin");
+    // Una sola fila (formulario "Nueva palabra"): también docentes. Excel: solo admin.
+    await assertRole(context.supabase, context.userId, data.rows.length === 1 ? "editor" : "admin");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const [existingRes, capsRes, audioSlugs] = await Promise.all([
@@ -217,7 +218,8 @@ export const commitCorpusImport = createServerFn({ method: "POST" })
     ImportSchema.extend({ overwriteTranslations: z.boolean().default(false) }).parse(d),
   )
   .handler(async ({ data, context }) => {
-    await assertRole(context.supabase, context.userId, "admin");
+    const single = data.rows.length === 1 && !data.overwriteTranslations;
+    await assertRole(context.supabase, context.userId, single ? "editor" : "admin");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const audioSlugs = await listAudioSlugs();
 
