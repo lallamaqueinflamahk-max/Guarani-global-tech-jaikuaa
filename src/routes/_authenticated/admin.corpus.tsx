@@ -34,6 +34,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PilotPageSettings } from "@/components/pilot-page-settings";
+import { CORPUS_CATEGORIES, type CorpusCategory } from "@/lib/corpus-categories";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   checkCorpusAdmin,
