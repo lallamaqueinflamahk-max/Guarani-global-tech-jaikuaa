@@ -2,8 +2,11 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { slugify, tokenizeSentence } from "@/lib/slug";
+import { CORPUS_CATEGORIES } from "@/lib/corpus-categories";
 
 export type CorpusStatus = "draft" | "published";
+
+const CategorySchema = z.enum(CORPUS_CATEGORIES);
 
 const RowSchema = z.object({
   gn: z.string().min(1),
@@ -12,6 +15,7 @@ const RowSchema = z.object({
   unit: z.string().default(""),
   type: z.enum(["palabra", "oracion"]).default("palabra"),
   notes: z.string().default(""),
+  category: CategorySchema.nullable().default(null),
 });
 
 /** Cronograma oficial del MEC: capacidades por grado, con léxico asociado. */
