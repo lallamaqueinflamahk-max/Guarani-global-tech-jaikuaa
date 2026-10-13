@@ -702,6 +702,7 @@ type NewWord = {
   unit: string;
   type: "palabra" | "oracion";
   notes: string;
+  category: string;
 };
 const EMPTY_WORD: NewWord = {
   gn: "",
@@ -711,6 +712,7 @@ const EMPTY_WORD: NewWord = {
   unit: "",
   type: "palabra",
   notes: "",
+  category: "",
 };
 
 /** Alta de una palabra u oración reutilizando la importación del Excel con una sola fila. */
@@ -745,6 +747,7 @@ function NewWordForm({ levels, onSaved }: { levels: Level[]; onSaved: () => void
         unit: v.capacityCode || v.unit.trim(),
         type: v.type,
         notes,
+        category: (v.category || null) as CorpusCategory | null,
       };
       const p = await preview({ data: { rows: [row] } });
       if (v.type === "oracion") {
@@ -839,7 +842,20 @@ function NewWordForm({ levels, onSaved }: { levels: Level[]; onSaved: () => void
             <SelectItem value="oracion">Oración</SelectItem>
           </SelectContent>
         </Select>
-        <Input className="sm:col-span-2" value={f.notes} onChange={(e) => setF({ ...f, notes: e.target.value })} placeholder="Notas (opcional)" maxLength={1000} />
+        <Select value={f.category || "none"} onValueChange={(v) => setF({ ...f, category: v === "none" ? "" : v })}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="none">Sin categoría temática</SelectItem>
+            {CORPUS_CATEGORIES.map((c) => (
+              <SelectItem key={c} value={c}>
+                {c}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Input value={f.notes} onChange={(e) => setF({ ...f, notes: e.target.value })} placeholder="Notas (opcional)" maxLength={1000} />
         <div className="flex flex-wrap gap-2 sm:col-span-2">
           <Button type="submit" variant="cta" disabled={!valid || saveM.isPending}>
             {saveM.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
