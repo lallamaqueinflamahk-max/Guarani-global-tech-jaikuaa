@@ -241,6 +241,7 @@ export const commitCorpusImport = createServerFn({ method: "POST" })
       audio_slug: string;
       has_audio: boolean;
       notes: string;
+      category: string | null;
     }[] = [];
     const seen = new Set<string>();
 
@@ -262,6 +263,7 @@ export const commitCorpusImport = createServerFn({ method: "POST" })
         audio_slug: slug,
         has_audio: audioSlugs.has(slug),
         notes: r.notes ?? "",
+        category: r.category ?? null,
       });
     }
 
@@ -325,6 +327,7 @@ export const listCorpusWords = createServerFn({ method: "POST" })
         search: z.string().default(""),
         onlyMissingAudio: z.boolean().default(false),
         onlyPendingValidation: z.boolean().default(false),
+        category: z.union([CategorySchema, z.literal("none")]).optional(),
         limit: z.number().min(1).max(500).default(200),
       })
       .parse(d),
@@ -345,7 +348,7 @@ export const listCorpusWords = createServerFn({ method: "POST" })
 
     let q = supabaseAdmin
       .from("corpus_words")
-      .select("id, gn, es, audio_slug, has_audio, status, notes, validated_by, validated_at")
+      .select("id, gn, es, audio_slug, has_audio, status, notes, category, validated_by, validated_at")
       .order("gn")
       .limit(data.limit);
     if (ids) q = q.in("id", ids);
@@ -353,6 +356,8 @@ export const listCorpusWords = createServerFn({ method: "POST" })
       q = q.or(`gn.ilike.%${data.search.trim()}%,es.ilike.%${data.search.trim()}%`);
     if (data.onlyMissingAudio) q = q.eq("has_audio", false);
     if (data.onlyPendingValidation) q = q.or("status.eq.draft,validated_by.is.null");
+    if (data.category === "none") q = q.is("category", null);
+    else if (data.category) q = q.eq("category", data.category);
 
     const { data: words, error } = await q;
     if (error) throw new Error(error.message);
@@ -382,6 +387,7 @@ export const updateCorpusWord = createServerFn({ method: "POST" })
         id: z.string().uuid(),
         es: z.string().min(1).optional(),
         notes: z.string().optional(),
+        category: CategorySchema.nullable().optional(),
         status: z.enum(["draft", "published"]).optional(),
       })
       .parse(d),
