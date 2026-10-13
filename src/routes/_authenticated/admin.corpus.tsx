@@ -915,14 +915,20 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
   const [levelId, setLevelId] = useState<string>("todos");
   const [onlyMissing, setOnlyMissing] = useState(false);
   const [onlyPending, setOnlyPending] = useState(false);
-  const [editing, setEditing] = useState<{ id: string; es: string; notes: string } | null>(null);
+  const [category, setCategory] = useState<string>("todas");
+  const [editing, setEditing] = useState<{
+    id: string;
+    es: string;
+    notes: string;
+    category: string;
+  } | null>(null);
 
   const listFn = useServerFn(listCorpusWords);
   const updateFn = useServerFn(updateCorpusWord);
   const deleteFn = useServerFn(deleteCorpusWord);
 
   const wordsQ = useQuery({
-    queryKey: ["corpus-words", search, levelId, onlyMissing, onlyPending],
+    queryKey: ["corpus-words", search, levelId, onlyMissing, onlyPending, category],
     queryFn: () =>
       listFn({
         data: {
@@ -930,6 +936,8 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
           levelId: levelId === "todos" ? undefined : levelId,
           onlyMissingAudio: onlyMissing,
           onlyPendingValidation: onlyPending,
+          category:
+            category === "todas" ? undefined : category === "sin" ? "none" : (category as CorpusCategory),
           limit: 300,
         },
       }),
@@ -941,8 +949,13 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
   };
 
   const updateM = useMutation({
-    mutationFn: (v: { id: string; status?: "draft" | "published"; es?: string; notes?: string }) =>
-      updateFn({ data: v }),
+    mutationFn: (v: {
+      id: string;
+      status?: "draft" | "published";
+      es?: string;
+      notes?: string;
+      category?: CorpusCategory | null;
+    }) => updateFn({ data: v }),
     onSuccess: () => {
       setEditing(null);
       invalidate();
@@ -983,6 +996,20 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
             {levels.map((lv) => (
               <SelectItem key={lv.id} value={lv.id}>
                 {lv.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select value={category} onValueChange={setCategory}>
+          <SelectTrigger className="w-[13rem]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="todas">Todas las categorías</SelectItem>
+            <SelectItem value="sin">Sin categoría</SelectItem>
+            {CORPUS_CATEGORIES.map((c) => (
+              <SelectItem key={c} value={c}>
+                {c}
               </SelectItem>
             ))}
           </SelectContent>
