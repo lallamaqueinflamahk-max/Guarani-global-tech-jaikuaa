@@ -184,6 +184,7 @@ export type Database = {
       corpus_words: {
         Row: {
           audio_slug: string
+          category: string | null
           created_at: string
           es: string
           gn: string
@@ -197,6 +198,7 @@ export type Database = {
         }
         Insert: {
           audio_slug: string
+          category?: string | null
           created_at?: string
           es: string
           gn: string
@@ -210,6 +212,7 @@ export type Database = {
         }
         Update: {
           audio_slug?: string
+          category?: string | null
           created_at?: string
           es?: string
           gn?: string
