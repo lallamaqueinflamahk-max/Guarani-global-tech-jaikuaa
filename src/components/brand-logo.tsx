@@ -1,4 +1,5 @@
 import logoAsset from "@/assets/aranduka-logo.png.asset.json";
+import { cn } from "@/lib/utils";
 
 type BrandLogoProps = {
   className?: string;
@@ -8,7 +9,7 @@ type BrandLogoProps = {
 
 export function BrandLogo({ className = "", size = 36, withWordmark = true }: BrandLogoProps) {
   return (
-    <span className={`inline-flex items-center gap-2 font-display font-bold text-primary ${className}`}>
+    <span className={cn("inline-flex items-center gap-2 font-display font-bold text-primary", className)}>
       <img
         src={logoAsset.url}
         alt="Jaikuaa"

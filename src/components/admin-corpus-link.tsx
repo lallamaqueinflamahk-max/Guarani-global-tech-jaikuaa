@@ -18,10 +18,10 @@ export function AdminCorpusLink() {
   if (!data?.canAccess) return null;
 
   return (
-    <Button asChild variant="outline" size="sm">
+    <Button asChild variant="outline" size="sm" aria-label="Panel de validación">
       <Link to="/admin/corpus">
-        <Database className="mr-2 h-4 w-4" />
-        Panel de validación
+        <Database className="h-4 w-4" />
+        <span className="hidden sm:inline">Panel de validación</span>
       </Link>
     </Button>
   );
