@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { getSponsorAdmin, saveSponsorSettings } from "@/lib/sponsors.functions";
+import { getSponsorAdmin, getSponsorImpressions, saveSponsorSettings } from "@/lib/sponsors.functions";
 import { SPONSOR_SLOTS, SPONSOR_SLOT_IDS, type SponsorSlot } from "@/lib/sponsor-slots";
 
 /** Espacios de auspiciantes (solo admin): un nombre por juego y el muro de la portada. */
@@ -102,6 +102,72 @@ export function SponsorSettings() {
           </Button>
         </form>
       </section>
+      <ImpressionsReport />
     </div>
+  );
+}
+
+function ImpressionsReport() {
+  const fn = useServerFn(getSponsorImpressions);
+  const q = useQuery({ queryKey: ["sponsor-impressions"], queryFn: () => fn() });
+  const rows = (q.data ?? []).map((r) => ({
+    ...r,
+    label: SPONSOR_SLOTS[r.slot as SponsorSlot]?.label ?? r.slot,
+  }));
+
+  const download = () => {
+    const esc = (v: string | number) => `"${String(v).replace(/"/g, '""')}"`;
+    const lines = [
+      ["Espacio", "Auspiciante", "Impresiones", "Usuarios distintos"].map(esc).join(","),
+      ...rows.map((r) => [r.label, r.sponsorName, r.impressions, r.uniqueUsers].map(esc).join(",")),
+    ];
+    const blob = new Blob(["\uFEFF" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "impresiones-auspiciantes-30-dias.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <section className="space-y-3">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="font-display font-semibold text-foreground">Impresiones últimos 30 días</div>
+        <Button type="button" variant="outline" size="sm" onClick={download} disabled={!rows.length}>
+          Descargar CSV
+        </Button>
+      </div>
+      {q.isLoading ? (
+        <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+      ) : q.isError ? (
+        <p className="text-sm text-destructive">No se pudo cargar el reporte.</p>
+      ) : !rows.length ? (
+        <p className="text-sm text-muted-foreground">Todavía no hay impresiones registradas.</p>
+      ) : (
+        <div className="overflow-x-auto rounded-lg border border-border">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/50 text-left text-xs text-muted-foreground">
+              <tr>
+                <th className="px-3 py-2">Espacio</th>
+                <th className="px-3 py-2">Auspiciante</th>
+                <th className="px-3 py-2 text-right">Impresiones</th>
+                <th className="px-3 py-2 text-right">Usuarios distintos</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={`${r.slot}-${r.sponsorName}`} className="border-t border-border">
+                  <td className="px-3 py-2">{r.label}</td>
+                  <td className="px-3 py-2 font-medium">{r.sponsorName}</td>
+                  <td className="px-3 py-2 text-right tabular-nums">{r.impressions}</td>
+                  <td className="px-3 py-2 text-right tabular-nums">{r.uniqueUsers}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
   );
 }

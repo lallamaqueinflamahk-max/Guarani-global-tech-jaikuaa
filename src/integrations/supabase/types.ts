@@ -499,6 +499,30 @@ export type Database = {
         }
         Relationships: []
       }
+      sponsor_impressions: {
+        Row: {
+          created_at: string
+          id: string
+          slot: string
+          sponsor_name: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          slot: string
+          sponsor_name: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          slot?: string
+          sponsor_name?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       trivia_categories: {
         Row: {
           created_at: string
@@ -811,6 +835,15 @@ export type Database = {
       redeem_invite: {
         Args: { _code: string; _user_id: string }
         Returns: string
+      }
+      sponsor_impressions_report: {
+        Args: { _days: number }
+        Returns: {
+          impressions: number
+          slot: string
+          sponsor_name: string
+          unique_users: number
+        }[]
       }
     }
     Enums: {
