@@ -15,7 +15,8 @@ export function BrandLogo({ className = "", size = 36, withWordmark = true }: Br
         width={size}
         height={size}
         style={{ width: size, height: size }}
-        className="object-contain"
+        // En modo oscuro el jaguar (azul marino) se pierde sobre el fondo: le damos una base clara.
+        className="object-contain dark:rounded-lg dark:bg-white dark:p-0.5"
         draggable={false}
       />
       {withWordmark && <span className="text-xl tracking-tight">Jaikuaa</span>}
