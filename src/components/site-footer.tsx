@@ -19,6 +19,12 @@ export function SiteFooter() {
             <Link to="/sobre" className="text-muted-foreground transition-colors hover:text-foreground">
               Sobre Jaikuaa
             </Link>
+            <Link to="/instituciones" className="text-muted-foreground transition-colors hover:text-foreground">
+              Instituciones
+            </Link>
+            <Link to="/auspiciantes" className="text-muted-foreground transition-colors hover:text-foreground">
+              Auspiciantes
+            </Link>
             <Link to="/privacidad" className="text-muted-foreground transition-colors hover:text-foreground">
               Política de Privacidad
             </Link>

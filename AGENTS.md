@@ -20,3 +20,4 @@
 - Support WhatsApp number lives only in src/lib/contact.ts; the floating button (SupportWhatsApp in __root) hides on /juegos, /admin and /piloto-ateneo.
 - Sponsor slots (Palabra del día + each game) and the founders wall live in app_settings, defined in src/lib/sponsor-slots.ts and edited from the admin Auspiciantes tab; empty values are hidden. GameShell shows the sponsor via its sponsorSlot prop.
 - Game end screens share results with ShareResult (wa.me text + link to the landing page).
+- Public sales pages: /instituciones (pilot offer) and /auspiciantes (sponsor slots) share src/components/marketing/page-parts.tsx; only real backing (Senado 547, SPL 116, Convenio Ateneo) and no user counts.

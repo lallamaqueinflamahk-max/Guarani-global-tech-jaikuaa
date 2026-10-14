@@ -104,7 +104,7 @@ function SobrePage() {
               Datos del proyecto
             </h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
-              <FactCard label="Marca registrada" value="DINAPI Nº 2658897" />
+              <FactCard label="Marca en trámite" value="DINAPI Solicitud Nº 2658897" />
               <FactCard label="Desarrollo" value="Hecho en Paraguay" />
               <FactCard label="Sitio oficial" value="jaikuaa.com" />
             </div>
