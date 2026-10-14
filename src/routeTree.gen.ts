@@ -27,6 +27,8 @@ import { Route as AuthenticatedTraductorRouteImport } from './routes/_authentica
 import { Route as AuthenticatedNheRapeRouteImport } from './routes/_authenticated/nhe-rape'
 import { Route as AuthenticatedNheMbytepeRouteImport } from './routes/_authenticated/nhe-mbytepe'
 import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
+import { Route as AuthenticatedRankingRouteImport } from './routes/_authenticated/ranking'
+import { Route as AuthenticatedCertificadoRouteImport } from './routes/_authenticated/certificado'
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedTriviaIndexRouteImport } from './routes/_authenticated/trivia.index'
@@ -135,6 +137,16 @@ const AuthenticatedNheMbytepeRoute = AuthenticatedNheMbytepeRouteImport.update({
 const AuthenticatedLogrosRoute = AuthenticatedLogrosRouteImport.update({
   id: '/logros',
   path: '/logros',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRankingRoute = AuthenticatedRankingRouteImport.update({
+  id: '/ranking',
+  path: '/ranking',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCertificadoRoute = AuthenticatedCertificadoRouteImport.update({
+  id: '/certificado',
+  path: '/certificado',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedGuaraniEscolarRoute =
@@ -271,6 +283,8 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/logros': typeof AuthenticatedLogrosRoute
+  '/ranking': typeof AuthenticatedRankingRoute
+  '/certificado': typeof AuthenticatedCertificadoRoute
   '/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
   '/nhe-rape': typeof AuthenticatedNheRapeRoute
   '/traductor': typeof AuthenticatedTraductorRoute
@@ -309,6 +323,8 @@ export interface FileRoutesByTo {
   '/terminos': typeof TerminosRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/logros': typeof AuthenticatedLogrosRoute
+  '/ranking': typeof AuthenticatedRankingRoute
+  '/certificado': typeof AuthenticatedCertificadoRoute
   '/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
   '/nhe-rape': typeof AuthenticatedNheRapeRoute
   '/traductor': typeof AuthenticatedTraductorRoute
@@ -348,6 +364,8 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/_authenticated/logros': typeof AuthenticatedLogrosRoute
+  '/_authenticated/ranking': typeof AuthenticatedRankingRoute
+  '/_authenticated/certificado': typeof AuthenticatedCertificadoRoute
   '/_authenticated/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
   '/_authenticated/nhe-rape': typeof AuthenticatedNheRapeRoute
   '/_authenticated/traductor': typeof AuthenticatedTraductorRoute
@@ -389,6 +407,8 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/guarani-escolar'
     | '/logros'
+    | '/ranking'
+    | '/certificado'
     | '/nhe-mbytepe'
     | '/nhe-rape'
     | '/traductor'
@@ -427,6 +447,8 @@ export interface FileRouteTypes {
     | '/terminos'
     | '/dashboard'
     | '/logros'
+    | '/ranking'
+    | '/certificado'
     | '/nhe-mbytepe'
     | '/nhe-rape'
     | '/traductor'
@@ -465,6 +487,8 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/guarani-escolar'
     | '/_authenticated/logros'
+    | '/_authenticated/ranking'
+    | '/_authenticated/certificado'
     | '/_authenticated/nhe-mbytepe'
     | '/_authenticated/nhe-rape'
     | '/_authenticated/traductor'
@@ -632,6 +656,20 @@ declare module '@tanstack/react-router' {
       path: '/logros'
       fullPath: '/logros'
       preLoaderRoute: typeof AuthenticatedLogrosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ranking': {
+      id: '/_authenticated/ranking'
+      path: '/ranking'
+      fullPath: '/ranking'
+      preLoaderRoute: typeof AuthenticatedRankingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/certificado': {
+      id: '/_authenticated/certificado'
+      path: '/certificado'
+      fullPath: '/certificado'
+      preLoaderRoute: typeof AuthenticatedCertificadoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/guarani-escolar': {
@@ -839,6 +877,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedGuaraniEscolarRoute: typeof AuthenticatedGuaraniEscolarRouteWithChildren
   AuthenticatedLogrosRoute: typeof AuthenticatedLogrosRoute
+  AuthenticatedRankingRoute: typeof AuthenticatedRankingRoute
+  AuthenticatedCertificadoRoute: typeof AuthenticatedCertificadoRoute
   AuthenticatedNheMbytepeRoute: typeof AuthenticatedNheMbytepeRoute
   AuthenticatedNheRapeRoute: typeof AuthenticatedNheRapeRoute
   AuthenticatedTraductorRoute: typeof AuthenticatedTraductorRoute
@@ -860,6 +900,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGuaraniEscolarRoute:
     AuthenticatedGuaraniEscolarRouteWithChildren,
   AuthenticatedLogrosRoute: AuthenticatedLogrosRoute,
+  AuthenticatedRankingRoute: AuthenticatedRankingRoute,
+  AuthenticatedCertificadoRoute: AuthenticatedCertificadoRoute,
   AuthenticatedNheMbytepeRoute: AuthenticatedNheMbytepeRoute,
   AuthenticatedNheRapeRoute: AuthenticatedNheRapeRoute,
   AuthenticatedTraductorRoute: AuthenticatedTraductorRoute,

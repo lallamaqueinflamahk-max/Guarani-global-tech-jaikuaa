@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ValidationBadge } from "@/components/validation-notice";
+import { DisplayToggles } from "@/components/display-toggles";
 import { BrandLogo } from "@/components/brand-logo";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -124,6 +125,7 @@ function Dashboard() {
             <BrandLogo />
           </Link>
           <div className="flex items-center gap-2">
+            <DisplayToggles />
             <AdminCorpusLink />
             <Button variant="outline" size="sm" onClick={handleSignOut}>
               Cerrar sesión
@@ -224,6 +226,35 @@ function Dashboard() {
                   Ahorcado con chipas, sopa de letras, memoria y la palabra del día.
                 </p>
                 <span className="mt-1 text-sm font-medium text-accent">Jugar →</span>
+              </Link>
+            </div>
+          </section>
+
+          {/* 2c. COMUNIDAD Y PROGRESO */}
+          <section className="mt-10">
+            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">Tu progreso</h2>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <Link
+                to="/ranking"
+                className="group flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-primary hover:shadow-lift"
+              >
+                <span className="text-2xl" aria-hidden>
+                  🏆
+                </span>
+                <div className="font-display text-lg font-bold text-foreground">Ranking semanal</div>
+                <p className="text-sm text-muted-foreground">Mirá quiénes estudiaron más esta semana en tu grupo.</p>
+                <span className="mt-1 text-sm font-medium text-primary">Ver ranking →</span>
+              </Link>
+              <Link
+                to="/certificado"
+                className="group flex flex-col gap-2 rounded-2xl border border-accent/40 bg-card p-5 shadow-elegant card-hover hover:border-accent hover:shadow-lift"
+              >
+                <span className="text-2xl" aria-hidden>
+                  📜
+                </span>
+                <div className="font-display text-lg font-bold text-foreground">Certificado</div>
+                <p className="text-sm text-muted-foreground">Terminá el Curso de Guaraní y descargá tu certificado.</p>
+                <span className="mt-1 text-sm font-medium text-accent">Ver certificado →</span>
               </Link>
             </div>
           </section>

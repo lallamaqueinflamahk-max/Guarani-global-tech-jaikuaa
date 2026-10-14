@@ -21,3 +21,5 @@
 - Sponsor slots (Palabra del día + each game) and the founders wall live in app_settings, defined in src/lib/sponsor-slots.ts and edited from the admin Auspiciantes tab; empty values are hidden. GameShell shows the sponsor via its sponsorSlot prop.
 - Game end screens share results with ShareResult (wa.me text + link to the landing page).
 - Public sales pages: /instituciones (pilot offer) and /auspiciantes (sponsor slots) share src/components/marketing/page-parts.tsx; only real backing (Senado 547, SPL 116, Convenio Ateneo) and no user counts.
+- Weekly ranking (/ranking) sums xp_transactions since Monday 00:00 Paraguay time within the user's cohort, first names only, admins excluded. Certificate (/certificado) requires every published Guaraní lesson completed (source_ref guarani:N) and prints via window.print; no Ateneo logo, states it is not an official title.
+- Dark mode and large text are per-device prefs (src/lib/display-prefs.ts, localStorage with try/catch) applied on <html>; toggles live in the dashboard and landing headers.

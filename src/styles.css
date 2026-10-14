@@ -272,3 +272,8 @@ select,
 @media (prefers-reduced-motion: reduce) {
  .game-kit *, .game-help { animation: none !important; transition: none !important; }
 }
+
+/* Preferencia "Letra grande" (DisplayToggles): agranda todo el sitio, que usa rem. */
+html.text-large {
+  font-size: 112.5%;
+}

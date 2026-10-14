@@ -15,6 +15,7 @@ import { SplashScreen } from "@/components/splash-screen";
 import { supabase } from "@/integrations/supabase/client";
 import { redeemPendingPilotCode } from "@/lib/pilot-code";
 import { SupportWhatsApp } from "@/components/support-whatsapp";
+import { applyDisplayPrefs, readDisplayPrefs } from "@/lib/display-prefs";
 
 function NotFoundComponent() {
   return (
@@ -156,6 +157,10 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   // Código de invitación del piloto guardado antes de iniciar sesión: se canjea al entrar.
+  useEffect(() => {
+    applyDisplayPrefs(readDisplayPrefs());
+  }, []);
+
   useEffect(() => {
     void redeemPendingPilotCode();
     const { data } = supabase.auth.onAuthStateChange((event) => {
