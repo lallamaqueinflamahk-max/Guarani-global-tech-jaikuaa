@@ -8,6 +8,7 @@ import { useGameFeedback } from "@/components/games/game-kit";
 import { SpeakerButton } from "@/components/audio/speaker-button";
 import { GameShell, XpNote } from "@/components/games/game-shell";
 import { answerWordOfDay, getWordOfDay } from "@/lib/games.functions";
+import { getWordOfDaySponsor } from "@/lib/penalties.functions";
 import { syncStats } from "@/lib/gamification";
 
 export const Route = createFileRoute("/_authenticated/juegos/palabra-del-dia")({
@@ -32,6 +33,9 @@ function WordOfDayContent() {
   const answerFn = useServerFn(answerWordOfDay);
   const qc = useQueryClient();
   const q = useQuery({ queryKey: ["word-of-day"], queryFn: () => getFn() });
+  const sponsorFn = useServerFn(getWordOfDaySponsor);
+  const sponsor = useQuery({ queryKey: ["word-sponsor"], queryFn: () => sponsorFn(), staleTime: 5 * 60_000 });
+  const sponsorName = sponsor.data?.name ?? "";
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<{ choice: string; correct: boolean; answer: string } | null>(null);
 
@@ -61,6 +65,11 @@ function WordOfDayContent() {
       ) : (
         <div className="space-y-6">
           <p className="text-center text-xs text-muted-foreground">{d.day} · la misma palabra para todos hoy</p>
+          {sponsorName && (
+            <p className="text-center text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              Presentada por <span className="font-bold text-foreground">{sponsorName}</span>
+            </p>
+          )}
           <div className="flex flex-col items-center gap-3 rounded-2xl border border-primary/30 bg-card p-6 shadow-elegant">
             <p className="text-sm text-muted-foreground">Escuchala y elegí qué significa</p>
             <SpeakerButton gn={d.word.gn} size="md" className="h-14 w-14" />

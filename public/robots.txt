@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /curso
+Disallow: /juegos
+Disallow: /tutor
+Disallow: /traductor
+Disallow: /piloto-ateneo
+Disallow: /reset-password
+Disallow: /recuperar
+
+Sitemap: https://www.jaikuaa.com/sitemap.xml

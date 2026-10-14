@@ -17,3 +17,5 @@
 - Games share mascot, synthesized effects, mute preference and help through the game kit; keep match rules and server progress unchanged so presentation does not duplicate domain logic.
 - Sections with hardcoded Guaraní not yet reviewed by docentes (Guaraní Escolar, Trivia, Ñe'ẽ Mbytépe) show ValidationNotice and an "En validación" badge on the dashboard; remove them only once the content is validated or moved to the corpus.
 - Only languages with content are enabled in src/lib/languages.ts; the PWA manifest (public/manifest.webmanifest) makes the app installable — no service worker yet.
+- Support WhatsApp number lives only in src/lib/contact.ts; the floating button (SupportWhatsApp in __root) hides on /juegos, /admin and /piloto-ateneo.
+- Palabra del día sponsor is the app_settings key palabra_dia_sponsor (empty = hidden), edited from the admin Piloto tab next to the Penales LED text.

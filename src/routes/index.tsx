@@ -17,7 +17,9 @@ export const Route = createFileRoute("/")({
       { name: "twitter:description", content: "La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "keywords", content: "aprender guaraní, guaraní, curso de guaraní, idioma guaraní, Paraguay, Jaikuaa" },
     ],
+    links: [{ rel: "canonical", href: "https://www.jaikuaa.com/" }],
   }),
   component: Index,
 });

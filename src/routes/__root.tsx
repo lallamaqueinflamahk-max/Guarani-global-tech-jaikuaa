@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SplashScreen } from "@/components/splash-screen";
 import { supabase } from "@/integrations/supabase/client";
 import { redeemPendingPilotCode } from "@/lib/pilot-code";
+import { SupportWhatsApp } from "@/components/support-whatsapp";
 
 function NotFoundComponent() {
   return (
@@ -168,6 +169,7 @@ function RootComponent() {
       <SplashScreen />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <SupportWhatsApp />
     </QueryClientProvider>
   );
 }
