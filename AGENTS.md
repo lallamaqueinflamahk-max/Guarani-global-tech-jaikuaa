@@ -15,3 +15,5 @@
 - Penales keeps canvas physics and rendering in isolated browser-safe modules; React owns questions and match state to keep animation independent of UI updates.
 - Penales LED text is an app_settings value accessed through authenticated server functions; only the existing admin settings function writes it.
 - Games share mascot, synthesized effects, mute preference and help through the game kit; keep match rules and server progress unchanged so presentation does not duplicate domain logic.
+- Sections with hardcoded Guaraní not yet reviewed by docentes (Guaraní Escolar, Trivia, Ñe'ẽ Mbytépe) show ValidationNotice and an "En validación" badge on the dashboard; remove them only once the content is validated or moved to the corpus.
+- Only languages with content are enabled in src/lib/languages.ts; the PWA manifest (public/manifest.webmanifest) makes the app installable — no service worker yet.

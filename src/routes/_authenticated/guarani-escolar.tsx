@@ -1,6 +1,7 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
+import { ValidationNotice } from "@/components/validation-notice";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar")({
   head: () => ({ meta: [{ title: "Jaikuaa — Guaraní Escolar" }] }),
@@ -10,6 +11,7 @@ export const Route = createFileRoute("/_authenticated/guarani-escolar")({
 function GuaraniEscolarLayout() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <ValidationNotice />
       <header className="border-b border-border/50">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold text-primary">

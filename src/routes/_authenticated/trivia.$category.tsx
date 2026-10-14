@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { ValidationNotice } from "@/components/validation-notice";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
@@ -204,6 +205,7 @@ function TriviaQuiz() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <ValidationNotice />
       <header className="border-b border-border/50">
         <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4 sm:px-6">
           <Link to="/dashboard" className="flex items-center gap-2 font-display text-xl font-bold text-primary">

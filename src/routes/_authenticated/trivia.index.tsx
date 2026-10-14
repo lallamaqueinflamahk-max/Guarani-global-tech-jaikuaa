@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ValidationNotice } from "@/components/validation-notice";
 import { BrandLogo } from "@/components/brand-logo";
 import { SiteFooter } from "@/components/site-footer";
 import { TRIVIA, TRIVIA_ORDER } from "@/lib/trivia";
@@ -16,6 +17,7 @@ export const Route = createFileRoute("/_authenticated/trivia/")({
 function TriviaLanding() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <ValidationNotice />
       <header className="border-b border-border/50">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
           <Link to="/dashboard" className="flex items-center gap-2 font-display text-xl font-bold text-primary">

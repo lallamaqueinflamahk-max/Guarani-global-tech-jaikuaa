@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ValidationBadge } from "@/components/validation-notice";
 import { BrandLogo } from "@/components/brand-logo";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -173,6 +174,7 @@ function Dashboard() {
                 title="Guaraní Escolar"
                 desc="Todo lo que necesitás para aprobar Guaraní en la escuela."
                 accent="accent"
+                inValidation
               />
               <FreeCard
                 to="/nhe-mbytepe"
@@ -180,6 +182,7 @@ function Dashboard() {
                 title="Ñe'ẽ Mbytépe"
                 desc="El guaraní que se habla en la calle."
                 accent="primary"
+                inValidation
               />
               <FreeCard
                 to="/trivia"
@@ -187,6 +190,7 @@ function Dashboard() {
                 title="Jaikuaápa"
                 desc="Trivia: poné a prueba lo que sabés."
                 accent="primary"
+                inValidation
               />
               <FreeCard
                 to="/traductor"
@@ -543,6 +547,7 @@ function FreeCard({
   desc,
   accent,
   experimental,
+  inValidation,
 }: {
   to: string;
   emoji: string;
@@ -550,6 +555,7 @@ function FreeCard({
   desc: string;
   accent: "primary" | "accent";
   experimental?: boolean;
+  inValidation?: boolean;
 }) {
   const border =
     accent === "accent"
@@ -565,7 +571,9 @@ function FreeCard({
         <span className="text-2xl" aria-hidden>
           {emoji}
         </span>
-        {experimental ? (
+        {inValidation ? (
+          <ValidationBadge />
+        ) : experimental ? (
           <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-800">
             Experimental
           </span>

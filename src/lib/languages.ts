@@ -5,12 +5,11 @@ export type Language = {
   featured?: boolean;
 };
 
+// Solo se habilitan los cursos que ya tienen contenido. Los demás idiomas
+// (inglés, portugués, francés, español) se agregarán cuando tengan contenido
+// validado; mientras tanto sus direcciones muestran "curso no encontrado".
 export const LANGUAGES: Language[] = [
   { slug: "guarani", name: "Guaraní", flag: "🇵🇾", featured: true },
-  { slug: "ingles", name: "Inglés", flag: "🇺🇸" },
-  { slug: "portugues", name: "Portugués", flag: "🇧🇷" },
-  { slug: "frances", name: "Francés", flag: "🇫🇷" },
-  { slug: "espanol", name: "Español", flag: "🇪🇸" },
 ];
 
 export function getLanguage(slug: string): Language | undefined {

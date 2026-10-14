@@ -80,6 +80,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#1E3A5F" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-title", content: "Jaikuaa" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { title: "Jaikuaa — Aprendé guaraní. Cambiá tu vida." },
       { name: "description", content: "La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
       { name: "author", content: "Jaikuaa" },
@@ -118,7 +123,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "apple-touch-icon",
-        href: "/favicon.png",
+        href: "/apple-touch-icon.png",
+      },
+      {
+        rel: "manifest",
+        href: "/manifest.webmanifest",
       },
     ],
   }),

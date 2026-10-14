@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BrandLogo } from "@/components/brand-logo";
 import { SiteFooter } from "@/components/site-footer";
+import { ValidationNotice } from "@/components/validation-notice";
 
 export const Route = createFileRoute("/_authenticated/nhe-mbytepe")({
   head: () => ({
@@ -136,6 +137,7 @@ const ES_COLOR = "#C8102E";
 function NheMbytepe() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <ValidationNotice />
       <header className="border-b border-border/50">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
           <Link
