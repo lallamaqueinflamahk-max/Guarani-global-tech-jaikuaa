@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SpeakerButton } from "@/components/audio/speaker-button";
 import { GameShell, LessonFilter, NotEnough, XpNote, pickDistinct, useGameWords } from "@/components/games/game-shell";
+import { ShareResult } from "@/components/games/share-result";
 import { useGameFeedback } from "@/components/games/game-kit";
 import { ACHEGETY, displayLetter, splitAchegety } from "@/lib/achegety";
 import { playGuarani } from "@/lib/audio";
@@ -39,7 +40,7 @@ function Hangman() {
   const word = useMemo<GameWord | null>(() => pickDistinct(pool, 1)[0] ?? null, [pool, round]);
 
   return (
-    <GameShell title="Ahorcado con chipas" emoji="🥯">
+    <GameShell title="Ahorcado con chipas" emoji="🥯" sponsorSlot="ahorcado">
       <LessonFilter value={lesson} onChange={setLesson} />
       <div className="mt-6">
         {q.isLoading ? (
@@ -109,7 +110,10 @@ function Board({ word, onNext }: { word: GameWord; onNext: () => void }) {
             <span className="text-muted-foreground">— {word.es}</span>
           </div>
           <XpNote xp={won ? XP_WIN : XP_LOSS} />
-          <Button onClick={onNext}>Otra palabra</Button>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Button onClick={onNext}>Otra palabra</Button>
+            {won && <ShareResult text="¡Adiviné una palabra en guaraní en el Ahorcado con chipas de Jaikuaa! ¿Te animás?" />}
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-6 gap-1.5 sm:grid-cols-9">

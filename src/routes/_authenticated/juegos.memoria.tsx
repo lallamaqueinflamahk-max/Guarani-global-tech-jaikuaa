@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GameShell, LessonFilter, NotEnough, XpNote, pickDistinct, shuffle, useGameWords } from "@/components/games/game-shell";
+import { ShareResult } from "@/components/games/share-result";
 import { useGameFeedback } from "@/components/games/game-kit";
 import { playGuarani } from "@/lib/audio";
 import { recordCompletion } from "@/lib/gamification";
@@ -41,7 +42,7 @@ function Memory() {
   }, [q.data, round]);
 
   return (
-    <GameShell title="Memoria" emoji="🃏">
+    <GameShell title="Memoria" emoji="🃏" sponsorSlot="memoria">
       <LessonFilter value={lesson} onChange={setLesson} />
       <div className="mt-6">
         {q.isLoading ? (
@@ -136,7 +137,10 @@ function Board({ words, onNext }: { words: GameWord[]; onNext: () => void }) {
         <div className="space-y-2 text-center">
           <p className="font-display text-xl font-bold text-foreground">¡Completaste la memoria en {attempts} intentos!</p>
           <XpNote xp={xp} />
-          <Button onClick={onNext}>Jugar de nuevo</Button>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Button onClick={onNext}>Jugar de nuevo</Button>
+            <ShareResult text={`¡Completé la Memoria en guaraní de Jaikuaa en ${attempts} intentos! ¿Podés hacerlo en menos?`} />
+          </div>
         </div>
       )}
     </div>

@@ -18,4 +18,5 @@
 - Sections with hardcoded Guaraní not yet reviewed by docentes (Guaraní Escolar, Trivia, Ñe'ẽ Mbytépe) show ValidationNotice and an "En validación" badge on the dashboard; remove them only once the content is validated or moved to the corpus.
 - Only languages with content are enabled in src/lib/languages.ts; the PWA manifest (public/manifest.webmanifest) makes the app installable — no service worker yet.
 - Support WhatsApp number lives only in src/lib/contact.ts; the floating button (SupportWhatsApp in __root) hides on /juegos, /admin and /piloto-ateneo.
-- Palabra del día sponsor is the app_settings key palabra_dia_sponsor (empty = hidden), edited from the admin Piloto tab next to the Penales LED text.
+- Sponsor slots (Palabra del día + each game) and the founders wall live in app_settings, defined in src/lib/sponsor-slots.ts and edited from the admin Auspiciantes tab; empty values are hidden. GameShell shows the sponsor via its sponsorSlot prop.
+- Game end screens share results with ShareResult (wa.me text + link to the landing page).

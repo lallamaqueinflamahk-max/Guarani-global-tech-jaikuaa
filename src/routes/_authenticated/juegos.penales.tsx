@@ -20,7 +20,7 @@ import type { GameWord } from '@/lib/games.functions';
 export const Route=createFileRoute('/_authenticated/juegos/penales')({
  head:()=>({meta:[{title:'Penales: Solo y Duelo | Jaikuaa'},{name:'description',content:'Palabras, estadio y una tanda de penales. Jugá solo o compartí un duelo en el mismo celular.'},{property:'og:title',content:'Penales: Solo y Duelo | Jaikuaa'},{property:'og:description',content:'Una tanda de penales con vocabulario publicado y audio de voces reales.'},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'}]}),component:Penalties,
 });
-function Penalties(){return <GameShell title="Penales" emoji="⚽"><PenaltiesContent/></GameShell>;}
+function Penalties(){return <GameShell title="Penales" emoji="⚽" sponsorSlot="penales"><PenaltiesContent/></GameShell>;}
 function PenaltiesContent(){
  const {muted}=useGameKit();
  const [lesson,setLesson]=useState<number|null>(null),q=useGameWords(lesson);

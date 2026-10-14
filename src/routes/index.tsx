@@ -3,6 +3,9 @@ import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
 import { SiteFooter } from "@/components/site-footer";
 import { SpeakerButton } from "@/components/audio/speaker-button";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { getFoundingSponsors } from "@/lib/sponsors.functions";
 
 
 
@@ -32,6 +35,7 @@ function Index() {
       <main className="flex-1">
         <Hero />
         <LiveAudioPreview />
+        <FoundingSponsors />
       </main>
       <Footer />
     </div>
@@ -125,6 +129,36 @@ function LiveAudioPreview() {
   );
 }
 
+
+/** Muro de Auspiciantes Fundadores: se carga desde el panel; vacío = no se muestra. */
+function FoundingSponsors() {
+  const fn = useServerFn(getFoundingSponsors);
+  const q = useQuery({ queryKey: ["founding-sponsors"], queryFn: () => fn(), staleTime: 10 * 60_000 });
+  const names = q.data?.names ?? [];
+  if (names.length === 0) return null;
+  return (
+    <section className="border-t border-border/50 px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-5xl text-center">
+        <h2 className="font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          Auspiciantes Fundadores
+        </h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Empresas paraguayas que acompañan el lanzamiento de Jaikuaa.
+        </p>
+        <ul className="mt-6 flex flex-wrap justify-center gap-3">
+          {names.map((n) => (
+            <li
+              key={n}
+              className="rounded-xl border border-border/60 bg-card px-5 py-3 font-display text-base font-semibold text-card-foreground shadow-sm"
+            >
+              {n}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
 
 function Footer() {
   return <SiteFooter />;

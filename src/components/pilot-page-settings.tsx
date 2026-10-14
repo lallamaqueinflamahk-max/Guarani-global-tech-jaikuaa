@@ -21,19 +21,17 @@ export function PilotPageSettings() {
 
   const [contact, setContact] = useState("");
   const [ledText, setLedText] = useState("");
-  const [wordSponsor, setWordSponsor] = useState("");
   useEffect(() => {
-    if (q.data) { setContact(q.data.contact); setLedText(q.data.ledText); setWordSponsor(q.data.wordSponsor ?? ""); }
+    if (q.data) { setContact(q.data.contact); setLedText(q.data.ledText); }
   }, [q.data]);
 
   const save = useMutation({
-    mutationFn: (v: { status?: "draft" | "published"; contact?: string; ledText?: string; wordSponsor?: string }) => saveFn({ data: v }),
+    mutationFn: (v: { status?: "draft" | "published"; contact?: string; ledText?: string }) => saveFn({ data: v }),
     onSuccess: () => {
       toast.success("Guardado.");
       refresh();
       void qc.invalidateQueries({ queryKey: ["pilot-page"] });
       void qc.invalidateQueries({ queryKey: ["penales-led"] });
-      void qc.invalidateQueries({ queryKey: ["word-sponsor"] });
     },
     onError: () => toast.error("No se pudo guardar."),
   });
@@ -114,12 +112,6 @@ export function PilotPageSettings() {
             <Input aria-label="Publicidad LED de Penales" value={ledText} onChange={(e) => setLedText(e.target.value)} maxLength={160} className="mt-2" />
           </label>
           <Button type="submit" variant="outline" disabled={save.isPending || !ledText.trim()}>Guardar publicidad</Button>
-        </form>
-        <form className="flex flex-wrap items-end gap-2" onSubmit={(e) => { e.preventDefault(); save.mutate({ wordSponsor }); }}>
-          <label className="min-w-0 flex-1 text-sm font-semibold">Auspiciante de la Palabra del día
-            <Input aria-label="Auspiciante de la Palabra del día" value={wordSponsor} onChange={(e) => setWordSponsor(e.target.value)} maxLength={80} placeholder="Ej.: Stock — vacío para no mostrar nada" className="mt-2" />
-          </label>
-          <Button type="submit" variant="outline" disabled={save.isPending}>Guardar auspiciante</Button>
         </form>
         <div className="font-display font-semibold text-foreground">Códigos de invitación</div>
         <p className="text-xs text-muted-foreground">

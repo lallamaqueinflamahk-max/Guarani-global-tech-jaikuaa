@@ -1,0 +1,12 @@
+/** Espacios de auspiciantes dentro de la plataforma (clave en app_settings). */
+export const SPONSOR_SLOTS = {
+  "palabra-del-dia": { key: "palabra_dia_sponsor", label: "Palabra del día" },
+  ahorcado: { key: "juego_sponsor_ahorcado", label: "Ahorcado con chipas" },
+  "sopa-de-letras": { key: "juego_sponsor_sopa", label: "Sopa de letras" },
+  memoria: { key: "juego_sponsor_memoria", label: "Memoria" },
+  penales: { key: "juego_sponsor_penales", label: "Penales" },
+} as const;
+
+export type SponsorSlot = keyof typeof SPONSOR_SLOTS;
+export const SPONSOR_SLOT_IDS = Object.keys(SPONSOR_SLOTS) as SponsorSlot[];
+export const FOUNDERS_KEY = "auspiciantes_fundadores";

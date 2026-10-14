@@ -4,6 +4,7 @@ import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SpeakerButton } from "@/components/audio/speaker-button";
 import { GameShell, LessonFilter, NotEnough, XpNote, shuffle, useGameWords, useIsWide } from "@/components/games/game-shell";
+import { ShareResult } from "@/components/games/share-result";
 import { useGameFeedback } from "@/components/games/game-kit";
 import { ACHEGETY, displayLetter, splitAchegety } from "@/lib/achegety";
 import { playGuarani } from "@/lib/audio";
@@ -82,7 +83,7 @@ function WordSearch() {
   }, [q.data, size, round]);
 
   return (
-    <GameShell title="Sopa de letras" emoji="🔤">
+    <GameShell title="Sopa de letras" emoji="🔤" sponsorSlot="sopa-de-letras">
       <LessonFilter value={lesson} onChange={setLesson} />
       <div className="mt-6">
         {q.isLoading ? (
@@ -191,7 +192,10 @@ function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
         <div className="space-y-2 text-center">
           <p className="font-display text-xl font-bold text-foreground">¡Encontraste todas!</p>
           <XpNote xp={XP} />
-          <Button onClick={onNext}>Otra sopa</Button>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Button onClick={onNext}>Otra sopa</Button>
+            <ShareResult text="¡Encontré todas las palabras en guaraní de la Sopa de letras de Jaikuaa! ¿Te animás?" />
+          </div>
         </div>
       )}
     </div>

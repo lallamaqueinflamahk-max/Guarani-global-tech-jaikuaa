@@ -34,6 +34,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PilotPageSettings } from "@/components/pilot-page-settings";
+import { SponsorSettings } from "@/components/sponsor-settings";
 import { CORPUS_CATEGORIES, type CorpusCategory } from "@/lib/corpus-categories";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -230,6 +231,11 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
             </TabsTrigger>
           )}
           {isAdmin && (
+            <TabsTrigger value="auspiciantes" className="flex-1">
+              Auspiciantes
+            </TabsTrigger>
+          )}
+          {isAdmin && (
             <TabsTrigger value="tablero" className="flex-1">
               Tablero
             </TabsTrigger>
@@ -261,6 +267,11 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
         {isAdmin && (
           <TabsContent value="piloto" className="mt-6">
             <PilotPanel />
+          </TabsContent>
+        )}
+        {isAdmin && (
+          <TabsContent value="auspiciantes" className="mt-6">
+            <SponsorSettings />
           </TabsContent>
         )}
         {isAdmin && (
