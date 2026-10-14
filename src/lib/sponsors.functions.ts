@@ -85,3 +85,37 @@ export const saveSponsorSettings = createServerFn({ method: "POST" })
     }
     return { ok: true };
   });
+
+/** Registra una impresión del auspiciante actual del espacio (el nombre lo resuelve el servidor). */
+export const recordSponsorImpression = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ slot: slotEnum }).parse(d))
+  .handler(async ({ data, context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row } = await supabaseAdmin
+      .from("app_settings")
+      .select("value")
+      .eq("key", SPONSOR_SLOTS[data.slot].key)
+      .maybeSingle();
+    const name = (row?.value ?? "").trim();
+    if (!name) return { ok: false };
+    const { error } = await context.supabase
+      .from("sponsor_impressions")
+      .insert({ slot: data.slot, sponsor_name: name, user_id: context.userId });
+    return { ok: !error };
+  });
+
+/** Reporte de impresiones de los últimos 30 días (solo admin). */
+export const getSponsorImpressions = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await requireAdmin(context.supabase as never, context.userId);
+    const { data, error } = await context.supabase.rpc("sponsor_impressions_report", { _days: 30 });
+    if (error) throw new Error(error.message);
+    return (data ?? []).map((r) => ({
+      slot: r.slot,
+      sponsorName: r.sponsor_name,
+      impressions: Number(r.impressions),
+      uniqueUsers: Number(r.unique_users),
+    }));
+  });
