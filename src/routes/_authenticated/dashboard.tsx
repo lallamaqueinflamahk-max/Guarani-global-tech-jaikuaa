@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ValidationBadge } from "@/components/validation-notice";
 import { DisplayToggles } from "@/components/display-toggles";
 import { BrandLogo } from "@/components/brand-logo";
+import { LogOut } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -120,15 +121,22 @@ function Dashboard() {
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
           <Link
             to="/"
-            className="flex items-center gap-2 font-display text-xl font-bold text-primary"
+            className="flex shrink-0 items-center gap-2 font-display text-xl font-bold text-primary"
           >
-            <BrandLogo />
+            <BrandLogo withWordmark={false} className="sm:hidden" />
+            <BrandLogo className="hidden sm:inline-flex" />
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-1 sm:gap-2">
             <DisplayToggles />
             <AdminCorpusLink />
-            <Button variant="outline" size="sm" onClick={handleSignOut}>
-              Cerrar sesión
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleSignOut}
+              aria-label="Cerrar sesión"
+            >
+              <LogOut />
+              <span className="hidden sm:inline">Cerrar sesión</span>
             </Button>
           </div>
         </div>
