@@ -119,3 +119,44 @@ export const getSponsorImpressions = createServerFn({ method: "GET" })
       uniqueUsers: Number(r.unique_users),
     }));
   });
+
+/** Informe imprimible para un auspiciante (solo admin): impresiones por espacio en el período. */
+export const getSponsorReport = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        sponsor: z.string().max(120).optional(),
+        days: z.union([z.literal(7), z.literal(30), z.literal(90)]),
+      })
+      .parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await requireAdmin(context.supabase as never, context.userId);
+    const { data: rows, error } = await context.supabase.rpc("sponsor_impressions_report", {
+      _days: data.days,
+    });
+    if (error) throw new Error(error.message);
+    const all = (rows ?? []).map((r) => ({
+      slot: r.slot,
+      sponsorName: r.sponsor_name,
+      impressions: Number(r.impressions),
+      uniqueUsers: Number(r.unique_users),
+    }));
+    const sponsors = Array.from(new Set(all.map((r) => r.sponsorName))).sort((a, b) =>
+      a.localeCompare(b, "es"),
+    );
+    const sponsor = data.sponsor && sponsors.includes(data.sponsor) ? data.sponsor : (sponsors[0] ?? "");
+    const to = new Date();
+    const from = new Date(to.getTime() - data.days * 24 * 60 * 60 * 1000);
+    return {
+      sponsors,
+      sponsor,
+      days: data.days,
+      from: from.toISOString(),
+      to: to.toISOString(),
+      rows: all
+        .filter((r) => r.sponsorName === sponsor)
+        .map(({ slot, impressions, uniqueUsers }) => ({ slot, impressions, uniqueUsers })),
+    };
+  });

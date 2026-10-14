@@ -45,6 +45,7 @@ import { Route as AuthenticatedGuaraniEscolarSemanalRouteImport } from './routes
 import { Route as AuthenticatedGuaraniEscolarRescateRouteImport } from './routes/_authenticated/guarani-escolar.rescate'
 import { Route as AuthenticatedCursoLangRouteImport } from './routes/_authenticated/curso.$lang'
 import { Route as AuthenticatedAdminCorpusRouteImport } from './routes/_authenticated/admin.corpus'
+import { Route as AuthenticatedAdminInformeAuspicianteRouteImport } from './routes/_authenticated/admin.informe-auspiciante'
 import { Route as AuthenticatedGuaraniEscolarTemaIndexRouteImport } from './routes/_authenticated/guarani-escolar.tema.index'
 import { Route as AuthenticatedCursoLangIndexRouteImport } from './routes/_authenticated/curso.$lang.index'
 import { Route as AuthenticatedGuaraniEscolarTemaTopicRouteImport } from './routes/_authenticated/guarani-escolar.tema.$topic'
@@ -244,6 +245,12 @@ const AuthenticatedAdminCorpusRoute =
     path: '/admin/corpus',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminInformeAuspicianteRoute =
+  AuthenticatedAdminInformeAuspicianteRouteImport.update({
+    id: '/admin/informe-auspiciante',
+    path: '/admin/informe-auspiciante',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedGuaraniEscolarTemaIndexRoute =
   AuthenticatedGuaraniEscolarTemaIndexRouteImport.update({
     id: '/',
@@ -292,6 +299,7 @@ export interface FileRoutesByFullPath {
   '/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
   '/admin/corpus': typeof AuthenticatedAdminCorpusRoute
+  '/admin/informe-auspiciante': typeof AuthenticatedAdminInformeAuspicianteRoute
   '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
@@ -332,6 +340,7 @@ export interface FileRoutesByTo {
   '/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
   '/admin/corpus': typeof AuthenticatedAdminCorpusRoute
+  '/admin/informe-auspiciante': typeof AuthenticatedAdminInformeAuspicianteRoute
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
@@ -373,6 +382,7 @@ export interface FileRoutesById {
   '/_authenticated/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
   '/_authenticated/admin/corpus': typeof AuthenticatedAdminCorpusRoute
+  '/_authenticated/admin/informe-auspiciante': typeof AuthenticatedAdminInformeAuspicianteRoute
   '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
   '/_authenticated/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/_authenticated/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
@@ -416,6 +426,7 @@ export interface FileRouteTypes {
     | '/tutor'
     | '/api/tutor'
     | '/admin/corpus'
+    | '/admin/informe-auspiciante'
     | '/curso/$lang'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
@@ -456,6 +467,7 @@ export interface FileRouteTypes {
     | '/tutor'
     | '/api/tutor'
     | '/admin/corpus'
+    | '/admin/informe-auspiciante'
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
     | '/juegos/ahorcado'
@@ -496,6 +508,7 @@ export interface FileRouteTypes {
     | '/_authenticated/tutor'
     | '/api/tutor'
     | '/_authenticated/admin/corpus'
+    | '/_authenticated/admin/informe-auspiciante'
     | '/_authenticated/curso/$lang'
     | '/_authenticated/guarani-escolar/rescate'
     | '/_authenticated/guarani-escolar/semanal'
@@ -785,6 +798,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminCorpusRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/informe-auspiciante': {
+      id: '/_authenticated/admin/informe-auspiciante'
+      path: '/admin/informe-auspiciante'
+      fullPath: '/admin/informe-auspiciante'
+      preLoaderRoute: typeof AuthenticatedAdminInformeAuspicianteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/guarani-escolar/tema/': {
       id: '/_authenticated/guarani-escolar/tema/'
       path: '/'
@@ -885,6 +905,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedTraductorRoute: typeof AuthenticatedTraductorRoute
   AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
   AuthenticatedAdminCorpusRoute: typeof AuthenticatedAdminCorpusRoute
+  AuthenticatedAdminInformeAuspicianteRoute: typeof AuthenticatedAdminInformeAuspicianteRoute
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
   AuthenticatedJuegosAhorcadoRoute: typeof AuthenticatedJuegosAhorcadoRoute
   AuthenticatedJuegosMemoriaRoute: typeof AuthenticatedJuegosMemoriaRoute
@@ -908,6 +929,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedTraductorRoute: AuthenticatedTraductorRoute,
   AuthenticatedTutorRoute: AuthenticatedTutorRoute,
   AuthenticatedAdminCorpusRoute: AuthenticatedAdminCorpusRoute,
+  AuthenticatedAdminInformeAuspicianteRoute: AuthenticatedAdminInformeAuspicianteRoute,
   AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
   AuthenticatedJuegosAhorcadoRoute: AuthenticatedJuegosAhorcadoRoute,
   AuthenticatedJuegosMemoriaRoute: AuthenticatedJuegosMemoriaRoute,

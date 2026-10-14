@@ -23,3 +23,10 @@
 - Public sales pages: /instituciones (pilot offer) and /auspiciantes (sponsor slots) share src/components/marketing/page-parts.tsx; only real backing (Senado 547, SPL 116, Convenio Ateneo) and no user counts.
 - Weekly ranking (/ranking) sums xp_transactions since Monday 00:00 Paraguay time within the user's cohort, first names only, admins excluded. Certificate (/certificado) requires every published Guaraní lesson completed (source_ref guarani:N) and prints via window.print; no Ateneo logo, states it is not an official title.
 - Dark mode and large text are per-device prefs (src/lib/display-prefs.ts, localStorage with try/catch) applied on <html>; toggles live in the dashboard and landing headers.
+
+## Informe para auspiciante (14/10/2026)
+- Ruta admin `/admin/informe-auspiciante?sponsor=…&days=7|30|90` (registrada a mano en routeTree.gen.ts). Usa `getSponsorReport` (solo admin, rpc `sponsor_impressions_report`). Imprimible A4 vertical con window.print. Acceso: botón "Informe para el auspiciante" en Admin → Auspiciantes.
+- No suma "usuarios distintos" entre espacios (una persona puede ver varios).
+
+## Vista previa al compartir (14/10/2026)
+- `public/og-instituciones.png` y `public/og-auspiciantes.png` (1200x630) + og:url/og:image/twitter:* en el head de cada página.

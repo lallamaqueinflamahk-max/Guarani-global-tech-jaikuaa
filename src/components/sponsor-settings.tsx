@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
+import { Link } from "@tanstack/react-router";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -134,9 +135,16 @@ function ImpressionsReport() {
     <section className="space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="font-display font-semibold text-foreground">Impresiones últimos 30 días</div>
-        <Button type="button" variant="outline" size="sm" onClick={download} disabled={!rows.length}>
-          Descargar CSV
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button type="button" variant="outline" size="sm" onClick={download} disabled={!rows.length}>
+            Descargar CSV
+          </Button>
+          <Button asChild size="sm" disabled={!rows.length}>
+            <Link to="/admin/informe-auspiciante" search={{ days: 30 }}>
+              Informe para el auspiciante
+            </Link>
+          </Button>
+        </div>
       </div>
       {q.isLoading ? (
         <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
