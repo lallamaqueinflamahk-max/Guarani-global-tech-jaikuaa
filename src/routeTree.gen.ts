@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as InstitucionesRouteImport } from './routes/instituciones'
+import { Route as AuspiciantesRouteImport } from './routes/auspiciantes'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RecuperarRouteImport } from './routes/recuperar'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
@@ -54,6 +56,16 @@ const TerminosRoute = TerminosRouteImport.update({
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstitucionesRoute = InstitucionesRouteImport.update({
+  id: '/instituciones',
+  path: '/instituciones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuspiciantesRoute = AuspiciantesRouteImport.update({
+  id: '/auspiciantes',
+  path: '/auspiciantes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -253,6 +265,8 @@ export interface FileRoutesByFullPath {
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
+  '/instituciones': typeof InstitucionesRoute
+  '/auspiciantes': typeof AuspiciantesRoute
   '/terminos': typeof TerminosRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
@@ -290,6 +304,8 @@ export interface FileRoutesByTo {
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
+  '/instituciones': typeof InstitucionesRoute
+  '/auspiciantes': typeof AuspiciantesRoute
   '/terminos': typeof TerminosRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/logros': typeof AuthenticatedLogrosRoute
@@ -326,6 +342,8 @@ export interface FileRoutesById {
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
+  '/instituciones': typeof InstitucionesRoute
+  '/auspiciantes': typeof AuspiciantesRoute
   '/terminos': typeof TerminosRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
@@ -365,6 +383,8 @@ export interface FileRouteTypes {
     | '/recuperar'
     | '/reset-password'
     | '/sobre'
+    | '/instituciones'
+    | '/auspiciantes'
     | '/terminos'
     | '/dashboard'
     | '/guarani-escolar'
@@ -402,6 +422,8 @@ export interface FileRouteTypes {
     | '/recuperar'
     | '/reset-password'
     | '/sobre'
+    | '/instituciones'
+    | '/auspiciantes'
     | '/terminos'
     | '/dashboard'
     | '/logros'
@@ -437,6 +459,8 @@ export interface FileRouteTypes {
     | '/recuperar'
     | '/reset-password'
     | '/sobre'
+    | '/instituciones'
+    | '/auspiciantes'
     | '/terminos'
     | '/_authenticated/dashboard'
     | '/_authenticated/guarani-escolar'
@@ -476,6 +500,8 @@ export interface RootRouteChildren {
   RecuperarRoute: typeof RecuperarRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SobreRoute: typeof SobreRoute
+  InstitucionesRoute: typeof InstitucionesRoute
+  AuspiciantesRoute: typeof AuspiciantesRoute
   TerminosRoute: typeof TerminosRoute
   ApiTutorRoute: typeof ApiTutorRoute
 }
@@ -494,6 +520,20 @@ declare module '@tanstack/react-router' {
       path: '/sobre'
       fullPath: '/sobre'
       preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/instituciones': {
+      id: '/instituciones'
+      path: '/instituciones'
+      fullPath: '/instituciones'
+      preLoaderRoute: typeof InstitucionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auspiciantes': {
+      id: '/auspiciantes'
+      path: '/auspiciantes'
+      fullPath: '/auspiciantes'
+      preLoaderRoute: typeof AuspiciantesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reset-password': {
@@ -849,6 +889,8 @@ const rootRouteChildren: RootRouteChildren = {
   RecuperarRoute: RecuperarRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SobreRoute: SobreRoute,
+  InstitucionesRoute: InstitucionesRoute,
+  AuspiciantesRoute: AuspiciantesRoute,
   TerminosRoute: TerminosRoute,
   ApiTutorRoute: ApiTutorRoute,
 }
