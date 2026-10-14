@@ -57,6 +57,13 @@
       "when": 1791918923107,
       "tag": "0007_corpus_words_category",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791970528706,
+      "tag": "0008_sponsor_impressions",
+      "breakpoints": true
     }
   ]
 }
