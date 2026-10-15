@@ -404,7 +404,7 @@ function Arena({ match, names, rival, onAnswer, onReact, onRematch, onExit, riva
   const secsLeft = Math.max(0, Math.ceil((ANSWER_MS - inRound) / 1000));
   const urgent = !revealing && !my && secsLeft <= 3;
   let streak = 0;
-  for (let i = idx; i >= 0; i--) { if (mine[i]?.correct) streak++; else if (i !== idx || mine[i]) break; }
+  for (let i = my ? idx : idx - 1; i >= 0 && mine[i]?.correct; i--) streak++;
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-2 text-sm">
