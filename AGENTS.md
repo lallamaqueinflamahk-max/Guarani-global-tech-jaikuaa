@@ -30,3 +30,4 @@
 
 ## Vista previa al compartir (14/10/2026)
 - `public/og-instituciones.png` y `public/og-auspiciantes.png` (1200x630) + og:url/og:image/twitter:* en el head de cada página.
+- Offline: vite-plugin-pwa generateSW writes dist/client/sw.js, registered only via src/lib/pwa.ts (never in preview/dev); audio cached by file path ignoring signed-URL query — keeps previews safe and audio playable offline.
