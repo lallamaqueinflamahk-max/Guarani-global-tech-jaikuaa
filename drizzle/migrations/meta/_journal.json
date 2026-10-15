@@ -64,6 +64,13 @@
       "when": 1791970528706,
       "tag": "0008_sponsor_impressions",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1792096441885,
+      "tag": "0009_certificates",
+      "breakpoints": true
     }
   ]
 }

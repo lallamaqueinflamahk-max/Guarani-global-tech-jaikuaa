@@ -6,6 +6,10 @@ import { getTema, type Tema } from "@/lib/guarani-tema";
 import { useRecordOnMount, useRecordVisit } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
 import { usePrefetchAudios } from "@/lib/audio";
+import { TEMAS_AGRO } from "@/lib/guarani-tema-agro";
+
+const AGRO_SLUGS = new Set(TEMAS_AGRO.map((t) => t.slug));
+const isAgro = (slug: string) => AGRO_SLUGS.has(slug);
 
 
 
@@ -51,16 +55,16 @@ function TemaPage() {
     <div className="mx-auto max-w-2xl">
       <div className="mb-2">
         <Link
-          to="/guarani-escolar/tema"
+          to={isAgro(tema.slug) ? "/agro" : "/guarani-escolar/tema"}
           className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-primary"
         >
-          ← Volver a los temas
+          {isAgro(tema.slug) ? "← Volver a Jaikuaa Agro-Rural" : "← Volver a los temas"}
         </Link>
       </div>
 
       <div className="mb-6">
         <div className="text-xs font-semibold uppercase tracking-wide text-accent">
-          Práctica por Tema · 6° grado
+          {isAgro(tema.slug) ? "Jaikuaa Agro-Rural · Ñemitỹ ha Ka'aguy" : "Práctica por Tema"}
         </div>
         <h1 className="mt-1 flex items-center gap-3 font-display text-3xl font-bold text-foreground sm:text-4xl">
           <span aria-hidden>{tema.emoji}</span>
@@ -252,7 +256,11 @@ function DoneStep({
           Reintentar quiz
         </Button>
         <Button asChild variant="cta" size="lg">
-          <Link to="/guarani-escolar/tema">Otro tema →</Link>
+          {isAgro(tema.slug) ? (
+            <Link to="/agro">Más temas del Agro →</Link>
+          ) : (
+            <Link to="/guarani-escolar/tema">Otro tema →</Link>
+          )}
         </Button>
       </div>
     </div>

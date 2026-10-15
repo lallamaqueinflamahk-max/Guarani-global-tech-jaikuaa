@@ -71,8 +71,14 @@ export const getWeeklyRanking = createServerFn({ method: "GET" })
 export const getCertificateStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
+    const status = await computeCertificateStatus(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const me = context.userId;
+    const { data: cert } = await supabaseAdmin.from("certificates").select("code").eq("user_id", context.userId).maybeSingle();
+    return { ...status, code: cert?.code ?? null };
+  });
+
+export async function computeCertificateStatus(me: string) {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const [{ data: profile }, { data: lessons }, { data: done }] = await Promise.all([
       supabaseAdmin.from("profiles").select("full_name").eq("id", me).maybeSingle(),
       supabaseAdmin
@@ -111,4 +117,4 @@ export const getCertificateStatus = createServerFn({ method: "GET" })
       eligible,
       issuedAt,
     };
-  });
+}

@@ -34,6 +34,7 @@ import { Route as AuthenticatedTecladoRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedTraductorRouteImport } from './routes/_authenticated/traductor'
 import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
 import { Route as ApiTutorRouteImport } from './routes/api/tutor'
+import { Route as VerificarCodeRouteImport } from './routes/verificar.$code'
 import { Route as AuthenticatedAdminCorpusRouteImport } from './routes/_authenticated/admin.corpus'
 import { Route as AuthenticatedAdminInformeAuspicianteRouteImport } from './routes/_authenticated/admin.informe-auspiciante'
 import { Route as AuthenticatedCursoLangRouteImport } from './routes/_authenticated/curso.$lang'
@@ -182,6 +183,11 @@ const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
 const ApiTutorRoute = ApiTutorRouteImport.update({
   id: '/api/tutor',
   path: '/api/tutor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerificarCodeRoute = VerificarCodeRouteImport.update({
+  id: '/verificar/$code',
+  path: '/verificar/$code',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminCorpusRoute =
@@ -347,6 +353,7 @@ export interface FileRoutesByFullPath {
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
+  '/verificar/$code': typeof VerificarCodeRoute
   '/admin/corpus': typeof AuthenticatedAdminCorpusRoute
   '/admin/informe-auspiciante': typeof AuthenticatedAdminInformeAuspicianteRoute
   '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
@@ -395,6 +402,7 @@ export interface FileRoutesByTo {
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
+  '/verificar/$code': typeof VerificarCodeRoute
   '/admin/corpus': typeof AuthenticatedAdminCorpusRoute
   '/admin/informe-auspiciante': typeof AuthenticatedAdminInformeAuspicianteRoute
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
@@ -444,6 +452,7 @@ export interface FileRoutesById {
   '/_authenticated/traductor': typeof AuthenticatedTraductorRoute
   '/_authenticated/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
+  '/verificar/$code': typeof VerificarCodeRoute
   '/_authenticated/admin/corpus': typeof AuthenticatedAdminCorpusRoute
   '/_authenticated/admin/informe-auspiciante': typeof AuthenticatedAdminInformeAuspicianteRoute
   '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
@@ -495,6 +504,7 @@ export interface FileRouteTypes {
     | '/traductor'
     | '/tutor'
     | '/api/tutor'
+    | '/verificar/$code'
     | '/admin/corpus'
     | '/admin/informe-auspiciante'
     | '/curso/$lang'
@@ -543,6 +553,7 @@ export interface FileRouteTypes {
     | '/traductor'
     | '/tutor'
     | '/api/tutor'
+    | '/verificar/$code'
     | '/admin/corpus'
     | '/admin/informe-auspiciante'
     | '/guarani-escolar/rescate'
@@ -591,6 +602,7 @@ export interface FileRouteTypes {
     | '/_authenticated/traductor'
     | '/_authenticated/tutor'
     | '/api/tutor'
+    | '/verificar/$code'
     | '/_authenticated/admin/corpus'
     | '/_authenticated/admin/informe-auspiciante'
     | '/_authenticated/curso/$lang'
@@ -630,6 +642,7 @@ export interface RootRouteChildren {
   SobreRoute: typeof SobreRoute
   TerminosRoute: typeof TerminosRoute
   ApiTutorRoute: typeof ApiTutorRoute
+  VerificarCodeRoute: typeof VerificarCodeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -807,6 +820,13 @@ declare module '@tanstack/react-router' {
       path: '/api/tutor'
       fullPath: '/api/tutor'
       preLoaderRoute: typeof ApiTutorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verificar/$code': {
+      id: '/verificar/$code'
+      path: '/verificar/$code'
+      fullPath: '/verificar/$code'
+      preLoaderRoute: typeof VerificarCodeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/corpus': {
@@ -1110,6 +1130,7 @@ const rootRouteChildren: RootRouteChildren = {
   SobreRoute: SobreRoute,
   TerminosRoute: TerminosRoute,
   ApiTutorRoute: ApiTutorRoute,
+  VerificarCodeRoute: VerificarCodeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
