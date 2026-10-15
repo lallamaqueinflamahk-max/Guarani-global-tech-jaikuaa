@@ -265,14 +265,13 @@ function Dashboard() {
                 <FreeCard to="/nhe-rape" emoji="📖" title="Ñe'ẽ Rape" desc="El camino de la palabra. Tributo al Prof. Ramón Silva." accent="primary" />
               </div>
               <div className="mt-6 grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setOpenTeaser("karaoke")}
-                  className="rounded-2xl border border-dashed border-border bg-muted/40 p-4 text-left transition-colors hover:bg-muted"
+                <Link
+                  to="/juegos/karaoke"
+                  className="rounded-2xl border border-border bg-card p-4 text-left transition-colors hover:bg-muted"
                 >
-                  <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">Próximamente</span>
-                  <div className="mt-1 font-display font-bold text-foreground">🎤 Karaoke Ñe'ẽ</div>
-                </button>
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-accent">Nuevo</span>
+                  <div className="mt-1 font-display font-bold text-foreground">🎤 Purahéi Karaoke</div>
+                </Link>
                 <button
                   type="button"
                   onClick={() => setOpenTeaser("vivo")}
