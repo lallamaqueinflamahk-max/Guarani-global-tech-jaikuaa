@@ -18,6 +18,7 @@ export const Route = createFileRoute("/_authenticated/juegos/")({
 });
 
 const GAMES = [
+  { to: "/juegos/nee-rape", tone: "search", icon: Wifi, title: "Ñe'ẽ Rape · A distancia", desc: "Desafiá por WhatsApp: cada uno desde su celular. 4 senderos. Nuevo · Multijugador a distancia", xp: "hasta 20 XP" },
   { to: "/juegos/duelo", tone: "football", icon: Swords, title: "Duelo Cara a Cara", desc: "2 jugadores, 1 celular. El más rápido en traducir gana. Nuevo · Multijugador", xp: "hasta 20 XP" },
   { to: "/juegos/trivia-duelo", tone: "daily", icon: Brain, title: "Duelo de Trivia", desc: "2 jugadores, 1 celular. ¿Quién sabe más del Paraguay? Nuevo · Multijugador", xp: "hasta 20 XP" },
   { to: "/juegos/ahorcado", tone: "chipa", icon: CircleDashed, title: "Ahorcado con chipas", desc: "Adiviná la palabra antes de que se acaben las 6 chipas.", xp: "hasta 15 XP" },
