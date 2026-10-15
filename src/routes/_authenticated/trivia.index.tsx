@@ -3,12 +3,13 @@ import { ValidationNotice } from "@/components/validation-notice";
 import { BrandLogo } from "@/components/brand-logo";
 import { SiteFooter } from "@/components/site-footer";
 import { TRIVIA, TRIVIA_ORDER } from "@/lib/trivia";
+import { TriviaRoulette } from "@/components/games/trivia-roulette";
 
 export const Route = createFileRoute("/_authenticated/trivia/")({
   head: () => ({
     meta: [
       { title: "Jaikuaápa — Trivia | Jaikuaa" },
-      { name: "description", content: "Poné a prueba lo que sabés sobre guaraní, mitos y cultura paraguaya." },
+      { name: "description", content: "Preguntados paraguayo: gastronomía, mitos, deportes, música, historia y naturaleza." },
     ],
   }),
   component: TriviaLanding,
@@ -42,11 +43,18 @@ function TriviaLanding() {
               Jaikuaápa
             </h1>
             <p className="mx-auto mt-3 max-w-xl text-base text-muted-foreground sm:text-lg">
-              Poné a prueba lo que sabés.
+              Girá la ruleta y demostrá cuánto sabés del Paraguay.
             </p>
           </div>
 
-          <section className="mt-10 grid gap-4 sm:grid-cols-3">
+          <section className="mt-8">
+            <TriviaRoulette />
+          </section>
+
+          <h2 className="mt-10 text-center font-display text-lg font-bold text-foreground">
+            O elegí tu tema
+          </h2>
+          <section className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {TRIVIA_ORDER.map((id) => {
               const cat = TRIVIA[id];
               return (
@@ -54,7 +62,7 @@ function TriviaLanding() {
                   key={id}
                   to="/trivia/$category"
                   params={{ category: id }}
-                  className="group relative flex flex-col rounded-2xl border-2 border-primary/20 bg-card p-6 text-left shadow-elegant card-hover hover:border-primary hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  className="group relative flex flex-col rounded-2xl border-2 border-primary/20 bg-card p-4 sm:p-6 text-left shadow-elegant card-hover hover:border-primary hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   <span className="absolute right-4 top-4 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
                     Gratis
@@ -67,7 +75,7 @@ function TriviaLanding() {
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">{cat.subtitle}</p>
                   <span className="mt-4 text-sm font-medium text-primary">
-                    Jugar 7 preguntas →
+                    Jugar →
                   </span>
                 </Link>
               );
