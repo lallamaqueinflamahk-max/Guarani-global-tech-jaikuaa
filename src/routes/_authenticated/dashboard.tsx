@@ -287,6 +287,7 @@ function Dashboard() {
                 Apoyo y consulta. Las herramientas con IA son pruebas y no están validadas por especialistas.
               </p>
               <div className="grid gap-4 sm:grid-cols-2">
+                <FreeCard to="/teclado" emoji="⌨️" title="Teclado Guaraní" desc="Escribí con ã, g̃ y puso, y mandalo por WhatsApp." accent="primary" />
                 <FreeCard to="/traductor" emoji="🌐" title="Traductor" desc="Consulta rápida guaraní – español." accent="primary" experimental />
                 <FreeCard to="/tutor" emoji="✨" title="Tutor IA" desc="Conversá con un asistente para practicar." accent="primary" experimental />
                 <FreeCard to="/nhe-mbytepe" emoji="🗣️" title="Ñe'ẽ Mbytépe" desc="El guaraní que se habla en la calle." accent="primary" inValidation />

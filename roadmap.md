@@ -2,3 +2,5 @@
 - [x] Piloto Ateneo: Cuaderno digital del docente (/cuaderno) con semáforo y planilla.
 - [x] Modo sin conexión: app guardada, audios escuchados y avances que se sincronizan al volver la señal.
 - [ ] Juegos Duelo Cara a Cara y Relámpago Guaraní.
+- [x] Teclado Guaraní (/teclado) con Copiar y WhatsApp.
+- [x] Publicar juegos actualizados + teclado.
