@@ -9,6 +9,7 @@ const HELP = {
  'Memoria': {xp:'Entre 10 y 20 XP · menos intentos, más XP',steps:['🃏 Da vuelta dos tarjetas.','🤝 Formá parejas de palabra en guaraní y su significado.','🔊 Escuchá el audio al abrir la tarjeta en guaraní.','⭐ Completá los 6 pares con pocos intentos.']},
  'Palabra del día': {xp:'5 XP si acertás · una vez por día',steps:['🔊 Escuchá la palabra del día.','👆 Elegí su significado entre 4 opciones.','📅 Podés jugar una vez por día. Volvé mañana.']},
  'Penales': {xp:'4 XP por gol · 6 XP al ángulo · máximo 20 XP por tanda para Jugador 1',steps:['💡 Respondé la palabra: si acertás, el arquero es más lento.','🎯 Tocá el arco para apuntar.','⚽ Tocá de nuevo cuando la barra de fuerza esté en verde.','🤝 En Duelo, dos jugadores se turnan en el mismo celular.']},
+ 'Duelo Cara a Cara': {xp:'3 XP por punto + 5 XP al ganar · máximo 20 XP para Jugador 1',steps:['📱 Apoyen el celular en la mesa, uno de cada lado.','🔊 Suena una palabra en guaraní.','👆 El primero que toca su traducción gana el punto.','⛔ Si te equivocás, quedás bloqueado 1 segundo.','🏆 Gana quien llega a 5.']},
 } as const;
 
 export function GameHelp({title}:{title:string}) {

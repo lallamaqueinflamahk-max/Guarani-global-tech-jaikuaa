@@ -5,6 +5,7 @@ export const SPONSOR_SLOTS = {
   "sopa-de-letras": { key: "juego_sponsor_sopa", label: "Sopa de letras" },
   memoria: { key: "juego_sponsor_memoria", label: "Memoria" },
   penales: { key: "juego_sponsor_penales", label: "Penales" },
+  duelo: { key: "juego_sponsor_duelo", label: "Duelo Cara a Cara" },
 } as const;
 
 export type SponsorSlot = keyof typeof SPONSOR_SLOTS;
