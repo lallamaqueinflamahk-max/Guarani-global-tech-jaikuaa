@@ -21,6 +21,7 @@ import { Route as RecuperarRouteImport } from './routes/recuperar'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as TerminosRouteImport } from './routes/terminos'
+import { Route as AuthenticatedAgroRouteImport } from './routes/_authenticated/agro'
 import { Route as AuthenticatedCertificadoRouteImport } from './routes/_authenticated/certificado'
 import { Route as AuthenticatedCuadernoRouteImport } from './routes/_authenticated/cuaderno'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -115,6 +116,11 @@ const TerminosRoute = TerminosRouteImport.update({
   id: '/terminos',
   path: '/terminos',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAgroRoute = AuthenticatedAgroRouteImport.update({
+  id: '/agro',
+  path: '/agro',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedCertificadoRoute =
   AuthenticatedCertificadoRouteImport.update({
@@ -328,6 +334,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
   '/terminos': typeof TerminosRoute
+  '/agro': typeof AuthenticatedAgroRoute
   '/certificado': typeof AuthenticatedCertificadoRoute
   '/cuaderno': typeof AuthenticatedCuadernoRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
@@ -376,6 +383,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
   '/terminos': typeof TerminosRoute
+  '/agro': typeof AuthenticatedAgroRoute
   '/certificado': typeof AuthenticatedCertificadoRoute
   '/cuaderno': typeof AuthenticatedCuadernoRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
@@ -423,6 +431,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
   '/terminos': typeof TerminosRoute
+  '/_authenticated/agro': typeof AuthenticatedAgroRoute
   '/_authenticated/certificado': typeof AuthenticatedCertificadoRoute
   '/_authenticated/cuaderno': typeof AuthenticatedCuadernoRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
@@ -473,6 +482,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sobre'
     | '/terminos'
+    | '/agro'
     | '/certificado'
     | '/cuaderno'
     | '/dashboard'
@@ -521,6 +531,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sobre'
     | '/terminos'
+    | '/agro'
     | '/certificado'
     | '/cuaderno'
     | '/dashboard'
@@ -567,6 +578,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/sobre'
     | '/terminos'
+    | '/_authenticated/agro'
     | '/_authenticated/certificado'
     | '/_authenticated/cuaderno'
     | '/_authenticated/dashboard'
@@ -705,6 +717,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/terminos'
       preLoaderRoute: typeof TerminosRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/agro': {
+      id: '/_authenticated/agro'
+      path: '/agro'
+      fullPath: '/agro'
+      preLoaderRoute: typeof AuthenticatedAgroRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/certificado': {
       id: '/_authenticated/certificado'
@@ -1013,6 +1032,7 @@ const AuthenticatedCursoLangRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAgroRoute: typeof AuthenticatedAgroRoute
   AuthenticatedCertificadoRoute: typeof AuthenticatedCertificadoRoute
   AuthenticatedCuadernoRoute: typeof AuthenticatedCuadernoRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
@@ -1042,6 +1062,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAgroRoute: AuthenticatedAgroRoute,
   AuthenticatedCertificadoRoute: AuthenticatedCertificadoRoute,
   AuthenticatedCuadernoRoute: AuthenticatedCuadernoRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,

@@ -26,7 +26,7 @@ export const TEMAS_AGRO: Tema[] = [
     ],
   },
   {
-    slug: "agro-temitỹ",
+    slug: "agro-cultivos",
     emoji: "🌽",
     title: "Temitỹ (Rubros y cultivos)",
     subtitle: "Los cultivos de la agricultura familiar",
