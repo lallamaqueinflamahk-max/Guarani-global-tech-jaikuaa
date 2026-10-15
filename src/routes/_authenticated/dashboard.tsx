@@ -49,7 +49,7 @@ function StaffShortcuts() {
   );
 }
 
-function BigAction({ to, emoji, title, desc, tone }: { to: "/curso/guarani" | "/juegos" | "/juegos/palabra-del-dia"; emoji: string; title: string; desc: string; tone: "primary" | "accent" | "card" }) {
+function BigAction({ to, emoji, title, desc, tone }: { to: "/curso/$lang" | "/juegos" | "/juegos/palabra-del-dia"; emoji: string; title: string; desc: string; tone: "primary" | "accent" | "card" }) {
   const cls =
     tone === "primary"
       ? "bg-primary text-primary-foreground"
@@ -59,6 +59,7 @@ function BigAction({ to, emoji, title, desc, tone }: { to: "/curso/guarani" | "/
   return (
     <Link
       to={to}
+      params={to === "/curso/$lang" ? { lang: "guarani" } : undefined}
       className={`flex min-h-[84px] items-center gap-4 rounded-3xl p-4 shadow-lift transition-transform active:scale-[0.98] ${cls}`}
     >
       <span className="text-5xl leading-none" aria-hidden>{emoji}</span>
@@ -210,7 +211,7 @@ function Dashboard() {
 
           {/* 2. TRES BOTONES GIGANTES */}
           <nav aria-label="Elegí qué hacer" className="mt-5 grid gap-3">
-            <BigAction to="/curso/guarani" emoji="📚" title="Aprender" desc="Seguí tu curso con voces reales" tone="primary" />
+            <BigAction to="/curso/$lang" emoji="📚" title="Aprender" desc="Seguí tu curso con voces reales" tone="primary" />
             <BigAction to="/juegos" emoji="🎮" title="Jugar" desc="10 juegos con palabras en guaraní" tone="accent" />
             <BigAction to="/juegos/palabra-del-dia" emoji="⭐" title="Palabra del día" desc="Una palabra nueva, en 1 minuto" tone="card" />
           </nav>
@@ -228,7 +229,7 @@ function Dashboard() {
           <StaffShortcuts />
 
           {/* 4. TRES PILARES */}
-          <Tabs defaultValue="aprender" className="mt-10">
+          <Tabs defaultValue="aprender" className="mt-4">
             <TabsList className="grid h-auto w-full grid-cols-3 rounded-2xl p-1">
               <TabsTrigger value="aprender" className="rounded-xl py-2.5 text-xs sm:text-sm">
                 📚 Aprender
