@@ -1,4 +1,12 @@
-export type TriviaCategoryId = "vocabulario" | "mitos" | "cultura";
+export type TriviaCategoryId =
+  | "vocabulario"
+  | "mitos"
+  | "cultura"
+  | "gastronomia"
+  | "deportes"
+  | "musica"
+  | "historia"
+  | "naturaleza";
 
 export type TriviaQuestion = {
   q: string;
@@ -186,9 +194,91 @@ export const TRIVIA: Record<TriviaCategoryId, TriviaCategory> = {
       },
     ],
   },
+  gastronomia: {
+    id: "gastronomia",
+    title: 'Gastronomía',
+    subtitle: 'Sabores y costumbres de la mesa paraguaya',
+    emoji: "🍲",
+    questions: [
+      { q: '¿Cuál es el ingrediente base de la chipa?', options: ['Harina de trigo', 'Almidón de mandioca', 'Arroz', 'Avena'], answer: 1, explanation: 'La chipa se hace con almidón de mandioca, queso y huevo.' },
+      { q: '¿Qué tiene de curioso la sopa paraguaya?', options: ['Es un postre', 'Es sólida, como un pastel de maíz', 'Se toma fría', 'Lleva pescado'], answer: 1, explanation: "Es la 'sopa sólida' más famosa del mundo: un pastel de harina de maíz, queso y cebolla." },
+      { q: '¿Con qué se prepara tradicionalmente el tereré?', options: ['Yerba mate y agua fría', 'Té negro caliente', 'Café y leche', 'Cacao'], answer: 0, explanation: 'El tereré es yerba mate con agua fría, muchas veces con yuyos.' },
+      { q: "¿Qué comida se come tradicionalmente el 1 de agosto para 'espantar los males'?", options: ['Chipa guasu', 'Caña con ruda', 'Asado', 'Mbeju'], answer: 1, explanation: 'Se toma un traguito de caña con ruda el primero de agosto.' },
+      { q: '¿En qué fecha se celebra el Día Nacional del Tereré?', options: ['El último sábado de febrero', 'El 15 de mayo', 'El 24 de junio', 'El 1 de enero'], answer: 0, explanation: 'Desde 2011 se celebra el último sábado de febrero.' },
+      { q: 'La chipa guasu se hace principalmente con…', options: ['Choclo (maíz fresco)', 'Mandioca', 'Poroto', 'Papa'], answer: 0, explanation: 'La chipa guasu es un pastel de choclo con queso.' },
+    ],
+  },
+  deportes: {
+    id: "deportes",
+    title: 'Deportes',
+    subtitle: 'Fútbol, la Albirroja y grandes hazañas',
+    emoji: "⚽",
+    questions: [
+      { q: '¿Qué medalla ganó la selección paraguaya de fútbol en Atenas 2004?', options: ['Oro', 'Plata', 'Bronce', 'Ninguna'], answer: 1, explanation: 'Paraguay ganó la medalla de plata olímpica en Atenas 2004.' },
+      { q: '¿Cómo se le dice a la selección paraguaya de fútbol?', options: ['La Celeste', 'La Albirroja', 'La Verdeamarela', 'La Roja'], answer: 1, explanation: 'Por los colores rojo y blanco de su camiseta.' },
+      { q: '¿Qué arquero paraguayo era famoso por patear tiros libres y penales?', options: ['José Luis Chilavert', 'Justo Villar', 'Roque Santa Cruz', 'Carlos Gamarra'], answer: 0, explanation: 'Chilavert convirtió muchos goles siendo arquero.' },
+      { q: '¿En qué Mundial llegó Paraguay a cuartos de final?', options: ['Francia 1998', 'Sudáfrica 2010', 'Brasil 2014', 'Rusia 2018'], answer: 1, explanation: 'En Sudáfrica 2010 Paraguay alcanzó los cuartos de final, su mejor actuación.' },
+      { q: '¿Cuántas Copas América ganó Paraguay?', options: ['Ninguna', 'Dos (1953 y 1979)', 'Cinco', 'Una'], answer: 1, explanation: 'Paraguay fue campeón de América en 1953 y 1979.' },
+      { q: '¿Qué deporte con raqueta tiene gran tradición paraguaya gracias a Víctor Pecci?', options: ['Tenis', 'Bádminton', 'Ping pong', 'Pádel'], answer: 0, explanation: 'Víctor Pecci fue finalista de Roland Garros en 1979.' },
+    ],
+  },
+  musica: {
+    id: "musica",
+    title: 'Música y Arte',
+    subtitle: 'Polca, guarania, arpa y poesía',
+    emoji: "🎵",
+    questions: [
+      { q: '¿Quién creó la guarania?', options: ['José Asunción Flores', 'Agustín Pío Barrios', 'Félix Pérez Cardozo', 'Herminio Giménez'], answer: 0, explanation: 'José Asunción Flores creó la guarania en 1925.' },
+      { q: '¿Qué instrumento es símbolo de la música paraguaya?', options: ['El arpa', 'El bandoneón', 'La quena', 'El charango'], answer: 0, explanation: 'El arpa paraguaya es reconocida en todo el mundo.' },
+      { q: '¿Qué guitarrista paraguayo es considerado uno de los más grandes del mundo?', options: ["Agustín Pío Barrios 'Mangoré'", 'Andrés Segovia', 'Paco de Lucía', 'Atahualpa Yupanqui'], answer: 0, explanation: "Mangoré compuso obras como 'La Catedral'." },
+      { q: '¿Qué ritmo es el más característico de la música folclórica paraguaya?', options: ['La polca paraguaya', 'El tango', 'La cumbia', 'La samba'], answer: 0, explanation: 'La polca paraguaya es alegre y muy bailada.' },
+      { q: "¿Quién compuso la música de 'Pájaro Campana'?", options: ['Félix Pérez Cardozo', 'Carlos Gardel', 'Mangoré', 'Emiliano R. Fernández'], answer: 0, explanation: 'Es una obra emblemática para arpa.' },
+      { q: '¿Qué danza se baila con una botella en la cabeza?', options: ['Danza de la botella', 'Chamamé', 'Malambo', 'Cueca'], answer: 0, explanation: 'La danza de la botella es tradicional del folclore paraguayo.' },
+    ],
+  },
+  historia: {
+    id: "historia",
+    title: 'Historia y Geografía',
+    subtitle: 'El Paraguay de ayer y de hoy',
+    emoji: "📜",
+    questions: [
+      { q: '¿En qué año se independizó Paraguay?', options: ['1811', '1810', '1816', '1825'], answer: 0, explanation: 'La independencia fue el 14 y 15 de mayo de 1811.' },
+      { q: '¿Cuál es la capital del Paraguay?', options: ['Asunción', 'Encarnación', 'Ciudad del Este', 'Concepción'], answer: 0, explanation: "Asunción, fundada en 1537, es la 'Madre de Ciudades'." },
+      { q: '¿Contra qué país fue la Guerra del Chaco (1932–1935)?', options: ['Bolivia', 'Argentina', 'Brasil', 'Uruguay'], answer: 0, explanation: 'Paraguay defendió el Chaco frente a Bolivia.' },
+      { q: '¿Qué ríos rodean gran parte del territorio paraguayo?', options: ['Paraguay y Paraná', 'Amazonas y Orinoco', 'Uruguay y Negro', 'Bermejo y Salado'], answer: 0, explanation: 'El río Paraguay divide al país en dos regiones.' },
+      { q: '¿Qué ruinas jesuíticas son Patrimonio de la Humanidad?', options: ['Trinidad y Jesús', 'Machu Picchu', 'Tiwanaku', 'Chan Chan'], answer: 0, explanation: 'Las misiones de Trinidad y Jesús de Tavarangue fueron declaradas por la UNESCO en 1993.' },
+      { q: '¿Cuántos departamentos tiene Paraguay, sin contar la capital?', options: ['17', '12', '20', '9'], answer: 0, explanation: 'Paraguay tiene 17 departamentos y la capital Asunción.' },
+    ],
+  },
+  naturaleza: {
+    id: "naturaleza",
+    title: 'Naturaleza',
+    subtitle: 'Fauna y flora del Paraguay',
+    emoji: "🌿",
+    questions: [
+      { q: '¿Cuál es el árbol nacional del Paraguay?', options: ['El lapacho', 'El ombú', 'El ceibo', 'El quebracho'], answer: 0, explanation: 'El lapacho florece en rosa, amarillo y blanco.' },
+      { q: '¿Cuál es el ave nacional del Paraguay?', options: ['El pájaro campana', 'El cóndor', 'El hornero', 'El tucán'], answer: 0, explanation: 'El pájaro campana es famoso por su canto metálico.' },
+      { q: '¿Qué animal en peligro, redescubierto en el Chaco en 1974, se creía extinto?', options: ['El taguá (pecarí chaqueño)', 'El dodo', 'El tigre de Tasmania', 'El mamut'], answer: 0, explanation: 'El taguá solo se conocía por fósiles hasta ser hallado vivo.' },
+      { q: '¿Cuál es el felino más grande de América?', options: ['El jaguar', 'El puma', 'El ocelote', 'El gato montés'], answer: 0, explanation: 'El jaguar habita todavía algunos bosques y el Chaco paraguayo.' },
+      { q: '¿Qué gran humedal comparte Paraguay con Brasil y Bolivia?', options: ['El Pantanal', 'Los Esteros del Iberá', 'El Delta', 'La Amazonía'], answer: 0, explanation: 'El Pantanal es uno de los humedales más grandes del mundo.' },
+      { q: '¿Qué planta paraguaya endulza 300 veces más que el azúcar?', options: ["La stevia (ka'a he'ẽ)", 'La caña', 'La remolacha', 'El maíz'], answer: 0, explanation: 'La stevia es originaria del Paraguay.' },
+    ],
+  },
 };
 
-export const TRIVIA_ORDER: TriviaCategoryId[] = ["vocabulario", "mitos", "cultura"];
+export const TRIVIA_ORDER: TriviaCategoryId[] = [
+  "gastronomia",
+  "mitos",
+  "deportes",
+  "musica",
+  "historia",
+  "naturaleza",
+  "cultura",
+  "vocabulario",
+];
+
+/** Categories shown on the roulette wheel. */
+export const ROULETTE: TriviaCategoryId[] = ["gastronomia", "mitos", "deportes", "musica", "historia", "naturaleza"];
 
 // XP economy
 export const XP_PER_CORRECT = 10;
