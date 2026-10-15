@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GameShell } from "@/components/games/game-shell";
 import { useRecordVisit } from "@/lib/gamification";
-import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal, Swords, Brain, Wifi, ChefHat } from 'lucide-react';
+import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal, Swords, Brain, Wifi, ChefHat, Mic } from 'lucide-react';
 import jaiAsset from "@/assets/jai.png.asset.json";
 import { AoPoiDivider, Terere, Chipa, Arpa, JaiPaw } from "@/components/py-icons";
 
@@ -21,6 +21,7 @@ export const Route = createFileRoute("/_authenticated/juegos/")({
 
 const GAMES = [
   { to: "/juegos/nee-rape", tone: "search", icon: Wifi, title: "Ñe'ẽ Rape · A distancia", desc: "Desafiá por WhatsApp: cada uno desde su celular. 4 senderos. Nuevo · Multijugador a distancia", xp: "hasta 20 XP" },
+  { to: "/juegos/karaoke", tone: "daily", icon: Mic, title: "Purahéi Karaoke", desc: "Cantá en guaraní al ritmo del arpa y completá el verso. Nuevo", xp: "hasta 20 XP" },
   { to: "/juegos/tembiu", tone: "chipa", icon: ChefHat, title: "Tembi'u Paraguái", desc: "Armá los platos típicos: sopa paraguaya, mbeju, vori vori… Nuevo", xp: "hasta 20 XP" },
   { to: "/juegos/duelo", tone: "football", icon: Swords, title: "Duelo Cara a Cara", desc: "En el mismo celular o a distancia, cada uno desde el suyo.", xp: "hasta 20 XP" },
   { to: "/juegos/trivia-duelo", tone: "daily", icon: Brain, title: "Duelo de Trivia", desc: "¿Quién sabe más del Paraguay? Mismo celular o a distancia.", xp: "hasta 20 XP" },
