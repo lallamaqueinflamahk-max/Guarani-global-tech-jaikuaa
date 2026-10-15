@@ -61,11 +61,23 @@ function WordOfDayContent() {
         <p className="text-center text-sm text-muted-foreground">Todavía no hay palabras con audio publicadas.</p>
       ) : (
         <div className="space-y-6">
-          <p className="text-center text-xs text-muted-foreground">{d.day} · la misma palabra para todos hoy</p>
-          <div className="flex flex-col items-center gap-3 rounded-2xl border border-primary/30 bg-card p-6 shadow-elegant">
-            <p className="text-sm text-muted-foreground">Escuchala y elegí qué significa</p>
-            <SpeakerButton gn={d.word.gn} size="md" className="h-14 w-14" />
-            {played && <div className="font-display text-2xl font-bold text-primary">{d.word.gn}</div>}
+          <p className="text-center text-xs text-muted-foreground">La misma palabra para todos hoy</p>
+          <div className="daily-card relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl p-7 text-center">
+            <svg viewBox="0 0 100 100" className="daily-lace pointer-events-none absolute -right-10 -top-10 h-48 w-48" fill="none" stroke="currentColor" strokeWidth="1" aria-hidden>
+              {Array.from({ length: 16 }, (_, k) => <line key={k} x1="50" y1="50" x2={50 + 48 * Math.cos((k * Math.PI) / 8)} y2={50 + 48 * Math.sin((k * Math.PI) / 8)} />)}
+              {[10, 22, 34, 46].map((r) => <circle key={r} cx="50" cy="50" r={r} strokeDasharray={r > 20 ? "3 3" : undefined} />)}
+            </svg>
+            <span className="daily-chip rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest">Carta del día · {d.day}</span>
+            <p className="text-sm opacity-85">Escuchala y elegí qué significa</p>
+            <div className="daily-play flex h-24 w-24 items-center justify-center rounded-full">
+              <SpeakerButton gn={d.word.gn} size="md" className="h-20 w-20 [&_svg]:h-9 [&_svg]:w-9" />
+            </div>
+            {played ? (
+              <div className="font-display text-4xl font-bold">{d.word.gn}</div>
+            ) : (
+              <div className="font-display text-4xl font-bold tracking-[0.3em] opacity-40" aria-hidden>? ? ?</div>
+            )}
+            {played?.correct && <span className="daily-chip rounded-full px-3 py-1 text-xs font-bold">★ Coleccionada</span>}
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
             {d.word.options.map((o) => {
