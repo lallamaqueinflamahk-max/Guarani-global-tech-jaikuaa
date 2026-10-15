@@ -33,7 +33,7 @@ const GAMES = [
 function GamesHome() {
   useRecordVisit("juegos");
   return (
-    <GameShell title="Juegos" emoji="🎮">
+    <GameShell title="Juegos" emoji="🎮" companion={false}>
       <div className="nanduti-bg relative overflow-hidden rounded-lg border border-border bg-card p-3 shadow-elegant">
         <div className="flex items-center gap-3">
           <img src={jaiAsset.url} alt="Jai, el jaguarete" className="penalties-mascot h-16 w-16 shrink-0 object-contain" />
