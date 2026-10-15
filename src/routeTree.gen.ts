@@ -9,91 +9,55 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TerminosRouteImport } from './routes/terminos'
-import { Route as SobreRouteImport } from './routes/sobre'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as RecuperarRouteImport } from './routes/recuperar'
-import { Route as PrivacidadRouteImport } from './routes/privacidad'
-import { Route as PilotoAteneoRouteImport } from './routes/piloto-ateneo'
-import { Route as InstitucionesRouteImport } from './routes/instituciones'
-import { Route as ComenzarRouteImport } from './routes/comenzar'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuspiciantesRouteImport } from './routes/auspiciantes'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiTutorRouteImport } from './routes/api/tutor'
-import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
-import { Route as AuthenticatedTraductorRouteImport } from './routes/_authenticated/traductor'
-import { Route as AuthenticatedRankingRouteImport } from './routes/_authenticated/ranking'
-import { Route as AuthenticatedNheRapeRouteImport } from './routes/_authenticated/nhe-rape'
-import { Route as AuthenticatedNheMbytepeRouteImport } from './routes/_authenticated/nhe-mbytepe'
-import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
-import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
-import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuspiciantesRouteImport } from './routes/auspiciantes'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ComenzarRouteImport } from './routes/comenzar'
+import { Route as InstitucionesRouteImport } from './routes/instituciones'
+import { Route as PilotoAteneoRouteImport } from './routes/piloto-ateneo'
+import { Route as PrivacidadRouteImport } from './routes/privacidad'
+import { Route as RecuperarRouteImport } from './routes/recuperar'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as AuthenticatedCertificadoRouteImport } from './routes/_authenticated/certificado'
-import { Route as AuthenticatedTriviaIndexRouteImport } from './routes/_authenticated/trivia.index'
-import { Route as AuthenticatedJuegosIndexRouteImport } from './routes/_authenticated/juegos.index'
-import { Route as AuthenticatedGuaraniEscolarIndexRouteImport } from './routes/_authenticated/guarani-escolar.index'
-import { Route as AuthenticatedTriviaCategoryRouteImport } from './routes/_authenticated/trivia.$category'
-import { Route as AuthenticatedJuegosSopaDeLetrasRouteImport } from './routes/_authenticated/juegos.sopa-de-letras'
-import { Route as AuthenticatedJuegosPenalesRouteImport } from './routes/_authenticated/juegos.penales'
-import { Route as AuthenticatedJuegosPalabraDelDiaRouteImport } from './routes/_authenticated/juegos.palabra-del-dia'
-import { Route as AuthenticatedJuegosMemoriaRouteImport } from './routes/_authenticated/juegos.memoria'
-import { Route as AuthenticatedJuegosAhorcadoRouteImport } from './routes/_authenticated/juegos.ahorcado'
-import { Route as AuthenticatedGuaraniEscolarTemaRouteImport } from './routes/_authenticated/guarani-escolar.tema'
-import { Route as AuthenticatedGuaraniEscolarSemanalRouteImport } from './routes/_authenticated/guarani-escolar.semanal'
-import { Route as AuthenticatedGuaraniEscolarRescateRouteImport } from './routes/_authenticated/guarani-escolar.rescate'
-import { Route as AuthenticatedCursoLangRouteImport } from './routes/_authenticated/curso.$lang'
-import { Route as AuthenticatedAdminInformeAuspicianteRouteImport } from './routes/_authenticated/admin.informe-auspiciante'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
+import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
+import { Route as AuthenticatedNheMbytepeRouteImport } from './routes/_authenticated/nhe-mbytepe'
+import { Route as AuthenticatedNheRapeRouteImport } from './routes/_authenticated/nhe-rape'
+import { Route as AuthenticatedRankingRouteImport } from './routes/_authenticated/ranking'
+import { Route as AuthenticatedTraductorRouteImport } from './routes/_authenticated/traductor'
+import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
+import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as AuthenticatedAdminCorpusRouteImport } from './routes/_authenticated/admin.corpus'
-import { Route as AuthenticatedGuaraniEscolarTemaIndexRouteImport } from './routes/_authenticated/guarani-escolar.tema.index'
+import { Route as AuthenticatedAdminInformeAuspicianteRouteImport } from './routes/_authenticated/admin.informe-auspiciante'
+import { Route as AuthenticatedCursoLangRouteImport } from './routes/_authenticated/curso.$lang'
+import { Route as AuthenticatedGuaraniEscolarIndexRouteImport } from './routes/_authenticated/guarani-escolar.index'
+import { Route as AuthenticatedGuaraniEscolarRescateRouteImport } from './routes/_authenticated/guarani-escolar.rescate'
+import { Route as AuthenticatedGuaraniEscolarSemanalRouteImport } from './routes/_authenticated/guarani-escolar.semanal'
+import { Route as AuthenticatedGuaraniEscolarTemaRouteImport } from './routes/_authenticated/guarani-escolar.tema'
+import { Route as AuthenticatedJuegosIndexRouteImport } from './routes/_authenticated/juegos.index'
+import { Route as AuthenticatedJuegosAhorcadoRouteImport } from './routes/_authenticated/juegos.ahorcado'
+import { Route as AuthenticatedJuegosMemoriaRouteImport } from './routes/_authenticated/juegos.memoria'
+import { Route as AuthenticatedJuegosPalabraDelDiaRouteImport } from './routes/_authenticated/juegos.palabra-del-dia'
+import { Route as AuthenticatedJuegosPenalesRouteImport } from './routes/_authenticated/juegos.penales'
+import { Route as AuthenticatedJuegosSopaDeLetrasRouteImport } from './routes/_authenticated/juegos.sopa-de-letras'
+import { Route as AuthenticatedTriviaIndexRouteImport } from './routes/_authenticated/trivia.index'
+import { Route as AuthenticatedTriviaCategoryRouteImport } from './routes/_authenticated/trivia.$category'
 import { Route as AuthenticatedCursoLangIndexRouteImport } from './routes/_authenticated/curso.$lang.index'
+import { Route as AuthenticatedGuaraniEscolarTemaIndexRouteImport } from './routes/_authenticated/guarani-escolar.tema.index'
 import { Route as AuthenticatedGuaraniEscolarTemaTopicRouteImport } from './routes/_authenticated/guarani-escolar.tema.$topic'
 import { Route as AuthenticatedCursoLangLeccionNRouteImport } from './routes/_authenticated/curso.$lang.leccion.$n'
 
-const TerminosRoute = TerminosRouteImport.update({
-  id: '/terminos',
-  path: '/terminos',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SobreRoute = SobreRouteImport.update({
-  id: '/sobre',
-  path: '/sobre',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RecuperarRoute = RecuperarRouteImport.update({
-  id: '/recuperar',
-  path: '/recuperar',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacidadRoute = PrivacidadRouteImport.update({
-  id: '/privacidad',
-  path: '/privacidad',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PilotoAteneoRoute = PilotoAteneoRouteImport.update({
-  id: '/piloto-ateneo',
-  path: '/piloto-ateneo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InstitucionesRoute = InstitucionesRouteImport.update({
-  id: '/instituciones',
-  path: '/instituciones',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ComenzarRoute = ComenzarRouteImport.update({
-  id: '/comenzar',
-  path: '/comenzar',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuspiciantesRoute = AuspiciantesRouteImport.update({
@@ -101,48 +65,60 @@ const AuspiciantesRoute = AuspiciantesRouteImport.update({
   path: '/auspiciantes',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ComenzarRoute = ComenzarRouteImport.update({
+  id: '/comenzar',
+  path: '/comenzar',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiTutorRoute = ApiTutorRouteImport.update({
-  id: '/api/tutor',
-  path: '/api/tutor',
+const InstitucionesRoute = InstitucionesRouteImport.update({
+  id: '/instituciones',
+  path: '/instituciones',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
-  id: '/tutor',
-  path: '/tutor',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const PilotoAteneoRoute = PilotoAteneoRouteImport.update({
+  id: '/piloto-ateneo',
+  path: '/piloto-ateneo',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedTraductorRoute = AuthenticatedTraductorRouteImport.update({
-  id: '/traductor',
-  path: '/traductor',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const PrivacidadRoute = PrivacidadRouteImport.update({
+  id: '/privacidad',
+  path: '/privacidad',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRankingRoute = AuthenticatedRankingRouteImport.update({
-  id: '/ranking',
-  path: '/ranking',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const RecuperarRoute = RecuperarRouteImport.update({
+  id: '/recuperar',
+  path: '/recuperar',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedNheRapeRoute = AuthenticatedNheRapeRouteImport.update({
-  id: '/nhe-rape',
-  path: '/nhe-rape',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedNheMbytepeRoute = AuthenticatedNheMbytepeRouteImport.update({
-  id: '/nhe-mbytepe',
-  path: '/nhe-mbytepe',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedLogrosRoute = AuthenticatedLogrosRouteImport.update({
-  id: '/logros',
-  path: '/logros',
+const TerminosRoute = TerminosRouteImport.update({
+  id: '/terminos',
+  path: '/terminos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedCertificadoRoute =
+  AuthenticatedCertificadoRouteImport.update({
+    id: '/certificado',
+    path: '/certificado',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedGuaraniEscolarRoute =
@@ -151,81 +127,62 @@ const AuthenticatedGuaraniEscolarRoute =
     path: '/guarani-escolar',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AuthenticatedLogrosRoute = AuthenticatedLogrosRouteImport.update({
+  id: '/logros',
+  path: '/logros',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedCertificadoRoute =
-  AuthenticatedCertificadoRouteImport.update({
-    id: '/certificado',
-    path: '/certificado',
+const AuthenticatedNheMbytepeRoute = AuthenticatedNheMbytepeRouteImport.update({
+  id: '/nhe-mbytepe',
+  path: '/nhe-mbytepe',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNheRapeRoute = AuthenticatedNheRapeRouteImport.update({
+  id: '/nhe-rape',
+  path: '/nhe-rape',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRankingRoute = AuthenticatedRankingRouteImport.update({
+  id: '/ranking',
+  path: '/ranking',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTraductorRoute = AuthenticatedTraductorRouteImport.update({
+  id: '/traductor',
+  path: '/traductor',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ApiTutorRoute = ApiTutorRouteImport.update({
+  id: '/api/tutor',
+  path: '/api/tutor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminCorpusRoute =
+  AuthenticatedAdminCorpusRouteImport.update({
+    id: '/admin/corpus',
+    path: '/admin/corpus',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedTriviaIndexRoute =
-  AuthenticatedTriviaIndexRouteImport.update({
-    id: '/trivia/',
-    path: '/trivia/',
+const AuthenticatedAdminInformeAuspicianteRoute =
+  AuthenticatedAdminInformeAuspicianteRouteImport.update({
+    id: '/admin/informe-auspiciante',
+    path: '/admin/informe-auspiciante',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedJuegosIndexRoute =
-  AuthenticatedJuegosIndexRouteImport.update({
-    id: '/juegos/',
-    path: '/juegos/',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
+const AuthenticatedCursoLangRoute = AuthenticatedCursoLangRouteImport.update({
+  id: '/curso/$lang',
+  path: '/curso/$lang',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedGuaraniEscolarIndexRoute =
   AuthenticatedGuaraniEscolarIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => AuthenticatedGuaraniEscolarRoute,
-  } as any)
-const AuthenticatedTriviaCategoryRoute =
-  AuthenticatedTriviaCategoryRouteImport.update({
-    id: '/trivia/$category',
-    path: '/trivia/$category',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedJuegosSopaDeLetrasRoute =
-  AuthenticatedJuegosSopaDeLetrasRouteImport.update({
-    id: '/juegos/sopa-de-letras',
-    path: '/juegos/sopa-de-letras',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedJuegosPenalesRoute =
-  AuthenticatedJuegosPenalesRouteImport.update({
-    id: '/juegos/penales',
-    path: '/juegos/penales',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedJuegosPalabraDelDiaRoute =
-  AuthenticatedJuegosPalabraDelDiaRouteImport.update({
-    id: '/juegos/palabra-del-dia',
-    path: '/juegos/palabra-del-dia',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedJuegosMemoriaRoute =
-  AuthenticatedJuegosMemoriaRouteImport.update({
-    id: '/juegos/memoria',
-    path: '/juegos/memoria',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedJuegosAhorcadoRoute =
-  AuthenticatedJuegosAhorcadoRouteImport.update({
-    id: '/juegos/ahorcado',
-    path: '/juegos/ahorcado',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedGuaraniEscolarTemaRoute =
-  AuthenticatedGuaraniEscolarTemaRouteImport.update({
-    id: '/tema',
-    path: '/tema',
-    getParentRoute: () => AuthenticatedGuaraniEscolarRoute,
-  } as any)
-const AuthenticatedGuaraniEscolarSemanalRoute =
-  AuthenticatedGuaraniEscolarSemanalRouteImport.update({
-    id: '/semanal',
-    path: '/semanal',
     getParentRoute: () => AuthenticatedGuaraniEscolarRoute,
   } as any)
 const AuthenticatedGuaraniEscolarRescateRoute =
@@ -234,34 +191,77 @@ const AuthenticatedGuaraniEscolarRescateRoute =
     path: '/rescate',
     getParentRoute: () => AuthenticatedGuaraniEscolarRoute,
   } as any)
-const AuthenticatedCursoLangRoute = AuthenticatedCursoLangRouteImport.update({
-  id: '/curso/$lang',
-  path: '/curso/$lang',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAdminInformeAuspicianteRoute =
-  AuthenticatedAdminInformeAuspicianteRouteImport.update({
-    id: '/admin/informe-auspiciante',
-    path: '/admin/informe-auspiciante',
+const AuthenticatedGuaraniEscolarSemanalRoute =
+  AuthenticatedGuaraniEscolarSemanalRouteImport.update({
+    id: '/semanal',
+    path: '/semanal',
+    getParentRoute: () => AuthenticatedGuaraniEscolarRoute,
+  } as any)
+const AuthenticatedGuaraniEscolarTemaRoute =
+  AuthenticatedGuaraniEscolarTemaRouteImport.update({
+    id: '/tema',
+    path: '/tema',
+    getParentRoute: () => AuthenticatedGuaraniEscolarRoute,
+  } as any)
+const AuthenticatedJuegosIndexRoute =
+  AuthenticatedJuegosIndexRouteImport.update({
+    id: '/juegos/',
+    path: '/juegos/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedAdminCorpusRoute =
-  AuthenticatedAdminCorpusRouteImport.update({
-    id: '/admin/corpus',
-    path: '/admin/corpus',
+const AuthenticatedJuegosAhorcadoRoute =
+  AuthenticatedJuegosAhorcadoRouteImport.update({
+    id: '/juegos/ahorcado',
+    path: '/juegos/ahorcado',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedGuaraniEscolarTemaIndexRoute =
-  AuthenticatedGuaraniEscolarTemaIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AuthenticatedGuaraniEscolarTemaRoute,
+const AuthenticatedJuegosMemoriaRoute =
+  AuthenticatedJuegosMemoriaRouteImport.update({
+    id: '/juegos/memoria',
+    path: '/juegos/memoria',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedJuegosPalabraDelDiaRoute =
+  AuthenticatedJuegosPalabraDelDiaRouteImport.update({
+    id: '/juegos/palabra-del-dia',
+    path: '/juegos/palabra-del-dia',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedJuegosPenalesRoute =
+  AuthenticatedJuegosPenalesRouteImport.update({
+    id: '/juegos/penales',
+    path: '/juegos/penales',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedJuegosSopaDeLetrasRoute =
+  AuthenticatedJuegosSopaDeLetrasRouteImport.update({
+    id: '/juegos/sopa-de-letras',
+    path: '/juegos/sopa-de-letras',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedTriviaIndexRoute =
+  AuthenticatedTriviaIndexRouteImport.update({
+    id: '/trivia/',
+    path: '/trivia/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedTriviaCategoryRoute =
+  AuthenticatedTriviaCategoryRouteImport.update({
+    id: '/trivia/$category',
+    path: '/trivia/$category',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedCursoLangIndexRoute =
   AuthenticatedCursoLangIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedCursoLangRoute,
+  } as any)
+const AuthenticatedGuaraniEscolarTemaIndexRoute =
+  AuthenticatedGuaraniEscolarTemaIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedGuaraniEscolarTemaRoute,
   } as any)
 const AuthenticatedGuaraniEscolarTemaTopicRoute =
   AuthenticatedGuaraniEscolarTemaTopicRouteImport.update({
@@ -546,74 +546,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/terminos': {
-      id: '/terminos'
-      path: '/terminos'
-      fullPath: '/terminos'
-      preLoaderRoute: typeof TerminosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sobre': {
-      id: '/sobre'
-      path: '/sobre'
-      fullPath: '/sobre'
-      preLoaderRoute: typeof SobreRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/recuperar': {
-      id: '/recuperar'
-      path: '/recuperar'
-      fullPath: '/recuperar'
-      preLoaderRoute: typeof RecuperarRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacidad': {
-      id: '/privacidad'
-      path: '/privacidad'
-      fullPath: '/privacidad'
-      preLoaderRoute: typeof PrivacidadRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/piloto-ateneo': {
-      id: '/piloto-ateneo'
-      path: '/piloto-ateneo'
-      fullPath: '/piloto-ateneo'
-      preLoaderRoute: typeof PilotoAteneoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/instituciones': {
-      id: '/instituciones'
-      path: '/instituciones'
-      fullPath: '/instituciones'
-      preLoaderRoute: typeof InstitucionesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/comenzar': {
-      id: '/comenzar'
-      path: '/comenzar'
-      fullPath: '/comenzar'
-      preLoaderRoute: typeof ComenzarRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auspiciantes': {
-      id: '/auspiciantes'
-      path: '/auspiciantes'
-      fullPath: '/auspiciantes'
-      preLoaderRoute: typeof AuspiciantesRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -623,67 +560,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auspiciantes': {
+      id: '/auspiciantes'
+      path: '/auspiciantes'
+      fullPath: '/auspiciantes'
+      preLoaderRoute: typeof AuspiciantesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/tutor': {
-      id: '/api/tutor'
-      path: '/api/tutor'
-      fullPath: '/api/tutor'
-      preLoaderRoute: typeof ApiTutorRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/tutor': {
-      id: '/_authenticated/tutor'
-      path: '/tutor'
-      fullPath: '/tutor'
-      preLoaderRoute: typeof AuthenticatedTutorRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/comenzar': {
+      id: '/comenzar'
+      path: '/comenzar'
+      fullPath: '/comenzar'
+      preLoaderRoute: typeof ComenzarRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/traductor': {
-      id: '/_authenticated/traductor'
-      path: '/traductor'
-      fullPath: '/traductor'
-      preLoaderRoute: typeof AuthenticatedTraductorRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/instituciones': {
+      id: '/instituciones'
+      path: '/instituciones'
+      fullPath: '/instituciones'
+      preLoaderRoute: typeof InstitucionesRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/ranking': {
-      id: '/_authenticated/ranking'
-      path: '/ranking'
-      fullPath: '/ranking'
-      preLoaderRoute: typeof AuthenticatedRankingRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/piloto-ateneo': {
+      id: '/piloto-ateneo'
+      path: '/piloto-ateneo'
+      fullPath: '/piloto-ateneo'
+      preLoaderRoute: typeof PilotoAteneoRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/nhe-rape': {
-      id: '/_authenticated/nhe-rape'
-      path: '/nhe-rape'
-      fullPath: '/nhe-rape'
-      preLoaderRoute: typeof AuthenticatedNheRapeRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/privacidad': {
+      id: '/privacidad'
+      path: '/privacidad'
+      fullPath: '/privacidad'
+      preLoaderRoute: typeof PrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/nhe-mbytepe': {
-      id: '/_authenticated/nhe-mbytepe'
-      path: '/nhe-mbytepe'
-      fullPath: '/nhe-mbytepe'
-      preLoaderRoute: typeof AuthenticatedNheMbytepeRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/recuperar': {
+      id: '/recuperar'
+      path: '/recuperar'
+      fullPath: '/recuperar'
+      preLoaderRoute: typeof RecuperarRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/logros': {
-      id: '/_authenticated/logros'
-      path: '/logros'
-      fullPath: '/logros'
-      preLoaderRoute: typeof AuthenticatedLogrosRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/guarani-escolar': {
-      id: '/_authenticated/guarani-escolar'
-      path: '/guarani-escolar'
-      fullPath: '/guarani-escolar'
-      preLoaderRoute: typeof AuthenticatedGuaraniEscolarRouteImport
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terminos': {
+      id: '/terminos'
+      path: '/terminos'
+      fullPath: '/terminos'
+      preLoaderRoute: typeof TerminosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/certificado': {
+      id: '/_authenticated/certificado'
+      path: '/certificado'
+      fullPath: '/certificado'
+      preLoaderRoute: typeof AuthenticatedCertificadoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard': {
@@ -693,102 +644,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/certificado': {
-      id: '/_authenticated/certificado'
-      path: '/certificado'
-      fullPath: '/certificado'
-      preLoaderRoute: typeof AuthenticatedCertificadoRouteImport
+    '/_authenticated/guarani-escolar': {
+      id: '/_authenticated/guarani-escolar'
+      path: '/guarani-escolar'
+      fullPath: '/guarani-escolar'
+      preLoaderRoute: typeof AuthenticatedGuaraniEscolarRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/trivia/': {
-      id: '/_authenticated/trivia/'
-      path: '/trivia'
-      fullPath: '/trivia/'
-      preLoaderRoute: typeof AuthenticatedTriviaIndexRouteImport
+    '/_authenticated/logros': {
+      id: '/_authenticated/logros'
+      path: '/logros'
+      fullPath: '/logros'
+      preLoaderRoute: typeof AuthenticatedLogrosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/juegos/': {
-      id: '/_authenticated/juegos/'
-      path: '/juegos'
-      fullPath: '/juegos/'
-      preLoaderRoute: typeof AuthenticatedJuegosIndexRouteImport
+    '/_authenticated/nhe-mbytepe': {
+      id: '/_authenticated/nhe-mbytepe'
+      path: '/nhe-mbytepe'
+      fullPath: '/nhe-mbytepe'
+      preLoaderRoute: typeof AuthenticatedNheMbytepeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/guarani-escolar/': {
-      id: '/_authenticated/guarani-escolar/'
-      path: '/'
-      fullPath: '/guarani-escolar/'
-      preLoaderRoute: typeof AuthenticatedGuaraniEscolarIndexRouteImport
-      parentRoute: typeof AuthenticatedGuaraniEscolarRoute
-    }
-    '/_authenticated/trivia/$category': {
-      id: '/_authenticated/trivia/$category'
-      path: '/trivia/$category'
-      fullPath: '/trivia/$category'
-      preLoaderRoute: typeof AuthenticatedTriviaCategoryRouteImport
+    '/_authenticated/nhe-rape': {
+      id: '/_authenticated/nhe-rape'
+      path: '/nhe-rape'
+      fullPath: '/nhe-rape'
+      preLoaderRoute: typeof AuthenticatedNheRapeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/juegos/sopa-de-letras': {
-      id: '/_authenticated/juegos/sopa-de-letras'
-      path: '/juegos/sopa-de-letras'
-      fullPath: '/juegos/sopa-de-letras'
-      preLoaderRoute: typeof AuthenticatedJuegosSopaDeLetrasRouteImport
+    '/_authenticated/ranking': {
+      id: '/_authenticated/ranking'
+      path: '/ranking'
+      fullPath: '/ranking'
+      preLoaderRoute: typeof AuthenticatedRankingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/juegos/penales': {
-      id: '/_authenticated/juegos/penales'
-      path: '/juegos/penales'
-      fullPath: '/juegos/penales'
-      preLoaderRoute: typeof AuthenticatedJuegosPenalesRouteImport
+    '/_authenticated/traductor': {
+      id: '/_authenticated/traductor'
+      path: '/traductor'
+      fullPath: '/traductor'
+      preLoaderRoute: typeof AuthenticatedTraductorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/juegos/palabra-del-dia': {
-      id: '/_authenticated/juegos/palabra-del-dia'
-      path: '/juegos/palabra-del-dia'
-      fullPath: '/juegos/palabra-del-dia'
-      preLoaderRoute: typeof AuthenticatedJuegosPalabraDelDiaRouteImport
+    '/_authenticated/tutor': {
+      id: '/_authenticated/tutor'
+      path: '/tutor'
+      fullPath: '/tutor'
+      preLoaderRoute: typeof AuthenticatedTutorRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/juegos/memoria': {
-      id: '/_authenticated/juegos/memoria'
-      path: '/juegos/memoria'
-      fullPath: '/juegos/memoria'
-      preLoaderRoute: typeof AuthenticatedJuegosMemoriaRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/api/tutor': {
+      id: '/api/tutor'
+      path: '/api/tutor'
+      fullPath: '/api/tutor'
+      preLoaderRoute: typeof ApiTutorRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/juegos/ahorcado': {
-      id: '/_authenticated/juegos/ahorcado'
-      path: '/juegos/ahorcado'
-      fullPath: '/juegos/ahorcado'
-      preLoaderRoute: typeof AuthenticatedJuegosAhorcadoRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/guarani-escolar/tema': {
-      id: '/_authenticated/guarani-escolar/tema'
-      path: '/tema'
-      fullPath: '/guarani-escolar/tema'
-      preLoaderRoute: typeof AuthenticatedGuaraniEscolarTemaRouteImport
-      parentRoute: typeof AuthenticatedGuaraniEscolarRoute
-    }
-    '/_authenticated/guarani-escolar/semanal': {
-      id: '/_authenticated/guarani-escolar/semanal'
-      path: '/semanal'
-      fullPath: '/guarani-escolar/semanal'
-      preLoaderRoute: typeof AuthenticatedGuaraniEscolarSemanalRouteImport
-      parentRoute: typeof AuthenticatedGuaraniEscolarRoute
-    }
-    '/_authenticated/guarani-escolar/rescate': {
-      id: '/_authenticated/guarani-escolar/rescate'
-      path: '/rescate'
-      fullPath: '/guarani-escolar/rescate'
-      preLoaderRoute: typeof AuthenticatedGuaraniEscolarRescateRouteImport
-      parentRoute: typeof AuthenticatedGuaraniEscolarRoute
-    }
-    '/_authenticated/curso/$lang': {
-      id: '/_authenticated/curso/$lang'
-      path: '/curso/$lang'
-      fullPath: '/curso/$lang'
-      preLoaderRoute: typeof AuthenticatedCursoLangRouteImport
+    '/_authenticated/admin/corpus': {
+      id: '/_authenticated/admin/corpus'
+      path: '/admin/corpus'
+      fullPath: '/admin/corpus'
+      preLoaderRoute: typeof AuthenticatedAdminCorpusRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/informe-auspiciante': {
@@ -798,19 +714,96 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminInformeAuspicianteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin/corpus': {
-      id: '/_authenticated/admin/corpus'
-      path: '/admin/corpus'
-      fullPath: '/admin/corpus'
-      preLoaderRoute: typeof AuthenticatedAdminCorpusRouteImport
+    '/_authenticated/curso/$lang': {
+      id: '/_authenticated/curso/$lang'
+      path: '/curso/$lang'
+      fullPath: '/curso/$lang'
+      preLoaderRoute: typeof AuthenticatedCursoLangRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/guarani-escolar/tema/': {
-      id: '/_authenticated/guarani-escolar/tema/'
+    '/_authenticated/guarani-escolar/': {
+      id: '/_authenticated/guarani-escolar/'
       path: '/'
-      fullPath: '/guarani-escolar/tema/'
-      preLoaderRoute: typeof AuthenticatedGuaraniEscolarTemaIndexRouteImport
-      parentRoute: typeof AuthenticatedGuaraniEscolarTemaRoute
+      fullPath: '/guarani-escolar/'
+      preLoaderRoute: typeof AuthenticatedGuaraniEscolarIndexRouteImport
+      parentRoute: typeof AuthenticatedGuaraniEscolarRoute
+    }
+    '/_authenticated/guarani-escolar/rescate': {
+      id: '/_authenticated/guarani-escolar/rescate'
+      path: '/rescate'
+      fullPath: '/guarani-escolar/rescate'
+      preLoaderRoute: typeof AuthenticatedGuaraniEscolarRescateRouteImport
+      parentRoute: typeof AuthenticatedGuaraniEscolarRoute
+    }
+    '/_authenticated/guarani-escolar/semanal': {
+      id: '/_authenticated/guarani-escolar/semanal'
+      path: '/semanal'
+      fullPath: '/guarani-escolar/semanal'
+      preLoaderRoute: typeof AuthenticatedGuaraniEscolarSemanalRouteImport
+      parentRoute: typeof AuthenticatedGuaraniEscolarRoute
+    }
+    '/_authenticated/guarani-escolar/tema': {
+      id: '/_authenticated/guarani-escolar/tema'
+      path: '/tema'
+      fullPath: '/guarani-escolar/tema'
+      preLoaderRoute: typeof AuthenticatedGuaraniEscolarTemaRouteImport
+      parentRoute: typeof AuthenticatedGuaraniEscolarRoute
+    }
+    '/_authenticated/juegos/': {
+      id: '/_authenticated/juegos/'
+      path: '/juegos'
+      fullPath: '/juegos/'
+      preLoaderRoute: typeof AuthenticatedJuegosIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/juegos/ahorcado': {
+      id: '/_authenticated/juegos/ahorcado'
+      path: '/juegos/ahorcado'
+      fullPath: '/juegos/ahorcado'
+      preLoaderRoute: typeof AuthenticatedJuegosAhorcadoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/juegos/memoria': {
+      id: '/_authenticated/juegos/memoria'
+      path: '/juegos/memoria'
+      fullPath: '/juegos/memoria'
+      preLoaderRoute: typeof AuthenticatedJuegosMemoriaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/juegos/palabra-del-dia': {
+      id: '/_authenticated/juegos/palabra-del-dia'
+      path: '/juegos/palabra-del-dia'
+      fullPath: '/juegos/palabra-del-dia'
+      preLoaderRoute: typeof AuthenticatedJuegosPalabraDelDiaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/juegos/penales': {
+      id: '/_authenticated/juegos/penales'
+      path: '/juegos/penales'
+      fullPath: '/juegos/penales'
+      preLoaderRoute: typeof AuthenticatedJuegosPenalesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/juegos/sopa-de-letras': {
+      id: '/_authenticated/juegos/sopa-de-letras'
+      path: '/juegos/sopa-de-letras'
+      fullPath: '/juegos/sopa-de-letras'
+      preLoaderRoute: typeof AuthenticatedJuegosSopaDeLetrasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/trivia/': {
+      id: '/_authenticated/trivia/'
+      path: '/trivia'
+      fullPath: '/trivia/'
+      preLoaderRoute: typeof AuthenticatedTriviaIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/trivia/$category': {
+      id: '/_authenticated/trivia/$category'
+      path: '/trivia/$category'
+      fullPath: '/trivia/$category'
+      preLoaderRoute: typeof AuthenticatedTriviaCategoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/curso/$lang/': {
       id: '/_authenticated/curso/$lang/'
@@ -818,6 +811,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/curso/$lang/'
       preLoaderRoute: typeof AuthenticatedCursoLangIndexRouteImport
       parentRoute: typeof AuthenticatedCursoLangRoute
+    }
+    '/_authenticated/guarani-escolar/tema/': {
+      id: '/_authenticated/guarani-escolar/tema/'
+      path: '/'
+      fullPath: '/guarani-escolar/tema/'
+      preLoaderRoute: typeof AuthenticatedGuaraniEscolarTemaIndexRouteImport
+      parentRoute: typeof AuthenticatedGuaraniEscolarTemaRoute
     }
     '/_authenticated/guarani-escolar/tema/$topic': {
       id: '/_authenticated/guarani-escolar/tema/$topic'
