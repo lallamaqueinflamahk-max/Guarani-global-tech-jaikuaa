@@ -27,12 +27,23 @@ export const listCourseLessons = createServerFn({ method: "GET" })
           .in("lesson_id", ids)
           .eq("corpus_words.status", "published")
       : { data: [] };
+    const { data: done } = await sb
+      .from("xp_transactions")
+      .select("source_ref")
+      .eq("user_id", context.userId)
+      .eq("source", "lesson")
+      .like("source_ref", "guarani:%")
+      .limit(5000);
+    const completed = new Set(
+      (done ?? []).map((d) => Number(String(d.source_ref ?? "").split(":")[1])).filter(Number.isFinite),
+    );
     return {
       lessons: (lessons ?? []).map((l) => ({
         n: l.sort_order,
         title: l.title,
         theme: l.theme,
         publishedWords: (links ?? []).filter((x) => x.lesson_id === l.id).length,
+        completed: completed.has(l.sort_order),
       })),
     };
   });

@@ -32,6 +32,15 @@ function CourseIndex() {
   const lessons = isGuarani
     ? dbLessons.map((l) => l.n)
     : Array.from({ length: 10 }, (_, i) => i + 1);
+  // Desbloqueo progresivo: la primera abierta, y cada una tras completar la anterior.
+  const unlockedSet = new Set<number>();
+  dbLessons.forEach((l, i) => {
+    if (i === 0 || l.completed || dbLessons[i - 1]!.completed) unlockedSet.add(l.n);
+  });
+  const doneCount = dbLessons.filter((l) => l.completed).length;
+  const nextN =
+    dbLessons.find((l) => unlockedSet.has(l.n) && !l.completed && l.publishedWords > 0)?.n ??
+    (doneCount > 0 ? undefined : undefined);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -69,23 +78,45 @@ function CourseIndex() {
             </div>
           </div>
 
-          <ol className="mt-10 space-y-3">
+          {isGuarani && dbLessons.length > 0 && (
+            <div className="mt-8 rounded-2xl border border-border/60 bg-card p-5 shadow-sm">
+              <div className="flex items-center justify-between text-sm">
+                <span className="font-semibold text-foreground">Tu progreso</span>
+                <span className="text-muted-foreground">{doneCount}/{dbLessons.length} lecciones</span>
+              </div>
+              <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-muted">
+                <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${(doneCount / dbLessons.length) * 100}%` }} />
+              </div>
+              {nextN !== undefined && (
+                <Button asChild size="lg" className="mt-4 h-12 w-full text-base">
+                  <Link to="/curso/$lang/leccion/$n" params={{ lang: lang.slug, n: String(nextN) }}>
+                    {doneCount === 0 ? "Empezar" : "Continuar"} · Lección {nextN} →
+                  </Link>
+                </Button>
+              )}
+            </div>
+          )}
+
+          <ol className="mt-8 space-y-3">
             {lessons.map((n) => {
               const info = isGuarani ? byN.get(n) : undefined;
               const inValidation = !!info && info.publishedWords === 0;
-              const unlocked = n === firstN && !inValidation;
+              const unlocked = isGuarani ? unlockedSet.has(n) && !inValidation : n === 1;
+              const isDone = !!info?.completed;
               const title = info?.title;
               const inner = (
                 <>
                   <div className="flex items-center gap-4">
                     <div
                       className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-sm font-bold ${
-                        unlocked
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted text-muted-foreground"
+                        isDone
+                          ? "bg-accent text-accent-foreground"
+                          : unlocked
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-muted text-muted-foreground"
                       }`}
                     >
-                      {n}
+                      {isDone ? "✓" : n}
                     </div>
                     <div>
                       <div className="font-display text-base font-semibold text-foreground">
@@ -95,9 +126,11 @@ function CourseIndex() {
                       <div className="text-xs text-muted-foreground">
                         {inValidation
                           ? "En validación"
-                          : unlocked
-                            ? "Disponible"
-                            : "Se desbloquea al avanzar"}
+                          : isDone
+                            ? "Completada · podés repasarla"
+                            : unlocked
+                              ? "Disponible"
+                              : "Completá la anterior para abrirla"}
                       </div>
                     </div>
                   </div>

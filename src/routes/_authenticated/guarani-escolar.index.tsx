@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/")({
-  head: () => ({ meta: [{ title: "Jaikuaa — Guaraní Escolar" }] }),
+  head: () => ({ meta: [{ title: "Guaraní Escolar | Jaikuaa" }, { name: "description", content: "Prepará tus pruebas de Guaraní: Modo Rescate, Plan Semanal y práctica por tema." }, { property: "og:title", content: "Guaraní Escolar | Jaikuaa" }, { property: "og:description", content: "Prepará tus pruebas de Guaraní paso a paso." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: GuaraniEscolarEntry,
 });
 
@@ -56,12 +56,12 @@ function GuaraniEscolarEntry() {
         <label className="block text-center text-sm font-medium text-muted-foreground">
           Elegí tu año
         </label>
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {GRADES.map((g) => (
             <Button
               key={g}
               variant={g === grade ? "cta" : "outline"}
-              size="sm"
+              className="h-11 w-full"
               onClick={() => setGrade(g)}
               aria-pressed={g === grade}
             >
@@ -80,18 +80,20 @@ function GuaraniEscolarEntry() {
             key={path.to}
             to={path.to}
             
-            className={`group flex flex-col rounded-2xl border bg-card p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${path.style}`}
+            className={`group flex flex-row items-center gap-4 rounded-2xl border bg-card p-4 sm:flex-col sm:items-stretch sm:p-6 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${path.style}`}
           >
             <div className="text-4xl" aria-hidden>
               {path.emoji}
             </div>
-            <h2 className="mt-4 font-display text-xl font-semibold text-foreground">
+            <div className="flex-1">
+            <h2 className="font-display sm:mt-4 text-xl font-semibold text-foreground">
               {path.title}
             </h2>
-            <p className="mt-2 flex-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-sm text-muted-foreground">
               {path.description}
             </p>
-            <span className="mt-5 inline-flex h-9 items-center justify-center rounded-md bg-accent px-4 text-sm font-medium text-accent-foreground shadow transition group-hover:bg-accent/90 group-active:scale-95">
+            </div>
+            <span className="hidden sm:mt-5 sm:inline-flex h-9 items-center justify-center rounded-md bg-accent px-4 text-sm font-medium text-accent-foreground shadow transition group-hover:bg-accent/90 group-active:scale-95">
               Entrar →
             </span>
           </Link>
