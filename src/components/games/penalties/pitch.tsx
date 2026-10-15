@@ -33,7 +33,12 @@ export function PenaltyPitch({knew,ready,ledText,muted,onShot,guess}:{knew:boole
   };
  }
  function activate(point?:{x:number;y:number}){const s=scene.current;if(s.phase==='aim'){const p=point??s.aim;if(!p)return;if(p.x<G.x-40||p.x>G.x+G.w+40||p.y<G.y-40||p.y>G.y+G.h)return;s.aim=p;s.powerStart=performance.now();s.phase='power';}else if(s.phase==='power')kick();}
- function pointer(e:PointerEvent<HTMLCanvasElement>){e.preventDefault();const r=e.currentTarget.getBoundingClientRect();activate({x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height});}
+ const dragging=useRef(false);
+ function pt(e:PointerEvent<HTMLCanvasElement>){const r=e.currentTarget.getBoundingClientRect();return {x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height};}
+ const clamp=(p:{x:number;y:number})=>({x:Math.max(G.x-30,Math.min(G.x+G.w+30,p.x)),y:Math.max(G.y-30,Math.min(G.y+G.h-5,p.y))});
+ function down(e:PointerEvent<HTMLCanvasElement>){e.preventDefault();const s=scene.current;if(s.phase==='aim'){dragging.current=true;try{e.currentTarget.setPointerCapture(e.pointerId);}catch{}s.aim=clamp(pt(e));}else activate();}
+ function move(e:PointerEvent<HTMLCanvasElement>){const s=scene.current;if(s.phase!=='aim')return;if(dragging.current||e.pointerType==='mouse')s.aim=clamp(pt(e));}
+ function up(e:PointerEvent<HTMLCanvasElement>){if(!dragging.current)return;dragging.current=false;const s=scene.current;if(s.phase==='aim'){const p=clamp(pt(e));try{navigator.vibrate?.(15);}catch{}activate(p);}}
  function keyboard(e:KeyboardEvent<HTMLCanvasElement>){const s=scene.current;const delta:Record<string,[number,number]>={ArrowLeft:[-25,0],ArrowRight:[25,0],ArrowUp:[0,-20],ArrowDown:[0,20]};const d=delta[e.key];if(d&&s.phase==='aim'){e.preventDefault();const p=s.aim??{x:400,y:225};s.aim={x:Math.max(120,Math.min(680,p.x+d[0])),y:Math.max(80,Math.min(330,p.y+d[1]))};}if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}}
- return <canvas ref={canvas} width={W} height={H} tabIndex={0} onPointerDown={pointer} onKeyDown={keyboard} className="block aspect-[4/3] w-full touch-none rounded-lg focus-visible:outline-2 focus-visible:outline-accent" aria-label="Arco: tocá para apuntar y otra vez para patear"/>;
+ return <canvas ref={canvas} width={W} height={H} tabIndex={0} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={()=>{dragging.current=false;}} onKeyDown={keyboard} className="block aspect-[4/3] w-full touch-none rounded-lg focus-visible:outline-2 focus-visible:outline-accent" aria-label="Arco: deslizá el dedo para apuntar con la flecha, soltá y tocá otra vez para patear"/>;
 }

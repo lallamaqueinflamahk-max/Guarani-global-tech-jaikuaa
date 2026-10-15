@@ -33,13 +33,18 @@ function draw(now: number){
   drawKeeper(now);
   // aim reticle
   const showAim=S.phase==='aim'?(hover&&inGoal(hover)?hover:null):S.phase==='power'?S.aim:null;
-  if(showAim){const w=S.phase==='power'?wobble(now):{x:0,y:0};const ax=showAim.x+w.x,ay=showAim.y+w.y;ctx.strokeStyle=palette['gold'];ctx.lineWidth=3;ctx.beginPath();ctx.arc(ax,ay,18,0,7);ctx.moveTo(ax-28,ay);ctx.lineTo(ax-10,ay);ctx.moveTo(ax+10,ay);ctx.lineTo(ax+28,ay);ctx.moveTo(ax,ay-28);ctx.lineTo(ax,ay-10);ctx.moveTo(ax,ay+10);ctx.lineTo(ax,ay+28);ctx.stroke();
-    if(S.phase==='power'){ctx.setLineDash([6,8]);ctx.strokeStyle=alpha('gold', .5);ctx.beginPath();ctx.moveTo(400,520);ctx.quadraticCurveTo((400+ax)/2,ay+40,ax,ay);ctx.stroke();ctx.setLineDash([]);}}
+  if(showAim){const w=S.phase==='power'?wobble(now):{x:0,y:0};const ax=showAim.x+w.x,ay=showAim.y+w.y;
+    // trajectory arrow from the ball to the aim point
+    const cx=(400+ax)/2,cy=Math.min(ay,520)-40;const pulse=reduce?0:Math.sin(now/160)*.15;
+    ctx.save();ctx.lineCap='round';ctx.strokeStyle=alpha('black',.35);ctx.lineWidth=14;ctx.beginPath();ctx.moveTo(400,505);ctx.quadraticCurveTo(cx,cy,ax,ay);ctx.stroke();
+    ctx.strokeStyle=alpha('gold',.85+pulse);ctx.lineWidth=8;ctx.setLineDash([18,10]);ctx.lineDashOffset=reduce?0:-(now/20)%28;ctx.beginPath();ctx.moveTo(400,505);ctx.quadraticCurveTo(cx,cy,ax,ay);ctx.stroke();ctx.setLineDash([]);
+    const ang=Math.atan2(ay-cy,ax-cx),L=30;ctx.fillStyle=palette['gold'];ctx.strokeStyle=palette['black'];ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(ax+Math.cos(ang)*8,ay+Math.sin(ang)*8);ctx.lineTo(ax-Math.cos(ang-.45)*L,ay-Math.sin(ang-.45)*L);ctx.lineTo(ax-Math.cos(ang+.45)*L,ay-Math.sin(ang+.45)*L);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
+    ctx.strokeStyle=palette['white'];ctx.lineWidth=3;ctx.beginPath();ctx.arc(ax,ay,20,0,7);ctx.stroke();}
   // power meter
   if(S.phase==='power'){const p=power(now),[lo,hi]=zone(),mx=740,my=170,mh=300;ctx.fillStyle=alpha('black', .7);ctx.beginPath();ctx.roundRect(mx-6,my-6,40,mh+12,12);ctx.fill();
     ctx.fillStyle=palette['red'];ctx.fillRect(mx,my,28,mh*(1-hi));ctx.fillStyle=palette['green'];ctx.fillRect(mx,my+mh*(1-hi),28,mh*(hi-lo));ctx.fillStyle=palette['gold'];ctx.fillRect(mx,my+mh*(1-lo),28,mh*lo);
     ctx.fillStyle=palette['white'];ctx.fillRect(mx-8,my+mh*(1-p)-3,44,6);ctx.font='800 20px sans-serif,sans-serif';ctx.textAlign='center';ctx.fillText('FUERZA',mx+14,my+mh+28);}
-  if(S.phase==='aim'||S.phase==='power'){ctx.fillStyle=palette['gold'];ctx.font='800 32px sans-serif, sans-serif';ctx.textAlign='center';ctx.fillText(S.phase==='aim'?'Tocá el arco para apuntar':'¡Tocá cuando esté en verde!',400,G.y+G.h+46);}
+  if(S.phase==='aim'||S.phase==='power'){ctx.fillStyle=palette['gold'];ctx.font='800 32px sans-serif, sans-serif';ctx.textAlign='center';ctx.fillText(S.phase==='aim'?'Deslizá el dedo y soltá para apuntar':'¡Tocá cuando esté en verde!',400,G.y+G.h+46);}
   ctx.textAlign='start';
   const b=S.ball;ctx.fillStyle=alpha('black', .25);ctx.beginPath();ctx.ellipse(b.x,Math.max(b.y+b.r,G.y+G.h-10)+4,b.r,b.r*.35,0,0,7);ctx.fill();
   ctx.fillStyle=palette['white'];ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,7);ctx.fill();ctx.save();ctx.translate(b.x,b.y);ctx.rotate(reduce?0:b.y/25);ctx.fillStyle=palette['kit-dark'];ctx.beginPath();for(let i=0;i<5;i++){const a=i/5*Math.PI*2;ctx.lineTo(Math.cos(a)*b.r*.42,Math.sin(a)*b.r*.42);}ctx.fill();ctx.restore();
