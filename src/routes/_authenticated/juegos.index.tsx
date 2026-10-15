@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { GameShell } from "@/components/games/game-shell";
 import { useRecordVisit } from "@/lib/gamification";
 import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal, Swords, Brain, Wifi, ChefHat } from 'lucide-react';
+import jaiAsset from "@/assets/jai.png.asset.json";
 
 export const Route = createFileRoute("/_authenticated/juegos/")({
   head: () => ({
@@ -33,23 +34,28 @@ function GamesHome() {
   useRecordVisit("juegos");
   return (
     <GameShell title="Juegos" emoji="🎮">
-      <p className="text-center text-sm text-muted-foreground">
-        Todas las palabras salen del vocabulario publicado y validado.
-      </p>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      <div className="nanduti-bg relative overflow-hidden rounded-lg border border-border bg-card p-3 shadow-elegant">
+        <div className="flex items-center gap-3">
+          <img src={jaiAsset.url} alt="Jai, el jaguarete" className="penalties-mascot h-16 w-16 shrink-0 object-contain" />
+          <div className="min-w-0">
+            <p className="font-display text-base font-bold text-foreground">¡Che, mba'éichapa! Soy Jai.</p>
+            <p className="text-xs text-muted-foreground">Elegí un juego y aprendamos jugando. Todas las palabras están validadas.</p>
+          </div>
+        </div>
+      </div>
+      <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3">
         {GAMES.map((g) => (
           <Link
             key={g.to}
             to={g.to}
-            className={`game-card game-card-${g.tone} flex flex-col gap-3 rounded-lg border border-border bg-card p-5 shadow-elegant card-hover hover:shadow-lift`}
+            className={`game-card game-card-${g.tone} flex flex-col gap-2 rounded-lg border border-border bg-card p-3 shadow-elegant card-hover hover:shadow-lift`}
           >
-            <div className="flex items-center justify-between">
-              <span className="game-card-icon flex h-16 w-16 items-center justify-center rounded-lg" aria-hidden><g.icon size={34} strokeWidth={1.7}/></span>
-              <span className="game-card-xp rounded-md px-2 py-1 text-xs font-semibold">{g.xp}</span>
+            <div className="flex items-center justify-between gap-1">
+              <span className="game-card-icon flex h-10 w-10 items-center justify-center rounded-lg" aria-hidden><g.icon size={22} strokeWidth={1.8}/></span>
+              <span className="game-card-xp rounded-md px-1.5 py-0.5 text-[10px] font-semibold">{g.xp.replace("hasta ", "≤")}</span>
             </div>
-            <div className="font-display text-lg font-bold text-foreground">{g.title}</div>
-            <p className="text-sm text-muted-foreground">{g.desc}</p>
-            <span className="mt-1 text-sm font-medium text-primary">Jugar →</span>
+            <div className="font-display text-sm font-bold leading-tight text-foreground">{g.title}</div>
+            <p className="line-clamp-2 text-xs text-muted-foreground">{g.desc}</p>
           </Link>
         ))}
       </div>

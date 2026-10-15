@@ -303,3 +303,7 @@ html.text-large {
 .daily-chip { background: color-mix(in srgb, var(--primary-foreground) 15%, transparent); }
 .daily-play { background: color-mix(in srgb, var(--primary-foreground) 14%, transparent); box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary-foreground) 8%, transparent); animation: aranduka-pulse-soft 2.4s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .daily-lace, .daily-play, .sopa-found { animation: none; } .sopa-trail { transform: none; } }
+
+/* Identidad: ñandutí sutil detrás de contenido, nunca compite con la lectura */
+.nanduti-bg { background-image: repeating-conic-gradient(from 0deg at 100% 50%, color-mix(in oklab, var(--accent) 7%, transparent) 0deg 4deg, transparent 4deg 15deg), radial-gradient(circle at 100% 50%, transparent 30%, color-mix(in oklab, var(--primary) 5%, transparent) 31%, transparent 33%); }
+body { background-image: radial-gradient(circle at 0% 0%, color-mix(in oklab, var(--accent) 4%, transparent), transparent 40%), radial-gradient(circle at 100% 100%, color-mix(in oklab, var(--primary) 5%, transparent), transparent 45%); background-attachment: fixed; }
