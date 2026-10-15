@@ -21,7 +21,7 @@ export function JaiPaw({ size = 20, className, title }: P) {
 /** Guampa con bombilla y termo de tereré */
 export function Terere({ size = 20, className, title }: P) {
   return wrap(size, className, title, <g strokeLinejoin="round">
-    <rect x="13.5" y="4" width="6" height="16" rx="1.6" fill="var(--secondary)" />
+    <rect x="13.5" y="4" width="6" height="16" rx="1.6" fill="#C8102E" />
     <rect x="13.5" y="7" width="6" height="1.4" fill="var(--background)" />
     <path d="M4 10h7l-.8 9.2a1.4 1.4 0 0 1-1.4 1.3H6.2a1.4 1.4 0 0 1-1.4-1.3Z" fill="#8a5a2b" />
     <path d="M4.4 12.5h6.2" stroke="#d9b98a" strokeWidth="1" />
@@ -54,7 +54,7 @@ export function AoPoiDivider({ className }: { className?: string }) {
     <svg className={className} width="100%" height="8" aria-hidden preserveAspectRatio="none">
       <defs>
         <pattern id="aopoi" width="16" height="8" patternUnits="userSpaceOnUse">
-          <path d="M0 4h4l4-3 4 3h4M8 7v-1" stroke="var(--secondary)" strokeWidth="1" fill="none" />
+          <path d="M0 4h4l4-3 4 3h4M8 7v-1" stroke="#C8102E" strokeWidth="1" fill="none" />
           <circle cx="8" cy="4" r="0.9" fill="var(--primary)" />
         </pattern>
       </defs>

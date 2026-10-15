@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Flame, Trophy, Sparkles } from "lucide-react";
 import { useStats } from "@/lib/gamification";
+import { JaiPaw } from "@/components/py-icons";
 
 export function StatsBar() {
   const stats = useStats();
@@ -24,7 +25,7 @@ export function StatsBar() {
             <span className="text-sm font-medium text-muted-foreground">
               {stats.streak === 1 ? "día" : "días"}
             </span>{" "}
-            <span className={stats.streak >= 1 ? "inline-block pulse-soft" : ""}>🔥</span>
+            <span className={stats.streak >= 1 ? "inline-block pulse-soft align-middle" : "inline-block align-middle"}><JaiPaw size={18} title="Huellita de Jai" /></span>
           </span>
         }
         tone="accent"
