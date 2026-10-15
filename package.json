@@ -104,6 +104,6 @@
     "js-yaml": "4.3.2",
     "source-map-js": "1.2.2",
     "browserslist": "4.29.3",
-    "baseline-browser-mapping": "2.11.29"
+    "baseline-browser-mapping": "2.11.28"
   }
 }
