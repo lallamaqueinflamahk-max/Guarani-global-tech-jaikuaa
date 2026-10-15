@@ -11,7 +11,7 @@ import { GameHelp } from './game-help';
 import { SponsorLine } from './sponsor-line';
 import type { SponsorSlot } from '@/lib/sponsor-slots';
 
-export function GameShell({ title, emoji, children, sponsorSlot }: { title: string; emoji: string; children: ReactNode; sponsorSlot?: SponsorSlot }) {
+export function GameShell({ title, emoji, children, sponsorSlot, companion = true }: { title: string; emoji: string; children: ReactNode; sponsorSlot?: SponsorSlot; companion?: boolean }) {
   return (
     <GameKit><div className="game-shell relative isolate flex min-h-screen flex-col bg-background">
       {title !== 'Penales' && <LaceBackground/>}
@@ -32,7 +32,7 @@ export function GameShell({ title, emoji, children, sponsorSlot }: { title: stri
             <span aria-hidden>{emoji}</span> {title}
           </h1>
           {sponsorSlot && <SponsorLine slot={sponsorSlot} />}
-          {title !== 'Penales' && <div className="mx-auto mt-4 max-w-lg"><GameCompanion/></div>}
+          {companion && title !== 'Penales' && <div className="mx-auto mt-4 max-w-lg"><GameCompanion/></div>}
           <div className="mt-6">{children}</div>
         </div>
       </main>
