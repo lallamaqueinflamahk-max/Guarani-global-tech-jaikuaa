@@ -21,18 +21,40 @@ export const Route = createFileRoute("/_authenticated/juegos/tembiu")({
   component: Tembiu,
 });
 
-// Contenido cultural en revisión docente (se muestra ValidationNotice). Ingredientes en castellano.
+// Términos en guaraní PENDIENTES de validación docente (se muestra ValidationNotice).
+const ING: Record<string, { gn: string; es: string; emoji: string }> = {
+  avatiKui: { gn: "Avati ku'i", es: "Harina de maíz", emoji: "🌾" },
+  avatiKy: { gn: "Avati ky", es: "Choclo", emoji: "🌽" },
+  kesu: { gn: "Kesu", es: "Queso", emoji: "🧀" },
+  sevoi: { gn: "Sevói", es: "Cebolla", emoji: "🧅" },
+  kamby: { gn: "Kamby", es: "Leche", emoji: "🥛" },
+  rupia: { gn: "Ryguasu rupi'a", es: "Huevo", emoji: "🥚" },
+  aramiro: { gn: "Aramirõ", es: "Almidón", emoji: "🥣" },
+  nandy: { gn: "Ñandy", es: "Grasa", emoji: "🫙" },
+  juky: { gn: "Juky", es: "Sal", emoji: "🧂" },
+  ryguasu: { gn: "Ryguasu ro'o", es: "Gallina", emoji: "🐔" },
+  mandio: { gn: "Mandi'o", es: "Mandioca", emoji: "🍠" },
+  soo: { gn: "So'o", es: "Carne", emoji: "🥩" },
+  andai: { gn: "Andai", es: "Zapallo", emoji: "🎃" },
+  asuka: { gn: "Asuka", es: "Azúcar", emoji: "🍬" },
+  pira: { gn: "Pira", es: "Pescado", emoji: "🐟" },
+  kumanda: { gn: "Kumanda", es: "Poroto", emoji: "🫘" },
+  pakova: { gn: "Pakova", es: "Banana", emoji: "🍌" },
+  eira: { gn: "Eíra", es: "Miel", emoji: "🍯" },
+  y: { gn: "Y", es: "Agua", emoji: "💧" },
+  narã: { gn: "Narã", es: "Naranja", emoji: "🍊" },
+};
 type Dish = { name: string; emoji: string; info: string; ok: string[] };
 const DISHES: Dish[] = [
-  { name: "Sopa paraguaya", emoji: "🥮", info: "La única sopa sólida del mundo.", ok: ["Harina de maíz", "Queso", "Cebolla", "Leche", "Huevo"] },
-  { name: "Chipa guasu", emoji: "🌽", info: "Se hace con choclo fresco.", ok: ["Choclo", "Queso", "Cebolla", "Leche", "Huevo"] },
-  { name: "Mbeju", emoji: "🫓", info: "Torta de almidón dorada en la sartén.", ok: ["Almidón de mandioca", "Queso", "Grasa", "Leche", "Sal"] },
-  { name: "Vori vori", emoji: "🍲", info: "Caldo con bolitas de maíz y queso.", ok: ["Gallina", "Harina de maíz", "Queso", "Cebolla", "Zanahoria"] },
-  { name: "Chipa", emoji: "🥯", info: "Infaltable en Semana Santa.", ok: ["Almidón de mandioca", "Queso", "Huevo", "Grasa", "Anís"] },
-  { name: "Pastel mandi'o", emoji: "🥟", info: "Empanada de masa de mandioca.", ok: ["Mandioca", "Carne", "Cebolla", "Huevo", "Harina de maíz"] },
-  { name: "Kiveve", emoji: "🎃", info: "Crema dulce y salada de andai (zapallo).", ok: ["Zapallo", "Harina de maíz", "Queso", "Leche", "Azúcar"] },
+  { name: "Sopa paraguaya", emoji: "🥮", info: "La única sopa sólida del mundo.", ok: ["avatiKui", "kesu", "sevoi", "kamby", "rupia"] },
+  { name: "Chipa guasu", emoji: "🌽", info: "Se hace con avati ky (choclo fresco).", ok: ["avatiKy", "kesu", "sevoi", "kamby", "rupia"] },
+  { name: "Mbeju", emoji: "🫓", info: "Torta de aramirõ dorada en la sartén.", ok: ["aramiro", "kesu", "nandy", "kamby", "juky"] },
+  { name: "Vori vori", emoji: "🍲", info: "Caldo con bolitas de avati ku'i y kesu.", ok: ["ryguasu", "avatiKui", "kesu", "sevoi", "juky"] },
+  { name: "Chipa", emoji: "🥯", info: "Infaltable en Semana Santa.", ok: ["aramiro", "kesu", "rupia", "nandy", "kamby"] },
+  { name: "Pastel mandi'o", emoji: "🥟", info: "Empanada de masa de mandi'o.", ok: ["mandio", "soo", "sevoi", "rupia", "avatiKui"] },
+  { name: "Kiveve", emoji: "🎃", info: "Crema dulce y salada de andai.", ok: ["andai", "avatiKui", "kesu", "kamby", "asuka"] },
 ];
-const ALL = Array.from(new Set(DISHES.flatMap((d) => d.ok).concat(["Arroz", "Chocolate", "Fideo", "Pescado", "Tomate", "Banana", "Lechuga"])));
+const ALL = Object.keys(ING);
 const ROUNDS = 5;
 
 function Tembiu() {
@@ -102,16 +124,25 @@ function Kitchen({ onAgain }: { onAgain: () => void }) {
         <div className="text-5xl" aria-hidden>{dish.emoji}</div>
         <h2 className="mt-2 font-display text-2xl font-bold text-foreground">{dish.name}</h2>
         <p className="text-sm text-muted-foreground">{dish.info}</p>
-        <p className="mt-2 text-xs font-medium text-primary">Ingredientes en la olla: {picked.length}/5</p>
+        <div className="relative mx-auto mt-4 flex h-24 w-40 items-end justify-center rounded-b-[3rem] rounded-t-lg border-4 border-foreground/70 bg-muted">
+          {!checked && picked.length > 0 && <span className="absolute -top-6 animate-pulse text-xl" aria-hidden>♨️</span>}
+          <div className="flex flex-wrap justify-center gap-0.5 pb-3 text-2xl">
+            {picked.map((k) => <span key={k} className="animate-in zoom-in slide-in-from-top-4 duration-300">{ING[k].emoji}</span>)}
+          </div>
+        </div>
+        <p className="mt-2 text-xs font-medium text-primary">Mba'e oĩ ollápe: {picked.length}/5</p>
       </div>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
         {options.map((x) => {
           const on = picked.includes(x);
           const right = dish.ok.includes(x);
-          const state = checked ? (right ? "border-primary bg-primary/10 text-primary" : on ? "border-destructive bg-destructive/10 text-destructive" : "border-border opacity-60") : on ? "border-accent bg-accent/10 text-accent" : "border-border";
+          const state = checked ? (right ? "border-primary bg-primary/10 text-primary" : on ? "border-destructive bg-destructive/10 text-destructive" : "border-border opacity-60") : on ? "border-accent bg-accent/10 text-accent scale-95" : "border-border";
           return (
-            <button key={x} type="button" onClick={() => toggle(x)} aria-pressed={on}
-              className={`min-h-12 rounded-lg border-2 bg-card px-3 py-2 text-sm font-semibold transition ${state}`}>{x}</button>
+            <button key={x} type="button" onClick={() => { toggle(x); feedback("tap" as never); }} aria-pressed={on}
+              className={`flex min-h-16 items-center gap-2 rounded-lg border-2 bg-card px-3 py-2 text-left transition active:scale-95 ${state}`}>
+              <span className="text-2xl" aria-hidden>{ING[x].emoji}</span>
+              <span className="leading-tight"><b className="block text-base">{ING[x].gn}</b><span className="text-xs opacity-70">{ING[x].es}</span></span>
+            </button>
           );
         })}
       </div>
