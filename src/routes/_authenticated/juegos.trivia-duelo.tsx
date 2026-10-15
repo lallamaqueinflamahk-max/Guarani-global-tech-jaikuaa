@@ -98,7 +98,7 @@ function Board({ onRematch }: { onRematch: () => void }) {
           el primero que acierta gana el punto. Si fallás, tu rival puede responder tranquilo. Gana quien llega a {TARGET}.
         </p>
         <Button size="lg" className="h-14 w-full text-lg" onClick={() => setStarted(true)}>¡Empezar duelo!</Button>
-        <Button asChild variant="outline" size="lg" className="mt-3 h-12 w-full"><Link to="/juegos/nee-rape" search={{ sendero: "arandupy" }}>📲 Jugar a distancia (cada uno en su celular)</Link></Button>
+        <Button asChild variant="outline" size="lg" className="mt-3 h-12 w-full"><Link to="/juegos/nee-rape" search={{ sala: undefined, sendero: "arandupy" }}>📲 Jugar a distancia (cada uno en su celular)</Link></Button>
       </div>
     );
   }
