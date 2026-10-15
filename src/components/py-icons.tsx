@@ -9,7 +9,7 @@ const wrap = (size: number, className: string | undefined, title: string | undef
 
 /** Huellita de Jai (jaguarete) — logros y rachas */
 export function JaiPaw({ size = 20, className, title }: P) {
-  return wrap(size, className, title, <g fill="hsl(var(--gold, 42 90% 50%))" stroke="var(--primary)" strokeWidth="0.6">
+  return wrap(size, className, title, <g fill="#E0A82E" stroke="var(--primary)" strokeWidth="0.6">
     <ellipse cx="12" cy="16" rx="5" ry="4.2" />
     <ellipse cx="5.6" cy="10.4" rx="1.9" ry="2.4" />
     <ellipse cx="9.5" cy="6.6" rx="1.9" ry="2.5" />
