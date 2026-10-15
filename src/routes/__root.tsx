@@ -17,6 +17,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { redeemPendingPilotCode } from "@/lib/pilot-code";
 import { SupportWhatsApp } from "@/components/support-whatsapp";
 import { applyDisplayPrefs, readDisplayPrefs } from "@/lib/display-prefs";
+import { registerOfflineSupport } from "@/lib/pwa";
+import { syncStats } from "@/lib/gamification";
 
 function NotFoundComponent() {
   return (
@@ -160,6 +162,11 @@ function RootComponent() {
   // Código de invitación del piloto guardado antes de iniciar sesión: se canjea al entrar.
   useEffect(() => {
     applyDisplayPrefs(readDisplayPrefs());
+    void registerOfflineSupport();
+    // Al recuperar señal, se envían los avances guardados en el teléfono.
+    const onOnline = () => void syncStats();
+    window.addEventListener("online", onOnline);
+    return () => window.removeEventListener("online", onOnline);
   }, []);
 
   useEffect(() => {
