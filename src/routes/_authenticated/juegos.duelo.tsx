@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Loader2, RotateCcw, Volume2 } from "lucide-react";
+import { Loader2, RotateCcw, Volume2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GameShell, LessonFilter, NotEnough, XpNote, pickDistinct, shuffle, useGameWords } from "@/components/games/game-shell";
 import { ShareResult } from "@/components/games/share-result";
@@ -151,17 +151,16 @@ function Board({ pool, onRematch }: { pool: GameWord[]; onRematch: () => void })
   }
 
   return (
-    <div className="mx-auto flex max-w-md flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-elegant">
+    <div className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-card">
       <PlayerHalf p={1} round={round} winner={winner} locked={locked[1]} wrong={wrongPick[1]} onPick={pick} rotated />
-      <div className="flex items-center justify-between gap-3 border-y border-border bg-primary px-4 py-3 text-primary-foreground">
-        <span className="font-display text-sm font-semibold">J1</span>
-        <span className="font-display text-3xl font-bold tabular-nums" aria-live="polite">{score[0]} — {score[1]}</span>
-        <span className="font-display text-sm font-semibold">J2</span>
+      <div className="flex shrink-0 items-center justify-between gap-2 border-y border-border bg-primary px-2 py-1.5 text-primary-foreground">
+        <Button size="icon" variant="ghost" className="h-9 w-9 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground" onClick={onRematch} aria-label="Salir del duelo"><X /></Button>
+        <span className="font-display text-xs font-semibold">J1</span>
+        <span className="font-display text-2xl font-bold tabular-nums" aria-live="polite">{score[0]} — {score[1]}</span>
+        <span className="font-display text-xs font-semibold">J2</span>
+        <Button size="icon" variant="ghost" className="h-9 w-9 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground" onClick={() => say(round.word)} disabled={!round.word.hasAudio} aria-label="Escuchar otra vez"><Volume2 /></Button>
       </div>
       <PlayerHalf p={0} round={round} winner={winner} locked={locked[0]} wrong={wrongPick[0]} onPick={pick} />
-      <Button variant="ghost" className="rounded-none border-t border-border" onClick={() => say(round.word)} disabled={!round.word.hasAudio}>
-        <Volume2 /> Escuchar otra vez
-      </Button>
     </div>
   );
 }
@@ -175,13 +174,13 @@ function PlayerHalf({ p, round, winner, locked, wrong, onPick, rotated }: {
   return (
     <section
       aria-label={`Jugador ${p + 1}`}
-      className={`space-y-3 p-4 transition-colors ${rotated ? "rotate-180" : ""} ${won ? "bg-primary/10" : locked ? "bg-accent/10" : ""}`}
+      className={`flex min-h-0 flex-1 flex-col justify-center gap-2 px-4 py-2 transition-colors ${rotated ? "rotate-180" : ""} ${won ? "bg-primary/10" : locked ? "bg-accent/10" : ""}`}
     >
       <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         <span>Jugador {p + 1}</span>
         <span>{won ? "¡Punto!" : lost ? "Punto rival" : locked ? "Bloqueado…" : "¿Qué significa?"}</span>
       </div>
-      <div className="text-center font-display text-3xl font-bold text-foreground">{round.word.gn}</div>
+      <div className="text-center font-display text-2xl font-bold text-foreground">{round.word.gn}</div>
       <div className="grid gap-2">
         {round.options.map((o) => {
           const correct = winner !== null && o === round.word.es;
@@ -193,7 +192,7 @@ function PlayerHalf({ p, round, winner, locked, wrong, onPick, rotated }: {
               variant="outline"
               disabled={locked || winner !== null}
               onPointerDown={(e) => { e.preventDefault(); onPick(p, o); }}
-              className={`h-14 whitespace-normal break-words text-base font-semibold ${
+              className={`h-11 whitespace-normal break-words text-base font-semibold ${
                 correct ? "border-primary bg-primary/15 text-primary disabled:opacity-100" : isWrong ? "border-accent bg-accent/15 text-accent disabled:opacity-100" : ""
               }`}
             >
