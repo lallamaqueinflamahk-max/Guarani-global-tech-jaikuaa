@@ -170,12 +170,12 @@ function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
   const trail = new Set(drag ? lineOf(drag.from, drag.to) : []);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-6">
       <p className="text-center text-sm text-muted-foreground">
         Deslizá el dedo sobre cada palabra, o tocá su primera y última letra (horizontal o vertical).
       </p>
       <div
-        className="sopa-grid mx-auto grid max-w-md touch-none select-none gap-1 lg:max-w-xl"
+        className="sopa-grid mx-auto grid w-full max-w-[min(28rem,58vh)] touch-none select-none gap-1 lg:max-w-xl"
         onPointerMove={move}
         onPointerUp={up}
         onPointerCancel={() => setDrag(null)}
@@ -205,11 +205,11 @@ function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
         ))}
       </div>
 
-      <ul className="grid gap-2 sm:grid-cols-2">
+      <ul className="grid grid-cols-2 gap-1.5 sm:gap-2">
         {placed.map((p, i) => (
           <li
             key={i}
-            className={`flex items-center gap-2 rounded-xl border p-3 text-sm ${
+            className={`flex min-w-0 flex-wrap items-center gap-1 rounded-lg border px-2 py-1.5 text-xs sm:gap-2 sm:p-3 sm:text-sm ${
               found.has(i) ? "border-primary/40 bg-primary/5" : "border-border bg-card"
             }`}
           >
