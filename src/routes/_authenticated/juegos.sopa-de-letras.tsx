@@ -175,7 +175,7 @@ function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
         Deslizá el dedo sobre cada palabra, o tocá su primera y última letra (horizontal o vertical).
       </p>
       <div
-        className="sopa-grid mx-auto grid max-w-md touch-none select-none gap-1 lg:max-w-xl"
+        className="sopa-grid mx-auto grid w-full max-w-[min(28rem,58vh)] touch-none select-none gap-1 lg:max-w-xl"
         onPointerMove={move}
         onPointerUp={up}
         onPointerCancel={() => setDrag(null)}
