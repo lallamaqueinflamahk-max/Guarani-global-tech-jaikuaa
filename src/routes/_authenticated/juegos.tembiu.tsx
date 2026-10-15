@@ -138,7 +138,7 @@ function Kitchen({ onAgain }: { onAgain: () => void }) {
           const right = dish.ok.includes(x);
           const state = checked ? (right ? "border-primary bg-primary/10 text-primary" : on ? "border-destructive bg-destructive/10 text-destructive" : "border-border opacity-60") : on ? "border-accent bg-accent/10 text-accent scale-95" : "border-border";
           return (
-            <button key={x} type="button" onClick={() => { toggle(x); feedback("tap" as never); }} aria-pressed={on}
+            <button key={x} type="button" onClick={() => toggle(x)} aria-pressed={on}
               className={`flex min-h-16 items-center gap-2 rounded-lg border-2 bg-card px-3 py-2 text-left transition active:scale-95 ${state}`}>
               <span className="text-2xl" aria-hidden>{ING[x].emoji}</span>
               <span className="leading-tight"><b className="block text-base">{ING[x].gn}</b><span className="text-xs opacity-70">{ING[x].es}</span></span>
