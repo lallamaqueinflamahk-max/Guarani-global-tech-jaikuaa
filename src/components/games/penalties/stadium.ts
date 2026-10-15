@@ -32,7 +32,7 @@ function draw(now: number){
   const sh=S.shake?Math.max(0,1-(now-S.shake)/500):0;ctx.save();if(sh&&!reduce)ctx.translate(Math.sin(now/18)*5*sh,0);ctx.strokeStyle=palette['white'];ctx.lineWidth=10;ctx.beginPath();ctx.moveTo(G.x,G.y+G.h);ctx.lineTo(G.x,G.y);ctx.lineTo(G.x+G.w,G.y);ctx.lineTo(G.x+G.w,G.y+G.h);ctx.stroke();ctx.restore();
   drawKeeper(now);
   // aim reticle
-  const showAim=S.phase==='aim'?(hover&&inGoal(hover)?hover:null):S.phase==='power'?S.aim:null;
+  const showAim=S.phase==='aim'?(hover&&inGoal(hover)?hover:{x:400,y:225}):S.phase==='power'?S.aim:null;
   if(showAim){const w=S.phase==='power'?wobble(now):{x:0,y:0};const ax=showAim.x+w.x,ay=showAim.y+w.y;
     // trajectory arrow from the ball to the aim point
     const cx=(400+ax)/2,cy=Math.min(ay,520)-40;const pulse=reduce?0:Math.sin(now/160)*.15;
