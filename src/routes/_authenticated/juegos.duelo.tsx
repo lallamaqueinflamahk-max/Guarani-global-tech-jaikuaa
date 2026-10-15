@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Loader2, RotateCcw, Volume2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -129,6 +129,7 @@ function Board({ pool, onRematch }: { pool: GameWord[]; onRematch: () => void })
           Si te equivocás, quedás bloqueado un segundo. Gana quien llega a {TARGET}.
         </p>
         <Button size="lg" className="h-14 w-full text-lg" onClick={() => setStarted(true)}>¡Empezar duelo!</Button>
+        <Button asChild variant="outline" size="lg" className="mt-3 h-12 w-full"><Link to="/juegos/nee-rape" search={{ sendero: "nemongeta" }}>📲 Jugar a distancia (cada uno en su celular)</Link></Button>
       </div>
     );
   }

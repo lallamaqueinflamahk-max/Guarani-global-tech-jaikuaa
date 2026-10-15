@@ -19,12 +19,12 @@ export const Route = createFileRoute("/_authenticated/juegos/")({
 
 const GAMES = [
   { to: "/juegos/nee-rape", tone: "search", icon: Wifi, title: "Ñe'ẽ Rape · A distancia", desc: "Desafiá por WhatsApp: cada uno desde su celular. 4 senderos. Nuevo · Multijugador a distancia", xp: "hasta 20 XP" },
-  { to: "/juegos/duelo", tone: "football", icon: Swords, title: "Duelo Cara a Cara", desc: "2 jugadores, 1 celular. El más rápido en traducir gana. Nuevo · Multijugador", xp: "hasta 20 XP" },
-  { to: "/juegos/trivia-duelo", tone: "daily", icon: Brain, title: "Duelo de Trivia", desc: "2 jugadores, 1 celular. ¿Quién sabe más del Paraguay? Nuevo · Multijugador", xp: "hasta 20 XP" },
+  { to: "/juegos/duelo", tone: "football", icon: Swords, title: "Duelo Cara a Cara", desc: "En el mismo celular o a distancia, cada uno desde el suyo.", xp: "hasta 20 XP" },
+  { to: "/juegos/trivia-duelo", tone: "daily", icon: Brain, title: "Duelo de Trivia", desc: "¿Quién sabe más del Paraguay? Mismo celular o a distancia.", xp: "hasta 20 XP" },
   { to: "/juegos/ahorcado", tone: "chipa", icon: CircleDashed, title: "Ahorcado con chipas", desc: "Adiviná la palabra antes de que se acaben las 6 chipas.", xp: "hasta 15 XP" },
   { to: "/juegos/sopa-de-letras", tone: "search", icon: Grid2X2, title: "Sopa de letras", desc: "Encontrá 6 palabras escondidas en la grilla.", xp: "20 XP" },
   { to: "/juegos/memoria", tone: "memory", icon: Layers, title: "Memoria", desc: "Uní cada palabra en guaraní con su traducción.", xp: "hasta 20 XP" },
-  { to: "/juegos/penales", tone: "football", icon: Goal, title: "Penales", desc: "Respondé la palabra y pateá al arco. Solo o Duelo.", xp: "hasta 20 XP" },
+  { to: "/juegos/penales", tone: "football", icon: Goal, title: "Penales", desc: "Respondé la palabra y pateá al arco. Solo, Duelo o a distancia.", xp: "hasta 20 XP" },
   { to: "/juegos/palabra-del-dia", tone: "daily", icon: CalendarDays, title: "Palabra del día", desc: "Escuchala y elegí su significado. Una vez por día.", xp: "5 XP" },
 ] as const;
 

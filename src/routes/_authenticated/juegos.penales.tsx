@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useServerFn } from '@tanstack/react-start';
@@ -35,6 +35,7 @@ function PenaltiesContent(){
  <div className="grid grid-cols-2 gap-3" role="group" aria-label="Modo de juego"><Button variant={mode==='solo'?'default':'outline'} className="h-12" aria-pressed={mode==='solo'} onClick={()=>setMode('solo')}><UserRound/>Solo</Button><Button variant={mode==='duel'?'default':'outline'} className="h-12" aria-pressed={mode==='duel'} onClick={()=>setMode('duel')}><UsersRound/>Duelo</Button></div>
  {mode==='duel'&&<div className="grid gap-3 sm:grid-cols-2">{[0,1].map(i=><label key={i} className="text-sm font-semibold">Jugador {i+1}<Input aria-label={`Nombre del Jugador ${i+1}`} placeholder={`Jugador ${i+1}`} maxLength={20} value={names[i]} onChange={e=>setNames(old=>i===0?[e.target.value,old[1]]:[old[0],e.target.value])} className="mt-2"/></label>)}</div>}
  <Button variant="cta" size="lg" className="w-full" onClick={()=>setStarted(true)}>Empezar tanda</Button>
+ <Button asChild variant="outline" size="lg" className="mt-3 h-12 w-full"><Link to="/juegos/nee-rape" search={{ sendero: "nemongeta" }}>📲 Jugar a distancia (cada uno en su celular)</Link></Button>
  </div>:<Match key={`${round}:${lesson}:${mode}`} words={words} duel={mode==='duel'} names={[names[0].trim()||'Jugador 1',names[1].trim()||'Jugador 2']} ledText={led.data?.text??'JAIKUAA · TU MARCA AQUÍ'} muted={muted} onAgain={()=>setRound(r=>r+1)} onModes={()=>setStarted(false)}/>}
  </div>;
 }
