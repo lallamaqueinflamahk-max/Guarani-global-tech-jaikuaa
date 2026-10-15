@@ -27,8 +27,8 @@ export function GameShell({ title, emoji, children, sponsorSlot, companion = tru
       </header>
       <main className="relative flex-1 px-3 py-2 sm:px-6 sm:py-10">
         <div className="mx-auto max-w-3xl">
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 sm:block">
-            <h1 className="min-w-0 truncate font-display text-xl font-bold tracking-normal text-foreground sm:order-2 sm:text-center sm:text-4xl">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 sm:flex sm:flex-col-reverse sm:items-stretch">
+            <h1 className="min-w-0 truncate font-display text-xl font-bold tracking-normal text-foreground sm:text-center sm:text-4xl">
               <span aria-hidden>{emoji}</span> {title}
             </h1>
             <div className="flex shrink-0 justify-end gap-1 sm:mb-4 sm:gap-2"><GameHelp title={title}/><GameSoundButton/></div>
