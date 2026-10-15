@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SpeakerButton } from "@/components/audio/speaker-button";
@@ -148,13 +148,13 @@ function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
     return el ? Number(el.getAttribute("data-cell")) : null;
   }
 
-  function down(e: React.PointerEvent, cell: number) {
+  function down(e: PointerEvent, cell: number) {
     if (done) return;
     e.preventDefault();
     if (start !== null && start !== cell) { check(start, cell); return; }
     setDrag({ from: cell, to: cell });
   }
-  function move(e: React.PointerEvent) {
+  function move(e: PointerEvent) {
     if (!drag) return;
     const c = cellAt(e.clientX, e.clientY);
     if (c !== null && c !== drag.to) setDrag({ ...drag, to: c });
