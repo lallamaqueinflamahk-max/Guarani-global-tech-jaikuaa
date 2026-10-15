@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GameShell } from "@/components/games/game-shell";
 import { useRecordVisit } from "@/lib/gamification";
-import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal, Swords, Brain } from 'lucide-react';
+import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal, Swords, Brain, Wifi } from 'lucide-react';
 
 export const Route = createFileRoute("/_authenticated/juegos/")({
   head: () => ({
