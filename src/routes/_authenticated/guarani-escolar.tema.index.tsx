@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { TEMAS_6TO } from "@/lib/guarani-tema";
+import { useEffect, useState } from "react";
+import { loadEscolarGrade, temasFor, type EscolarGrade } from "@/lib/guarani-tema";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/tema/")({
   head: () => ({ meta: [{ title: "Jaikuaa — Práctica por Tema" }] }),
@@ -7,6 +8,8 @@ export const Route = createFileRoute("/_authenticated/guarani-escolar/tema/")({
 });
 
 function TemaIndex() {
+  const [grade, setGrade] = useState<EscolarGrade>("6° grado");
+  useEffect(() => setGrade(loadEscolarGrade()), []);
   return (
     <div className="mx-auto max-w-4xl">
       <div className="text-center">
@@ -17,12 +20,12 @@ function TemaIndex() {
           Elegí un tema para practicar
         </h1>
         <p className="mx-auto mt-3 max-w-lg text-base text-muted-foreground">
-          Contenido para <span className="font-semibold text-foreground">6° grado</span>. Cada tema tiene una breve explicación, vocabulario y un quiz de 5 preguntas.
+          Contenido para <span className="font-semibold text-foreground">{grade}</span>. Cada tema tiene una breve explicación, vocabulario y un quiz de 5 preguntas.
         </p>
       </div>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        {TEMAS_6TO.map((tema) => (
+        {temasFor(grade).map((tema) => (
           <Link
             key={tema.slug}
             to="/guarani-escolar/tema/$topic"

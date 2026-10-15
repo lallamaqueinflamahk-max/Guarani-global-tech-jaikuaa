@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ESCOLAR_GRADES, loadEscolarGrade, saveEscolarGrade, type EscolarGrade } from "@/lib/guarani-tema";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/")({
@@ -7,9 +8,8 @@ export const Route = createFileRoute("/_authenticated/guarani-escolar/")({
   component: GuaraniEscolarEntry,
 });
 
-const GRADES = ["3° grado", "6° grado", "9° grado", "Bachillerato"] as const;
-
-type Grade = (typeof GRADES)[number];
+const GRADES = ESCOLAR_GRADES;
+type Grade = EscolarGrade;
 
 const PATHS = [
   {
@@ -36,7 +36,9 @@ const PATHS = [
 ];
 
 function GuaraniEscolarEntry() {
-  const [grade, setGrade] = useState<Grade>("6° grado");
+  const [grade, setGradeState] = useState<Grade>("6° grado");
+  useEffect(() => setGradeState(loadEscolarGrade()), []);
+  const setGrade = (g: Grade) => { setGradeState(g); saveEscolarGrade(g); };
 
   return (
     <div className="mx-auto max-w-4xl">

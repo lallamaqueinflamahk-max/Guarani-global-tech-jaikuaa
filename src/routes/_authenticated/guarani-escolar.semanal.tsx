@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Check, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { TEMAS_6TO } from "@/lib/guarani-tema";
+import { temasFor, saveEscolarGrade, type EscolarGrade } from "@/lib/guarani-tema";
 import { recordCompletion, useRecordVisit } from "@/lib/gamification";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/semanal")({
@@ -16,20 +16,20 @@ type Grade = (typeof GRADES)[number];
 type DayPlan = {
   day: string;
   short: string;
-  topicSlugs: string[];
+  topicIdx: number[];
   label: string;
   isReview?: boolean;
 };
 
 const WEEK: DayPlan[] = [
-  { day: "Lunes", short: "Lun", topicSlugs: ["saludos"], label: "Saludos y cortesía" },
-  { day: "Martes", short: "Mar", topicSlugs: ["familia"], label: "La familia (Ogapýpe)" },
-  { day: "Miércoles", short: "Mié", topicSlugs: ["numeros"], label: "Los números (Papapy)" },
-  { day: "Jueves", short: "Jue", topicSlugs: ["verbos"], label: "Verbos básicos" },
+  { day: "Lunes", short: "Lun", topicIdx: [0], label: "" },
+  { day: "Martes", short: "Mar", topicIdx: [1], label: "" },
+  { day: "Miércoles", short: "Mié", topicIdx: [2], label: "" },
+  { day: "Jueves", short: "Jue", topicIdx: [3], label: "" },
   {
     day: "Viernes",
     short: "Vie",
-    topicSlugs: ["adjetivos", "frases"],
+    topicIdx: [4, 5],
     label: "Adjetivos + Frases + repaso",
     isReview: true,
   },
@@ -171,7 +171,8 @@ function PlanSemanal() {
       <ul className="mt-6 space-y-3">
         {WEEK.map((d) => {
           const isDone = !!completed[d.day];
-          const topics = d.topicSlugs.map((s) => TEMAS_6TO.find((t) => t.slug === s)!);
+          const all = temasFor(grade as EscolarGrade);
+          const topics = d.topicIdx.map((n) => all[n]).filter(Boolean);
           return (
             <li
               key={d.day}

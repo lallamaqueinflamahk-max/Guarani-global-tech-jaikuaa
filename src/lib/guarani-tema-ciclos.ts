@@ -172,7 +172,7 @@ export const TEMAS_9NO: Tema[] = [
     title: "Verbos areales y chendales",
     subtitle: "Dos formas de conjugar",
     explanation:
-      "Los verbos areales usan a-, re-, o-, ja/ña-, ro-, pe-, o- (ajapo, rejapo, ojapo). Los chendales (aireales/predicados de estado) usan che, nde, i/hi, ñande, ore, pende (che ronguatã → che kane'õ: estoy cansado).",
+      "Los verbos areales usan a-, re-, o-, ja/ña-, ro-, pe-, o- (ajapo, rejapo, ojapo). Los chendales (aireales/predicados de estado) usan che, nde, i/hi, ñande, ore, pende (che kane'õ: estoy cansado).",
     vocab: [
       { gn: "Aguata", es: "Yo camino (areal)" },
       { gn: "Reguata", es: "Vos caminás" },
