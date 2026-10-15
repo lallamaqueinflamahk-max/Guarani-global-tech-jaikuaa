@@ -1,10 +1,11 @@
 export class StadiumSound {
  private context:AudioContext|null=null;
  muted=false;
- play(kind:'kick'|'hit'|'cheer'|'answer'|'success'|'error'|'victory'){
+ play(kind:'kick'|'hit'|'cheer'|'answer'|'success'|'error'|'victory'|'post'){
   if(this.muted)return;
   try{
    const a=this.context??(this.context=new AudioContext());void a.resume();
+   if(kind==='post'){[1240,1860,2730].forEach((f,i)=>{const o=a.createOscillator(),g=a.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.08/(i+1),a.currentTime);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+.9);o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+.9);});return;}
    if(kind==='success'||kind==='error'||kind==='victory'){
     const notes=kind==='error'?[220,165]:kind==='victory'?[523,659,784,1047]:[660,880];
     notes.forEach((frequency,i)=>{const osc=a.createOscillator(),gain=a.createGain(),t=a.currentTime+i*.12;osc.type='sine';osc.frequency.value=frequency;gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(.09,t+.015);gain.gain.exponentialRampToValueAtTime(.0001,t+.18);osc.connect(gain).connect(a.destination);osc.start(t);osc.stop(t+.2);});return;

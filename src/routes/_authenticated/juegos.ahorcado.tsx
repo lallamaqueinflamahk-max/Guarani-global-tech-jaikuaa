@@ -80,9 +80,9 @@ function Board({ word, onNext }: { word: GameWord; onNext: () => void }) {
         <div className="mt-1 font-display text-xl font-bold text-foreground">{word.es}</div>
       </div>
 
-      <div className="flex justify-center gap-1 text-3xl" aria-label={`Chipas restantes: ${LIVES - wrong}`}>
+      <div className="flex justify-center gap-1.5" aria-label={`Chipas restantes: ${LIVES - wrong}`}>
         {Array.from({ length: LIVES }, (_, i) => (
-          <span key={i} className={i < LIVES - wrong ? "" : "opacity-20 grayscale"} aria-hidden>🥯</span>
+          <Chipa key={i} eaten={i >= LIVES - wrong} />
         ))}
       </div>
 
@@ -141,5 +141,28 @@ function Board({ word, onNext }: { word: GameWord; onNext: () => void }) {
         </div>
       )}
     </div>
+  );
+}
+
+function Chipa({ eaten }: { eaten: boolean }) {
+  return (
+    <svg viewBox="0 0 48 48" className="chipa h-11 w-11" data-eaten={eaten} aria-hidden>
+      <defs>
+        <radialGradient id="chipa-g" cx="40%" cy="35%" r="70%">
+          <stop offset="0%" stopColor="var(--stadium-shell-light)" />
+          <stop offset="70%" stopColor="var(--stadium-shell)" />
+          <stop offset="100%" stopColor="var(--stadium-shell-dark)" />
+        </radialGradient>
+      </defs>
+      <path
+        d={eaten ? "M24 6a18 18 0 1 0 18 18c-4 1-7-2-6-6-4 1-7-2-6-6-4 0-6-3-6-6z" : "M24 6a18 18 0 1 0 0.01 0z"}
+        fill="url(#chipa-g)"
+        fillRule="evenodd"
+      />
+      <circle cx="24" cy="24" r="6.5" fill="var(--background)" />
+      {[[15, 15], [32, 13], [36, 30], [14, 33], [26, 38]].map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r="1.3" fill="var(--stadium-shell-dark)" opacity=".6" />
+      ))}
+    </svg>
   );
 }

@@ -10,7 +10,7 @@ import { GameShell, LessonFilter, NotEnough, shuffle, useGameWords } from '@/com
 import { PenaltyPitch } from '@/components/games/penalties/pitch';
 import { GameMascot as PenaltyMascot } from '@/components/games/game-mascot';
 import { useGameKit } from '@/components/games/game-kit';
-import { duelFinished, isGoal, labels, xpFor, type Outcome } from '@/components/games/penalties/physics';
+import { duelFinished, isGoal, labels, xpFor, type Dive, type Outcome } from '@/components/games/penalties/physics';
 import { getPenaltiesLed } from '@/lib/penalties.functions';
 import { playGuarani } from '@/lib/audio';
 import { recordCompletion } from '@/lib/gamification';
@@ -42,7 +42,7 @@ type Played={word:GameWord;outcome:Outcome;player:number};
 const messages:Record<Outcome,string>={goal:'¡Gran gol! El público lo festeja con vos.',angle:'¡Al ángulo! Una definición espectacular.',save:'El arquero llegó. La próxima buscá el rincón.',post:'¡Por centímetros! La pelota dio en el palo.',over:'Se fue por arriba. Un poquito menos de fuerza.',wide:'Se fue afuera. La revancha está cerca.'};
 function Match({words,duel,names,ledText,muted,onAgain,onModes}:{words:GameWord[];duel:boolean;names:[string,string];ledText:string;muted:boolean;onAgain:()=>void;onModes:()=>void}){
  const deck=useMemo(()=>shuffle(words),[words]);
- const [turn,setTurn]=useState(0),[choice,setChoice]=useState<string|null>(null),[played,setPlayed]=useState<Played[]>([]),[last,setLast]=useState<Outcome|null>(null),[finished,setFinished]=useState(false);
+ const [turn,setTurn]=useState(0),[choice,setChoice]=useState<string|null>(null),[played,setPlayed]=useState<Played[]>([]),[last,setLast]=useState<Outcome|null>(null),[finished,setFinished]=useState(false),[guess,setGuess]=useState<Dive|null>(null);
  const word=deck[turn%deck.length];
  const options=useMemo(()=>word?shuffle([word,...shuffle(words.filter(w=>w.gn!==word.gn)).slice(0,2)]):[],[word,words]);
  const player=duel?turn%2:0,results=[played.filter(p=>p.player===0).map(p=>p.outcome),played.filter(p=>p.player===1).map(p=>p.outcome)],goals=results.map(r=>r.filter(isGoal).length),xp=xpFor(results[0]),recorded=useRef(false);
@@ -50,7 +50,7 @@ function Match({words,duel,names,ledText,muted,onAgain,onModes}:{words:GameWord[
  if(!word)return null;
  const knew=choice===word.gn;
  function answer(gn:string){if(choice!==null)return;setChoice(gn);if(word.hasAudio&&!muted)void playGuarani(word.gn);}
- function next(){const done=duel?duelFinished(results[0],results[1]):played.length>=5;if(done){setFinished(true);return;}setTurn(t=>t+1);setChoice(null);setLast(null);}
+ function next(){const done=duel?duelFinished(results[0],results[1]):played.length>=5;if(done){setFinished(true);return;}setTurn(t=>t+1);setChoice(null);setLast(null);setGuess(null);}
  const sudden=duel&&turn>=10;
  const message=finished?(duel?(goals[0]===goals[1]?'¡Empate! Un duelo muy parejo.':`¡${goals[0]>goals[1]?names[0]:names[1]} ganó el duelo!`):'¡Tanda completa! Cada palabra suma práctica.') :last?messages[last]:choice!==null?(knew?'¡Respuesta correcta! El arquero reacciona tarde.':'Esta vez no. El arquero está atento, pero todavía podés marcar.'):`${duel?names[player]+': ':''}¡Vamos por el próximo penal!`;
  return <div className="space-y-4 pt-4"><div className={`grid gap-3 ${duel?'grid-cols-2':'grid-cols-1'}`}>
@@ -61,10 +61,21 @@ function Match({words,duel,names,ledText,muted,onAgain,onModes}:{words:GameWord[
  <h2 className="font-display text-2xl font-bold">{duel?(goals[0]===goals[1]?'Empate':`Ganó ${goals[0]>goals[1]?names[0]:names[1]}`):`${goals[0]} de 5 goles`}</h2><p className="font-semibold text-accent">+{xp} XP{duel?' · Jugador 1':''}</p>
  <ul className="divide-y divide-border text-left">{played.map((p,i)=><li key={i} className="flex items-center gap-2 py-3 text-sm"><span aria-hidden>{isGoal(p.outcome)?'⚽':'•'}</span><div className="min-w-0 flex-1">{duel&&<span className="block text-xs text-muted-foreground">{names[p.player]}</span>}<span className="font-semibold">{p.word.gn}</span><span className="text-muted-foreground"> — {p.word.es}</span></div>{p.word.hasAudio&&<SpeakerButton gn={p.word.gn}/>}</li>)}</ul>
  <div className="flex flex-wrap justify-center gap-2"><Button variant="cta" onClick={onAgain}><RotateCcw/>{duel?'Revancha':'Otra tanda'}</Button><Button variant="outline" asChild><a href={`https://wa.me/?text=${encodeURIComponent(`Hice ${goals[0]} goles en una tanda de penales. ¿Te animás a superarme? ${typeof window!=='undefined'?window.location.origin:''}/juegos/penales`)}`} target="_blank" rel="noopener noreferrer"><Share2/>Desafiar por WhatsApp</a></Button><Button variant="ghost" onClick={onModes}>Cambiar modo</Button></div>
- </div>:<><PenaltyPitch key={turn} knew={knew} ready={choice!==null} muted={muted} ledText={ledText} onShot={outcome=>{setLast(outcome);setPlayed(p=>[...p,{word,outcome,player}]);}}/>
+ </div>:duel&&!guess?<KeeperPick keeper={names[1-player]} shooter={names[player]} onPick={setGuess}/>:<><PenaltyPitch key={turn} guess={duel?guess??undefined:undefined} knew={knew} ready={choice!==null} muted={muted} ledText={ledText} onShot={outcome=>{setLast(outcome);setPlayed(p=>[...p,{word,outcome,player}]);}}/>
  <div className="space-y-3 text-center"><p className="text-xs font-semibold text-muted-foreground">{sudden?`Muerte súbita · ronda ${Math.floor((turn-10)/2)+1} de 3`:`Penal ${duel?Math.floor(turn/2)+1:turn+1} de 5`}{duel?` · ${names[player]}`:''}</p><p className="text-sm text-muted-foreground">¿Cómo se dice en guaraní?</p><h2 className="break-words font-display text-2xl font-bold">{word.es}</h2><div className="grid grid-cols-1 gap-2 sm:grid-cols-3">{options.map(o=><Button key={o.gn} variant={choice!==null&&o.gn===word.gn?'default':choice===o.gn?'destructive':'outline'} disabled={choice!==null} onClick={()=>answer(o.gn)} className="h-auto min-h-12 whitespace-normal break-words px-3 py-3 text-base">{o.gn}</Button>)}</div>
  {choice!==null&&<div className="flex items-center justify-center gap-2 text-sm"><span>Respuesta: <strong>{word.gn}</strong></span>{word.hasAudio&&<SpeakerButton gn={word.gn}/>}</div>}
  {last&&<><p className="font-display text-xl font-bold" aria-live="polite">{labels[last]}</p><Button variant="cta" onClick={next}>{(duel?duelFinished(results[0],results[1]):played.length>=5)?'Ver resultado':'Siguiente penal'}</Button></>}
  </div></>}
  </div>;
+}
+
+function KeeperPick({keeper,shooter,onPick}:{keeper:string;shooter:string;onPick:(d:Dive)=>void}){
+ const opts:[Dive,string,string][]=[['left','⬅','Izquierda'],['center','⬆','Centro'],['right','➡','Derecha']];
+ return <section className="penalties-keeper-pick space-y-4 rounded-2xl p-5 text-center" aria-label="Turno del arquero">
+  <p className="text-xs font-semibold uppercase tracking-widest">🧤 Turno del arquero</p>
+  <h2 className="font-display text-2xl font-bold">{keeper}, elegí en secreto hacia dónde te tirás</h2>
+  <p className="text-sm opacity-80">Que {shooter} no mire. Si adivinás el lado del tiro, ¡lo atajás! Los tiros al ángulo superior no se pueden atajar.</p>
+  <div className="grid grid-cols-3 gap-2">{opts.map(([d,i,l])=><Button key={d} variant="outline" className="h-20 flex-col gap-1 text-base font-bold" onClick={()=>{try{navigator.vibrate?.(20);}catch{}onPick(d);}}><span className="text-2xl" aria-hidden>{i}</span>{l}</Button>)}</div>
+  <p className="text-xs opacity-70">Después pasale el celular a {shooter}.</p>
+ </section>;
 }

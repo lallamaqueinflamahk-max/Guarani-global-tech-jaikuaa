@@ -239,6 +239,21 @@ select,
 }
 .penalties-mascot { animation: penalties-bob 2.6s ease-in-out infinite; }
 .penalties-stars { color: var(--stadium-gold); }
+.penalties-keeper-pick { background: radial-gradient(circle at 50% 0%, var(--stadium-sky), var(--stadium-night)); color: var(--stadium-white); border: 2px solid var(--stadium-gold); }
+.penalties-keeper-pick button { background: color-mix(in srgb, var(--stadium-white) 8%, transparent); color: var(--stadium-white); border-color: color-mix(in srgb, var(--stadium-gold) 60%, transparent); }
+/* Memoria: 3D flip with ñandutí back */
+.memory-card { perspective: 900px; }
+.memory-inner { position: relative; width: 100%; height: 100%; transition: transform .55s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; }
+.memory-card[data-shown="true"] .memory-inner { transform: rotateY(180deg); }
+.memory-face { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border-radius: .75rem; backface-visibility: hidden; padding: .5rem; }
+.memory-front { transform: rotateY(180deg); }
+.memory-back { background: radial-gradient(circle, var(--primary) 0%, color-mix(in srgb, var(--primary) 75%, var(--foreground)) 100%); color: var(--primary-foreground); border: 2px solid color-mix(in srgb, var(--primary-foreground) 25%, transparent); }
+.memory-card[data-matched="true"] .memory-front { animation: memory-pop .5s ease; box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 35%, transparent); }
+@keyframes memory-pop { 40% { transform: rotateY(180deg) scale(1.08); } }
+/* Ahorcado: chipas */
+.chipa { transition: transform .35s ease, opacity .35s ease; }
+.chipa[data-eaten="true"] { opacity: .25; transform: scale(.85) rotate(-12deg); filter: grayscale(1); }
+@media (prefers-reduced-motion: reduce) { .memory-inner, .chipa { transition: none; } .memory-card[data-matched="true"] .memory-front { animation: none; } }
 @keyframes penalties-bob { 50% { transform: translateY(-4px); } }
 @media (prefers-reduced-motion: reduce) { .penalties-mascot { animation: none; } }
 

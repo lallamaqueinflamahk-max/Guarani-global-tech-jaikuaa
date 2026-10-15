@@ -114,22 +114,28 @@ function Board({ words, onNext }: { words: GameWord[]; onNext: () => void }) {
         {cards.map((c) => {
           const shown = open.includes(c.id) || matched.has(c.pair);
           return (
-            <Button variant="ghost"
+            <button
               key={c.id}
               type="button"
               onClick={() => flip(c)}
-              className={`flex h-auto whitespace-normal break-words aspect-[3/4] items-center justify-center rounded-xl border-2 p-2 text-center text-sm font-semibold transition sm:text-base ${
-                matched.has(c.pair)
-                  ? "border-primary/40 bg-primary/10 text-primary"
-                  : shown
-                    ? c.kind === "gn"
-                      ? "border-accent bg-card text-accent"
-                      : "border-primary bg-card text-foreground"
-                    : "border-primary bg-primary text-primary-foreground"
-              }`}
+              data-shown={shown}
+              data-matched={matched.has(c.pair)}
+              aria-label={shown ? c.text : "Carta oculta"}
+              className="memory-card aspect-[3/4] w-full rounded-xl focus-visible:outline-2 focus-visible:outline-accent"
             >
-              {shown ? c.text : <span className="text-2xl" aria-hidden>?</span>}
-            </Button>
+              <span className="memory-inner block">
+                <span className="memory-face memory-back" aria-hidden>
+                  <svg viewBox="0 0 100 100" className="h-3/4 w-3/4 opacity-70" fill="none" stroke="currentColor" strokeWidth="1.4">
+                    {Array.from({ length: 12 }, (_, k) => <line key={k} x1="50" y1="50" x2={50 + 45 * Math.cos((k * Math.PI) / 6)} y2={50 + 45 * Math.sin((k * Math.PI) / 6)} />)}
+                    {[12, 24, 36, 45].map((r) => <circle key={r} cx="50" cy="50" r={r} strokeDasharray={r > 30 ? "4 3" : undefined} />)}
+                    <circle cx="50" cy="50" r="5" fill="currentColor" />
+                  </svg>
+                </span>
+                <span className={`memory-face memory-front break-words border-2 bg-card text-center text-sm font-semibold sm:text-base ${matched.has(c.pair) ? "border-primary bg-primary/10 text-primary" : c.kind === "gn" ? "border-accent text-accent" : "border-primary text-foreground"}`}>
+                  {c.text}
+                </span>
+              </span>
+            </button>
           );
         })}
       </div>
