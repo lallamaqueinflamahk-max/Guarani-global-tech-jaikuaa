@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-$(cat AGENTS.md)
+$(cat AGENTS.md)- Certificates: one row per user in certificates (random JK-YYYY-XXXXXX code), issued only via issueCertificate after server-side completion check; /verificar/$code is public and returns only printed fields — keeps certificates verifiable without exposing other data.
