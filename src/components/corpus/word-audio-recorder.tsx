@@ -110,16 +110,18 @@ export function WordAudioRecorder({
   if (!open) {
     return (
       <Button
-        size="sm"
-        variant="outline"
+        size="default"
+        variant={hasAudio ? "outline" : "cta"}
         onClick={() => setOpen(true)}
-        aria-label={hasAudio ? "Reemplazar audio" : "Grabar o subir audio"}
+        aria-label={hasAudio ? `Reemplazar audio de ${slug}` : `Grabar o subir audio de ${slug}`}
+        className="h-11 w-full justify-center px-4 text-sm font-semibold sm:w-auto"
       >
         <Mic className="h-4 w-4" />
-        <span className="hidden sm:inline">{hasAudio ? "Reemplazar" : "Grabar"}</span>
+        {hasAudio ? "Reemplazar audio" : "Grabar audio"}
       </Button>
     );
   }
+
 
   return (
     <div className="w-full basis-full rounded-md border bg-muted/40 p-3">
@@ -134,17 +136,34 @@ export function WordAudioRecorder({
       </div>
       <div className="flex flex-wrap items-center gap-2">
         {recording ? (
-          <Button size="sm" variant="destructive" onClick={stop}>
+          <Button
+            size="default"
+            variant="destructive"
+            onClick={stop}
+            className="h-11 w-full justify-center sm:w-auto"
+          >
             <Square className="h-4 w-4" /> Detener ({seconds}s / {MAX_SECONDS}s)
           </Button>
         ) : (
-          <Button size="sm" onClick={start} disabled={saving}>
+          <Button
+            size="default"
+            onClick={start}
+            disabled={saving}
+            className="h-11 w-full justify-center sm:w-auto"
+          >
             <Mic className="h-4 w-4" /> {blob ? "Grabar de nuevo" : "Grabar"}
           </Button>
         )}
-        <Button size="sm" variant="outline" onClick={() => fileRef.current?.click()} disabled={recording || saving}>
+        <Button
+          size="default"
+          variant="outline"
+          onClick={() => fileRef.current?.click()}
+          disabled={recording || saving}
+          className="h-11 w-full justify-center sm:w-auto"
+        >
           <Upload className="h-4 w-4" /> Subir archivo
         </Button>
+
         <input
           ref={fileRef}
           type="file"
@@ -162,10 +181,16 @@ export function WordAudioRecorder({
             <Play className="h-3 w-3" /> Escuchá antes de guardar:
           </div>
           <audio src={previewUrl} controls className="h-10 w-full" />
-          <Button size="sm" onClick={save} disabled={saving} className="w-full sm:w-auto">
+          <Button
+            size="default"
+            onClick={save}
+            disabled={saving}
+            className="h-11 w-full justify-center sm:w-auto"
+          >
             {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
             Guardar audio
           </Button>
+
         </div>
       )}
     </div>
