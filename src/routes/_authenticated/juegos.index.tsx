@@ -3,6 +3,7 @@ import { GameShell } from "@/components/games/game-shell";
 import { useRecordVisit } from "@/lib/gamification";
 import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal, Swords, Brain, Wifi, ChefHat } from 'lucide-react';
 import jaiAsset from "@/assets/jai.png.asset.json";
+import { AoPoiDivider, Terere, Chipa, Arpa, JaiPaw } from "@/components/py-icons";
 
 export const Route = createFileRoute("/_authenticated/juegos/")({
   head: () => ({
@@ -41,6 +42,13 @@ function GamesHome() {
             <p className="font-display text-base font-bold text-foreground">¡Che, mba'éichapa! Soy Jai.</p>
             <p className="text-xs text-muted-foreground">Elegí un juego y aprendamos jugando. Todas las palabras están validadas.</p>
           </div>
+        </div>
+        <AoPoiDivider className="mt-3" />
+        <div className="mt-2 flex items-center justify-center gap-4 text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-1"><Terere size={18} />Tereré</span>
+          <span className="flex items-center gap-1"><Chipa size={18} />Chipa</span>
+          <span className="flex items-center gap-1"><Arpa size={18} />Arpa</span>
+          <span className="flex items-center gap-1"><JaiPaw size={18} />Jai</span>
         </div>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3">
