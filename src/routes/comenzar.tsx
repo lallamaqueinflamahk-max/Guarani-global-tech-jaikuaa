@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { SpeakerButton } from "@/components/audio/speaker-button";
 import { recordCompletion } from "@/lib/gamification";
 import { saveMotivation, markOnboardingDone, type Motivation } from "@/lib/onboarding";
-import jaiAsset from "@/assets/jai.png.asset.json";
+import jaiImg from "@/assets/jai-jaguarete.png";
+const jaiAsset = { url: jaiImg };
 import { celebrate } from "@/lib/confetti";
 
 export const Route = createFileRoute("/comenzar")({

@@ -1,4 +1,5 @@
-import jaiAsset from "@/assets/jai.png.asset.json";
+import jaiImg from "@/assets/jai-jaguarete.png";
+const jaiAsset = { url: jaiImg };
 export type MascotMood = 'idle' | 'success' | 'error' | 'victory';
 export function GameMascot({message,mood='idle'}:{message:string;mood?:MascotMood}){
  return <div className={`game-mascot game-mascot-${mood} flex items-center gap-3 py-2`} data-mood={mood}>

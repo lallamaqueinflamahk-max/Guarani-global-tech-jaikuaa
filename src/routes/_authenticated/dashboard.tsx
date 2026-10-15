@@ -21,7 +21,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { checkCorpusAdmin } from "@/lib/corpus.functions";
-import jaiAsset from "@/assets/jai.png.asset.json";
+import jaiImg from "@/assets/jai-jaguarete.png";
+const jaiAsset = { url: jaiImg };
 
 function StaffShortcuts() {
   const check = useServerFn(checkCorpusAdmin);
