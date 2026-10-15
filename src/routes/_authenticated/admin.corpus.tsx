@@ -1132,6 +1132,15 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
               <Badge variant={w.has_audio ? "default" : "outline"}>
                 {w.has_audio ? "audio ✓" : "sin audio"}
               </Badge>
+              <WordAudioRecorder
+                wordId={w.id}
+                slug={w.audio_slug}
+                hasAudio={w.has_audio}
+                onSaved={() => {
+                  void qc.invalidateQueries({ queryKey: ["corpus-words"] });
+                  void qc.invalidateQueries({ queryKey: ["corpus-overview"] });
+                }}
+              />
               <Button
                 size="sm"
                 variant={w.status === "published" ? "secondary" : "outline"}
