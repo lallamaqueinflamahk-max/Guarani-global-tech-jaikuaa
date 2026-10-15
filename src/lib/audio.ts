@@ -76,6 +76,19 @@ export async function getHumanAudioUrl(gn: string): Promise<string | null> {
     }
     return url;
   } catch {
+    // Sin señal: buscar el audio guardado en el teléfono por nombre de archivo.
+    return findOfflineAudio(slug);
+  }
+}
+
+async function findOfflineAudio(slug: string): Promise<string | null> {
+  if (typeof window === "undefined" || !("caches" in window)) return null;
+  try {
+    const cache = await caches.open("jaikuaa-audio");
+    const keys = await cache.keys();
+    const hit = keys.find((r) => new URL(r.url).pathname.endsWith(`/${slug}.mp3`));
+    return hit?.url ?? null;
+  } catch {
     return null;
   }
 }
