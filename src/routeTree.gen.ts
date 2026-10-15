@@ -41,6 +41,7 @@ import { Route as AuthenticatedGuaraniEscolarSemanalRouteImport } from './routes
 import { Route as AuthenticatedGuaraniEscolarTemaRouteImport } from './routes/_authenticated/guarani-escolar.tema'
 import { Route as AuthenticatedJuegosIndexRouteImport } from './routes/_authenticated/juegos.index'
 import { Route as AuthenticatedJuegosAhorcadoRouteImport } from './routes/_authenticated/juegos.ahorcado'
+import { Route as AuthenticatedJuegosDueloRouteImport } from './routes/_authenticated/juegos.duelo'
 import { Route as AuthenticatedJuegosMemoriaRouteImport } from './routes/_authenticated/juegos.memoria'
 import { Route as AuthenticatedJuegosPalabraDelDiaRouteImport } from './routes/_authenticated/juegos.palabra-del-dia'
 import { Route as AuthenticatedJuegosPenalesRouteImport } from './routes/_authenticated/juegos.penales'
@@ -221,6 +222,12 @@ const AuthenticatedJuegosAhorcadoRoute =
     path: '/juegos/ahorcado',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedJuegosDueloRoute =
+  AuthenticatedJuegosDueloRouteImport.update({
+    id: '/juegos/duelo',
+    path: '/juegos/duelo',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedJuegosMemoriaRoute =
   AuthenticatedJuegosMemoriaRouteImport.update({
     id: '/juegos/memoria',
@@ -312,6 +319,7 @@ export interface FileRoutesByFullPath {
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRouteWithChildren
   '/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
+  '/juegos/duelo': typeof AuthenticatedJuegosDueloRoute
   '/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
   '/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
   '/juegos/penales': typeof AuthenticatedJuegosPenalesRoute
@@ -352,6 +360,7 @@ export interface FileRoutesByTo {
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
+  '/juegos/duelo': typeof AuthenticatedJuegosDueloRoute
   '/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
   '/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
   '/juegos/penales': typeof AuthenticatedJuegosPenalesRoute
@@ -397,6 +406,7 @@ export interface FileRoutesById {
   '/_authenticated/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/_authenticated/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRouteWithChildren
   '/_authenticated/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
+  '/_authenticated/juegos/duelo': typeof AuthenticatedJuegosDueloRoute
   '/_authenticated/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
   '/_authenticated/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
   '/_authenticated/juegos/penales': typeof AuthenticatedJuegosPenalesRoute
@@ -442,6 +452,7 @@ export interface FileRouteTypes {
     | '/guarani-escolar/semanal'
     | '/guarani-escolar/tema'
     | '/juegos/ahorcado'
+    | '/juegos/duelo'
     | '/juegos/memoria'
     | '/juegos/palabra-del-dia'
     | '/juegos/penales'
@@ -482,6 +493,7 @@ export interface FileRouteTypes {
     | '/guarani-escolar/rescate'
     | '/guarani-escolar/semanal'
     | '/juegos/ahorcado'
+    | '/juegos/duelo'
     | '/juegos/memoria'
     | '/juegos/palabra-del-dia'
     | '/juegos/penales'
@@ -526,6 +538,7 @@ export interface FileRouteTypes {
     | '/_authenticated/guarani-escolar/semanal'
     | '/_authenticated/guarani-escolar/tema'
     | '/_authenticated/juegos/ahorcado'
+    | '/_authenticated/juegos/duelo'
     | '/_authenticated/juegos/memoria'
     | '/_authenticated/juegos/palabra-del-dia'
     | '/_authenticated/juegos/penales'
@@ -782,6 +795,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedJuegosAhorcadoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/juegos/duelo': {
+      id: '/_authenticated/juegos/duelo'
+      path: '/juegos/duelo'
+      fullPath: '/juegos/duelo'
+      preLoaderRoute: typeof AuthenticatedJuegosDueloRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/juegos/memoria': {
       id: '/_authenticated/juegos/memoria'
       path: '/juegos/memoria'
@@ -928,6 +948,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminInformeAuspicianteRoute: typeof AuthenticatedAdminInformeAuspicianteRoute
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
   AuthenticatedJuegosAhorcadoRoute: typeof AuthenticatedJuegosAhorcadoRoute
+  AuthenticatedJuegosDueloRoute: typeof AuthenticatedJuegosDueloRoute
   AuthenticatedJuegosMemoriaRoute: typeof AuthenticatedJuegosMemoriaRoute
   AuthenticatedJuegosPalabraDelDiaRoute: typeof AuthenticatedJuegosPalabraDelDiaRoute
   AuthenticatedJuegosPenalesRoute: typeof AuthenticatedJuegosPenalesRoute
@@ -954,6 +975,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedAdminInformeAuspicianteRoute,
   AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
   AuthenticatedJuegosAhorcadoRoute: AuthenticatedJuegosAhorcadoRoute,
+  AuthenticatedJuegosDueloRoute: AuthenticatedJuegosDueloRoute,
   AuthenticatedJuegosMemoriaRoute: AuthenticatedJuegosMemoriaRoute,
   AuthenticatedJuegosPalabraDelDiaRoute: AuthenticatedJuegosPalabraDelDiaRoute,
   AuthenticatedJuegosPenalesRoute: AuthenticatedJuegosPenalesRoute,
