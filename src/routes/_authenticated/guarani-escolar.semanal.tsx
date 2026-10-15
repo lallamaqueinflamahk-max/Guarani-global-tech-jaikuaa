@@ -1,7 +1,7 @@
-import { ESCOLAR_GRADES, createFileRoute, Link } from "@tanstack/react-router";
-import { ESCOLAR_GRADES, useEffect, useState } from "react";
-import { ESCOLAR_GRADES, Check, Calendar } from "lucide-react";
-import { ESCOLAR_GRADES, Button } from "@/components/ui/button";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Check, Calendar } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { ESCOLAR_GRADES, temasFor, saveEscolarGrade, type EscolarGrade } from "@/lib/guarani-tema";
 import { recordCompletion, useRecordVisit } from "@/lib/gamification";
 
@@ -43,7 +43,7 @@ function loadState(): Saved {
   if (typeof window === "undefined") return { grade: "6° grado", completed: {} };
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw) as Saved;
+    if (raw) { const s = JSON.parse(raw) as Saved; if (!(GRADES as readonly string[]).includes(s.grade)) s.grade = "1° Media"; return s; }
   } catch {}
   return { grade: "6° grado", completed: {} };
 }

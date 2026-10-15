@@ -1,6 +1,6 @@
-import { ESCOLAR_GRADES, createFileRoute, Link } from "@tanstack/react-router";
-import { ESCOLAR_GRADES, useEffect, useMemo, useState } from "react";
-import { ESCOLAR_GRADES, Button } from "@/components/ui/button";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { ESCOLAR_GRADES, loadEscolarGrade, saveEscolarGrade, temasFor, type QuizQuestion, type Tema } from "@/lib/guarani-tema";
 import { useRecordOnMount, useRecordVisit } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
