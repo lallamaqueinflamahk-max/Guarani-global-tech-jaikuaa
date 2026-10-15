@@ -16,17 +16,22 @@ export function GameShell({ title, emoji, children, sponsorSlot, companion = tru
     <GameKit><div className="game-shell relative isolate flex min-h-screen flex-col bg-background">
       {title !== 'Penales' && <LaceBackground/>}
       <header className="relative border-b border-border/50 bg-background/90">
-        <div className="mx-auto flex h-12 max-w-3xl items-center justify-between px-3 sm:h-16 sm:px-6">
-          <Link to="/dashboard" className="flex items-center gap-2 font-display text-xl font-bold text-primary">
+        <div className="mx-auto flex h-12 max-w-3xl items-center justify-between gap-4 px-3 sm:h-16 sm:px-6 lg:max-w-6xl">
+          <Link to="/dashboard" className="flex shrink-0 items-center gap-2 font-display text-xl font-bold text-primary">
             <BrandLogo />
           </Link>
-          <Link to="/juegos" className="text-sm font-medium text-muted-foreground hover:text-primary">
-            ← Juegos
-          </Link>
+          <nav aria-label="Navegación principal" className="hidden items-center gap-1 md:flex">
+            {([["/dashboard","Aprender"],["/juegos","Juegos"],["/ranking","Ranking"],["/logros","Logros"]] as const).map(([to,label])=>(
+              <Link key={to} to={to} activeOptions={{exact:true}} className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-primary" activeProps={{className:"bg-primary/10 text-primary"}}>{label}</Link>
+            ))}
+          </nav>
+          {title === 'Juegos'
+            ? <Link to="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-primary md:hidden">← Tablero</Link>
+            : <Link to="/juegos" className="text-sm font-medium text-muted-foreground hover:text-primary md:hidden">← Juegos</Link>}
         </div>
       </header>
       <main className="relative flex-1 px-3 py-2 sm:px-6 sm:py-10">
-        <div className="mx-auto max-w-3xl">
+        <div className={`mx-auto max-w-3xl ${title === 'Juegos' ? 'lg:max-w-6xl' : 'lg:max-w-4xl'}`}>
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 sm:flex sm:flex-col-reverse sm:items-stretch">
             <h1 className="min-w-0 truncate font-display text-xl font-bold tracking-normal text-foreground sm:text-center sm:text-4xl">
               <span aria-hidden>{emoji}</span> {title}

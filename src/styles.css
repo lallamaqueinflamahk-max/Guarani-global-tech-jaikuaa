@@ -268,6 +268,10 @@ select,
 .game-lace-background { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: -1; }
 .game-lace { position: absolute; width: 560px; max-width: 115%; stroke: var(--accent); stroke-width: .9; opacity: .075; top: 100px; left: -300px; animation: game-lace-turn 180s linear infinite; }
 .game-lace:nth-child(2) { stroke: var(--game-search); top: 510px; left: auto; right: -300px; animation-direction: reverse; }
+@media (min-width: 1024px) {
+  .game-lace { width: 440px; top: 140px; left: -220px; opacity: .06; }
+  .game-lace:nth-child(2) { top: 140px; left: auto; right: -220px; }
+}
 .game-lace g:nth-child(3n) { stroke: var(--game-memory); }
 .game-card { --game-tone: var(--game-chipa); border-top: 4px solid var(--game-tone); }
 .game-card-search { --game-tone: var(--game-search); }

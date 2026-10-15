@@ -52,7 +52,7 @@ function GamesHome() {
           <span className="flex items-center gap-1"><JaiPaw size={18} />Jai</span>
         </div>
       </div>
-      <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3">
+      <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4 xl:grid-cols-4">
         {GAMES.map((g) => (
           <Link
             key={g.to}
