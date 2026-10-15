@@ -22,13 +22,14 @@ function draw(now: number){
   const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,palette['night']);bg.addColorStop(.35,palette['sky']);bg.addColorStop(.36,palette['grass']);bg.addColorStop(1,palette['grass-dark']);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
   [[120,30],[680,30]].forEach(([lx,ly])=>{const g=ctx.createRadialGradient(lx,ly,2,lx,ly,180);g.addColorStop(0,alpha('white', .35));g.addColorStop(1,alpha('white', 0));ctx.fillStyle=g;ctx.fillRect(lx-180,0,360,220);});
   const hype=Math.max(0,1-(now-S.cheer)/1800);crowd.forEach(p=>{const j=reduce?0:Math.sin(now/180+p.ph)*1.2-hype*Math.abs(Math.sin(now/90+p.ph))*10;ctx.fillStyle=p.c===0?palette['red']:p.c===1?palette['white']:palette['blue'];ctx.globalAlpha=.45+hype*.45;ctx.beginPath();ctx.arc(p.x,p.y+j,3,0,7);ctx.fill();});ctx.globalAlpha=1;
-  ctx.font='800 16px sans-serif';const ledWidth=Math.max(420,ctx.measureText(ledText).width+90);const off=reduce?0:(now/12)%ledWidth;ctx.fillStyle=palette['black'];ctx.fillRect(0,92,W,24);ctx.save();ctx.beginPath();ctx.rect(0,92,W,24);ctx.clip();ctx.fillStyle=palette['gold'];for(let x=-ledWidth;x<W+ledWidth;x+=ledWidth)ctx.fillText(ledText + "  ·  ",x-off+20,110);ctx.restore();
+  if(hype>0&&!reduce){[90,250,550,710].forEach((fx,i)=>{const fy=40+(i%2)*18,r=26+Math.sin(now/60+i)*6;const g=ctx.createRadialGradient(fx,fy,1,fx,fy,r*2.4);g.addColorStop(0,alpha(i%2?'gold':'red',.9*hype));g.addColorStop(1,alpha('red',0));ctx.fillStyle=g;ctx.fillRect(fx-r*2.4,fy-r*2.4,r*4.8,r*4.8);for(let k=0;k<6;k++){ctx.fillStyle=alpha('white',.5*hype);ctx.beginPath();ctx.arc(fx+Math.sin(now/120+k*2)*14,fy-((now/8+k*20)%70),2,0,7);ctx.fill();}});}
+  const led=[ledText,'JAIKUAA · EL ESTADIO DE LAS PALABRAS','APRENDÉ JUGANDO · AUDIO DE VOCES REALES'][Math.floor(now/9000)%3];ledText=led;ctx.font='800 16px sans-serif';const ledWidth=Math.max(420,ctx.measureText(ledText).width+90);const off=reduce?0:(now/12)%ledWidth;ctx.fillStyle=palette['black'];ctx.fillRect(0,92,W,24);ctx.save();ctx.beginPath();ctx.rect(0,92,W,24);ctx.clip();ctx.fillStyle=palette['gold'];for(let x=-ledWidth;x<W+ledWidth;x+=ledWidth)ctx.fillText(ledText + "  ·  ",x-off+20,110);ctx.restore();
   for(let i=0;i<6;i++){ctx.fillStyle=i%2?palette['grass']:palette['stripe'];ctx.fillRect(0,216+i*64,W,64);}
   ctx.strokeStyle=alpha('white', .85);ctx.lineWidth=4;ctx.strokeRect(70,G.y+G.h,660,170);ctx.beginPath();ctx.arc(400,520,5,0,7);ctx.fillStyle=palette['white'];ctx.fill();
   drawNet(now);
   // target hint: corners glow
   if(S.phase==='aim'){ctx.fillStyle=alpha('gold', .12);[[G.x,G.y],[G.x+G.w-110,G.y]].forEach(([x,y])=>{ctx.beginPath();ctx.roundRect(x+POST,y+POST,110-POST,70,10);ctx.fill();});}
-  ctx.strokeStyle=palette['white'];ctx.lineWidth=10;ctx.beginPath();ctx.moveTo(G.x,G.y+G.h);ctx.lineTo(G.x,G.y);ctx.lineTo(G.x+G.w,G.y);ctx.lineTo(G.x+G.w,G.y+G.h);ctx.stroke();
+  const sh=S.shake?Math.max(0,1-(now-S.shake)/500):0;ctx.save();if(sh&&!reduce)ctx.translate(Math.sin(now/18)*5*sh,0);ctx.strokeStyle=palette['white'];ctx.lineWidth=10;ctx.beginPath();ctx.moveTo(G.x,G.y+G.h);ctx.lineTo(G.x,G.y);ctx.lineTo(G.x+G.w,G.y);ctx.lineTo(G.x+G.w,G.y+G.h);ctx.stroke();ctx.restore();
   drawKeeper(now);
   // aim reticle
   const showAim=S.phase==='aim'?(hover&&inGoal(hover)?hover:null):S.phase==='power'?S.aim:null;

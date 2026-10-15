@@ -1,10 +1,10 @@
 import { useEffect, useRef, type KeyboardEvent, type PointerEvent } from 'react';
 import { drawStadium } from './stadium';
-import { freshScene, G, H, W, labels, powerAt, resolveShot, type Outcome, type Scene } from './physics';
+import { freshScene, G, H, W, labels, powerAt, resolveShot, type Dive, type Outcome, type Scene } from './physics';
 import { StadiumSound } from '../game-sound';
 import { celebrate } from '@/lib/confetti';
 
-export function PenaltyPitch({knew,ready,ledText,muted,onShot}:{knew:boolean;ready:boolean;ledText:string;muted:boolean;onShot:(o:Outcome)=>void}){
+export function PenaltyPitch({knew,ready,ledText,muted,onShot,guess}:{knew:boolean;ready:boolean;ledText:string;muted:boolean;onShot:(o:Outcome)=>void;guess?:Dive}){
  const canvas=useRef<HTMLCanvasElement>(null),scene=useRef<Scene>(freshScene()),animation=useRef<((now:number)=>void)|null>(null),sound=useRef(new StadiumSound());
  const callback=useRef(onShot);callback.current=onShot;
  const settings=useRef({ledText,muted});settings.current={ledText,muted};
@@ -19,14 +19,14 @@ export function PenaltyPitch({knew,ready,ledText,muted,onShot}:{knew:boolean;rea
  function kick(){
   const s=scene.current;if(s.phase!=='power'||!s.aim)return;
   const now=performance.now(),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const shot=resolveShot(s.aim,powerAt(now,s.powerStart,s.knew),s.knew,now,reduce);s.phase='shot';sound.current.muted=settings.current.muted;sound.current.play('kick');
+  const shot=resolveShot(s.aim,powerAt(now,s.powerStart,s.knew),s.knew,now,reduce,guess);s.phase='shot';sound.current.muted=settings.current.muted;sound.current.play('kick');
   animation.current=(t)=>{
    const q=Math.min(1,(t-now)/shot.duration),e=1-Math.pow(1-q,2.2);
    s.ball={x:400+(shot.end.x-400)*e,y:520+(shot.end.y-520)*e-Math.sin(q*Math.PI)*50,r:16-6*e};
    const kq=reduce?q:Math.max(0,Math.min(1,((t-now)/1000-shot.react)/Math.max(.05,shot.T-shot.react))),ke=1-Math.pow(1-kq,2);
    s.keeper={x:400+(shot.keeper.x-400)*ke,y:278+(shot.keeper.y-278)*ke,ang:Math.sign(shot.keeper.x-400)*Math.min(1.2,Math.abs(shot.keeper.x-400)/170)*ke,stretch:ke};
    if(q>=1){animation.current=null;s.phase='result';const goal=shot.outcome==='goal'||shot.outcome==='angle';s.banner={t,txt:labels[shot.outcome],c:getComputedStyle(canvas.current??document.documentElement).getPropertyValue(goal?'--stadium-gold':'--stadium-miss')};
-    if(goal){s.cheer=t;s.net={...shot.end,t};celebrate(shot.outcome==='angle'?'big':'small');}sound.current.play(goal?'cheer':'hit');
+    if(goal){s.cheer=t;s.net={...shot.end,t};celebrate(shot.outcome==='angle'?'big':'small');}sound.current.play(goal?'cheer':shot.outcome==='post'?'post':'hit');if(shot.outcome==='post')s.shake=t;
     if(!reduce)try{navigator.vibrate?.(goal?[40,30,60]:30);}catch{}
     callback.current(shot.outcome);
    }
