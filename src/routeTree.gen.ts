@@ -44,6 +44,7 @@ import { Route as AuthenticatedJuegosIndexRouteImport } from './routes/_authenti
 import { Route as AuthenticatedJuegosAhorcadoRouteImport } from './routes/_authenticated/juegos.ahorcado'
 import { Route as AuthenticatedJuegosDueloRouteImport } from './routes/_authenticated/juegos.duelo'
 import { Route as AuthenticatedJuegosMemoriaRouteImport } from './routes/_authenticated/juegos.memoria'
+import { Route as AuthenticatedJuegosNeeRapeRouteImport } from './routes/_authenticated/juegos.nee-rape'
 import { Route as AuthenticatedJuegosPalabraDelDiaRouteImport } from './routes/_authenticated/juegos.palabra-del-dia'
 import { Route as AuthenticatedJuegosPenalesRouteImport } from './routes/_authenticated/juegos.penales'
 import { Route as AuthenticatedJuegosSopaDeLetrasRouteImport } from './routes/_authenticated/juegos.sopa-de-letras'
@@ -241,6 +242,12 @@ const AuthenticatedJuegosMemoriaRoute =
     path: '/juegos/memoria',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedJuegosNeeRapeRoute =
+  AuthenticatedJuegosNeeRapeRouteImport.update({
+    id: '/juegos/nee-rape',
+    path: '/juegos/nee-rape',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedJuegosPalabraDelDiaRoute =
   AuthenticatedJuegosPalabraDelDiaRouteImport.update({
     id: '/juegos/palabra-del-dia',
@@ -335,6 +342,7 @@ export interface FileRoutesByFullPath {
   '/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
   '/juegos/duelo': typeof AuthenticatedJuegosDueloRoute
   '/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
+  '/juegos/nee-rape': typeof AuthenticatedJuegosNeeRapeRoute
   '/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
   '/juegos/penales': typeof AuthenticatedJuegosPenalesRoute
   '/juegos/sopa-de-letras': typeof AuthenticatedJuegosSopaDeLetrasRoute
@@ -378,6 +386,7 @@ export interface FileRoutesByTo {
   '/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
   '/juegos/duelo': typeof AuthenticatedJuegosDueloRoute
   '/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
+  '/juegos/nee-rape': typeof AuthenticatedJuegosNeeRapeRoute
   '/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
   '/juegos/penales': typeof AuthenticatedJuegosPenalesRoute
   '/juegos/sopa-de-letras': typeof AuthenticatedJuegosSopaDeLetrasRoute
@@ -426,6 +435,7 @@ export interface FileRoutesById {
   '/_authenticated/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
   '/_authenticated/juegos/duelo': typeof AuthenticatedJuegosDueloRoute
   '/_authenticated/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
+  '/_authenticated/juegos/nee-rape': typeof AuthenticatedJuegosNeeRapeRoute
   '/_authenticated/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
   '/_authenticated/juegos/penales': typeof AuthenticatedJuegosPenalesRoute
   '/_authenticated/juegos/sopa-de-letras': typeof AuthenticatedJuegosSopaDeLetrasRoute
@@ -474,6 +484,7 @@ export interface FileRouteTypes {
     | '/juegos/ahorcado'
     | '/juegos/duelo'
     | '/juegos/memoria'
+    | '/juegos/nee-rape'
     | '/juegos/palabra-del-dia'
     | '/juegos/penales'
     | '/juegos/sopa-de-letras'
@@ -517,6 +528,7 @@ export interface FileRouteTypes {
     | '/juegos/ahorcado'
     | '/juegos/duelo'
     | '/juegos/memoria'
+    | '/juegos/nee-rape'
     | '/juegos/palabra-del-dia'
     | '/juegos/penales'
     | '/juegos/sopa-de-letras'
@@ -564,6 +576,7 @@ export interface FileRouteTypes {
     | '/_authenticated/juegos/ahorcado'
     | '/_authenticated/juegos/duelo'
     | '/_authenticated/juegos/memoria'
+    | '/_authenticated/juegos/nee-rape'
     | '/_authenticated/juegos/palabra-del-dia'
     | '/_authenticated/juegos/penales'
     | '/_authenticated/juegos/sopa-de-letras'
@@ -841,6 +854,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedJuegosMemoriaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/juegos/nee-rape': {
+      id: '/_authenticated/juegos/nee-rape'
+      path: '/juegos/nee-rape'
+      fullPath: '/juegos/nee-rape'
+      preLoaderRoute: typeof AuthenticatedJuegosNeeRapeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/juegos/palabra-del-dia': {
       id: '/_authenticated/juegos/palabra-del-dia'
       path: '/juegos/palabra-del-dia'
@@ -990,6 +1010,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedJuegosAhorcadoRoute: typeof AuthenticatedJuegosAhorcadoRoute
   AuthenticatedJuegosDueloRoute: typeof AuthenticatedJuegosDueloRoute
   AuthenticatedJuegosMemoriaRoute: typeof AuthenticatedJuegosMemoriaRoute
+  AuthenticatedJuegosNeeRapeRoute: typeof AuthenticatedJuegosNeeRapeRoute
   AuthenticatedJuegosPalabraDelDiaRoute: typeof AuthenticatedJuegosPalabraDelDiaRoute
   AuthenticatedJuegosPenalesRoute: typeof AuthenticatedJuegosPenalesRoute
   AuthenticatedJuegosSopaDeLetrasRoute: typeof AuthenticatedJuegosSopaDeLetrasRoute
@@ -1019,6 +1040,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedJuegosAhorcadoRoute: AuthenticatedJuegosAhorcadoRoute,
   AuthenticatedJuegosDueloRoute: AuthenticatedJuegosDueloRoute,
   AuthenticatedJuegosMemoriaRoute: AuthenticatedJuegosMemoriaRoute,
+  AuthenticatedJuegosNeeRapeRoute: AuthenticatedJuegosNeeRapeRoute,
   AuthenticatedJuegosPalabraDelDiaRoute: AuthenticatedJuegosPalabraDelDiaRoute,
   AuthenticatedJuegosPenalesRoute: AuthenticatedJuegosPenalesRoute,
   AuthenticatedJuegosSopaDeLetrasRoute: AuthenticatedJuegosSopaDeLetrasRoute,
