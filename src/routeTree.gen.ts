@@ -45,6 +45,7 @@ import { Route as AuthenticatedGuaraniEscolarTemaRouteImport } from './routes/_a
 import { Route as AuthenticatedJuegosIndexRouteImport } from './routes/_authenticated/juegos.index'
 import { Route as AuthenticatedJuegosAhorcadoRouteImport } from './routes/_authenticated/juegos.ahorcado'
 import { Route as AuthenticatedJuegosDueloRouteImport } from './routes/_authenticated/juegos.duelo'
+import { Route as AuthenticatedJuegosKaraokeRouteImport } from './routes/_authenticated/juegos.karaoke'
 import { Route as AuthenticatedJuegosMemoriaRouteImport } from './routes/_authenticated/juegos.memoria'
 import { Route as AuthenticatedJuegosNeeRapeRouteImport } from './routes/_authenticated/juegos.nee-rape'
 import { Route as AuthenticatedJuegosPalabraDelDiaRouteImport } from './routes/_authenticated/juegos.palabra-del-dia'
@@ -249,6 +250,12 @@ const AuthenticatedJuegosDueloRoute =
     path: '/juegos/duelo',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedJuegosKaraokeRoute =
+  AuthenticatedJuegosKaraokeRouteImport.update({
+    id: '/juegos/karaoke',
+    path: '/juegos/karaoke',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedJuegosMemoriaRoute =
   AuthenticatedJuegosMemoriaRouteImport.update({
     id: '/juegos/memoria',
@@ -362,6 +369,7 @@ export interface FileRoutesByFullPath {
   '/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRouteWithChildren
   '/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
   '/juegos/duelo': typeof AuthenticatedJuegosDueloRoute
+  '/juegos/karaoke': typeof AuthenticatedJuegosKaraokeRoute
   '/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
   '/juegos/nee-rape': typeof AuthenticatedJuegosNeeRapeRoute
   '/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
@@ -409,6 +417,7 @@ export interface FileRoutesByTo {
   '/guarani-escolar/semanal': typeof AuthenticatedGuaraniEscolarSemanalRoute
   '/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
   '/juegos/duelo': typeof AuthenticatedJuegosDueloRoute
+  '/juegos/karaoke': typeof AuthenticatedJuegosKaraokeRoute
   '/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
   '/juegos/nee-rape': typeof AuthenticatedJuegosNeeRapeRoute
   '/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
@@ -461,6 +470,7 @@ export interface FileRoutesById {
   '/_authenticated/guarani-escolar/tema': typeof AuthenticatedGuaraniEscolarTemaRouteWithChildren
   '/_authenticated/juegos/ahorcado': typeof AuthenticatedJuegosAhorcadoRoute
   '/_authenticated/juegos/duelo': typeof AuthenticatedJuegosDueloRoute
+  '/_authenticated/juegos/karaoke': typeof AuthenticatedJuegosKaraokeRoute
   '/_authenticated/juegos/memoria': typeof AuthenticatedJuegosMemoriaRoute
   '/_authenticated/juegos/nee-rape': typeof AuthenticatedJuegosNeeRapeRoute
   '/_authenticated/juegos/palabra-del-dia': typeof AuthenticatedJuegosPalabraDelDiaRoute
@@ -513,6 +523,7 @@ export interface FileRouteTypes {
     | '/guarani-escolar/tema'
     | '/juegos/ahorcado'
     | '/juegos/duelo'
+    | '/juegos/karaoke'
     | '/juegos/memoria'
     | '/juegos/nee-rape'
     | '/juegos/palabra-del-dia'
@@ -560,6 +571,7 @@ export interface FileRouteTypes {
     | '/guarani-escolar/semanal'
     | '/juegos/ahorcado'
     | '/juegos/duelo'
+    | '/juegos/karaoke'
     | '/juegos/memoria'
     | '/juegos/nee-rape'
     | '/juegos/palabra-del-dia'
@@ -611,6 +623,7 @@ export interface FileRouteTypes {
     | '/_authenticated/guarani-escolar/tema'
     | '/_authenticated/juegos/ahorcado'
     | '/_authenticated/juegos/duelo'
+    | '/_authenticated/juegos/karaoke'
     | '/_authenticated/juegos/memoria'
     | '/_authenticated/juegos/nee-rape'
     | '/_authenticated/juegos/palabra-del-dia'
@@ -899,6 +912,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedJuegosDueloRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/juegos/karaoke': {
+      id: '/_authenticated/juegos/karaoke'
+      path: '/juegos/karaoke'
+      fullPath: '/juegos/karaoke'
+      preLoaderRoute: typeof AuthenticatedJuegosKaraokeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/juegos/memoria': {
       id: '/_authenticated/juegos/memoria'
       path: '/juegos/memoria'
@@ -1069,6 +1089,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
   AuthenticatedJuegosAhorcadoRoute: typeof AuthenticatedJuegosAhorcadoRoute
   AuthenticatedJuegosDueloRoute: typeof AuthenticatedJuegosDueloRoute
+  AuthenticatedJuegosKaraokeRoute: typeof AuthenticatedJuegosKaraokeRoute
   AuthenticatedJuegosMemoriaRoute: typeof AuthenticatedJuegosMemoriaRoute
   AuthenticatedJuegosNeeRapeRoute: typeof AuthenticatedJuegosNeeRapeRoute
   AuthenticatedJuegosPalabraDelDiaRoute: typeof AuthenticatedJuegosPalabraDelDiaRoute
@@ -1101,6 +1122,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
   AuthenticatedJuegosAhorcadoRoute: AuthenticatedJuegosAhorcadoRoute,
   AuthenticatedJuegosDueloRoute: AuthenticatedJuegosDueloRoute,
+  AuthenticatedJuegosKaraokeRoute: AuthenticatedJuegosKaraokeRoute,
   AuthenticatedJuegosMemoriaRoute: AuthenticatedJuegosMemoriaRoute,
   AuthenticatedJuegosNeeRapeRoute: AuthenticatedJuegosNeeRapeRoute,
   AuthenticatedJuegosPalabraDelDiaRoute: AuthenticatedJuegosPalabraDelDiaRoute,
