@@ -17,6 +17,36 @@ import { StatsBar, StreakBanner } from "@/components/gamification/stats-bar";
 import { SiteFooter } from "@/components/site-footer";
 import { NhandeMarandu } from "@/components/nhande-marandu";
 import { AdminCorpusLink } from "@/components/admin-corpus-link";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { checkCorpusAdmin } from "@/lib/corpus.functions";
+
+function StaffShortcuts() {
+  const check = useServerFn(checkCorpusAdmin);
+  const { data } = useQuery({
+    queryKey: ["corpus-admin"],
+    queryFn: () => check(),
+    staleTime: 5 * 60 * 1000,
+    retry: false,
+  });
+  if (!data?.canAccess) return null;
+  return (
+    <section className="mt-6 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant">
+      <p className="text-xs font-semibold uppercase tracking-[0.15em] text-primary">
+        Docentes y validadores
+      </p>
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <Button asChild variant="outline" className="h-12 w-full justify-start">
+          <Link to="/cuaderno">📒 Cuaderno digital del aula</Link>
+        </Button>
+        <Button asChild variant="outline" className="h-12 w-full justify-start">
+          <Link to="/admin/corpus">✅ Bandeja de validación</Link>
+        </Button>
+      </div>
+    </section>
+  );
+}
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Jaikuaa — Tu panel" }] }),
