@@ -99,5 +99,11 @@
     "vite": "^8.0.16",
     "vite-plugin-pwa": "^2.0.0",
     "vitest": "^5.0.3"
+  },
+  "overrides": {
+    "js-yaml": "4.3.2",
+    "source-map-js": "1.2.2",
+    "browserslist": "4.29.3",
+    "baseline-browser-mapping": "2.11.28"
   }
 }
