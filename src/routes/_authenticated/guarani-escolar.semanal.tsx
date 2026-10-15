@@ -30,7 +30,7 @@ const WEEK: DayPlan[] = [
     day: "Viernes",
     short: "Vie",
     topicIdx: [4, 5],
-    label: "Adjetivos + Frases + repaso",
+    label: "Temas 5 y 6 + repaso",
     isReview: true,
   },
 ];
