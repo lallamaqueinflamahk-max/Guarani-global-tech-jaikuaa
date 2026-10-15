@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { getCertificateStatus } from "@/lib/community.functions";
+import { computeCertificateStatus } from "@/lib/community.functions";
 
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 function randomCode(year: number): string {
@@ -16,9 +16,9 @@ export const issueCertificate = createServerFn({ method: "POST" })
   .inputValidator((d: { name: string }) => z.object({ name: z.string().trim().min(2).max(80) }).parse(d))
   .handler(async ({ context, data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const status = await getCertificateStatus();
-    if (!status.eligible || !status.issuedAt) throw new Error("Curso incompleto");
     const me = context.userId;
+    const status = await computeCertificateStatus(me);
+    if (!status.eligible || !status.issuedAt) throw new Error("Curso incompleto");
     const { data: existing } = await supabaseAdmin.from("certificates").select("code").eq("user_id", me).maybeSingle();
     if (existing) return { code: existing.code };
     const year = new Date(status.issuedAt).getUTCFullYear();

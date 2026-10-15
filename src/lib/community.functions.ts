@@ -117,4 +117,4 @@ export async function computeCertificateStatus(me: string) {
       eligible,
       issuedAt,
     };
-  });
+}
