@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Loader2, Printer } from "lucide-react";
+import { BadgeCheck, Loader2, Printer } from "lucide-react";
+import QRCode from "qrcode";
 import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getCertificateStatus } from "@/lib/community.functions";
+import { issueCertificate } from "@/lib/certificates.functions";
 
 export const Route = createFileRoute("/_authenticated/certificado")({
   head: () => ({ meta: [{ title: "Jaikuaa — Certificado" }] }),
@@ -15,10 +17,19 @@ export const Route = createFileRoute("/_authenticated/certificado")({
 
 function CertificadoPage() {
   const fn = useServerFn(getCertificateStatus);
+  const issue = useServerFn(issueCertificate);
   const q = useQuery({ queryKey: ["certificate-status"], queryFn: () => fn() });
   const d = q.data;
   const [typedName, setTypedName] = useState("");
+  const [issuing, setIssuing] = useState(false);
+  const [qr, setQr] = useState<string | null>(null);
   const name = d?.name || typedName.trim();
+  useEffect(() => {
+    if (!d?.code) return;
+    QRCode.toDataURL(`https://www.jaikuaa.com/verificar/${d.code}`, { margin: 0, width: 240, color: { dark: "#1E3A5F" } })
+      .then(setQr)
+      .catch(() => setQr(null));
+  }, [d?.code]);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -73,9 +84,27 @@ function CertificadoPage() {
                 </div>
               )}
               <div className="mb-6 flex justify-center gap-2 print:hidden">
-                <Button variant="cta" onClick={() => window.print()} disabled={!name}>
-                  <Printer aria-hidden /> Descargar o imprimir
-                </Button>
+                {d.code ? (
+                  <Button variant="cta" onClick={() => window.print()}>
+                    <Printer aria-hidden /> Descargar o imprimir
+                  </Button>
+                ) : (
+                  <Button
+                    variant="cta"
+                    disabled={!name || issuing}
+                    onClick={async () => {
+                      setIssuing(true);
+                      try {
+                        await issue({ data: { name } });
+                        await q.refetch();
+                      } finally {
+                        setIssuing(false);
+                      }
+                    }}
+                  >
+                    {issuing ? <Loader2 className="animate-spin" aria-hidden /> : <BadgeCheck aria-hidden />} Emitir mi certificado
+                  </Button>
+                )}
               </div>
               <p className="mb-4 text-center text-xs text-muted-foreground print:hidden">
                 En el celular o la computadora, elegí "Guardar como PDF" en la ventana de impresión.
@@ -105,7 +134,14 @@ function CertificadoPage() {
                 <div className="mx-auto mt-8 w-56 border-t border-neutral-400 pt-2 text-xs text-neutral-600">
                   Guaraní Global Tech E.A.S.
                 </div>
+                {d.code && qr && (
+                  <div className="absolute bottom-8 right-6 flex flex-col items-center sm:bottom-10 sm:right-10">
+                    <img src={qr} alt="Código QR de verificación" className="h-16 w-16 sm:h-24 sm:w-24" />
+                    <span className="mt-1 font-mono text-[9px] text-neutral-600 sm:text-xs">{d.code}</span>
+                  </div>
+                )}
                 <p className="absolute inset-x-0 bottom-4 px-6 text-[10px] text-neutral-400">
+                  {d.code ? `Verificá su autenticidad en jaikuaa.com/verificar/${d.code} · ` : ""}
                   Certificado de finalización de un curso en línea. No constituye un título oficial.
                 </p>
               </article>
