@@ -1,3 +1,4 @@
+import { TEMAS_3RO, TEMAS_9NO, TEMAS_BACH } from "./guarani-tema-ciclos";
 export type VocabItem = { gn: string; es: string };
 export type QuizQuestion = {
   prompt: string;
@@ -287,6 +288,28 @@ export const TEMAS_6TO: Tema[] = [
   },
 ];
 
+export const ESCOLAR_GRADES = ["3° grado", "6° grado", "9° grado", "Bachillerato"] as const;
+export type EscolarGrade = (typeof ESCOLAR_GRADES)[number];
+
+export function temasFor(grade: EscolarGrade): Tema[] {
+  if (grade === "3° grado") return TEMAS_3RO;
+  if (grade === "9° grado") return TEMAS_9NO;
+  if (grade === "Bachillerato") return TEMAS_BACH;
+  return TEMAS_6TO;
+}
+
 export function getTema(slug: string): Tema | undefined {
-  return TEMAS_6TO.find((t) => t.slug === slug);
+  return [...TEMAS_6TO, ...TEMAS_3RO, ...TEMAS_9NO, ...TEMAS_BACH].find((t) => t.slug === slug);
+}
+
+const GRADE_KEY = "aranduka:escolar-grade";
+export function loadEscolarGrade(): EscolarGrade {
+  try {
+    const v = window.localStorage.getItem(GRADE_KEY);
+    if (v && (ESCOLAR_GRADES as readonly string[]).includes(v)) return v as EscolarGrade;
+  } catch {}
+  return "6° grado";
+}
+export function saveEscolarGrade(g: EscolarGrade) {
+  try { window.localStorage.setItem(GRADE_KEY, g); } catch {}
 }

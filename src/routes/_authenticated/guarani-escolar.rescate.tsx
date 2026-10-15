@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { TEMAS_6TO, type QuizQuestion } from "@/lib/guarani-tema";
+import { loadEscolarGrade, saveEscolarGrade, temasFor, type QuizQuestion, type Tema } from "@/lib/guarani-tema";
 import { useRecordOnMount, useRecordVisit } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
 import { SpeakerButton } from "@/components/audio/speaker-button";
@@ -33,10 +33,10 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-function buildExam(): QuizQuestion[] {
+function buildExam(temas: Tema[]): QuizQuestion[] {
   // Pick ~2 from each topic, total 10, then shuffle
   const pool: QuizQuestion[] = [];
-  for (const t of TEMAS_6TO) {
+  for (const t of temas) {
     pool.push(...shuffle(t.quiz).slice(0, 2));
   }
   return shuffle(pool).slice(0, 10);
@@ -60,7 +60,10 @@ function feedbackFor(nota: number): string {
 function ModoRescate() {
   useRecordVisit("rescate");
   const [when, setWhen] = useState<When | null>(null);
-  const [grade, setGrade] = useState<Grade>("6° grado");
+  const [grade, setGradeState] = useState<Grade>("6° grado");
+  useEffect(() => setGradeState(loadEscolarGrade() as Grade), []);
+  const setGrade = (g: Grade) => { setGradeState(g); saveEscolarGrade(g); };
+  const TEMAS = temasFor(grade);
   const [phase, setPhase] = useState<Phase>({ kind: "setup" });
 
   if (phase.kind === "setup") {
@@ -87,13 +90,13 @@ function ModoRescate() {
   }
 
   if (phase.kind === "review") {
-    const topic = TEMAS_6TO[phase.topicIndex];
-    const isLast = phase.topicIndex === TEMAS_6TO.length - 1;
+    const topic = TEMAS[phase.topicIndex];
+    const isLast = phase.topicIndex === TEMAS.length - 1;
     return (
       <ReviewScreen
         topic={topic}
         index={phase.topicIndex}
-        total={TEMAS_6TO.length}
+        total={TEMAS.length}
         onNext={() =>
           isLast
             ? setPhase({ kind: "exam" })
@@ -107,6 +110,7 @@ function ModoRescate() {
   if (phase.kind === "exam") {
     return (
       <ExamScreen
+        temas={TEMAS}
         onDone={(score, total) =>
           setPhase({ kind: "done", score, nota: notaFromScore(score, total) })
         }
@@ -251,7 +255,7 @@ function PlanScreen({
       </p>
 
       <ol className="mt-8 space-y-3">
-        {TEMAS_6TO.map((t, i) => (
+        {temasFor(grade).map((t, i) => (
           <li
             key={t.slug}
             className="flex items-center gap-3 rounded-xl border border-border/60 bg-card p-4 shadow-sm"
@@ -303,7 +307,7 @@ function ReviewScreen({
   onNext,
   onSkipToExam,
 }: {
-  topic: (typeof TEMAS_6TO)[number];
+  topic: Tema;
   index: number;
   total: number;
   onNext: () => void;
@@ -375,8 +379,8 @@ function ReviewScreen({
   );
 }
 
-function ExamScreen({ onDone }: { onDone: (score: number, total: number) => void }) {
-  const questions = useMemo(() => buildExam(), []);
+function ExamScreen({ onDone, temas }: { onDone: (score: number, total: number) => void; temas: Tema[] }) {
+  const questions = useMemo(() => buildExam(temas), [temas]);
   const [i, setI] = useState(0);
   const [score, setScore] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
