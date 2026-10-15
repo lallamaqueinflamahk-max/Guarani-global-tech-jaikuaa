@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { GameShell } from "@/components/games/game-shell";
 import { useRecordVisit } from "@/lib/gamification";
 import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal, Swords, Brain, Wifi, ChefHat, Mic } from 'lucide-react';
-import jaiAsset from "@/assets/jai.png.asset.json";
+import jaiImg from "@/assets/jai-jaguarete.png";
+const jaiAsset = { url: jaiImg };
 import { AoPoiDivider, Terere, Chipa, Arpa, JaiPaw } from "@/components/py-icons";
 
 export const Route = createFileRoute("/_authenticated/juegos/")({
