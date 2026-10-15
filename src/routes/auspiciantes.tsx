@@ -144,12 +144,67 @@ function AuspiciantesPage() {
           </div>
         </Section>
 
+        <Section title="Paquetes" intro="Pocos espacios, un solo auspiciante por rubro. Precios a convenir según el espacio.">
+          <div className="grid gap-5 lg:grid-cols-3">
+            {[
+              {
+                tag: "Exclusivo",
+                title: "Aliado Fundador",
+                items: ["Palabra del día", "Muro de Fundadores en la portada", "Mención en presentaciones institucionales", "Informe mensual"],
+                highlight: true,
+              },
+              {
+                tag: "Por juego",
+                title: "Titular de Juego",
+                items: ["Un juego a elección", "«Presentado por» en cada partida", "Cartel LED si elegís Penales", "Informe mensual"],
+              },
+              {
+                tag: "Institucional",
+                title: "Amigo de la Cultura",
+                items: ["Mención en la página de aliados", "Uso del sello «Aliado de Jaikuaa» en tu comunicación", "Informe trimestral"],
+              },
+            ].map((p) => (
+              <div
+                key={p.title}
+                className={`flex flex-col rounded-2xl border bg-card p-6 shadow-elegant ${p.highlight ? "border-accent ring-2 ring-accent/30" : "border-border/60"}`}
+              >
+                <span className="self-start rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent">
+                  {p.tag}
+                </span>
+                <h3 className="mt-3 font-display text-xl font-bold text-foreground">{p.title}</h3>
+                <ul className="mt-4 flex-1 space-y-2 text-sm text-muted-foreground">
+                  {p.items.map((i) => (
+                    <li key={i}>✓ {i}</li>
+                  ))}
+                </ul>
+                <div className="mt-6">
+                  <WhatsAppCta message={`${MSG} Me interesa el paquete ${p.title}.`}>Consultar</WhatsAppCta>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section title="Resultados medibles">
+          <div className="grid gap-5 sm:grid-cols-3">
+            <InfoCard emoji="📊" title="Vistas reales">
+              Contamos cada vez que tu marca se muestra, una vez por persona por día: sin cifras infladas.
+            </InfoCard>
+            <InfoCard emoji="🧾" title="Informe imprimible">
+              Recibís un informe con vistas y personas alcanzadas por espacio, listo para tu área de marketing o RSE.
+            </InfoCard>
+            <InfoCard emoji="⚡" title="Sin frenar la app">
+              Tu marca carga al instante, también con poca señal, porque es parte de la plataforma.
+            </InfoCard>
+          </div>
+        </Section>
+
         <Section title="Reglas claras">
           <ul className="mx-auto max-w-3xl space-y-3 text-muted-foreground">
+            <li>• Exclusividad por rubro: un solo banco, una sola telefonía, un solo supermercado.</li>
             <li>• No aceptamos marcas de apuestas, alcohol ni tabaco: en Jaikuaa también aprenden estudiantes.</li>
             <li>• Ninguna publicidad interrumpe una lección.</li>
             <li>• Las marcas no intervienen en el contenido en guaraní: lo elaboran y validan especialistas en la lengua.</li>
-            <li>• Informes periódicos de presencia de marca: en desarrollo.</li>
           </ul>
         </Section>
 
