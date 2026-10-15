@@ -289,14 +289,27 @@ export const TEMAS_6TO: Tema[] = [
   },
 ];
 
-export const ESCOLAR_GRADES = ["3° grado", "6° grado", "9° grado", "Bachillerato"] as const;
+export const ESCOLAR_GRADES = [
+  "1° grado", "2° grado", "3° grado",
+  "4° grado", "5° grado", "6° grado",
+  "7° grado", "8° grado", "9° grado",
+  "1° Media", "2° Media", "3° Media",
+] as const;
 export type EscolarGrade = (typeof ESCOLAR_GRADES)[number];
 
+export const ESCOLAR_CICLOS: { label: string; grades: EscolarGrade[] }[] = [
+  { label: "1.er Ciclo", grades: ["1° grado", "2° grado", "3° grado"] },
+  { label: "2.º Ciclo", grades: ["4° grado", "5° grado", "6° grado"] },
+  { label: "3.er Ciclo", grades: ["7° grado", "8° grado", "9° grado"] },
+  { label: "Nivel Medio", grades: ["1° Media", "2° Media", "3° Media"] },
+];
+
 export function temasFor(grade: EscolarGrade): Tema[] {
-  if (grade === "3° grado") return TEMAS_3RO;
-  if (grade === "9° grado") return TEMAS_9NO;
-  if (grade === "Bachillerato") return TEMAS_BACH;
-  return TEMAS_6TO;
+  const i = ESCOLAR_GRADES.indexOf(grade);
+  if (i < 3) return TEMAS_3RO;
+  if (i < 6) return TEMAS_6TO;
+  if (i < 9) return TEMAS_9NO;
+  return TEMAS_BACH;
 }
 
 export function getTema(slug: string): Tema | undefined {
