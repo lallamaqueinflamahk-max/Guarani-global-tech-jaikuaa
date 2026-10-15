@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GameShell, XpNote, shuffle } from "@/components/games/game-shell";
 import { ShareResult } from "@/components/games/share-result";
@@ -120,15 +120,19 @@ function Board({ onRematch }: { onRematch: () => void }) {
   }
 
   return (
-    <div className="mx-auto flex max-w-md flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-elegant">
+    <div className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-hidden bg-card">
       <Half p={1} q={q} pick={picks[1]} winner={winner} onPick={pick} rotated />
-      <div className="flex items-center justify-between gap-3 border-y border-border bg-primary px-4 py-3 text-primary-foreground">
-        <span className="font-display text-sm font-semibold">J1</span>
-        <span className="font-display text-3xl font-bold tabular-nums" aria-live="polite">{score[0]} — {score[1]}</span>
-        <span className="font-display text-sm font-semibold">J2</span>
+      <div className="shrink-0 border-y border-border bg-primary px-2 py-1.5 text-primary-foreground">
+        <div className="flex items-center justify-between gap-2">
+          <Button size="icon" variant="ghost" className="h-9 w-9 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground" onClick={onRematch} aria-label="Salir del duelo"><X /></Button>
+          <span className="font-display text-xs font-semibold">J1</span>
+          <span className="font-display text-2xl font-bold tabular-nums" aria-live="polite">{score[0]} — {score[1]}</span>
+          <span className="font-display text-xs font-semibold">J2</span>
+          <span className="h-9 w-9" aria-hidden />
+        </div>
+        {winner !== null && <p className="px-2 pb-1 text-center text-xs text-primary-foreground/90">{q.explanation}</p>}
       </div>
       <Half p={0} q={q} pick={picks[0]} winner={winner} onPick={pick} />
-      {winner !== null && <p className="border-t border-border px-4 py-2 text-center text-xs text-muted-foreground">{q.explanation}</p>}
     </div>
   );
 }
@@ -140,12 +144,12 @@ function Half({ p, q, pick, winner, onPick, rotated }: {
   const won = winner === p;
   const status = won ? "¡Punto!" : winner === "none" ? "Nadie acertó" : winner !== null ? "Punto rival" : pick !== null ? "Fallaste, espera…" : "¡Rápido!";
   return (
-    <section aria-label={`Jugador ${p + 1}`} className={`space-y-3 p-4 transition-colors ${rotated ? "rotate-180" : ""} ${won ? "bg-primary/10" : pick !== null && winner === null ? "bg-accent/10" : ""}`}>
+    <section aria-label={`Jugador ${p + 1}`} className={`flex min-h-0 flex-1 flex-col justify-center gap-2 px-3 py-2 transition-colors ${rotated ? "rotate-180" : ""} ${won ? "bg-primary/10" : pick !== null && winner === null ? "bg-accent/10" : ""}`}>
       <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         <span>{q.emoji} {q.cat}</span>
         <span>{status}</span>
       </div>
-      <div className="text-center font-display text-lg font-bold leading-snug text-foreground">{q.q}</div>
+      <div className="text-center font-display text-base font-bold leading-snug text-foreground">{q.q}</div>
       <div className="grid grid-cols-2 gap-2">
         {q.options.map((o, i) => {
           const reveal = winner !== null && i === q.answer;
@@ -157,7 +161,7 @@ function Half({ p, q, pick, winner, onPick, rotated }: {
               variant="outline"
               disabled={pick !== null || winner !== null}
               onPointerDown={(e) => { e.preventDefault(); onPick(p, i); }}
-              className={`h-auto min-h-14 whitespace-normal break-words py-2 text-sm font-semibold ${reveal ? "border-primary bg-primary/15 text-primary disabled:opacity-100" : wrong ? "border-accent bg-accent/15 text-accent disabled:opacity-100" : ""}`}
+              className={`h-auto min-h-11 whitespace-normal break-words py-1.5 text-sm font-semibold ${reveal ? "border-primary bg-primary/15 text-primary disabled:opacity-100" : wrong ? "border-accent bg-accent/15 text-accent disabled:opacity-100" : ""}`}
             >
               {o}
             </Button>
