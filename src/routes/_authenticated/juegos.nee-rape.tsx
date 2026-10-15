@@ -401,11 +401,18 @@ function Arena({ match, names, rival, onAnswer, onReact, onRematch, onExit, riva
   const my = mine[idx];
   const theirs = rival[idx];
   const pct = Math.max(0, 1 - inRound / ANSWER_MS) * 100;
+  const secsLeft = Math.max(0, Math.ceil((ANSWER_MS - inRound) / 1000));
+  const urgent = !revealing && !my && secsLeft <= 3;
+  let streak = 0;
+  for (let i = idx; i >= 0; i--) { if (mine[i]?.correct) streak++; else if (i !== idx || mine[i]) break; }
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-2 text-sm">
         <div className="rounded-xl bg-primary/10 px-3 py-1.5 font-bold text-primary">{names[0]} · {myScore}</div>
-        <span className="text-xs font-semibold text-muted-foreground">{idx + 1}/{ROUNDS}</span>
+        <div className="flex flex-col items-center">
+          <span className={`font-display text-2xl font-bold tabular-nums ${urgent ? "text-secondary animate-pulse" : "text-foreground"}`}>{revealing ? "·" : secsLeft}</span>
+          <span className="text-[10px] font-semibold text-muted-foreground">{idx + 1}/{ROUNDS}</span>
+        </div>
         {remote ? (
           <div className={`rounded-xl px-3 py-1.5 font-bold ${theirs ? "bg-secondary/15 text-secondary" : "bg-muted text-muted-foreground"}`}>
             {names[1]} · {rivalScore} {theirs && !revealing ? "✓" : ""}
@@ -415,7 +422,16 @@ function Arena({ match, names, rival, onAnswer, onReact, onRematch, onExit, riva
       <div className="h-2 overflow-hidden rounded-full bg-muted">
         <div className={`h-full transition-[width] duration-100 ${pct < 30 ? "bg-secondary" : "bg-primary"}`} style={{ width: `${revealing ? 0 : pct}%` }} />
       </div>
-      <div className="rounded-3xl border-2 border-border bg-card p-6 text-center shadow-sm">
+      <div className="flex justify-center gap-1.5" aria-hidden>
+        {match.rounds.map((_, i) => (
+          <span key={i} className={`h-2 w-8 rounded-full transition ${i < idx || (i === idx && revealing) ? (mine[i]?.correct ? "bg-primary" : "bg-destructive/60") : i === idx ? "bg-foreground/40" : "bg-muted"}`} />
+        ))}
+      </div>
+      <div key={idx} className={`relative rounded-3xl border-2 bg-card p-6 text-center shadow-sm animate-in fade-in slide-in-from-right-4 duration-300 ${urgent ? "border-secondary/60" : "border-border"}`}>
+        {my?.correct && (
+          <span className="pointer-events-none absolute right-4 top-3 font-display text-lg font-bold text-primary animate-in slide-in-from-bottom-3 fade-in duration-500">+{pointsFor(my.ms)}</span>
+        )}
+        {streak >= 2 && <span className="absolute left-4 top-3 rounded-full bg-secondary/15 px-2 py-0.5 text-xs font-bold text-secondary">🔥 x{streak}</span>}
         <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">{sendero.emoji} {sendero.gn}</p>
         <p className={`mt-3 font-display font-bold text-foreground ${round.prompt.length > 40 ? "text-xl" : "text-3xl"}`}>{round.prompt}</p>
         {round.audio && (
