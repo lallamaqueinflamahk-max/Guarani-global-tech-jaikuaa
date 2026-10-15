@@ -56,6 +56,33 @@ export type Database = {
         }
         Relationships: []
       }
+      certificates: {
+        Row: {
+          code: string
+          created_at: string
+          full_name: string
+          issued_at: string
+          lessons: number
+          user_id: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          full_name: string
+          issued_at: string
+          lessons: number
+          user_id: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          full_name?: string
+          issued_at?: string
+          lessons?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       corpus_sentence_words: {
         Row: {
           created_at: string
