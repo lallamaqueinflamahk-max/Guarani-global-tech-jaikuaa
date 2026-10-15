@@ -131,8 +131,8 @@ function CertificadoPage() {
                       })
                     : ""}
                 </p>
-                <div className="mx-auto mt-8 w-56 border-t border-neutral-400 pt-2 text-xs text-neutral-600">
-                  Guaraní Global Tech E.A.S.
+                <div className="mx-auto mt-8 w-56 border-t border-neutral-400 pt-2 text-xs font-semibold text-neutral-700">
+                  Plataforma Jaikuaa
                 </div>
                 {d.code && qr && (
                   <div className="absolute bottom-8 right-6 flex flex-col items-center sm:bottom-10 sm:right-10">

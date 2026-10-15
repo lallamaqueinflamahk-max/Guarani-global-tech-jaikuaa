@@ -37,7 +37,7 @@ function VerifyPage() {
               {new Date(cert.issued_at).toLocaleDateString("es-PY", { day: "numeric", month: "long", year: "numeric", timeZone: "America/Asuncion" })}.
             </p>
             <p className="mt-5 rounded-full bg-muted px-4 py-1 font-mono text-sm text-foreground">{cert.code}</p>
-            <p className="mt-5 text-xs text-muted-foreground">Emitido por Guaraní Global Tech E.A.S. Certificado de curso en línea; no constituye un título oficial.</p>
+            <p className="mt-5 text-xs text-muted-foreground">Emitido por la Plataforma Jaikuaa. Certificado de curso en línea; no constituye un título oficial.</p>
           </>
         ) : (
           <>
