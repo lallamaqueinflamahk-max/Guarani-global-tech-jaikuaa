@@ -21,6 +21,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { checkCorpusAdmin } from "@/lib/corpus.functions";
+import jaiAsset from "@/assets/jai.png.asset.json";
 
 function StaffShortcuts() {
   const check = useServerFn(checkCorpusAdmin);
@@ -45,6 +46,29 @@ function StaffShortcuts() {
         </Button>
       </div>
     </section>
+  );
+}
+
+function BigAction({ to, emoji, title, desc, tone }: { to: "/curso/$lang" | "/juegos" | "/juegos/palabra-del-dia"; emoji: string; title: string; desc: string; tone: "primary" | "accent" | "card" }) {
+  const cls =
+    tone === "primary"
+      ? "bg-primary text-primary-foreground"
+      : tone === "accent"
+        ? "bg-accent text-accent-foreground"
+        : "bg-card text-foreground border-2 border-primary/30";
+  return (
+    <Link
+      to={to}
+      params={to === "/curso/$lang" ? { lang: "guarani" } : undefined}
+      className={`flex min-h-[84px] items-center gap-4 rounded-3xl p-4 shadow-lift transition-transform active:scale-[0.98] ${cls}`}
+    >
+      <span className="text-5xl leading-none" aria-hidden>{emoji}</span>
+      <span className="min-w-0 flex-1">
+        <span className="block font-display text-2xl font-bold leading-tight">{title}</span>
+        <span className="block text-sm opacity-90">{desc}</span>
+      </span>
+      <span className="text-3xl font-bold" aria-hidden>›</span>
+    </Link>
   );
 }
 
@@ -172,62 +196,40 @@ function Dashboard() {
         </div>
       </header>
 
-      <main className="flex-1 px-4 py-12 sm:px-6 sm:py-16">
+      <main className="flex-1 px-4 py-6 sm:px-6 sm:py-12">
         <div className="mx-auto max-w-5xl">
-          {/* 1. SALUDO + STATS */}
-          <div className="text-center">
-            <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-              {name ? (
-                <>
-                  ¡Che, <span className="text-accent">{name}</span>! {greeting.emoji}
-                </>
-              ) : (
-                <>¡Che! {greeting.emoji}</>
-              )}
-            </h1>
-            <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
-              {greeting.subtitle}
-            </p>
+          {/* 1. SALUDO DE JAI */}
+          <div className="nanduti-bg flex items-center gap-3 rounded-3xl border border-border bg-card p-4 shadow-elegant">
+            <img src={jaiAsset.url} alt="Jai, el jaguarete" className="h-20 w-20 shrink-0 object-contain" />
+            <div className="min-w-0">
+              <h1 className="font-display text-2xl font-bold leading-tight text-foreground sm:text-4xl">
+                ¡Che, {name ? <span className="text-accent">{name}</span> : "amigo"}! {greeting.emoji}
+              </h1>
+              <p className="mt-1 text-base text-muted-foreground">¿Qué querés hacer hoy? Tocá un botón.</p>
+            </div>
           </div>
 
-          <div className="mt-8 space-y-3">
+          {/* 2. TRES BOTONES GIGANTES */}
+          <nav aria-label="Elegí qué hacer" className="mt-5 grid gap-3">
+            <BigAction to="/curso/$lang" emoji="📚" title="Aprender" desc="Seguí tu curso con voces reales" tone="primary" />
+            <BigAction to="/juegos" emoji="🎮" title="Jugar" desc="10 juegos con palabras en guaraní" tone="accent" />
+            <BigAction to="/juegos/palabra-del-dia" emoji="⭐" title="Palabra del día" desc="Una palabra nueva, en 1 minuto" tone="card" />
+          </nav>
+
+          <div className="mt-6 space-y-3">
             <StatsBar />
             <StreakBanner />
           </div>
 
-          {/* 2. TU META DE HOY */}
-          <section className="mt-10 overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-accent p-6 text-primary-foreground shadow-lift sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.15em] opacity-80">
-              Tu meta de hoy
-            </p>
-            <h2 className="mt-2 font-display text-2xl font-bold sm:text-3xl">
-              Seguí con tu Curso de Guaraní
-            </h2>
-            <p className="mt-2 max-w-lg text-sm opacity-90 sm:text-base">
-              Unos minutos por día, con voces humanas paraguayas. Después, practicá con la Palabra del día.
-            </p>
-            <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-              <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
-                <Link to="/curso/$lang" params={{ lang: "guarani" }}>
-                  Continuar el curso →
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="w-full border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground sm:w-auto"
-              >
-                <Link to="/juegos/palabra-del-dia">Palabra del día</Link>
-              </Button>
-            </div>
-          </section>
+          <h2 className="mt-10 text-center font-display text-lg font-semibold text-muted-foreground">
+            Más cosas para explorar
+          </h2>
 
           {/* 3. ACCESO DOCENTE */}
           <StaffShortcuts />
 
           {/* 4. TRES PILARES */}
-          <Tabs defaultValue="aprender" className="mt-10">
+          <Tabs defaultValue="aprender" className="mt-4">
             <TabsList className="grid h-auto w-full grid-cols-3 rounded-2xl p-1">
               <TabsTrigger value="aprender" className="rounded-xl py-2.5 text-xs sm:text-sm">
                 📚 Aprender
@@ -263,14 +265,13 @@ function Dashboard() {
                 <FreeCard to="/nhe-rape" emoji="📖" title="Ñe'ẽ Rape" desc="El camino de la palabra. Tributo al Prof. Ramón Silva." accent="primary" />
               </div>
               <div className="mt-6 grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setOpenTeaser("karaoke")}
-                  className="rounded-2xl border border-dashed border-border bg-muted/40 p-4 text-left transition-colors hover:bg-muted"
+                <Link
+                  to="/juegos/karaoke"
+                  className="rounded-2xl border border-border bg-card p-4 text-left transition-colors hover:bg-muted"
                 >
-                  <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">Próximamente</span>
-                  <div className="mt-1 font-display font-bold text-foreground">🎤 Karaoke Ñe'ẽ</div>
-                </button>
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-accent">Nuevo</span>
+                  <div className="mt-1 font-display font-bold text-foreground">🎤 Purahéi Karaoke</div>
+                </Link>
                 <button
                   type="button"
                   onClick={() => setOpenTeaser("vivo")}
