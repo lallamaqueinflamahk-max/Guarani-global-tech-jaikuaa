@@ -1,4 +1,4 @@
 - [x] Piloto Ateneo: bandeja de Validación docente en el panel.
 - [x] Piloto Ateneo: Cuaderno digital del docente (/cuaderno) con semáforo y planilla.
-- [ ] Modo sin conexión (PWA) — próximo bloque.
+- [x] Modo sin conexión: app guardada, audios escuchados y avances que se sincronizan al volver la señal.
 - [ ] Juegos Duelo Cara a Cara y Relámpago Guaraní.
