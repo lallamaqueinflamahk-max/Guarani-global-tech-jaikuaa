@@ -165,231 +165,104 @@ function Dashboard() {
             <StreakBanner />
           </div>
 
-          {/* 2. SECCIONES PRINCIPALES (Gratis) */}
-          <section className="mt-12">
-            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
-              Aprendé guaraní
-            </h2>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <FreeCard
-                to="/curso/guarani"
-                emoji="📚"
-                title="Curso de Guaraní"
-                desc="10 lecciones con audio humano real. Empezá desde cero y sumá XP."
-                accent="accent"
-              />
-              <FreeCard
-                to="/guarani-escolar"
-                emoji="🎒"
-                title="Guaraní Escolar"
-                desc="Todo lo que necesitás para aprobar Guaraní en la escuela."
-                accent="accent"
-                inValidation
-              />
-              <FreeCard
-                to="/nhe-mbytepe"
-                emoji="🗣️"
-                title="Ñe'ẽ Mbytépe"
-                desc="El guaraní que se habla en la calle."
-                accent="primary"
-                inValidation
-              />
-              <FreeCard
-                to="/trivia"
-                emoji="🧠"
-                title="Jaikuaápa"
-                desc="Trivia: poné a prueba lo que sabés."
-                accent="primary"
-                inValidation
-              />
-              <FreeCard
-                to="/traductor"
-                emoji="🌐"
-                title="Traductor"
-                desc="Prueba con inteligencia artificial. No validado por especialistas."
-                accent="primary"
-                experimental
-              />
-            </div>
-          </section>
-
-          {/* 2b. JUEGOS (Gratis) */}
-          <section className="mt-10">
-            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">Juegos</h2>
-            <div className="mt-4">
-              <Link
-                to="/juegos"
-                className="group relative flex flex-col gap-2 rounded-2xl border border-accent/40 bg-card p-5 shadow-elegant card-hover hover:border-accent hover:shadow-lift"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl" aria-hidden>
-                    🎮
-                  </span>
-                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
-                    Gratis
-                  </span>
-                </div>
-                <div className="font-display text-lg font-bold text-foreground">Juegos</div>
-                <p className="text-sm text-muted-foreground">
-                  Ahorcado con chipas, sopa de letras, memoria y la palabra del día.
-                </p>
-                <span className="mt-1 text-sm font-medium text-accent">Jugar →</span>
-              </Link>
-            </div>
-          </section>
-
-          {/* 2c. COMUNIDAD Y PROGRESO */}
-          <section className="mt-10">
-            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">Tu progreso</h2>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <Link
-                to="/ranking"
-                className="group flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-primary hover:shadow-lift"
-              >
-                <span className="text-2xl" aria-hidden>
-                  🏆
-                </span>
-                <div className="font-display text-lg font-bold text-foreground">Ranking semanal</div>
-                <p className="text-sm text-muted-foreground">Mirá quiénes estudiaron más esta semana en tu grupo.</p>
-                <span className="mt-1 text-sm font-medium text-primary">Ver ranking →</span>
-              </Link>
-              <Link
-                to="/certificado"
-                className="group flex flex-col gap-2 rounded-2xl border border-accent/40 bg-card p-5 shadow-elegant card-hover hover:border-accent hover:shadow-lift"
-              >
-                <span className="text-2xl" aria-hidden>
-                  📜
-                </span>
-                <div className="font-display text-lg font-bold text-foreground">Certificado</div>
-                <p className="text-sm text-muted-foreground">Terminá el Curso de Guaraní y descargá tu certificado.</p>
-                <span className="mt-1 text-sm font-medium text-accent">Ver certificado →</span>
-              </Link>
-            </div>
-          </section>
-
-          {/* 3. PREMIUM */}
-          <section className="mt-10">
-            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">Premium</h2>
-            <div className="mt-4">
-              <Link
-                to="/tutor"
-                className="group relative flex flex-col gap-2 rounded-2xl border border-accent/30 bg-card p-5 shadow-elegant card-hover hover:border-accent hover:shadow-lift"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl" aria-hidden>
-                    ✨
-                  </span>
-                  <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-800">
-                    Experimental
-                  </span>
-                </div>
-                <div className="font-display text-lg font-bold text-foreground">Tutor IA</div>
-                <p className="text-sm text-muted-foreground">
-                  Conversá con un asistente de IA. Contenido no validado por especialistas.
-                </p>
-                <span className="mt-1 text-sm font-medium text-accent">Abrir →</span>
-              </Link>
-            </div>
-          </section>
-
-          {/* 4. CULTURAL */}
-          <section className="mt-10">
-            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
-              Cultura y homenajes
-            </h2>
-            <div className="mt-4">
-              <Link
-                to="/nhe-rape"
-                className="group relative flex flex-col gap-2 rounded-2xl border border-primary/30 bg-card p-5 shadow-elegant card-hover hover:border-primary hover:shadow-lift"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl" aria-hidden>
-                    📖
-                  </span>
-                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
-                    Gratis
-                  </span>
-                </div>
-                <div className="font-display text-lg font-bold text-foreground">Ñe'ẽ Rape</div>
-                <p className="text-sm text-muted-foreground">
-                  El camino de la palabra. Tributo al Prof. Ramón Silva.
-                </p>
-                <span className="mt-1 text-sm font-medium text-primary">Abrir →</span>
-              </Link>
-            </div>
-          </section>
-
-          {/* 5. FUTURO DE JAIKUAA */}
-          <section className="mt-12">
-            <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
-              El futuro de Jaikuaa
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Lo que se viene. Prepará tu voz y tus preguntas.
+          {/* 2. TU META DE HOY */}
+          <section className="mt-10 overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-accent p-6 text-primary-foreground shadow-lift sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] opacity-80">
+              Tu meta de hoy
             </p>
-
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              {/* Karaoke teaser */}
-              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1E3A5F] to-[#C8102E] p-5 shadow-elegant sm:p-6">
-                <span className="absolute -right-4 -bottom-4 text-7xl opacity-15" aria-hidden>
-                  🎵
-                </span>
-                <div className="relative z-10 flex flex-col gap-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl" aria-hidden>
-                      🎤
-                    </span>
-                    <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm animate-pulse">
-                      Próximamente
-                    </span>
-                  </div>
-                  <div className="font-display text-xl font-bold text-white">Karaoke Ñe'ẽ</div>
-                  <p className="text-sm text-white/90">
-                    Cantá guaranías, rap, trap y más.
-                    <br />
-                    En guaraní puro o jopara.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setOpenTeaser("karaoke")}
-                    className="mt-1 self-start text-sm font-semibold text-white underline-offset-4 hover:underline"
-                  >
-                    Ver más →
-                  </button>
-                </div>
-              </div>
-
-              {/* Vivo teaser */}
-              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#C8102E] to-[#1E3A5F] p-5 shadow-elegant sm:p-6">
-                <span className="absolute -right-4 -bottom-4 text-7xl opacity-15" aria-hidden>
-                  📡
-                </span>
-                <div className="relative z-10 flex flex-col gap-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl" aria-hidden>
-                      🔴
-                    </span>
-                    <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm animate-pulse">
-                      Próximamente
-                    </span>
-                  </div>
-                  <div className="font-display text-xl font-bold text-white">Guaraní en Vivo</div>
-                  <p className="text-sm text-white/90">
-                    Transmisiones en vivo con hablantes nativos.
-                    <br />
-                    La comunidad del ñe'ẽ, conectada.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setOpenTeaser("vivo")}
-                    className="mt-1 self-start text-sm font-semibold text-white underline-offset-4 hover:underline"
-                  >
-                    Ver más →
-                  </button>
-                </div>
-              </div>
+            <h2 className="mt-2 font-display text-2xl font-bold sm:text-3xl">
+              Seguí con tu Curso de Guaraní
+            </h2>
+            <p className="mt-2 max-w-lg text-sm opacity-90 sm:text-base">
+              Unos minutos por día, con voces humanas paraguayas. Después, practicá con la Palabra del día.
+            </p>
+            <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+              <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
+                <Link to="/curso/$lang" params={{ lang: "guarani" }}>
+                  Continuar el curso →
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="w-full border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground sm:w-auto"
+              >
+                <Link to="/juegos/palabra-del-dia">Palabra del día</Link>
+              </Button>
             </div>
           </section>
+
+          {/* 3. ACCESO DOCENTE */}
+          <StaffShortcuts />
+
+          {/* 4. TRES PILARES */}
+          <Tabs defaultValue="aprender" className="mt-10">
+            <TabsList className="grid h-auto w-full grid-cols-3 rounded-2xl p-1">
+              <TabsTrigger value="aprender" className="rounded-xl py-2.5 text-xs sm:text-sm">
+                📚 Aprender
+              </TabsTrigger>
+              <TabsTrigger value="jugar" className="rounded-xl py-2.5 text-xs sm:text-sm">
+                🎮 Jugar
+              </TabsTrigger>
+              <TabsTrigger value="herramientas" className="rounded-xl py-2.5 text-xs sm:text-sm">
+                🛠️ Herramientas
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="aprender" className="mt-6">
+              <p className="mb-4 text-sm text-muted-foreground">
+                Contenido pedagógico ordenado, con audio humano.
+              </p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <FreeCard to="/curso/guarani" emoji="📚" title="Curso de Guaraní" desc="10 lecciones con audio humano real. Empezá desde cero y sumá XP." accent="accent" />
+                <FreeCard to="/guarani-escolar" emoji="🎒" title="Guaraní Escolar" desc="Organizado según los grados escolares." accent="accent" inValidation />
+                <FreeCard to="/logros" emoji="🏅" title="Mis logros" desc="Tus insignias, racha y avance." accent="primary" />
+                <FreeCard to="/certificado" emoji="📜" title="Certificado" desc="Terminá el Curso de Guaraní y descargá tu certificado." accent="primary" />
+              </div>
+            </TabsContent>
+
+            <TabsContent value="jugar" className="mt-6">
+              <p className="mb-4 text-sm text-muted-foreground">
+                Practicá lo aprendido jugando. Todo gratis.
+              </p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <FreeCard to="/trivia" emoji="🧠" title="Preguntados paraguayo" desc="Girá la ruleta: gastronomía, mitos, deportes, música y más." accent="accent" inValidation />
+                <FreeCard to="/juegos" emoji="⚽" title="Juegos de vocabulario" desc="Penales, Palabra del día, Ahorcado, Sopa de letras y Memoria." accent="accent" />
+                <FreeCard to="/ranking" emoji="🏆" title="Ranking semanal" desc="Mirá quiénes estudiaron más esta semana en tu grupo." accent="primary" />
+                <FreeCard to="/nhe-rape" emoji="📖" title="Ñe'ẽ Rape" desc="El camino de la palabra. Tributo al Prof. Ramón Silva." accent="primary" />
+              </div>
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => setOpenTeaser("karaoke")}
+                  className="rounded-2xl border border-dashed border-border bg-muted/40 p-4 text-left transition-colors hover:bg-muted"
+                >
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">Próximamente</span>
+                  <div className="mt-1 font-display font-bold text-foreground">🎤 Karaoke Ñe'ẽ</div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setOpenTeaser("vivo")}
+                  className="rounded-2xl border border-dashed border-border bg-muted/40 p-4 text-left transition-colors hover:bg-muted"
+                >
+                  <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">Próximamente</span>
+                  <div className="mt-1 font-display font-bold text-foreground">🔴 Guaraní en Vivo</div>
+                </button>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="herramientas" className="mt-6">
+              <p className="mb-4 text-sm text-muted-foreground">
+                Apoyo y consulta. Las herramientas con IA son pruebas y no están validadas por especialistas.
+              </p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <FreeCard to="/traductor" emoji="🌐" title="Traductor" desc="Consulta rápida guaraní – español." accent="primary" experimental />
+                <FreeCard to="/tutor" emoji="✨" title="Tutor IA" desc="Conversá con un asistente para practicar." accent="primary" experimental />
+                <FreeCard to="/nhe-mbytepe" emoji="🗣️" title="Ñe'ẽ Mbytépe" desc="El guaraní que se habla en la calle." accent="primary" inValidation />
+              </div>
+            </TabsContent>
+          </Tabs>
 
           {/* 6. NOTICIAS */}
           <NhandeMarandu />
