@@ -1,4 +1,5 @@
 import { TEMAS_3RO, TEMAS_9NO, TEMAS_BACH } from "./guarani-tema-ciclos";
+import { TEMAS_AGRO } from "./guarani-tema-agro";
 export type VocabItem = { gn: string; es: string };
 export type QuizQuestion = {
   prompt: string;
@@ -299,7 +300,7 @@ export function temasFor(grade: EscolarGrade): Tema[] {
 }
 
 export function getTema(slug: string): Tema | undefined {
-  return [...TEMAS_6TO, ...TEMAS_3RO, ...TEMAS_9NO, ...TEMAS_BACH].find((t) => t.slug === slug);
+  return [...TEMAS_6TO, ...TEMAS_3RO, ...TEMAS_9NO, ...TEMAS_BACH, ...TEMAS_AGRO].find((t) => t.slug === slug);
 }
 
 const GRADE_KEY = "aranduka:escolar-grade";
