@@ -10,6 +10,7 @@ const HELP = {
  'Palabra del día': {xp:'5 XP si acertás · una vez por día',steps:['🔊 Escuchá la palabra del día.','👆 Elegí su significado entre 4 opciones.','📅 Podés jugar una vez por día. Volvé mañana.']},
  'Penales': {xp:'4 XP por gol · 6 XP al ángulo · máximo 20 XP por tanda para Jugador 1',steps:['💡 Respondé la palabra: si acertás, el arquero es más lento.','🎯 Tocá el arco para apuntar.','⚽ Tocá de nuevo cuando la barra de fuerza esté en verde.','🤝 En Duelo, dos jugadores se turnan en el mismo celular.']},
  'Duelo Cara a Cara': {xp:'3 XP por punto + 5 XP al ganar · máximo 20 XP para Jugador 1',steps:['📱 Apoyen el celular en la mesa, uno de cada lado.','🔊 Suena una palabra en guaraní.','👆 El primero que toca su traducción gana el punto.','⛔ Si te equivocás, quedás bloqueado 1 segundo.','🏆 Gana quien llega a 5.']},
+ 'Duelo de Trivia': {xp:'3 XP por punto + 5 XP al ganar · máximo 20 XP para Jugador 1',steps:['📱 Apoyen el celular en la mesa, uno de cada lado.','❓ Aparece una pregunta sobre el Paraguay.','👆 Cada uno tiene una sola chance: el primero que acierta gana el punto.','🤝 Si los dos fallan, nadie suma.','🏆 Gana quien llega a 5.']},
 } as const;
 
 export function GameHelp({title}:{title:string}) {

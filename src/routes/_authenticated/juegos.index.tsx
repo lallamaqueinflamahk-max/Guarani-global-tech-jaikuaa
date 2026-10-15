@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GameShell } from "@/components/games/game-shell";
 import { useRecordVisit } from "@/lib/gamification";
-import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal, Swords } from 'lucide-react';
+import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal, Swords, Brain } from 'lucide-react';
 
 export const Route = createFileRoute("/_authenticated/juegos/")({
   head: () => ({
@@ -19,6 +19,7 @@ export const Route = createFileRoute("/_authenticated/juegos/")({
 
 const GAMES = [
   { to: "/juegos/duelo", tone: "football", icon: Swords, title: "Duelo Cara a Cara", desc: "2 jugadores, 1 celular. El más rápido en traducir gana. Nuevo · Multijugador", xp: "hasta 20 XP" },
+  { to: "/juegos/trivia-duelo", tone: "daily", icon: Brain, title: "Duelo de Trivia", desc: "2 jugadores, 1 celular. ¿Quién sabe más del Paraguay? Nuevo · Multijugador", xp: "hasta 20 XP" },
   { to: "/juegos/ahorcado", tone: "chipa", icon: CircleDashed, title: "Ahorcado con chipas", desc: "Adiviná la palabra antes de que se acaben las 6 chipas.", xp: "hasta 15 XP" },
   { to: "/juegos/sopa-de-letras", tone: "search", icon: Grid2X2, title: "Sopa de letras", desc: "Encontrá 6 palabras escondidas en la grilla.", xp: "20 XP" },
   { to: "/juegos/memoria", tone: "memory", icon: Layers, title: "Memoria", desc: "Uní cada palabra en guaraní con su traducción.", xp: "hasta 20 XP" },
