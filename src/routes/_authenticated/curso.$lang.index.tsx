@@ -32,6 +32,15 @@ function CourseIndex() {
   const lessons = isGuarani
     ? dbLessons.map((l) => l.n)
     : Array.from({ length: 10 }, (_, i) => i + 1);
+  // Desbloqueo progresivo: la primera abierta, y cada una tras completar la anterior.
+  const unlockedSet = new Set<number>();
+  dbLessons.forEach((l, i) => {
+    if (i === 0 || l.completed || dbLessons[i - 1]!.completed) unlockedSet.add(l.n);
+  });
+  const doneCount = dbLessons.filter((l) => l.completed).length;
+  const nextN =
+    dbLessons.find((l) => unlockedSet.has(l.n) && !l.completed && l.publishedWords > 0)?.n ??
+    (doneCount > 0 ? undefined : undefined);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
