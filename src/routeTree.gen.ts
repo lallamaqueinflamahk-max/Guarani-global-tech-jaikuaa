@@ -22,6 +22,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as AuthenticatedCertificadoRouteImport } from './routes/_authenticated/certificado'
+import { Route as AuthenticatedCuadernoRouteImport } from './routes/_authenticated/cuaderno'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
@@ -116,6 +117,11 @@ const AuthenticatedCertificadoRoute =
     path: '/certificado',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCuadernoRoute = AuthenticatedCuadernoRouteImport.update({
+  id: '/cuaderno',
+  path: '/cuaderno',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -289,6 +295,7 @@ export interface FileRoutesByFullPath {
   '/sobre': typeof SobreRoute
   '/terminos': typeof TerminosRoute
   '/certificado': typeof AuthenticatedCertificadoRoute
+  '/cuaderno': typeof AuthenticatedCuadernoRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/logros': typeof AuthenticatedLogrosRoute
@@ -331,6 +338,7 @@ export interface FileRoutesByTo {
   '/sobre': typeof SobreRoute
   '/terminos': typeof TerminosRoute
   '/certificado': typeof AuthenticatedCertificadoRoute
+  '/cuaderno': typeof AuthenticatedCuadernoRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/logros': typeof AuthenticatedLogrosRoute
   '/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
@@ -372,6 +380,7 @@ export interface FileRoutesById {
   '/sobre': typeof SobreRoute
   '/terminos': typeof TerminosRoute
   '/_authenticated/certificado': typeof AuthenticatedCertificadoRoute
+  '/_authenticated/cuaderno': typeof AuthenticatedCuadernoRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/_authenticated/logros': typeof AuthenticatedLogrosRoute
@@ -416,6 +425,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/terminos'
     | '/certificado'
+    | '/cuaderno'
     | '/dashboard'
     | '/guarani-escolar'
     | '/logros'
@@ -458,6 +468,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/terminos'
     | '/certificado'
+    | '/cuaderno'
     | '/dashboard'
     | '/logros'
     | '/nhe-mbytepe'
@@ -498,6 +509,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/terminos'
     | '/_authenticated/certificado'
+    | '/_authenticated/cuaderno'
     | '/_authenticated/dashboard'
     | '/_authenticated/guarani-escolar'
     | '/_authenticated/logros'
@@ -635,6 +647,13 @@ declare module '@tanstack/react-router' {
       path: '/certificado'
       fullPath: '/certificado'
       preLoaderRoute: typeof AuthenticatedCertificadoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/cuaderno': {
+      id: '/_authenticated/cuaderno'
+      path: '/cuaderno'
+      fullPath: '/cuaderno'
+      preLoaderRoute: typeof AuthenticatedCuadernoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard': {
@@ -896,6 +915,7 @@ const AuthenticatedCursoLangRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedCertificadoRoute: typeof AuthenticatedCertificadoRoute
+  AuthenticatedCuadernoRoute: typeof AuthenticatedCuadernoRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedGuaraniEscolarRoute: typeof AuthenticatedGuaraniEscolarRouteWithChildren
   AuthenticatedLogrosRoute: typeof AuthenticatedLogrosRoute
@@ -919,6 +939,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCertificadoRoute: AuthenticatedCertificadoRoute,
+  AuthenticatedCuadernoRoute: AuthenticatedCuadernoRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedGuaraniEscolarRoute:
     AuthenticatedGuaraniEscolarRouteWithChildren,

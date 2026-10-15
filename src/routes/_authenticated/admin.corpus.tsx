@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { WordAudioRecorder } from "@/components/corpus/word-audio-recorder";
+import { ValidationPanel } from "@/components/corpus/validation-panel";
 import { useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -168,6 +169,12 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
         >
           ← Volver al panel
         </Link>
+        <Link
+          to="/cuaderno"
+          className="ml-4 text-sm font-semibold text-primary hover:underline"
+        >
+          Abrir cuaderno digital →
+        </Link>
         <h1 className="mt-2 font-display text-3xl font-bold text-foreground sm:text-4xl">
           Corpus guaraní
         </h1>
@@ -221,6 +228,9 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
           <TabsTrigger value="lecciones" className="flex-1">
             Lecciones
           </TabsTrigger>
+          <TabsTrigger value="validacion" className="flex-1">
+            Validación
+          </TabsTrigger>
           {isAdmin && (
             <TabsTrigger value="docentes" className="flex-1">
               Docentes validadores
@@ -259,6 +269,9 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
         </TabsContent>
         <TabsContent value="lecciones" className="mt-6">
           <LessonsPanel levels={levels} isAdmin={isAdmin} />
+        </TabsContent>
+        <TabsContent value="validacion" className="mt-6">
+          <ValidationPanel />
         </TabsContent>
         {isAdmin && (
           <TabsContent value="docentes" className="mt-6">
