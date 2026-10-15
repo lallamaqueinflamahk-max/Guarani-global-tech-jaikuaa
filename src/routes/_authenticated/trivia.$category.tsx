@@ -53,6 +53,8 @@ function buildSuccessMessage(
       return `¡Sí! **${answer}**.\n\n${explanation} Tu historia vive. 🔥`;
     case "cultura":
       return `¡Exacto! **${answer}**.\n\n${explanation} Vos la seguís viva. 💙`;
+    default:
+      return `¡Muy bien! **${answer}**.\n\n${explanation} 🇵🇾`;
   }
 }
 
