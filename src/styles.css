@@ -292,3 +292,14 @@ select,
 html.text-large {
   font-size: 112.5%;
 }
+
+/* Sopa de letras: fluorescent drag marker */
+.sopa-trail { background: color-mix(in srgb, var(--stadium-gold) 75%, transparent) !important; border-color: var(--stadium-gold) !important; color: var(--stadium-black) !important; transform: scale(1.06); }
+.sopa-found { background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 70%, var(--accent))); animation: sopa-glow .6s ease; }
+@keyframes sopa-glow { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--stadium-gold) 80%, transparent); } 100% { box-shadow: 0 0 0 8px transparent; } }
+/* Palabra del día: collectible card */
+.daily-card { background: radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--primary) 70%, var(--accent)), var(--primary) 60%); color: var(--primary-foreground); box-shadow: 0 18px 40px -18px color-mix(in srgb, var(--primary) 70%, transparent); border: 2px solid color-mix(in srgb, var(--stadium-gold) 55%, transparent); }
+.daily-lace { color: var(--stadium-gold); opacity: .25; animation: game-lace-turn 120s linear infinite; }
+.daily-chip { background: color-mix(in srgb, var(--primary-foreground) 15%, transparent); }
+.daily-play { background: color-mix(in srgb, var(--primary-foreground) 14%, transparent); box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary-foreground) 8%, transparent); animation: aranduka-pulse-soft 2.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .daily-lace, .daily-play, .sopa-found { animation: none; } .sopa-trail { transform: none; } }

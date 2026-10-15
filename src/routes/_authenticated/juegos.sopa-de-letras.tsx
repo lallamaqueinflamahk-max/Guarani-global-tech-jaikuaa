@@ -116,14 +116,18 @@ function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
 
   const foundCells = new Set(placed.flatMap((p, i) => (found.has(i) ? p.cells : [])));
 
-  function tap(cell: number) {
-    if (done) return;
-    if (start === null) return setStart(cell);
-    if (start === cell) return setStart(null);
-    const [r1, c1, r2, c2] = [Math.floor(start / size), start % size, Math.floor(cell / size), cell % size];
+  const [drag, setDrag] = useState<{ from: number; to: number } | null>(null);
+
+  function lineOf(a: number, b: number): number[] {
+    const [r1, c1, r2, c2] = [Math.floor(a / size), a % size, Math.floor(b / size), b % size];
     const line: number[] = [];
     if (r1 === r2) for (let c = Math.min(c1, c2); c <= Math.max(c1, c2); c++) line.push(r1 * size + c);
     else if (c1 === c2) for (let r = Math.min(r1, r2); r <= Math.max(r1, r2); r++) line.push(r * size + c1);
+    return line;
+  }
+
+  function check(from: number, cell: number) {
+    const line = lineOf(from, cell);
     setStart(null);
     const idx = placed.findIndex(
       (p, i) => !found.has(i) && p.cells.length === line.length && p.cells.every((x, j) => x === line[j]),
@@ -134,28 +138,61 @@ function Board({ puzzle, onNext }: { puzzle: Puzzle; onNext: () => void }) {
       if (placed[idx]!.word.hasAudio) void playGuarani(placed[idx]!.word.gn);
     } else {
       feedback("error");
-      setMiss(line.length ? line : [start, cell]);
+      setMiss(line.length ? line : [from, cell]);
       window.setTimeout(() => setMiss([]), 600);
     }
   }
 
+  function cellAt(x: number, y: number): number | null {
+    const el = document.elementFromPoint(x, y)?.closest("[data-cell]");
+    return el ? Number(el.getAttribute("data-cell")) : null;
+  }
+
+  function down(e: React.PointerEvent, cell: number) {
+    if (done) return;
+    e.preventDefault();
+    if (start !== null && start !== cell) { check(start, cell); return; }
+    setDrag({ from: cell, to: cell });
+  }
+  function move(e: React.PointerEvent) {
+    if (!drag) return;
+    const c = cellAt(e.clientX, e.clientY);
+    if (c !== null && c !== drag.to) setDrag({ ...drag, to: c });
+  }
+  function up() {
+    if (!drag) return;
+    const { from, to } = drag;
+    setDrag(null);
+    if (from !== to) check(from, to);
+    else setStart((s) => (s === from ? null : from));
+  }
+
+  const trail = new Set(drag ? lineOf(drag.from, drag.to) : []);
+
   return (
     <div className="space-y-6">
       <p className="text-center text-sm text-muted-foreground">
-        Tocá la primera y la última letra de cada palabra (horizontal o vertical).
+        Deslizá el dedo sobre cada palabra, o tocá su primera y última letra (horizontal o vertical).
       </p>
       <div
-        className="mx-auto grid max-w-md gap-1 lg:max-w-xl"
+        className="sopa-grid mx-auto grid max-w-md touch-none select-none gap-1 lg:max-w-xl"
+        onPointerMove={move}
+        onPointerUp={up}
+        onPointerCancel={() => setDrag(null)}
+        onPointerLeave={up}
         style={{ gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))` }}
       >
         {grid.map((t, i) => (
           <Button variant="ghost"
             key={i}
             type="button"
-            onClick={() => tap(i)}
-            className={`flex h-auto aspect-square p-0 items-center justify-center rounded-md border text-sm font-bold sm:text-base ${
-              foundCells.has(i)
-                ? "border-primary bg-primary text-primary-foreground"
+            data-cell={i}
+            onPointerDown={(e) => { (e.currentTarget as HTMLElement).releasePointerCapture?.(e.pointerId); down(e, i); }}
+            className={`flex h-auto aspect-square p-0 items-center justify-center rounded-md border text-sm font-bold transition-colors sm:text-base ${
+              trail.has(i)
+                ? "sopa-trail"
+                : foundCells.has(i)
+                ? "sopa-found border-primary text-primary-foreground"
                 : start === i
                   ? "border-accent bg-accent text-accent-foreground"
                   : miss.includes(i)
