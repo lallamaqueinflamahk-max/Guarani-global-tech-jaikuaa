@@ -897,3 +897,43 @@ export const reorderLessonWords = createServerFn({ method: "POST" })
     }
     return { ok: true };
   });
+
+/** Guarda una grabación humana (MP3) para una palabra del corpus. Admin o docente validador. */
+export const uploadWordAudio = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        id: z.string().uuid(),
+        // MP3 en base64, máximo ~2 MB de audio
+        base64: z.string().min(100).max(2_800_000),
+      })
+      .parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    await assertRole(context.supabase, context.userId, "editor");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: word, error: wErr } = await supabaseAdmin
+      .from("corpus_words")
+      .select("id, audio_slug")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (wErr || !word?.audio_slug) throw new Error("Palabra no encontrada");
+    const bin = Uint8Array.from(atob(data.base64), (c) => c.charCodeAt(0));
+    // Verifica cabecera MP3 (ID3 o frame sync)
+    const isMp3 =
+      (bin[0] === 0x49 && bin[1] === 0x44 && bin[2] === 0x33) ||
+      (bin[0] === 0xff && (bin[1] & 0xe0) === 0xe0);
+    if (!isMp3) throw new Error("El archivo no es un MP3 válido");
+    const path = `${word.audio_slug}.mp3`;
+    const { error: upErr } = await supabaseAdmin.storage
+      .from("guarani-audio")
+      .upload(path, bin, { contentType: "audio/mpeg", upsert: true });
+    if (upErr) throw new Error(upErr.message);
+    const { error } = await supabaseAdmin
+      .from("corpus_words")
+      .update({ has_audio: true } as never)
+      .eq("id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true, path };
+  });
