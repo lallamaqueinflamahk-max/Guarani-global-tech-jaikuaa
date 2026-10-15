@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Check, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { temasFor, saveEscolarGrade, type EscolarGrade } from "@/lib/guarani-tema";
+import { ESCOLAR_GRADES, temasFor, saveEscolarGrade, type EscolarGrade } from "@/lib/guarani-tema";
 import { recordCompletion, useRecordVisit } from "@/lib/gamification";
 
 export const Route = createFileRoute("/_authenticated/guarani-escolar/semanal")({
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/_authenticated/guarani-escolar/semanal")(
   component: PlanSemanal,
 });
 
-const GRADES = ["3° grado", "6° grado", "9° grado", "Bachillerato"] as const;
+const GRADES = ESCOLAR_GRADES;
 type Grade = (typeof GRADES)[number];
 
 type DayPlan = {
@@ -43,7 +43,7 @@ function loadState(): Saved {
   if (typeof window === "undefined") return { grade: "6° grado", completed: {} };
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw) as Saved;
+    if (raw) { const s = JSON.parse(raw) as Saved; if (!(GRADES as readonly string[]).includes(s.grade)) s.grade = "1° Media"; return s; }
   } catch {}
   return { grade: "6° grado", completed: {} };
 }

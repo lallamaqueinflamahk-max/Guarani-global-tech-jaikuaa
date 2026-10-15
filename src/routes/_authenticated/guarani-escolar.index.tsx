@@ -58,7 +58,7 @@ function GuaraniEscolarEntry() {
         <label className="block text-center text-sm font-medium text-muted-foreground">
           Elegí tu año
         </label>
-        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-6">
           {GRADES.map((g) => (
             <Button
               key={g}

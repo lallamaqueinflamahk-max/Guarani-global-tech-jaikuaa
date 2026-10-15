@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { loadEscolarGrade, saveEscolarGrade, temasFor, type QuizQuestion, type Tema } from "@/lib/guarani-tema";
+import { ESCOLAR_GRADES, loadEscolarGrade, saveEscolarGrade, temasFor, type QuizQuestion, type Tema } from "@/lib/guarani-tema";
 import { useRecordOnMount, useRecordVisit } from "@/lib/gamification";
 import { celebrate } from "@/lib/confetti";
 import { SpeakerButton } from "@/components/audio/speaker-button";
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/_authenticated/guarani-escolar/rescate")(
 });
 
 const WHENS = ["Hoy", "Mañana", "En 3 días", "Esta semana"] as const;
-const GRADES = ["3° grado", "6° grado", "9° grado", "Bachillerato"] as const;
+const GRADES = ESCOLAR_GRADES;
 type When = (typeof WHENS)[number];
 type Grade = (typeof GRADES)[number];
 
