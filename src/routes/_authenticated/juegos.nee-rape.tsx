@@ -16,6 +16,7 @@ import type { GameWord } from "@/lib/games.functions";
 export const Route = createFileRoute("/_authenticated/juegos/nee-rape")({
   validateSearch: (s: Record<string, unknown>) => ({
     sala: typeof s.sala === "string" ? s.sala.toUpperCase().slice(0, 6) : undefined,
+    sendero: s.sendero === "nemongeta" || s.sendero === "arandupy" || s.sendero === "achegety" ? (s.sendero as "achegety" | "nemongeta" | "arandupy") : undefined,
   }),
   head: () => ({
     meta: [
@@ -88,8 +89,8 @@ type Answer = { pick: number; ms: number; correct: boolean };
 type Match = { sendero: SenderoId; rounds: Round[]; startAt: number };
 
 function NeeRape() {
-  const { sala } = Route.useSearch();
-  const [sendero, setSendero] = useState<SenderoId>("achegety");
+  const { sala, sendero: preset } = Route.useSearch();
+  const [sendero, setSendero] = useState<SenderoId>(preset ?? "achegety");
   const [mode, setMode] = useState<"menu" | "solo" | "remote">(sala ? "remote" : "menu");
   const [code, setCode] = useState<string | null>(sala ?? null);
   const [isHost, setIsHost] = useState(false);
