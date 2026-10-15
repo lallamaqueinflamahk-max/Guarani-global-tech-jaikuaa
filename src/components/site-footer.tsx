@@ -1,6 +1,18 @@
 import { Link } from "@tanstack/react-router";
 import { BrandLogo } from "@/components/brand-logo";
 
+/** Bandera del Paraguay en SVG: se ve igual en cualquier celular o computadora. */
+export function FlagParaguay({ className = "h-3.5 w-5" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 20 14" className={`${className} shrink-0 rounded-[2px]`} role="img" aria-label="Bandera del Paraguay">
+      <rect width="20" height="14" fill="#fff" />
+      <rect width="20" height="4.67" fill="#D52B1E" />
+      <rect y="9.33" width="20" height="4.67" fill="#0038A8" />
+    </svg>
+  );
+}
+
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/50 bg-background py-10">
