@@ -44,8 +44,8 @@ import { Route as AuthenticatedGuaraniEscolarTemaRouteImport } from './routes/_a
 import { Route as AuthenticatedGuaraniEscolarSemanalRouteImport } from './routes/_authenticated/guarani-escolar.semanal'
 import { Route as AuthenticatedGuaraniEscolarRescateRouteImport } from './routes/_authenticated/guarani-escolar.rescate'
 import { Route as AuthenticatedCursoLangRouteImport } from './routes/_authenticated/curso.$lang'
-import { Route as AuthenticatedAdminCorpusRouteImport } from './routes/_authenticated/admin.corpus'
 import { Route as AuthenticatedAdminInformeAuspicianteRouteImport } from './routes/_authenticated/admin.informe-auspiciante'
+import { Route as AuthenticatedAdminCorpusRouteImport } from './routes/_authenticated/admin.corpus'
 import { Route as AuthenticatedGuaraniEscolarTemaIndexRouteImport } from './routes/_authenticated/guarani-escolar.tema.index'
 import { Route as AuthenticatedCursoLangIndexRouteImport } from './routes/_authenticated/curso.$lang.index'
 import { Route as AuthenticatedGuaraniEscolarTemaTopicRouteImport } from './routes/_authenticated/guarani-escolar.tema.$topic'
@@ -239,16 +239,16 @@ const AuthenticatedCursoLangRoute = AuthenticatedCursoLangRouteImport.update({
   path: '/curso/$lang',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAdminCorpusRoute =
-  AuthenticatedAdminCorpusRouteImport.update({
-    id: '/admin/corpus',
-    path: '/admin/corpus',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
 const AuthenticatedAdminInformeAuspicianteRoute =
   AuthenticatedAdminInformeAuspicianteRouteImport.update({
     id: '/admin/informe-auspiciante',
     path: '/admin/informe-auspiciante',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminCorpusRoute =
+  AuthenticatedAdminCorpusRouteImport.update({
+    id: '/admin/corpus',
+    path: '/admin/corpus',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedGuaraniEscolarTemaIndexRoute =
@@ -791,18 +791,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCursoLangRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin/corpus': {
-      id: '/_authenticated/admin/corpus'
-      path: '/admin/corpus'
-      fullPath: '/admin/corpus'
-      preLoaderRoute: typeof AuthenticatedAdminCorpusRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/admin/informe-auspiciante': {
       id: '/_authenticated/admin/informe-auspiciante'
       path: '/admin/informe-auspiciante'
       fullPath: '/admin/informe-auspiciante'
       preLoaderRoute: typeof AuthenticatedAdminInformeAuspicianteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/corpus': {
+      id: '/_authenticated/admin/corpus'
+      path: '/admin/corpus'
+      fullPath: '/admin/corpus'
+      preLoaderRoute: typeof AuthenticatedAdminCorpusRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/guarani-escolar/tema/': {
@@ -929,7 +929,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedTraductorRoute: AuthenticatedTraductorRoute,
   AuthenticatedTutorRoute: AuthenticatedTutorRoute,
   AuthenticatedAdminCorpusRoute: AuthenticatedAdminCorpusRoute,
-  AuthenticatedAdminInformeAuspicianteRoute: AuthenticatedAdminInformeAuspicianteRoute,
+  AuthenticatedAdminInformeAuspicianteRoute:
+    AuthenticatedAdminInformeAuspicianteRoute,
   AuthenticatedCursoLangRoute: AuthenticatedCursoLangRouteWithChildren,
   AuthenticatedJuegosAhorcadoRoute: AuthenticatedJuegosAhorcadoRoute,
   AuthenticatedJuegosMemoriaRoute: AuthenticatedJuegosMemoriaRoute,
