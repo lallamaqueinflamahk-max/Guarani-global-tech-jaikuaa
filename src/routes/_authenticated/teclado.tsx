@@ -53,9 +53,7 @@ function TecladoPage() {
     const c = document.createElement("canvas");
     c.width = 1080; c.height = 1920;
     const g = c.getContext("2d")!;
-    const css = getComputedStyle(document.documentElement);
     const navy = "#1E3A5F", red = "#C8102E";
-    void css;
     g.fillStyle = navy; g.fillRect(0, 0, 1080, 1920);
     // ñandutí sutil
     g.strokeStyle = "rgba(255,255,255,0.08)"; g.lineWidth = 3;
