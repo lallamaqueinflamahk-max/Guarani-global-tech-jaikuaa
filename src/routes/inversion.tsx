@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { PrivateGate } from "@/components/private-gate";
 import { SiteFooter } from "@/components/site-footer";
 import { InfoCard, MarketingHeader, Section, WhatsAppCta } from "@/components/marketing/page-parts";
 import { SUPPORT_WHATSAPP } from "@/lib/contact";
@@ -36,6 +37,7 @@ function leadHref(rubro: string) {
 export const Route = createFileRoute("/inversion")({
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex, nofollow" },
       { title: "Jaikuaa Invest — Invertí y radicate en Paraguay" },
       {
         name: "description",
@@ -53,7 +55,8 @@ export const Route = createFileRoute("/inversion")({
     ],
     links: [{ rel: "canonical", href: "https://www.jaikuaa.com/inversion" }],
   }),
-  component: InversionPage,
+  ssr: false,
+  component: () => <PrivateGate><InversionPage /></PrivateGate>,
 });
 
 function InversionPage() {

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { PrivateGate } from "@/components/private-gate";
 import { SiteFooter } from "@/components/site-footer";
 import { InfoCard, MarketingHeader, Section, WhatsAppCta } from "@/components/marketing/page-parts";
 
@@ -13,6 +14,7 @@ const REGISTROS = [
 export const Route = createFileRoute("/cine")({
   head: () => ({
     meta: [
+      { name: "robots", content: "noindex, nofollow" },
       { title: "Ta'anga Jaikuaa — Cine y guiones en guaraní" },
       { name: "description", content: "Herramienta y vitrina para el cine paraguayo: guiones bilingües, revisión lingüística humana y difusión de series y películas en guaraní." },
       { property: "og:title", content: "Ta'anga Jaikuaa — Cine y guiones en guaraní" },
@@ -23,7 +25,8 @@ export const Route = createFileRoute("/cine")({
     ],
     links: [{ rel: "canonical", href: "https://www.jaikuaa.com/cine" }],
   }),
-  component: CinePage,
+  ssr: false,
+  component: () => <PrivateGate><CinePage /></PrivateGate>,
 });
 
 function CinePage() {
