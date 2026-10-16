@@ -1,34 +1,59 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { MessageCircle } from "lucide-react";
+import { Menu, MessageCircle, X } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 import { SUPPORT_WHATSAPP } from "@/lib/contact";
 
+const NAV_LINKS = [
+  { to: "/instituciones", label: "Instituciones" },
+  { to: "/inversion", label: "Invertir" },
+  { to: "/cine", label: "Cine" },
+  { to: "/turismo", label: "Turismo" },
+  { to: "/auspiciantes", label: "Auspiciantes" },
+] as const;
+
 export function MarketingHeader() {
+  const [open, setOpen] = useState(false);
   return (
-    <header className="border-b border-border/50">
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-        <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold text-primary">
+    <header className="relative border-b border-border/50">
+      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-3 px-4 sm:px-6">
+        <Link to="/" className="flex min-w-0 shrink-0 items-center gap-2 font-display text-xl font-bold text-primary">
           <BrandLogo />
         </Link>
-        <nav className="flex items-center gap-4 text-sm">
-          <Link to="/instituciones" className="text-muted-foreground hover:text-foreground">
-            Instituciones
-          </Link>
-          <Link to="/inversion" className="text-muted-foreground hover:text-foreground">
-            Invertir
-          </Link>
-          <Link to="/cine" className="text-muted-foreground hover:text-foreground">
-            Cine
-          </Link>
-          <Link to="/turismo" className="text-muted-foreground hover:text-foreground">
-            Turismo
-          </Link>
-          <Link to="/auspiciantes" className="text-muted-foreground hover:text-foreground">
-            Auspiciantes
-          </Link>
+        <nav className="hidden items-center gap-4 text-sm md:flex">
+          {NAV_LINKS.map((l) => (
+            <Link key={l.to} to={l.to} className="text-muted-foreground hover:text-foreground">
+              {l.label}
+            </Link>
+          ))}
         </nav>
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={open}
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border text-foreground md:hidden"
+        >
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
+      {open && (
+        <nav className="absolute inset-x-0 top-16 z-50 border-b border-border bg-background shadow-lg md:hidden">
+          <ul className="flex flex-col px-4 py-2">
+            {NAV_LINKS.map((l) => (
+              <li key={l.to}>
+                <Link
+                  to={l.to}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-lg px-3 py-3 text-base font-medium text-foreground hover:bg-muted"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }
