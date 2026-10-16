@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { SpeakerButton } from "@/components/audio/speaker-button";
 import { recordCompletion } from "@/lib/gamification";
 import { saveMotivation, markOnboardingDone, type Motivation } from "@/lib/onboarding";
-import jaiImg from "@/assets/jai-jaguarete.png";
+import jaiImg from "@/assets/jai-tradicional.png";
 const jaiAsset = { url: jaiImg };
 import { celebrate } from "@/lib/confetti";
 
