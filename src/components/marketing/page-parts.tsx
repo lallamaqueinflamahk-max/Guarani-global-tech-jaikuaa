@@ -18,6 +18,9 @@ export function MarketingHeader() {
           <Link to="/inversion" className="text-muted-foreground hover:text-foreground">
             Invertir
           </Link>
+          <Link to="/cine" className="text-muted-foreground hover:text-foreground">
+            Cine
+          </Link>
           <Link to="/turismo" className="text-muted-foreground hover:text-foreground">
             Turismo
           </Link>

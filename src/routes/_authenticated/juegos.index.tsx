@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GameShell } from "@/components/games/game-shell";
 import { useRecordVisit } from "@/lib/gamification";
-import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal, Swords, Brain, Wifi, ChefHat, Mic, Scale } from 'lucide-react';
+import { CircleDashed, Grid2X2, Layers, CalendarDays, Goal, Swords, Brain, Wifi, ChefHat, Mic, Scale, Clapperboard } from 'lucide-react';
 import jaiImg from "@/assets/jai-tradicional.png";
 const jaiAsset = { url: jaiImg };
 import { AoPoiDivider, Terere, Chipa, Arpa, JaiPaw } from "@/components/py-icons";
@@ -21,6 +21,7 @@ export const Route = createFileRoute("/_authenticated/juegos/")({
 });
 
 const GAMES = [
+  { to: "/juegos/taanga", tone: "football", icon: Clapperboard, title: "Ta'anga · Claqueta de Jai", desc: "Sé guionista: completá el diálogo y que Jai grite ¡Corte, quedó perfecta! Nuevo", xp: "hasta 20 XP" },
   { to: "/juegos/tekojoja", tone: "memory", icon: Scale, title: "Tekojoja · Juzgado de Paz", desc: "Resolvé casos de un Juzgado de Paz y aprendé términos jurídicos. Nuevo", xp: "hasta 20 XP" },
   { to: "/juegos/nee-rape", tone: "search", icon: Wifi, title: "Ñe'ẽ Rape · A distancia", desc: "Desafiá por WhatsApp: cada uno desde su celular. 4 senderos. Nuevo · Multijugador a distancia", xp: "hasta 20 XP" },
   { to: "/juegos/karaoke", tone: "daily", icon: Mic, title: "Purahéi Karaoke", desc: "Cantá en guaraní al ritmo del arpa y completá el verso. Nuevo", xp: "hasta 20 XP" },
@@ -36,7 +37,7 @@ const GAMES = [
 
 const SHELVES = [
   { title: "Clásicos rápidos", items: ["/juegos/palabra-del-dia", "/juegos/memoria", "/juegos/sopa-de-letras", "/juegos/ahorcado"] },
-  { title: "Tradición, cancha y música", items: ["/juegos/penales", "/juegos/karaoke", "/juegos/tembiu"] },
+  { title: "Tradición, cancha y música", items: ["/juegos/penales", "/juegos/karaoke", "/juegos/tembiu", "/juegos/taanga"] },
   { title: "Duelos y casos", items: ["/juegos/tekojoja", "/juegos/nee-rape", "/juegos/duelo", "/juegos/trivia-duelo"] },
 ] as const;
 
