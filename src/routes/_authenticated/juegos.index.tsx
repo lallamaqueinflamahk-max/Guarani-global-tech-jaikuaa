@@ -34,6 +34,12 @@ const GAMES = [
   { to: "/juegos/palabra-del-dia", tone: "daily", icon: CalendarDays, title: "Palabra del día", desc: "Escuchala y elegí su significado. Una vez por día.", xp: "5 XP" },
 ] as const;
 
+const SHELVES = [
+  { title: "Clásicos rápidos", items: ["/juegos/palabra-del-dia", "/juegos/memoria", "/juegos/sopa-de-letras", "/juegos/ahorcado"] },
+  { title: "Tradición, cancha y música", items: ["/juegos/penales", "/juegos/karaoke", "/juegos/tembiu"] },
+  { title: "Duelos y casos", items: ["/juegos/tekojoja", "/juegos/nee-rape", "/juegos/duelo", "/juegos/trivia-duelo"] },
+] as const;
+
 function GamesHome() {
   useRecordVisit("juegos");
   return (
@@ -54,22 +60,27 @@ function GamesHome() {
           <span className="flex items-center gap-1"><JaiPaw size={18} />Jai</span>
         </div>
       </div>
-      <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4 xl:grid-cols-4">
-        {GAMES.map((g) => (
-          <Link
-            key={g.to}
-            to={g.to}
-            className={`game-card game-card-${g.tone} flex flex-col gap-2 rounded-lg border border-border bg-card p-3 shadow-elegant card-hover hover:shadow-lift`}
-          >
-            <div className="flex items-center justify-between gap-1">
-              <span className="game-card-icon flex h-10 w-10 items-center justify-center rounded-lg" aria-hidden><g.icon size={22} strokeWidth={1.8}/></span>
-              <span className="game-card-xp rounded-md px-1.5 py-0.5 text-[10px] font-semibold">{g.xp.replace("hasta ", "≤")}</span>
-            </div>
-            <div className="font-display text-sm font-bold leading-tight text-foreground">{g.title}</div>
-            <p className="line-clamp-2 text-xs text-muted-foreground">{g.desc}</p>
-          </Link>
-        ))}
-      </div>
+      {SHELVES.map((s) => (
+        <section key={s.title} className="mt-5">
+          <h2 className="mb-2 font-display text-sm font-bold uppercase tracking-wide text-muted-foreground">{s.title}</h2>
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-4 xl:grid-cols-4">
+            {GAMES.filter((g) => (s.items as readonly string[]).includes(g.to)).map((g) => (
+              <Link
+                key={g.to}
+                to={g.to}
+                className={`game-card game-card-${g.tone} flex flex-col gap-2 rounded-lg border border-border bg-card p-3 shadow-elegant card-hover hover:shadow-lift`}
+              >
+                <div className="flex items-center justify-between gap-1">
+                  <span className="game-card-icon flex h-10 w-10 items-center justify-center rounded-lg" aria-hidden><g.icon size={22} strokeWidth={1.8}/></span>
+                  <span className="game-card-xp rounded-md px-1.5 py-0.5 text-[10px] font-semibold">{g.xp.replace("hasta ", "≤")}</span>
+                </div>
+                <div className="font-display text-sm font-bold leading-tight text-foreground">{g.title}</div>
+                <p className="line-clamp-2 text-xs text-muted-foreground">{g.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ))}
     </GameShell>
   );
 }
