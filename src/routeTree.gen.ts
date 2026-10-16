@@ -15,12 +15,14 @@ import { Route as AuspiciantesRouteImport } from './routes/auspiciantes'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ComenzarRouteImport } from './routes/comenzar'
 import { Route as InstitucionesRouteImport } from './routes/instituciones'
+import { Route as InversionRouteImport } from './routes/inversion'
 import { Route as PilotoAteneoRouteImport } from './routes/piloto-ateneo'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as RecuperarRouteImport } from './routes/recuperar'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as TerminosRouteImport } from './routes/terminos'
+import { Route as TurismoRouteImport } from './routes/turismo'
 import { Route as AuthenticatedAgroRouteImport } from './routes/_authenticated/agro'
 import { Route as AuthenticatedCertificadoRouteImport } from './routes/_authenticated/certificado'
 import { Route as AuthenticatedCuadernoRouteImport } from './routes/_authenticated/cuaderno'
@@ -90,6 +92,11 @@ const InstitucionesRoute = InstitucionesRouteImport.update({
   path: '/instituciones',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InversionRoute = InversionRouteImport.update({
+  id: '/inversion',
+  path: '/inversion',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PilotoAteneoRoute = PilotoAteneoRouteImport.update({
   id: '/piloto-ateneo',
   path: '/piloto-ateneo',
@@ -118,6 +125,11 @@ const SobreRoute = SobreRouteImport.update({
 const TerminosRoute = TerminosRouteImport.update({
   id: '/terminos',
   path: '/terminos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TurismoRoute = TurismoRouteImport.update({
+  id: '/turismo',
+  path: '/turismo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAgroRoute = AuthenticatedAgroRouteImport.update({
@@ -348,12 +360,14 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/comenzar': typeof ComenzarRoute
   '/instituciones': typeof InstitucionesRoute
+  '/inversion': typeof InversionRoute
   '/piloto-ateneo': typeof PilotoAteneoRoute
   '/privacidad': typeof PrivacidadRoute
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
   '/terminos': typeof TerminosRoute
+  '/turismo': typeof TurismoRoute
   '/agro': typeof AuthenticatedAgroRoute
   '/certificado': typeof AuthenticatedCertificadoRoute
   '/cuaderno': typeof AuthenticatedCuadernoRoute
@@ -400,12 +414,14 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/comenzar': typeof ComenzarRoute
   '/instituciones': typeof InstitucionesRoute
+  '/inversion': typeof InversionRoute
   '/piloto-ateneo': typeof PilotoAteneoRoute
   '/privacidad': typeof PrivacidadRoute
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
   '/terminos': typeof TerminosRoute
+  '/turismo': typeof TurismoRoute
   '/agro': typeof AuthenticatedAgroRoute
   '/certificado': typeof AuthenticatedCertificadoRoute
   '/cuaderno': typeof AuthenticatedCuadernoRoute
@@ -451,12 +467,14 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/comenzar': typeof ComenzarRoute
   '/instituciones': typeof InstitucionesRoute
+  '/inversion': typeof InversionRoute
   '/piloto-ateneo': typeof PilotoAteneoRoute
   '/privacidad': typeof PrivacidadRoute
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
   '/terminos': typeof TerminosRoute
+  '/turismo': typeof TurismoRoute
   '/_authenticated/agro': typeof AuthenticatedAgroRoute
   '/_authenticated/certificado': typeof AuthenticatedCertificadoRoute
   '/_authenticated/cuaderno': typeof AuthenticatedCuadernoRoute
@@ -505,12 +523,14 @@ export interface FileRouteTypes {
     | '/auth'
     | '/comenzar'
     | '/instituciones'
+    | '/inversion'
     | '/piloto-ateneo'
     | '/privacidad'
     | '/recuperar'
     | '/reset-password'
     | '/sobre'
     | '/terminos'
+    | '/turismo'
     | '/agro'
     | '/certificado'
     | '/cuaderno'
@@ -557,12 +577,14 @@ export interface FileRouteTypes {
     | '/auth'
     | '/comenzar'
     | '/instituciones'
+    | '/inversion'
     | '/piloto-ateneo'
     | '/privacidad'
     | '/recuperar'
     | '/reset-password'
     | '/sobre'
     | '/terminos'
+    | '/turismo'
     | '/agro'
     | '/certificado'
     | '/cuaderno'
@@ -607,12 +629,14 @@ export interface FileRouteTypes {
     | '/auth'
     | '/comenzar'
     | '/instituciones'
+    | '/inversion'
     | '/piloto-ateneo'
     | '/privacidad'
     | '/recuperar'
     | '/reset-password'
     | '/sobre'
     | '/terminos'
+    | '/turismo'
     | '/_authenticated/agro'
     | '/_authenticated/certificado'
     | '/_authenticated/cuaderno'
@@ -661,12 +685,14 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ComenzarRoute: typeof ComenzarRoute
   InstitucionesRoute: typeof InstitucionesRoute
+  InversionRoute: typeof InversionRoute
   PilotoAteneoRoute: typeof PilotoAteneoRoute
   PrivacidadRoute: typeof PrivacidadRoute
   RecuperarRoute: typeof RecuperarRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SobreRoute: typeof SobreRoute
   TerminosRoute: typeof TerminosRoute
+  TurismoRoute: typeof TurismoRoute
   ApiTutorRoute: typeof ApiTutorRoute
   VerificarCodeRoute: typeof VerificarCodeRoute
 }
@@ -715,6 +741,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InstitucionesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/inversion': {
+      id: '/inversion'
+      path: '/inversion'
+      fullPath: '/inversion'
+      preLoaderRoute: typeof InversionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/piloto-ateneo': {
       id: '/piloto-ateneo'
       path: '/piloto-ateneo'
@@ -755,6 +788,13 @@ declare module '@tanstack/react-router' {
       path: '/terminos'
       fullPath: '/terminos'
       preLoaderRoute: typeof TerminosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/turismo': {
+      id: '/turismo'
+      path: '/turismo'
+      fullPath: '/turismo'
+      preLoaderRoute: typeof TurismoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/agro': {
@@ -1167,12 +1207,14 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ComenzarRoute: ComenzarRoute,
   InstitucionesRoute: InstitucionesRoute,
+  InversionRoute: InversionRoute,
   PilotoAteneoRoute: PilotoAteneoRoute,
   PrivacidadRoute: PrivacidadRoute,
   RecuperarRoute: RecuperarRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SobreRoute: SobreRoute,
   TerminosRoute: TerminosRoute,
+  TurismoRoute: TurismoRoute,
   ApiTutorRoute: ApiTutorRoute,
   VerificarCodeRoute: VerificarCodeRoute,
 }

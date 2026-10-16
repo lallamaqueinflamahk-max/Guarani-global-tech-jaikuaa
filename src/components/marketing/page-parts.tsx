@@ -15,6 +15,12 @@ export function MarketingHeader() {
           <Link to="/instituciones" className="text-muted-foreground hover:text-foreground">
             Instituciones
           </Link>
+          <Link to="/inversion" className="text-muted-foreground hover:text-foreground">
+            Invertir
+          </Link>
+          <Link to="/turismo" className="text-muted-foreground hover:text-foreground">
+            Turismo
+          </Link>
           <Link to="/auspiciantes" className="text-muted-foreground hover:text-foreground">
             Auspiciantes
           </Link>
