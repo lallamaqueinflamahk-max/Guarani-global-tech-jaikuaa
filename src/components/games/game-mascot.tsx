@@ -1,4 +1,4 @@
-import jaiImg from "@/assets/jai-jaguarete.png";
+import jaiImg from "@/assets/jai-tradicional.png";
 const jaiAsset = { url: jaiImg };
 export type MascotMood = 'idle' | 'success' | 'error' | 'victory';
 export function GameMascot({message,mood='idle'}:{message:string;mood?:MascotMood}){

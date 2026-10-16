@@ -1,8 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useRef, useState } from "react";
-import { ArrowLeft, Copy, Check, Delete, Send } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ArrowLeft, Copy, Check, Delete, Send, Wand2, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useServerFn } from "@tanstack/react-start";
+import { getGameWords } from "@/lib/games.functions";
+import { buildIndex, clean, isNasal, lastWord, PARES, type Fix } from "@/lib/limpiador";
+import jaiImg from "@/assets/jai-tradicional.png";
 
 export const Route = createFileRoute("/_authenticated/teclado")({
   head: () => ({
@@ -26,6 +30,68 @@ function TecladoPage() {
   const [text, setText] = useState("");
   const [copied, setCopied] = useState(false);
   const ref = useRef<HTMLTextAreaElement>(null);
+  const fetchWords = useServerFn(getGameWords);
+  const [words, setWords] = useState<string[] | null>(null);
+  const [fixes, setFixes] = useState<Fix[] | null>(null);
+  const [card, setCard] = useState<string | null>(null);
+  useEffect(() => {
+    fetchWords({ data: { lesson: null } }).then((r) => setWords(r.words.map((w) => w.gn))).catch(() => setWords([]));
+  }, [fetchWords]);
+  const index = useMemo(() => buildIndex(words ?? []), [words]);
+  const prev = lastWord(text);
+  const nasal = prev ? isNasal(prev) : false;
+
+  function limpiar() {
+    const r = clean(text, index);
+    setText(r.text);
+    setFixes(r.fixes);
+  }
+  function sufijo(s: string) {
+    setText((t) => t.replace(/\s*$/, "") + s);
+  }
+  async function makeCard() {
+    const c = document.createElement("canvas");
+    c.width = 1080; c.height = 1920;
+    const g = c.getContext("2d")!;
+    const navy = "#1E3A5F", red = "#C8102E";
+    g.fillStyle = navy; g.fillRect(0, 0, 1080, 1920);
+    // ñandutí sutil
+    g.strokeStyle = "rgba(255,255,255,0.08)"; g.lineWidth = 3;
+    for (const [cx, cy] of [[160, 220], [920, 1700], [940, 260]]) {
+      for (let r = 40; r <= 260; r += 44) { g.beginPath(); g.arc(cx, cy, r, 0, Math.PI * 2); g.stroke(); }
+      for (let a = 0; a < 24; a++) { g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + Math.cos(a * Math.PI / 12) * 260, cy + Math.sin(a * Math.PI / 12) * 260); g.stroke(); }
+    }
+    g.fillStyle = red; g.fillRect(0, 0, 1080, 24);
+    g.fillStyle = "#ffffff"; g.fillRect(0, 24, 1080, 24);
+    g.fillStyle = "#2B5BA8"; g.fillRect(0, 48, 1080, 24);
+    // texto
+    g.fillStyle = "#ffffff"; g.textAlign = "center";
+    const size = text.length > 120 ? 54 : text.length > 60 ? 68 : 86;
+    g.font = `700 ${size}px "Space Grotesk", sans-serif`;
+    const lines: string[] = []; let line = "";
+    for (const w of text.split(/\s+/)) {
+      const t = line ? line + " " + w : w;
+      if (g.measureText(t).width > 900 && line) { lines.push(line); line = w; } else line = t;
+    }
+    if (line) lines.push(line);
+    const top = 560 - (lines.length * size * 1.25) / 2;
+    lines.slice(0, 12).forEach((l, i) => g.fillText(l, 540, top + i * size * 1.25));
+    const img = new Image(); img.src = jaiImg;
+    await img.decode().catch(() => undefined);
+    if (img.complete) g.drawImage(img, 240, 1000, 600, 600);
+    g.font = `600 44px "Space Grotesk", sans-serif`;
+    g.fillText("jaikuaa.com", 540, 1780);
+    setCard(c.toDataURL("image/png"));
+  }
+  async function shareCard() {
+    if (!card) return;
+    const blob = await (await fetch(card)).blob();
+    const file = new File([blob], "jaikuaa-tarjeta.png", { type: "image/png" });
+    if (navigator.canShare?.({ files: [file] })) {
+      try { await navigator.share({ files: [file], text: "Desde Jaikuaa 🐆" }); return; } catch { /* cancelado */ }
+    }
+    const a = document.createElement("a"); a.href = card; a.download = "jaikuaa-tarjeta.png"; a.click();
+  }
 
   function insert(s: string) {
     const el = ref.current;
@@ -94,6 +160,49 @@ function TecladoPage() {
           <a href={text ? wa : undefined} target="_blank" rel="noopener noreferrer" aria-disabled={!text}><Send /> WhatsApp</a>
         </Button>
       </div>
+      <section className="mt-6 space-y-3 rounded-xl border border-border bg-card p-4">
+        <h2 className="font-display text-lg font-bold text-foreground">✨ Ayudas mágicas</h2>
+        <Button className="w-full" variant="secondary" onClick={limpiar} disabled={!text || !words}>
+          <Wand2 /> Limpiador Guaraní (pusó y nasales)
+        </Button>
+        {fixes && (
+          <p className="text-sm text-muted-foreground">
+            {fixes.length === 0
+              ? "No encontré nada para corregir con las palabras validadas del corpus."
+              : `Corregí ${fixes.length}: ` + fixes.map((f) => `${f.from} → ${f.to}`).join(", ")}
+          </p>
+        )}
+        <p className="text-xs text-muted-foreground">Solo usa palabras ya validadas por docentes. Si una palabra no está en el corpus, la deja igual.</p>
+
+        {prev && (
+          <div>
+            <p className="mb-1 text-sm text-foreground">
+              Armonía nasal para «{prev}»: {nasal ? "suena nasal → usá la forma nasal" : "suena oral → usá la forma oral"}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {PARES.map((p) => {
+                const s = nasal ? p.nasal : p.oral;
+                return (
+                  <Button key={p.oral} size="sm" variant="outline" onClick={() => sufijo(s)}>
+                    -{s} <span className="text-xs text-muted-foreground">({p.sentido})</span>
+                  </Button>
+                );
+              })}
+            </div>
+            <p className="mt-1 text-xs text-muted-foreground">Regla general orientativa; ante dudas, consultá con tu docente.</p>
+          </div>
+        )}
+
+        <Button className="w-full" onClick={() => void makeCard()} disabled={!text}>
+          <ImageIcon /> Crear tarjeta con Jai
+        </Button>
+        {card && (
+          <div className="space-y-2">
+            <img src={card} alt="Tarjeta con tu frase y Jai" className="mx-auto w-48 rounded-lg shadow" />
+            <Button className="w-full" variant="secondary" onClick={() => void shareCard()}><Send /> Compartir o guardar</Button>
+          </div>
+        )}
+      </section>
     </main>
   );
 }
