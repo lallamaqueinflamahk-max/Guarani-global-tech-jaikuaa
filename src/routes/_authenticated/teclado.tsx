@@ -162,6 +162,49 @@ function TecladoPage() {
           <a href={text ? wa : undefined} target="_blank" rel="noopener noreferrer" aria-disabled={!text}><Send /> WhatsApp</a>
         </Button>
       </div>
+      <section className="mt-6 space-y-3 rounded-xl border border-border bg-card p-4">
+        <h2 className="font-display text-lg font-bold text-foreground">✨ Ayudas mágicas</h2>
+        <Button className="w-full" variant="secondary" onClick={limpiar} disabled={!text || !words}>
+          <Wand2 /> Limpiador Guaraní (pusó y nasales)
+        </Button>
+        {fixes && (
+          <p className="text-sm text-muted-foreground">
+            {fixes.length === 0
+              ? "No encontré nada para corregir con las palabras validadas del corpus."
+              : `Corregí ${fixes.length}: ` + fixes.map((f) => `${f.from} → ${f.to}`).join(", ")}
+          </p>
+        )}
+        <p className="text-xs text-muted-foreground">Solo usa palabras ya validadas por docentes. Si una palabra no está en el corpus, la deja igual.</p>
+
+        {prev && (
+          <div>
+            <p className="mb-1 text-sm text-foreground">
+              Armonía nasal para «{prev}»: {nasal ? "suena nasal → usá la forma nasal" : "suena oral → usá la forma oral"}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {PARES.map((p) => {
+                const s = nasal ? p.nasal : p.oral;
+                return (
+                  <Button key={p.oral} size="sm" variant="outline" onClick={() => sufijo(s)}>
+                    -{s} <span className="text-xs text-muted-foreground">({p.sentido})</span>
+                  </Button>
+                );
+              })}
+            </div>
+            <p className="mt-1 text-xs text-muted-foreground">Regla general orientativa; ante dudas, consultá con tu docente.</p>
+          </div>
+        )}
+
+        <Button className="w-full" onClick={() => void makeCard()} disabled={!text}>
+          <ImageIcon /> Crear tarjeta con Jai
+        </Button>
+        {card && (
+          <div className="space-y-2">
+            <img src={card} alt="Tarjeta con tu frase y Jai" className="mx-auto w-48 rounded-lg shadow" />
+            <Button className="w-full" variant="secondary" onClick={() => void shareCard()}><Send /> Compartir o guardar</Button>
+          </div>
+        )}
+      </section>
     </main>
   );
 }
