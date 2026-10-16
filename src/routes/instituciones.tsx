@@ -87,8 +87,9 @@ function InstitucionesPage() {
             <InfoCard emoji="📱" title="App en el celular">
               Jaikuaa se instala en la pantalla del teléfono y se abre como una aplicación.
             </InfoCard>
-            <InfoCard emoji="📶" title="Uso sin conexión" tag="En desarrollo">
-              La descarga de lecciones para estudiar donde no hay señal se incorporará en cuanto esté disponible.
+            <InfoCard emoji="📶" title="Uso sin conexión">
+              Las lecciones y audios que ya abriste quedan guardados en el teléfono para estudiar donde no hay señal; el
+              avance se sincroniza al volver la conexión.
             </InfoCard>
           </div>
         </Section>
