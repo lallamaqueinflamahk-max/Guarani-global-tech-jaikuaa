@@ -52,7 +52,6 @@ export function isNasal(word: string): boolean {
 export const PARES: { oral: string; nasal: string; sentido: string }[] = [
   { oral: "pe", nasal: "me", sentido: "en" },
   { oral: "gua", nasal: "ngua", sentido: "de (procedencia)" },
-  { oral: "kue", nasal: "nguéra", sentido: "plural (forma docente)" },
 ];
 
 export function lastWord(text: string): string {
