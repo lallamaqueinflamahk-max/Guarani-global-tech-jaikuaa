@@ -8,6 +8,7 @@ export const SPONSOR_SLOTS = {
   duelo: { key: "juego_sponsor_duelo", label: "Duelo Cara a Cara" },
   "trivia-duelo": { key: "juego_sponsor_trivia_duelo", label: "Duelo de Trivia" },
   tekojoja: { key: "juego_sponsor_tekojoja", label: "Tekojoja · Juzgado de Paz" },
+  taanga: { key: "juego_sponsor_taanga", label: "Ta'anga · Claqueta de Jai" },
   "nee-rape": { key: "juego_sponsor_nee_rape", label: "Ñe'ẽ Rape (desafío a distancia)" },
   tembiu: { key: "juego_sponsor_tembiu", label: "Tembi'u Paraguái (gastronomía)" },
   karaoke: { key: "juego_sponsor_karaoke", label: "Purahéi Karaoke (música)" },
