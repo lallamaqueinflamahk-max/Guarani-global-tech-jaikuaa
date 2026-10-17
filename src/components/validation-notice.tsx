@@ -1,9 +1,9 @@
 import { ShieldCheck } from "lucide-react";
 
 /**
- * Sello de protocolo académico para secciones cuyo contenido en guaraní está
- * en homologación por docentes del Ateneo. Regla: solo los expertos validan
- * el guaraní; el sello comunica el proceso con transparencia.
+ * Aviso para secciones cuyo contenido en guaraní todavía no fue validado.
+ * Regla: solo los especialistas validan el guaraní. Por el protocolo con el Ateneo,
+ * aquí no se nombra al Ateneo ni se usan palabras como "homologación" o "aval".
  */
 export function ValidationNotice() {
   return (
@@ -13,8 +13,8 @@ export function ValidationNotice() {
     >
       <ShieldCheck className="h-4 w-4 shrink-0" aria-hidden />
       <span>
-        <strong>Protocolo académico:</strong> contenido curricular en proceso de homologación con
-        docentes del Ateneo de Lengua y Cultura Guaraní.
+        <strong>Contenido en validación:</strong> especialistas en la lengua lo están revisando antes
+        de usarlo en clase.
       </span>
     </div>
   );
@@ -23,7 +23,7 @@ export function ValidationNotice() {
 export function ValidationBadge() {
   return (
     <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-      En homologación
+      En validación
     </span>
   );
 }
