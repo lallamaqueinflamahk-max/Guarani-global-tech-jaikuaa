@@ -4,3 +4,7 @@
 - [ ] Juegos Duelo Cara a Cara y Relámpago Guaraní.
 - [x] Teclado Guaraní (/teclado) con Copiar y WhatsApp.
 - [x] Publicar juegos actualizados + teclado.
+- [x] Studio: autorización de Richard para lallamaqueinflamahk-max/jaikuua-studio-app, rama main (no implica confirmar Git sync).
+- [ ] Studio: revisar código, middleware y .env.example; requiere acceso al repositorio autorizado.
+- [ ] Studio: montar despliegue Next.js aislado bajo /studio y verificar enlaces, APIs, assets y cookies; requiere URL de despliegue verificada y acceso a su configuración.
+- [ ] Studio: añadir únicamente el enlace Studio al menú existente cuando el montaje esté listo; ejecutar pruebas y verificar el flujo.
