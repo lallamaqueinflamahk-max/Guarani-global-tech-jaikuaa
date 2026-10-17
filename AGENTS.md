@@ -10,4 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Certificates: one row per user in certificates (random code), issued only via issueCertificate after a server-side completion check; /verificar/$code is public and returns only printed fields — keeps certificates verifiable without exposing other data.
-- Studio is an isolated external app: the /studio root and splat server routes proxy to a fixed Vercel origin, preserving upstream security and using full-page navigation; never import Next.js into Jaikuaa or intercept existing root APIs/assets, to avoid collisions.
+- Studio is an isolated external app (Next.js on Vercel, basePath "/studio"): the /studio root and splat server routes proxy to the fixed origin https://jaikuua-studio-app.vercel.app keeping the /studio prefix; jaikuaa.com is hosted by Lovable, so vercel.json rewrites do not apply here. Never import Next.js into Jaikuaa, never proxy other root paths, never inject admin secrets (see docs/studio-proxy.md).

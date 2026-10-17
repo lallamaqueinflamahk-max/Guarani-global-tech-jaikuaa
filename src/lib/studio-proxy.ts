@@ -1,26 +1,47 @@
-const STUDIO_ORIGIN = "https://jaikuaa-studio.vercel.app";
+// Studio (Next.js, desplegado aparte en Vercel con basePath "/studio").
+// jaikuaa.com lo sirve Lovable, no Vercel: por eso el desvío se hace acá, en una ruta de servidor,
+// y no con un vercel.json (que este hosting no lee).
+const STUDIO_ORIGIN = "https://jaikuua-studio-app.vercel.app";
+const MOUNT = "/studio";
 const HOP_HEADERS = ["connection", "keep-alive", "proxy-authenticate", "proxy-authorization", "te", "trailer", "transfer-encoding", "upgrade", "host"];
 
-/** Only the two approved mount paths can reach the fixed upstream. */
+function isMounted(pathname: string): boolean {
+  return pathname === MOUNT || pathname.startsWith(`${MOUNT}/`);
+}
+
+/** Solo /studio y /studio/* llegan al origen fijo. La ruta se envía completa: Studio usa basePath "/studio". */
 export function studioTarget(input: string): URL | null {
   const url = new URL(input);
-  if (url.pathname !== "/studio" && !url.pathname.startsWith("/studio/")) return null;
+  if (!isMounted(url.pathname)) return null;
   const target = new URL(STUDIO_ORIGIN);
-  target.pathname = url.pathname.slice("/studio".length) || "/";
+  // Colapsa barras repetidas para que nunca se pueda apuntar a otro host.
+  target.pathname = url.pathname.replace(/\/{2,}/g, "/");
   target.search = url.search;
   return target;
+}
+
+/** IP real del visitante, para que la seguridad de Studio no vea a todos como el servidor de Jaikuaa. */
+function clientIp(headers: Headers): string | null {
+  const direct = headers.get("cf-connecting-ip") || headers.get("x-real-ip");
+  if (direct) return direct.trim();
+  const forwarded = headers.get("x-forwarded-for");
+  return forwarded ? forwarded.split(",")[0].trim() : null;
 }
 
 export async function proxyStudio(request: Request, fetcher: typeof fetch = fetch): Promise<Response> {
   const target = studioTarget(request.url);
   if (!target) return new Response(null, { status: 404 });
   const headers = new Headers(request.headers);
+  const ip = clientIp(request.headers);
   for (const key of HOP_HEADERS) headers.delete(key);
   headers.delete("content-length");
-  // Let Vercel retain its own trust boundary; do not forge an admin certificate.
+  // Vercel conserva su propia frontera de confianza: no se inventa ningún certificado de administrador.
   for (const key of [...headers.keys()]) {
-    if (key.startsWith("x-forwarded-") || key.startsWith("cf-") || key === "forwarded") headers.delete(key);
+    if (key.startsWith("x-forwarded-") || key.startsWith("cf-") || key === "forwarded" || key === "x-real-ip") headers.delete(key);
   }
+  if (ip) headers.set("x-forwarded-for", ip);
+  headers.set("x-forwarded-host", new URL(request.url).host);
+  headers.set("x-forwarded-proto", "https");
   try {
     const init: RequestInit & { duplex?: "half" } = {
       method: request.method,
@@ -35,23 +56,29 @@ export async function proxyStudio(request: Request, fetcher: typeof fetch = fetc
     const upstream = await fetcher(target, init);
     const outgoing = new Headers(upstream.headers);
     for (const key of HOP_HEADERS) outgoing.delete(key);
-    // Fetch may decode the body; never retain stale transport lengths/encoding.
+    // fetch puede descomprimir el cuerpo: nunca dejar longitudes ni codificaciones viejas.
     outgoing.delete("content-length");
     outgoing.delete("content-encoding");
     const location = outgoing.get("location");
     if (location) {
       const redirect = new URL(location, target);
       if (redirect.origin === STUDIO_ORIGIN) {
-        outgoing.set("location", `/studio${redirect.pathname}${redirect.search}${redirect.hash}`);
+        // Studio ya responde con rutas bajo /studio: se conserva la ruta y se quita el host de Vercel.
+        const path = isMounted(redirect.pathname) ? redirect.pathname : `${MOUNT}${redirect.pathname === "/" ? "" : redirect.pathname}`;
+        outgoing.set("location", `${path}${redirect.search}${redirect.hash}`);
       }
     }
-    // Scope Studio cookies to this mount, without relaxing Secure/HttpOnly/SameSite.
+    // Cookies de Studio: solo para este sitio y siempre dentro de /studio, sin aflojar Secure/HttpOnly/SameSite.
     const cookies = outgoing.getSetCookie();
     if (cookies.length) {
       outgoing.delete("set-cookie");
       for (const cookie of cookies) {
-        const scoped = cookie.replace(/;\s*Domain=[^;]*/gi, "").replace(/;\s*Path=([^;]*)/gi, (_match, path: string) => `; Path=/studio${path === "/" ? "" : path}`);
-        outgoing.append("set-cookie", /;\s*Path=/i.test(scoped) ? scoped : `${scoped}; Path=/studio`);
+        const noDomain = cookie.replace(/;\s*Domain=[^;]*/gi, "");
+        const scoped = noDomain.replace(/;\s*Path=([^;]*)/gi, (_match, raw: string) => {
+          const path = raw.trim() || "/";
+          return `; Path=${isMounted(path) ? path : `${MOUNT}${path === "/" ? "" : path}`}`;
+        });
+        outgoing.append("set-cookie", /;\s*Path=/i.test(scoped) ? scoped : `${scoped}; Path=${MOUNT}`);
       }
     }
     return new Response(request.method === "HEAD" ? null : upstream.body, {
