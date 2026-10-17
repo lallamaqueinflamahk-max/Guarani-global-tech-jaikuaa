@@ -37,6 +37,8 @@ import { Route as AuthenticatedTecladoRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedTraductorRouteImport } from './routes/_authenticated/traductor'
 import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
 import { Route as ApiTutorRouteImport } from './routes/api/tutor'
+import { Route as StudioIndexRouteImport } from './routes/studio.index'
+import { Route as StudioSplatRouteImport } from './routes/studio.$'
 import { Route as VerificarCodeRouteImport } from './routes/verificar.$code'
 import { Route as AuthenticatedAdminCorpusRouteImport } from './routes/_authenticated/admin.corpus'
 import { Route as AuthenticatedAdminInformeAuspicianteRouteImport } from './routes/_authenticated/admin.informe-auspiciante'
@@ -204,6 +206,16 @@ const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
 const ApiTutorRoute = ApiTutorRouteImport.update({
   id: '/api/tutor',
   path: '/api/tutor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioIndexRoute = StudioIndexRouteImport.update({
+  id: '/studio/',
+  path: '/studio/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioSplatRoute = StudioSplatRouteImport.update({
+  id: '/studio/$',
+  path: '/studio/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VerificarCodeRoute = VerificarCodeRouteImport.update({
@@ -395,7 +407,9 @@ export interface FileRoutesByFullPath {
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
+  '/studio/$': typeof StudioSplatRoute
   '/verificar/$code': typeof VerificarCodeRoute
+  '/studio/': typeof StudioIndexRoute
   '/admin/corpus': typeof AuthenticatedAdminCorpusRoute
   '/admin/informe-auspiciante': typeof AuthenticatedAdminInformeAuspicianteRoute
   '/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
@@ -450,7 +464,9 @@ export interface FileRoutesByTo {
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
+  '/studio/$': typeof StudioSplatRoute
   '/verificar/$code': typeof VerificarCodeRoute
+  '/studio': typeof StudioIndexRoute
   '/admin/corpus': typeof AuthenticatedAdminCorpusRoute
   '/admin/informe-auspiciante': typeof AuthenticatedAdminInformeAuspicianteRoute
   '/guarani-escolar/rescate': typeof AuthenticatedGuaraniEscolarRescateRoute
@@ -506,7 +522,9 @@ export interface FileRoutesById {
   '/_authenticated/traductor': typeof AuthenticatedTraductorRoute
   '/_authenticated/tutor': typeof AuthenticatedTutorRoute
   '/api/tutor': typeof ApiTutorRoute
+  '/studio/$': typeof StudioSplatRoute
   '/verificar/$code': typeof VerificarCodeRoute
+  '/studio/': typeof StudioIndexRoute
   '/_authenticated/admin/corpus': typeof AuthenticatedAdminCorpusRoute
   '/_authenticated/admin/informe-auspiciante': typeof AuthenticatedAdminInformeAuspicianteRoute
   '/_authenticated/curso/$lang': typeof AuthenticatedCursoLangRouteWithChildren
@@ -564,7 +582,9 @@ export interface FileRouteTypes {
     | '/traductor'
     | '/tutor'
     | '/api/tutor'
+    | '/studio/$'
     | '/verificar/$code'
+    | '/studio/'
     | '/admin/corpus'
     | '/admin/informe-auspiciante'
     | '/curso/$lang'
@@ -619,7 +639,9 @@ export interface FileRouteTypes {
     | '/traductor'
     | '/tutor'
     | '/api/tutor'
+    | '/studio/$'
     | '/verificar/$code'
+    | '/studio'
     | '/admin/corpus'
     | '/admin/informe-auspiciante'
     | '/guarani-escolar/rescate'
@@ -674,7 +696,9 @@ export interface FileRouteTypes {
     | '/_authenticated/traductor'
     | '/_authenticated/tutor'
     | '/api/tutor'
+    | '/studio/$'
     | '/verificar/$code'
+    | '/studio/'
     | '/_authenticated/admin/corpus'
     | '/_authenticated/admin/informe-auspiciante'
     | '/_authenticated/curso/$lang'
@@ -720,7 +744,9 @@ export interface RootRouteChildren {
   TerminosRoute: typeof TerminosRoute
   TurismoRoute: typeof TurismoRoute
   ApiTutorRoute: typeof ApiTutorRoute
+  StudioSplatRoute: typeof StudioSplatRoute
   VerificarCodeRoute: typeof VerificarCodeRoute
+  StudioIndexRoute: typeof StudioIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -919,6 +945,20 @@ declare module '@tanstack/react-router' {
       path: '/api/tutor'
       fullPath: '/api/tutor'
       preLoaderRoute: typeof ApiTutorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/': {
+      id: '/studio/'
+      path: '/studio'
+      fullPath: '/studio/'
+      preLoaderRoute: typeof StudioIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/$': {
+      id: '/studio/$'
+      path: '/studio/$'
+      fullPath: '/studio/$'
+      preLoaderRoute: typeof StudioSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/verificar/$code': {
@@ -1259,7 +1299,9 @@ const rootRouteChildren: RootRouteChildren = {
   TerminosRoute: TerminosRoute,
   TurismoRoute: TurismoRoute,
   ApiTutorRoute: ApiTutorRoute,
+  StudioSplatRoute: StudioSplatRoute,
   VerificarCodeRoute: VerificarCodeRoute,
+  StudioIndexRoute: StudioIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
