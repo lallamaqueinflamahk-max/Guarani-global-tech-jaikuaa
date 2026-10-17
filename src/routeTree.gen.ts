@@ -27,6 +27,7 @@ import { Route as TurismoRouteImport } from './routes/turismo'
 import { Route as AuthenticatedAgroRouteImport } from './routes/_authenticated/agro'
 import { Route as AuthenticatedCertificadoRouteImport } from './routes/_authenticated/certificado'
 import { Route as AuthenticatedCuadernoRouteImport } from './routes/_authenticated/cuaderno'
+import { Route as AuthenticatedValidacionRouteImport } from './routes/_authenticated/validacion'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
@@ -155,6 +156,11 @@ const AuthenticatedCertificadoRoute =
 const AuthenticatedCuadernoRoute = AuthenticatedCuadernoRouteImport.update({
   id: '/cuaderno',
   path: '/cuaderno',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedValidacionRoute = AuthenticatedValidacionRouteImport.update({
+  id: '/validacion',
+  path: '/validacion',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
@@ -397,6 +403,7 @@ export interface FileRoutesByFullPath {
   '/agro': typeof AuthenticatedAgroRoute
   '/certificado': typeof AuthenticatedCertificadoRoute
   '/cuaderno': typeof AuthenticatedCuadernoRoute
+  '/validacion': typeof AuthenticatedValidacionRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/logros': typeof AuthenticatedLogrosRoute
@@ -455,6 +462,7 @@ export interface FileRoutesByTo {
   '/agro': typeof AuthenticatedAgroRoute
   '/certificado': typeof AuthenticatedCertificadoRoute
   '/cuaderno': typeof AuthenticatedCuadernoRoute
+  '/validacion': typeof AuthenticatedValidacionRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/logros': typeof AuthenticatedLogrosRoute
   '/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
@@ -512,6 +520,7 @@ export interface FileRoutesById {
   '/_authenticated/agro': typeof AuthenticatedAgroRoute
   '/_authenticated/certificado': typeof AuthenticatedCertificadoRoute
   '/_authenticated/cuaderno': typeof AuthenticatedCuadernoRoute
+  '/_authenticated/validacion': typeof AuthenticatedValidacionRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/_authenticated/logros': typeof AuthenticatedLogrosRoute
@@ -572,6 +581,7 @@ export interface FileRouteTypes {
     | '/agro'
     | '/certificado'
     | '/cuaderno'
+    | '/validacion'
     | '/dashboard'
     | '/guarani-escolar'
     | '/logros'
@@ -630,6 +640,7 @@ export interface FileRouteTypes {
     | '/agro'
     | '/certificado'
     | '/cuaderno'
+    | '/validacion'
     | '/dashboard'
     | '/logros'
     | '/nhe-mbytepe'
@@ -686,6 +697,7 @@ export interface FileRouteTypes {
     | '/_authenticated/agro'
     | '/_authenticated/certificado'
     | '/_authenticated/cuaderno'
+    | '/_authenticated/validacion'
     | '/_authenticated/dashboard'
     | '/_authenticated/guarani-escolar'
     | '/_authenticated/logros'
@@ -875,6 +887,13 @@ declare module '@tanstack/react-router' {
       path: '/cuaderno'
       fullPath: '/cuaderno'
       preLoaderRoute: typeof AuthenticatedCuadernoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/validacion': {
+      id: '/_authenticated/validacion'
+      path: '/validacion'
+      fullPath: '/validacion'
+      preLoaderRoute: typeof AuthenticatedValidacionRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard': {
@@ -1215,6 +1234,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAgroRoute: typeof AuthenticatedAgroRoute
   AuthenticatedCertificadoRoute: typeof AuthenticatedCertificadoRoute
   AuthenticatedCuadernoRoute: typeof AuthenticatedCuadernoRoute
+  AuthenticatedValidacionRoute: typeof AuthenticatedValidacionRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedGuaraniEscolarRoute: typeof AuthenticatedGuaraniEscolarRouteWithChildren
   AuthenticatedLogrosRoute: typeof AuthenticatedLogrosRoute
@@ -1248,6 +1268,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAgroRoute: AuthenticatedAgroRoute,
   AuthenticatedCertificadoRoute: AuthenticatedCertificadoRoute,
   AuthenticatedCuadernoRoute: AuthenticatedCuadernoRoute,
+  AuthenticatedValidacionRoute: AuthenticatedValidacionRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedGuaraniEscolarRoute:
     AuthenticatedGuaraniEscolarRouteWithChildren,
