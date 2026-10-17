@@ -5,6 +5,6 @@
 - [x] Teclado Guaraní (/teclado) con Copiar y WhatsApp.
 - [x] Publicar juegos actualizados + teclado.
 - [x] Studio: autorización de Richard para lallamaqueinflamahk-max/jaikuua-studio-app, rama main (no implica confirmar Git sync).
-- [ ] Studio: revisar código, middleware y .env.example; bloqueado: GitHub devuelve 404 para el repositorio y main. Requiere acceso o ZIP sin secretos.
-- [ ] Studio: montar despliegue Next.js aislado bajo /studio y verificar enlaces, APIs, assets y cookies; bloqueado: la URL candidata de Vercel devuelve 403. Requiere URL real confirmada y acceso a su configuración.
+- [ ] Studio: completar revisión del código de main (repositorio público descargado); middleware inspeccionado, .env.example no está incluido. Definir acceso previsto sin eliminar controles administrativos.
+- [ ] Studio: montar despliegue Next.js aislado bajo /studio y verificar enlaces, APIs, assets y cookies; despliegue documentado https://jaikuaa-studio.vercel.app responde 200 en / y /lab, pero 404 en /studio. Requiere configurar el prefijo y actualizar el despliegue externo; no hay acceso concedido a Vercel ni a las reglas del dominio.
 - [ ] Studio: añadir únicamente el enlace Studio al menú existente cuando el montaje esté listo; ejecutar pruebas y verificar el flujo.
