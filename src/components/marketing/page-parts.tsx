@@ -23,6 +23,7 @@ export function MarketingHeader() {
               {l.label}
             </Link>
           ))}
+          <a href="/studio" className="text-muted-foreground hover:text-foreground">Studio</a>
         </nav>
         <button
           type="button"
@@ -48,6 +49,9 @@ export function MarketingHeader() {
                 </Link>
               </li>
             ))}
+            <li>
+              <a href="/studio" onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 text-base font-medium text-foreground hover:bg-muted">Studio</a>
+            </li>
           </ul>
         </nav>
       )}
