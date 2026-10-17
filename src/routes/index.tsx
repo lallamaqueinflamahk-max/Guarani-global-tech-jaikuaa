@@ -14,11 +14,11 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Jaikuaa — Aprendé guaraní. Cambiá tu vida." },
-      { name: "description", content: "La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
+      { name: "description", content: "Una plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
       { property: "og:title", content: "Jaikuaa — Aprendé guaraní. Cambiá tu vida." },
-      { property: "og:description", content: "La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
+      { property: "og:description", content: "Una plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
       { name: "twitter:title", content: "Jaikuaa — Aprendé guaraní. Cambiá tu vida." },
-      { name: "twitter:description", content: "La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
+      { name: "twitter:description", content: "Una plataforma paraguaya para aprender guaraní, con el guaraní en el corazón." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "keywords", content: "aprender guaraní, guaraní, curso de guaraní, idioma guaraní, Paraguay, Jaikuaa" },
@@ -75,7 +75,7 @@ function Hero() {
           <span className="text-accent">Cambiá tu vida.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-          La primera plataforma paraguaya para aprender guaraní, con el guaraní en el corazón.
+          Una plataforma paraguaya para aprender guaraní, con el guaraní en el corazón.
         </p>
         <p className="mx-auto mt-3 text-sm font-medium text-primary/80">
           +109 palabras con voz humana paraguaya 🇵🇾

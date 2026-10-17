@@ -8,9 +8,9 @@ export const Route = createFileRoute("/sobre")({
   head: () => ({
     meta: [
       { title: "Sobre Jaikuaa — Nuestra misión" },
-      { name: "description", content: "Jaikuaa es la primera plataforma paraguaya moderna para aprender guaraní, con voz humana real y hecha íntegramente en Paraguay." },
+      { name: "description", content: "Jaikuaa es una plataforma paraguaya para aprender guaraní, con voz humana real y hecha íntegramente en Paraguay." },
       { property: "og:title", content: "Sobre Jaikuaa" },
-      { property: "og:description", content: "Conozcamos juntos. La primera plataforma paraguaya moderna para aprender guaraní." },
+      { property: "og:description", content: "Conozcamos juntos. Una plataforma paraguaya para aprender guaraní, con voz humana real." },
     ],
   }),
   component: SobrePage,
@@ -35,7 +35,7 @@ function SobrePage() {
               Sobre Jaikuaa
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              Jaikuaa —que en guaraní significa "conozcamos, aprendamos juntos"— es la primera plataforma paraguaya moderna para aprender guaraní, con voz humana real y hecha íntegramente en Paraguay. Nacimos de una convicción: nuestra lengua merece una herramienta digital a su altura.
+              Jaikuaa —que en guaraní significa "conozcamos, aprendamos juntos"— es una plataforma paraguaya para aprender guaraní, con voz humana real y hecha íntegramente en Paraguay. Nacimos de una convicción: nuestra lengua merece una herramienta digital a su altura.
             </p>
           </div>
         </section>
@@ -73,8 +73,8 @@ function SobrePage() {
               <ValueCard emoji="🎮" title="Aprendizaje con juego">
                 Para que enseñar y aprender no aburra.
               </ValueCard>
-              <ValueCard emoji="🎁" title="100% gratuito">
-                Todo el contenido de aprendizaje es gratuito para los paraguayos.
+              <ValueCard emoji="🎁" title="Guaraní básico gratis">
+                El curso básico de guaraní es gratuito para los paraguayos.
               </ValueCard>
             </div>
           </div>

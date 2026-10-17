@@ -6,68 +6,46 @@ type NewsItem = {
   category: "Cultura" | "Educación" | "Comunidad";
   emoji: string;
   source: string;
+  url: string;
 };
 
+// Solo noticias verificadas, con enlace a la fuente original.
+// Antes de agregar una, comprobá la fecha real del artículo (no la fecha de visita de la página).
+// Quedaron fuera, hasta encontrar la fuente: "Rincón SPL" en la Biblioteca Nacional,
+// convenio SPL–líderes indígenas del Bajo Chaco y convenio Cancillería–Academia.
 const NEWS: NewsItem[] = [
   {
     id: "arandupy-2026",
     title: "AranduPy 2026: premio a la mejor investigación lingüística",
     summary:
-      "La SPL lanza la tercera edición del premio AranduPy, que reconoce estudios sobre la riqueza lingüística del Paraguay. Primer premio: G. 10.000.000.",
+      "La SPL lanzó por tercer año consecutivo el premio AranduPy, que reconoce estudios sobre la riqueza lingüística del Paraguay. Primer premio: G. 10.000.000.",
     date: "Mayo 2026",
     category: "Cultura",
     emoji: "🏆",
-    source: "Fuente: Paraguay TV",
-  },
-  {
-    id: "rincon-spl",
-    title: "La Biblioteca Nacional tendrá un 'Rincón SPL'",
-    summary:
-      "El ministro de la SPL, Javier Viveros, y la Biblioteca Nacional acordaron crear un 'Rincón SPL' con publicaciones sobre la diversidad lingüística del país.",
-    date: "Mayo 2026",
-    category: "Cultura",
-    emoji: "📚",
-    source: "Fuente: SPL",
+    source: "Fuente: Agencia IP",
+    url: "https://www.ip.gov.py/ip/?p=580557",
   },
   {
     id: "diccionario-monolingue",
-    title: "Nuevo diccionario monolingüe de la lengua guaraní",
+    title: "Diccionario monolingüe de la lengua guaraní",
     summary:
-      "La Academia de la Lengua Guaraní presentó una versión corregida y aumentada del Diccionario de la Lengua Guaraní, que describe el idioma en la propia lengua y rescata su uso actual.",
-    date: "2026",
+      "La Academia de la Lengua Guaraní presentó una versión corregida y aumentada de su Diccionario, que describe el idioma en la propia lengua y rescata su uso actual.",
+    date: "Febrero 2022",
     category: "Educación",
     emoji: "📖",
-    source: "Fuente: Academia de la Lengua Guaraní",
-  },
-  {
-    id: "convenio-chaco",
-    title: "Convenio para revitalizar lenguas indígenas del Chaco",
-    summary:
-      "La SPL firmó un Convenio Marco de Cooperación con la Coordinadora de Líderes y Lideresas Indígenas del Bajo Chaco, para promover y revitalizar las lenguas indígenas.",
-    date: "Abril 2026",
-    category: "Comunidad",
-    emoji: "🤝",
-    source: "Fuente: SPL",
-  },
-  {
-    id: "cancilleria-guarani",
-    title: "La Cancillería y la Academia difunden el guaraní en el exterior",
-    summary:
-      "El Ministerio de Relaciones Exteriores y la Academia de la Lengua Guaraní firmaron un convenio para promover la lengua guaraní en embajadas y consulados.",
-    date: "2026",
-    category: "Cultura",
-    emoji: "🌐",
-    source: "Fuente: MRE Paraguay",
+    source: "Fuente: Última Hora",
+    url: "https://www.ultimahora.com/academia-la-lengua-guarani-lanza-nueva-version-diccionario-n2988284",
   },
   {
     id: "decenio-lenguas-indigenas",
-    title: "Paraguay y el Decenio Internacional de las Lenguas Indígenas",
+    title: "Decenio Internacional de las Lenguas Indígenas",
     summary:
-      "En el marco del Decenio Internacional de las Lenguas Indígenas de la UNESCO (2022-2032), Paraguay impulsa la preservación y revitalización de sus lenguas, entre ellas el guaraní.",
+      "La UNESCO lanzó en diciembre de 2022 el Decenio Internacional de las Lenguas Indígenas (2022-2032), para preservar y revitalizar las lenguas originarias del mundo.",
     date: "2022-2032",
     category: "Educación",
     emoji: "🌍",
-    source: "Fuente: UNESCO / SPL",
+    source: "Fuente: Cultural Survival",
+    url: "https://www.culturalsurvival.org/news/unesco-officially-launches-international-decade-indigenous-languages",
   },
 ];
 
@@ -117,9 +95,14 @@ export function NhandeMarandu() {
               </h3>
               <p className="text-sm text-muted-foreground select-none" style={{ WebkitTouchCallout: "none" }}>{n.summary}</p>
               <div className="mt-auto pt-2">
-                <span className="text-[10px] font-medium text-muted-foreground/80 select-none" style={{ WebkitTouchCallout: "none" }}>
-                  {n.source}
-                </span>
+                <a
+                  href={n.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] font-medium text-muted-foreground/80 underline-offset-2 hover:text-foreground hover:underline"
+                >
+                  {n.source} ↗
+                </a>
               </div>
             </div>
           </article>
