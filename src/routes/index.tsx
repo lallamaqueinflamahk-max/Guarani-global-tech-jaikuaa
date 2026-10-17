@@ -54,7 +54,12 @@ function Header() {
         >
           <BrandLogo />
         </a>
-        <DisplayToggles />
+        <div className="flex items-center gap-3">
+          <nav aria-label="Studio">
+            <a href="/studio" className="text-sm text-muted-foreground hover:text-foreground">Studio</a>
+          </nav>
+          <DisplayToggles />
+        </div>
       </div>
     </header>
   );
