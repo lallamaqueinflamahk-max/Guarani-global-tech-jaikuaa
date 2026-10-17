@@ -3,6 +3,8 @@ import { convertToModelMessages, streamText, type UIMessage } from "ai";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { AI_LIMIT_MESSAGE, consumeAiQuota, verifyBearer } from "@/lib/server-guards.server";
 
+import { AI_GUARANI_TOOLS_ENABLED } from "@/lib/features";
+
 const SYSTEM_PROMPT =
   "Sos un tutor experto en guaraní paraguayo, cálido y motivador. Ayudás a los estudiantes a aprender guaraní explicando con claridad en español paraguayo (voseo). Conocés la gramática, el vocabulario y la cultura guaraní. Usá ejemplos cortos, emojis ocasionales y un tono amigable. Cuando enseñes una palabra o frase en guaraní, mostrala en **negrita** y luego su traducción.";
 
@@ -10,6 +12,7 @@ export const Route = createFileRoute("/api/tutor")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        if (!AI_GUARANI_TOOLS_ENABLED) return new Response("Not available", { status: 404 });
         const user = await verifyBearer(request.headers);
         if (!user) return new Response("Unauthorized", { status: 401 });
 

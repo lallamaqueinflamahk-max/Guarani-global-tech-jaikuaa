@@ -4,6 +4,7 @@ import { z } from "zod";
 import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { AI_LIMIT_MESSAGE, consumeAiQuota } from "./server-guards.server";
+import { AI_GUARANI_TOOLS_ENABLED } from "./features";
 
 const Input = z.object({
   text: z.string().min(1).max(1000),
@@ -14,6 +15,7 @@ export const translateText = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => Input.parse(d))
   .handler(async ({ data, context }) => {
+    if (!AI_GUARANI_TOOLS_ENABLED) throw new Error("Herramienta no disponible");
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("Falta LOVABLE_API_KEY");
     const { data: admin } = await context.supabase.rpc("has_role", {

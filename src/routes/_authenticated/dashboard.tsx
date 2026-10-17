@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ValidationBadge } from "@/components/validation-notice";
 import { DisplayToggles } from "@/components/display-toggles";
+import { AI_GUARANI_TOOLS_ENABLED } from "@/lib/features";
 import { BrandLogo } from "@/components/brand-logo";
 import { LogOut } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -286,13 +287,17 @@ function Dashboard() {
 
             <TabsContent value="herramientas" className="mt-6">
               <p className="mb-4 text-sm text-muted-foreground">
-                Apoyo y consulta. Las herramientas con IA son pruebas y no están validadas por especialistas.
+                Apoyo y consulta.
               </p>
               <div className="grid gap-4 sm:grid-cols-2">
                 <FreeCard to="/teclado" emoji="⌨️" title="Teclado Guaraní" desc="Escribí con ã, g̃ y puso, y mandalo por WhatsApp." accent="primary" />
                 <FreeCard to="/agro" emoji="🌾" title="Jaikuaa Agro-Rural" desc="Guaraní técnico del campo: suelo, cultivos y ganado." accent="primary" />
-                <FreeCard to="/traductor" emoji="🌐" title="Traductor" desc="Consulta rápida guaraní – español." accent="primary" experimental />
-                <FreeCard to="/tutor" emoji="✨" title="Tutor IA" desc="Conversá con un asistente para practicar." accent="primary" experimental />
+                {AI_GUARANI_TOOLS_ENABLED && (
+                  <>
+                    <FreeCard to="/traductor" emoji="🌐" title="Traductor" desc="Consulta rápida guaraní – español." accent="primary" experimental />
+                    <FreeCard to="/tutor" emoji="✨" title="Tutor IA" desc="Conversá con un asistente para practicar." accent="primary" experimental />
+                  </>
+                )}
                 <FreeCard to="/nhe-mbytepe" emoji="🗣️" title="Ñe'ẽ Mbytépe" desc="El guaraní que se habla en la calle." accent="primary" inValidation />
               </div>
             </TabsContent>

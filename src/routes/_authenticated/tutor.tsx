@@ -1,4 +1,5 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
+import { AI_GUARANI_TOOLS_ENABLED } from "@/lib/features";
 import { supabase } from "@/integrations/supabase/client";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
@@ -8,6 +9,10 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/_authenticated/tutor")({
+  // Apagado: la IA no genera ni traduce guaraní (ver src/lib/features.ts).
+  beforeLoad: () => {
+    if (!AI_GUARANI_TOOLS_ENABLED) throw redirect({ to: "/dashboard" });
+  },
   head: () => ({ meta: [{ title: "Jaikuaa — Tutor IA" }] }),
   component: TutorPage,
 });

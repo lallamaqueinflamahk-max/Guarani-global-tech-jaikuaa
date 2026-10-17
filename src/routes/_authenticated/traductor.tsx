@@ -1,4 +1,5 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
+import { AI_GUARANI_TOOLS_ENABLED } from "@/lib/features";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
@@ -8,6 +9,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { translateText } from "@/lib/translate.functions";
 
 export const Route = createFileRoute("/_authenticated/traductor")({
+  // Apagado: la IA no genera ni traduce guaraní (ver src/lib/features.ts).
+  beforeLoad: () => {
+    if (!AI_GUARANI_TOOLS_ENABLED) throw redirect({ to: "/dashboard" });
+  },
   head: () => ({ meta: [{ title: "Jaikuaa — Traductor" }] }),
   component: TraductorPage,
 });
