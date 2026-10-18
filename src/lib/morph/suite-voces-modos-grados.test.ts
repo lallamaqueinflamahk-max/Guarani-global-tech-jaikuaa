@@ -183,10 +183,11 @@ describe("11. Grados del verbo (págs. 173–177)", () => {
     expect(reading("ajaty'ive", { root: "jaty", suffixes: ["'ive"] })).toBeDefined();
   });
 
-  it("pág. 177: superlativo relativo cargado, pero sus ejemplos (i- / iñ-) todavía no se separan", () => {
+  it("pág. 177: superlativo relativo con predicativo: 'iñarandueteve' → iñ + arandu + -eteve (pág. 101 para iñ-)", () => {
     const rel = GRADE_SUFFIXES.find((r) => r.id === "grado-superlativo-relativo");
     expect(rel?.forms).toEqual(["eteve", "iteve"]);
-    expect(analyze("ijaguaraiteve").some((a) => a.suffixes.some((s) => s.meaning === rel?.meaning))).toBe(false);
+    expect(reading("iñarandueteve", { paradigm: "predicativo", prefix: "iñ", root: "arandu", suffixes: ["eteve"] })?.pages).toEqual([101, 177]);
+    expect(analyze("ijaguaraiteve").some((a) => a.paradigm === "predicativo" && a.suffixes.some((s) => s.meaning === rel?.meaning))).toBe(true);
   });
 
   it("pág. 173: 'icha' va unido al sustantivo, no al verbo: no está cargado como sufijo verbal", () => {
