@@ -1,0 +1,9668 @@
+{
+ "titulo": "Examen común de los motores de Jaikuaa",
+ "fecha": "2026-10-18",
+ "instrucciones": "Para cada palabra, completar 'motor_alan' con lo que devuelve el motor HFST/LEXC (todas sus lecturas, con su nota de confianza). No modificar 'laboratorio'. Las lecturas son candidatas, pendientes de validación por docentes; ninguna es la respuesta correcta hasta que un docente la valide.",
+ "formato_motor_alan": {
+  "lecturas": [
+   {
+    "persona": "1sg|2sg|3|1pl_incl|1pl_excl|2pl",
+    "prefijo": "",
+    "raiz": "",
+    "sufijos": [
+     ""
+    ],
+    "confianza": 0
+   }
+  ]
+ },
+ "conjuntos": {
+  "pruebas_del_libro": "Palabras usadas en las 342 pruebas del Laboratorio, tomadas de las páginas de la Gramática ALG 2020 que cita cada prueba.",
+  "planilla_300": "Las 300 palabras más frecuentes de Mozilla Common Voice (guaraní, CC0) que van a la planilla de validación de docentes."
+ },
+ "palabras": [
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "aguapy",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guapy",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "agua",
+      "sufijos": [
+       "py"
+      ],
+      "paginas": [
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "aguapyse",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guapyse",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guapy",
+      "sufijos": [
+       "se"
+      ],
+      "paginas": [
+       103,
+       139
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "aguata",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guata",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "gua",
+      "sufijos": [
+       "ta"
+      ],
+      "paginas": [
+       103,
+       131
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "aguatava'erã",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guatava'erã",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guata",
+      "sufijos": [
+       "va'erã"
+      ],
+      "paginas": [
+       103,
+       131
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "aguatava'e",
+      "sufijos": [
+       "rã"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "aguatava'erã'aína",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guatava'erã'aína",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guatava'erã",
+      "sufijos": [
+       "'aína"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guata",
+      "sufijos": [
+       "va'erã",
+       "'aína"
+      ],
+      "paginas": [
+       103,
+       131,
+       135
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "aguatájepi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guatájepi",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guatá",
+      "sufijos": [
+       "jepi"
+      ],
+      "paginas": [
+       103,
+       163
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "agueruakue",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "gueruakue",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "gueru",
+      "sufijos": [
+       "akue"
+      ],
+      "paginas": [
+       103,
+       125
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "aguerua",
+      "sufijos": [
+       "kue"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "agueruva'ekue",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "gueruva'ekue",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "gueru",
+      "sufijos": [
+       "va'ekue"
+      ],
+      "paginas": [
+       103,
+       125
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "agueruva'e",
+      "sufijos": [
+       "kue"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "aguerúma",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guerúma",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guerú",
+      "sufijos": [
+       "ma"
+      ],
+      "paginas": [
+       103,
+       161
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ajahupota",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jahupota",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jahu",
+      "sufijos": [
+       "po",
+       "ta"
+      ],
+      "paginas": [
+       103,
+       131,
+       141
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jahupo",
+      "sufijos": [
+       "ta"
+      ],
+      "paginas": [
+       103,
+       131
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ajapo'aikóni",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "japo'aikóni",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ja",
+      "sufijos": [
+       "po",
+       "'aikóni"
+      ],
+      "paginas": [
+       103,
+       135,
+       141
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "japo",
+      "sufijos": [
+       "'aikóni"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ajapopa",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "japopa",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "japo",
+      "sufijos": [
+       "pa"
+      ],
+      "paginas": [
+       103,
+       143
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ja",
+      "sufijos": [
+       "po",
+       "pa"
+      ],
+      "paginas": [
+       103,
+       141,
+       143
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ajapo",
+      "sufijos": [
+       "pa"
+      ],
+      "paginas": [
+       185
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ajohei'arã",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "johei'arã",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "johei",
+      "sufijos": [
+       "'arã"
+      ],
+      "paginas": [
+       103,
+       133
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ajohei'a",
+      "sufijos": [
+       "rã"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ajohéine",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "johéine",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "johéi",
+      "sufijos": [
+       "ne"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ajoka",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "joka",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ajokómi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jokómi",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jo",
+      "sufijos": [
+       "kó",
+       "mi"
+      ],
+      "paginas": [
+       103,
+       127,
+       149
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jokó",
+      "sufijos": [
+       "mi"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ajokó",
+      "sufijos": [
+       "mi"
+      ],
+      "paginas": [
+       309
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "akarúkuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "karúkuri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "karú",
+      "sufijos": [
+       "kuri"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "akañýra'e",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kañýra'e",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kañý",
+      "sufijos": [
+       "ra'e"
+      ],
+      "paginas": [
+       103,
+       129
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "akáira'e",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "káira'e",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kái",
+      "sufijos": [
+       "ra'e"
+      ],
+      "paginas": [
+       103,
+       129
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "akéraka'e",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kéraka'e",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ké",
+      "sufijos": [
+       "raka'e"
+      ],
+      "paginas": [
+       103,
+       129
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ambyatyrõne",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mbyatyrõne",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mbyaty",
+      "sufijos": [
+       "rõ",
+       "ne"
+      ],
+      "paginas": [
+       103,
+       135,
+       141
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mbyatyrõ",
+      "sufijos": [
+       "ne"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "amoĩmba",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "moĩmba",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "moĩ",
+      "sufijos": [
+       "mba"
+      ],
+      "paginas": [
+       103,
+       143
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [
+       "mo"
+      ],
+      "raiz": "ĩmba",
+      "sufijos": [],
+      "paginas": [
+       103,
+       119
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "apoíta",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "poíta",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "poí",
+      "sufijos": [
+       "ta"
+      ],
+      "paginas": [
+       103,
+       131
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "apo",
+      "sufijos": [
+       "íta"
+      ],
+      "paginas": [
+       61
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "apytu'u'aína",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'u'aína",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'u",
+      "sufijos": [
+       "'aína"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "apytu'ureína",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'ureína",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "areko",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "reko",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "re",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       103,
+       149
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "are",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       311
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "asẽmbota",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sẽmbota",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sẽmbo",
+      "sufijos": [
+       "ta"
+      ],
+      "paginas": [
+       103,
+       131
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sẽ",
+      "sufijos": [
+       "mbota"
+      ],
+      "paginas": [
+       103,
+       133
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "añatõimi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñatõimi",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñatõi",
+      "sufijos": [
+       "mi"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "añatõi",
+      "sufijos": [
+       "mi"
+      ],
+      "paginas": [
+       309
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "añomíraka'e",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñomíraka'e",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñomí",
+      "sufijos": [
+       "raka'e"
+      ],
+      "paginas": [
+       103,
+       129
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "g̃uarã",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "g̃ua",
+      "sufijos": [
+       "rã"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ha'a",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "ha",
+      "negacion": false,
+      "voces": [],
+      "raiz": "'a",
+      "sufijos": [],
+      "paginas": [
+       105
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ha'e",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ha'e",
+      "sufijos": [],
+      "paginas": [
+       97
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "heko",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": "h",
+      "raiz": "teko",
+      "sufijos": [],
+      "paginas": [
+       315
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "he",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       311
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "hendápe",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "hendá",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": "h",
+      "raiz": "tenda",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207,
+       315
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "hesa",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": "h",
+      "raiz": "tesa",
+      "sufijos": [],
+      "paginas": [
+       315
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "hikuái",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "hikúai",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "hóga",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": "h",
+      "raiz": "óga",
+      "sufijos": [],
+      "paginas": [
+       53
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ijaguaraiteve",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "ij",
+      "negacion": false,
+      "voces": [],
+      "raiz": "aguaraiteve",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "ij",
+      "negacion": false,
+      "voces": [],
+      "raiz": "aguaraite",
+      "sufijos": [
+       "ve"
+      ],
+      "paginas": [
+       101,
+       173
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "ij",
+      "negacion": false,
+      "voces": [],
+      "raiz": "aguara",
+      "sufijos": [
+       "iteve"
+      ],
+      "paginas": [
+       101,
+       177
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": "ij",
+      "raiz": "aguaraiteve",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     },
+     {
+      "posesivo": "i",
+      "raiz": "jaguaraiteve",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     },
+     {
+      "posesivo": "ij",
+      "raiz": "aguaraite",
+      "sufijos": [
+       "ve"
+      ],
+      "paginas": [
+       67,
+       77
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ita",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ta",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ja'u",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "'u",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "'u",
+      "sufijos": [],
+      "paginas": [
+       105
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "jagua",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "gua",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ja",
+      "sufijos": [
+       "gua"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "japytu'uñaína",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'uñaína",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'u",
+      "sufijos": [
+       "ñaína"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "javy'ajoa",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "vy'ajoa",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "vy'a",
+      "sufijos": [
+       "joa"
+      ],
+      "paginas": [
+       103,
+       149
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ka'aguýpe",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ka'aguý",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "ka'a",
+      "sufijos": [
+       "guýpe"
+      ],
+      "paginas": [
+       311
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "karaikuéra",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "karai",
+      "sufijos": [
+       "kuéra"
+      ],
+      "paginas": [
+       61
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "kuarahy",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "kuñaite",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "kuña",
+      "sufijos": [
+       "ite"
+      ],
+      "paginas": [
+       69
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "mbo'ehára",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "mbo'e",
+      "sufijos": [
+       "hára"
+      ],
+      "paginas": [
+       309
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "moõ",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ndarejuhúi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": true,
+      "voces": [],
+      "raiz": "rejuhú",
+      "sufijos": [],
+      "paginas": [
+       103,
+       115
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ndojapói",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": true,
+      "voces": [],
+      "raiz": "japó",
+      "sufijos": [],
+      "paginas": [
+       103,
+       115
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": true,
+      "voces": [],
+      "raiz": "ja",
+      "sufijos": [
+       "pó"
+      ],
+      "paginas": [
+       103,
+       115,
+       141
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ndojeporuva'erãi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": true,
+      "voces": [],
+      "raiz": "jeporuva'erã",
+      "sufijos": [],
+      "paginas": [
+       103,
+       115
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": true,
+      "voces": [],
+      "raiz": "jeporu",
+      "sufijos": [
+       "va'erã"
+      ],
+      "paginas": [
+       103,
+       115,
+       131
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": true,
+      "voces": [
+       "je"
+      ],
+      "raiz": "poruva'erã",
+      "sufijos": [],
+      "paginas": [
+       103,
+       115,
+       117
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "noñaníri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": true,
+      "voces": [],
+      "raiz": "ñaní",
+      "sufijos": [],
+      "paginas": [
+       103,
+       115
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ojapohikóni",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "japohikóni",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ja",
+      "sufijos": [
+       "po",
+       "hikóni"
+      ],
+      "paginas": [
+       103,
+       135,
+       141
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "japo",
+      "sufijos": [
+       "hikóni"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "okápe",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kápe",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "oká",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "opytu'uhína",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'uhína",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'u",
+      "sufijos": [
+       "hína"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "oñe'ẽnehikóni",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñe'ẽnehikóni",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñe'ẽne",
+      "sufijos": [
+       "hikóni"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñe'ẽ",
+      "sufijos": [
+       "ne",
+       "hikóni"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "pepytu'upeína",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2pl",
+      "prefijo": "pe",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'upeína",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "2pl",
+      "prefijo": "pe",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'u",
+      "sufijos": [
+       "peína"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     },
+     {
+      "persona": "2pl",
+      "prefijo": "pe",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'upeína",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "pojuhu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "repytu'ureína",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "re",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'ureína",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "re",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'u",
+      "sufijos": [
+       "reína"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ropytu'uroína",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_excl",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'uroína",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1pl_excl",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'u",
+      "sufijos": [
+       "roína"
+      ],
+      "paginas": [
+       103,
+       135
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pytu'uroína",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "tape",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "ta",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pe",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ta",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "terere",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "tere",
+      "negacion": false,
+      "voces": [],
+      "raiz": "re",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "tere",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       59
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "tere",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "te",
+      "sufijos": [
+       "re",
+       "re"
+      ],
+      "paginas": [
+       59,
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "tesa",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ápe",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ñamaña",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ña",
+      "negacion": false,
+      "voces": [],
+      "raiz": "maña",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ñamboguata",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ña",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mboguata",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ña",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mbogua",
+      "sufijos": [
+       "ta"
+      ],
+      "paginas": [
+       103,
+       131
+      ]
+     },
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ña",
+      "negacion": false,
+      "voces": [
+       "mbo"
+      ],
+      "raiz": "guata",
+      "sufijos": [],
+      "paginas": [
+       103,
+       119
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ñe'e",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "ñe'ẽ",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "pruebas_del_libro",
+   "palabra": "óga",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "óga",
+      "sufijos": [],
+      "paginas": [
+       53
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ary",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ry",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "og̃uahẽ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "g̃uahẽ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohasa",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hasa",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mama",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "pohãnohára",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "pohãno",
+      "sufijos": [
+       "hára"
+      ],
+      "paginas": [
+       309
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "upémarõ",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mamá",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ojuhu",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "juhu",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "opu'ã",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pu'ã",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "vaicháku",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "upérupi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "omano",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mano",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mba'éiko",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "mba'éi",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       311
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "akóinte",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kóinte",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kói",
+      "sufijos": [
+       "nte"
+      ],
+      "paginas": [
+       103,
+       161
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kóin",
+      "sufijos": [
+       "te"
+      ],
+      "paginas": [
+       103,
+       175
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "okẽ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kẽ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohendu",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hendu",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ae",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "e",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "maravichu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "osẽkuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sẽkuri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sẽ",
+      "sufijos": [
+       "kuri"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ni",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "angirũ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ngirũ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "og̃uahẽvo",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "g̃uahẽvo",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "g̃uahẽ",
+      "sufijos": [
+       "vo"
+      ],
+      "paginas": [
+       103,
+       147
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "nimbora'e",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "upéinte",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "pohã",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "kururu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "asaje",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "saje",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sa",
+      "sufijos": [
+       "je"
+      ],
+      "paginas": [
+       103,
+       151
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "py'ỹinte",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "uperiremínte",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "tesapeha",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "tesape",
+      "sufijos": [
+       "ha"
+      ],
+      "paginas": [
+       79
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ka'arupytũ",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "marandu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ág̃akatu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohechakuaa",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hechakuaa",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohendúvo",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hendúvo",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hendú",
+      "sufijos": [
+       "vo"
+      ],
+      "paginas": [
+       103,
+       147
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oñangareko",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñangareko",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñangare",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       103,
+       149
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "oñangare",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       311
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "oñanga",
+      "sufijos": [
+       "re",
+       "ko"
+      ],
+      "paginas": [
+       59,
+       311
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "oñanga",
+      "sufijos": [
+       "re",
+       "ko"
+      ],
+      "paginas": [
+       207,
+       311
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rey",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "re",
+      "negacion": false,
+      "voces": [],
+      "raiz": "y",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mba'asy",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "kakuaa",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mondaha",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "monda",
+      "sufijos": [
+       "ha"
+      ],
+      "paginas": [
+       79
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "avati",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "vati",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jepiveguáicha",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "jepiveguá",
+      "sufijos": [
+       "icha"
+      ],
+      "paginas": [
+       67
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hembireko",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "hembire",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       311
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "hembi",
+      "sufijos": [
+       "re",
+       "ko"
+      ],
+      "paginas": [
+       59,
+       311
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "hembi",
+      "sufijos": [
+       "re",
+       "ko"
+      ],
+      "paginas": [
+       207,
+       311
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "pyharepyte",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ykére",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "yké",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       59
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "yké",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ojuka",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "juka",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "j",
+      "sufijos": [
+       "uka"
+      ],
+      "paginas": [
+       103,
+       145
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "kesu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ko'águi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ko'á",
+      "sufijos": [
+       "gui"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ojehuva'ekue",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jehuva'ekue",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jehu",
+      "sufijos": [
+       "va'ekue"
+      ],
+      "paginas": [
+       103,
+       125
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "je"
+      ],
+      "raiz": "huva'ekue",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ojehuva'e",
+      "sufijos": [
+       "kue"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "kavure",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "kavu",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       59
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "kavu",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ka'a",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hi'ã",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "onohẽ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "nohẽ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "opuka",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "puka",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "p",
+      "sufijos": [
+       "uka"
+      ],
+      "paginas": [
+       103,
+       145
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "okaháre",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kaháre",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "okahá",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       59
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "okahá",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "oka",
+      "sufijos": [
+       "há",
+       "re"
+      ],
+      "paginas": [
+       59,
+       79
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "itúvape",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "túvape",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "itúva",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "itú",
+      "sufijos": [
+       "va",
+       "pe"
+      ],
+      "paginas": [
+       207,
+       229
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mitãkaria'y",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oñembosako'i",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñembosako'i",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ñe"
+      ],
+      "raiz": "mbosako'i",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ñe",
+       "mbo"
+      ],
+      "raiz": "sako'i",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117,
+       119
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "oñembosako",
+      "sufijos": [
+       "'i"
+      ],
+      "paginas": [
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "saite",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "sa",
+      "sufijos": [
+       "ite"
+      ],
+      "paginas": [
+       69
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ramói",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "korapýpe",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "korapý",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "kora",
+      "sufijos": [
+       "pý",
+       "pe"
+      ],
+      "paginas": [
+       207,
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ka'arúpe",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ka'arú",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mborevi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jahecha",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hecha",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hec",
+      "sufijos": [
+       "ha"
+      ],
+      "paginas": [
+       103,
+       145
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "aranduka",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "randuka",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "rand",
+      "sufijos": [
+       "uka"
+      ],
+      "paginas": [
+       103,
+       145
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hi'upyrã",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "hi'u",
+      "sufijos": [
+       "pyrã"
+      ],
+      "paginas": [
+       310
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "hi'u",
+      "sufijos": [
+       "py",
+       "rã"
+      ],
+      "paginas": [
+       59,
+       310
+      ]
+     },
+     {
+      "posesivo": "hi'",
+      "raiz": "upyrã",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "lo",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "kurusu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohasávo",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hasávo",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hasá",
+      "sufijos": [
+       "vo"
+      ],
+      "paginas": [
+       103,
+       147
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "pya'evoi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jekoraka'e",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hasẽ",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": "h",
+      "raiz": "tasẽ",
+      "sufijos": [],
+      "paginas": [
+       315
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oñeha'ã",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñeha'ã",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ñe"
+      ],
+      "raiz": "ha'ã",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hi'a",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "sãmbyhyhára",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "sãmbyhy",
+      "sufijos": [
+       "hára"
+      ],
+      "paginas": [
+       309
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ipaíno",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "paíno",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": "i",
+      "raiz": "paíno",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jahechápa",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hechápa",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hechá",
+      "sufijos": [
+       "pa"
+      ],
+      "paginas": [
+       103,
+       143
+      ]
+     },
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hec",
+      "sufijos": [
+       "há",
+       "pa"
+      ],
+      "paginas": [
+       103,
+       143,
+       145
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "jahechá",
+      "sufijos": [
+       "pa"
+      ],
+      "paginas": [
+       185
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ka'aru",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "sa'yju",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rembe'ýpe",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "re",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mbe'ýpe",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "rembe'ý",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ajuhu",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "juhu",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mitãrusu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oĩkuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ĩkuri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ĩ",
+      "sufijos": [
+       "kuri"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mboriahu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "apu'ã",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pu'ã",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oipuru",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ipuru",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "oi",
+      "negacion": false,
+      "voces": [],
+      "raiz": "puru",
+      "sufijos": [],
+      "paginas": [
+       105
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jeroky",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "chae",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "peichaháguinte",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2pl",
+      "prefijo": "pe",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ichaháguinte",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "2pl",
+      "prefijo": "pe",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ichahágui",
+      "sufijos": [
+       "nte"
+      ],
+      "paginas": [
+       103,
+       161
+      ]
+     },
+     {
+      "persona": "2pl",
+      "prefijo": "pe",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ichaháguin",
+      "sufijos": [
+       "te"
+      ],
+      "paginas": [
+       103,
+       175
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "g̃uaig̃ui",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rohendu",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_excl",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hendu",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hendu",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohupi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hupi",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mba'énepa",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "mba'éne",
+      "sufijos": [
+       "pa"
+      ],
+      "paginas": [
+       185
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohayhu",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hayhu",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "kirirĩháme",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "kirirĩ",
+      "sufijos": [
+       "há",
+       "me"
+      ],
+      "paginas": [
+       79,
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "kirirĩhá",
+      "sufijos": [
+       "me"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "og̃uahẽkuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "g̃uahẽkuri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "g̃uahẽ",
+      "sufijos": [
+       "kuri"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "herava'ekue",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "herava'e",
+      "sufijos": [
+       "kue"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "imandu'a",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mandu'a",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": "i",
+      "raiz": "mandu'a",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "iñapysẽ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "iñ",
+      "negacion": false,
+      "voces": [],
+      "raiz": "apysẽ",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñapysẽ",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": "iñ",
+      "raiz": "apysẽ",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     },
+     {
+      "posesivo": "i",
+      "raiz": "ñapysẽ",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "tyvytýpe",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "tyvytý",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "tyvy",
+      "sufijos": [
+       "tý",
+       "pe"
+      ],
+      "paginas": [
+       207,
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ojehúkuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jehúkuri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jehú",
+      "sufijos": [
+       "kuri"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "je"
+      ],
+      "raiz": "húkuri",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ñoha'ãnga",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohekávo",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hekávo",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "heká",
+      "sufijos": [
+       "vo"
+      ],
+      "paginas": [
+       103,
+       147
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ahechakuaa",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hechakuaa",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "tereréniko",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "tere",
+      "negacion": false,
+      "voces": [],
+      "raiz": "réniko",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "tereréni",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       311
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ag̃uahẽ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "g̃uahẽ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ahendu",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hendu",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "kamby",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ka",
+      "sufijos": [
+       "mby"
+      ],
+      "paginas": [
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "póra",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ñepohãno",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "tyre'ỹ",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "tyre",
+      "sufijos": [
+       "'ỹ"
+      ],
+      "paginas": [
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "renyhẽ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "re",
+      "negacion": false,
+      "voces": [],
+      "raiz": "nyhẽ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "tenyhẽ",
+      "sufijos": [],
+      "paginas": [
+       315
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rog̃uahẽ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_excl",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "g̃uahẽ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "g̃uahẽ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "paraguaya",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "upémaramo",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mba'evai",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oñemitỹ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñemitỹ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ñe"
+      ],
+      "raiz": "mitỹ",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "omongaru",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mongaru",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "mo"
+      ],
+      "raiz": "ngaru",
+      "sufijos": [],
+      "paginas": [
+       103,
+       119
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ra'a",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "iñangirũ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "iñ",
+      "negacion": false,
+      "voces": [],
+      "raiz": "angirũ",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñangirũ",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": "iñ",
+      "raiz": "angirũ",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     },
+     {
+      "posesivo": "i",
+      "raiz": "ñangirũ",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hi'upy",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "hi'u",
+      "sufijos": [
+       "py"
+      ],
+      "paginas": [
+       310
+      ]
+     },
+     {
+      "posesivo": "hi'",
+      "raiz": "upy",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ndaha'eivoi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": true,
+      "voces": [],
+      "raiz": "ha'eivo",
+      "sufijos": [],
+      "paginas": [
+       103,
+       115
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": true,
+      "voces": [],
+      "raiz": "ha'ei",
+      "sufijos": [
+       "vo"
+      ],
+      "paginas": [
+       103,
+       115,
+       147
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ehecha",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "e",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hecha",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "tapiaite",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "ta",
+      "negacion": false,
+      "voces": [],
+      "raiz": "piaite",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "tapia",
+      "sufijos": [
+       "ite"
+      ],
+      "paginas": [
+       69
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ipiári",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "piári",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": "i",
+      "raiz": "piári",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "omanohague",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "manohague",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "omano",
+      "sufijos": [
+       "hague"
+      ],
+      "paginas": [
+       229
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "osẽvo",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sẽvo",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sẽ",
+      "sufijos": [
+       "vo"
+      ],
+      "paginas": [
+       103,
+       147
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ita'yrakuéra",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ta'yrakuéra",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ita'yra",
+      "sufijos": [
+       "kuéra"
+      ],
+      "paginas": [
+       61
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ojeity",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jeity",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "je"
+      ],
+      "raiz": "ity",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ojei",
+      "sufijos": [
+       "ty"
+      ],
+      "paginas": [
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "imboka",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mboka",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": "i",
+      "raiz": "mboka",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "itapỹi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "tapỹi",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jehechakuaa",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oturuñe'ẽ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "turuñe'ẽ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ndaikatuvéima",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ka'aguýre",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ka'aguý",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       59
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "ka'aguý",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "maymávante",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mba'evevoi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "vyrorei",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "poteĩ",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "pokõi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mamáme",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "mamá",
+      "sufijos": [
+       "me"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "vare'águi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "vare'á",
+      "sufijos": [
+       "gui"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ombyaku",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mbyaku",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jopara",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oĩva'ekue",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ĩva'ekue",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ĩ",
+      "sufijos": [
+       "va'ekue"
+      ],
+      "paginas": [
+       103,
+       125
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "oĩva'e",
+      "sufijos": [
+       "kue"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "aha'ãrõ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ha'ãrõ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ha'ã",
+      "sufijos": [
+       "rõ"
+      ],
+      "paginas": [
+       103,
+       141
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ko'árupi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ogyke",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "gyke",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ro'y",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_excl",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "'y",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "'y",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "to'y",
+      "sufijos": [],
+      "paginas": [
+       315
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "asajekue",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sajekue",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "asaje",
+      "sufijos": [
+       "kue"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "haimete",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "haime",
+      "sufijos": [
+       "te"
+      ],
+      "paginas": [
+       69
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oha'ãrõ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ha'ãrõ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ha'ã",
+      "sufijos": [
+       "rõ"
+      ],
+      "paginas": [
+       103,
+       141
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mba'eporã",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "mba'epo",
+      "sufijos": [
+       "rã"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "eheja",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "e",
+      "negacion": false,
+      "voces": [],
+      "raiz": "heja",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "iñasãi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "iñ",
+      "negacion": false,
+      "voces": [],
+      "raiz": "asãi",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñasãi",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": "iñ",
+      "raiz": "asãi",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     },
+     {
+      "posesivo": "i",
+      "raiz": "ñasãi",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "arapoteĩ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "rapoteĩ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "sakã",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "tyvy",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ahuvaitĩ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "huvaitĩ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "tavarandu",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "ta",
+      "negacion": false,
+      "voces": [],
+      "raiz": "varandu",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ndikatúi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oisãmbyhy",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "isãmbyhy",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "oi",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sãmbyhy",
+      "sufijos": [],
+      "paginas": [
+       105
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rembiasa",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "re",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mbiasa",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ome'ẽkuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "me'ẽkuri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "me'ẽ",
+      "sufijos": [
+       "kuri"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "akãrasy",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kãrasy",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "péichante",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "chemandu'a",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "che",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mandu'a",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "che",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mandu'a",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "chembohovái",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "che",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mbohovái",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "che",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mbohovái",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ñe'ẽpapára",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "eíra",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "e",
+      "negacion": false,
+      "voces": [],
+      "raiz": "íra",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "chénte",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jaguarete",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guarete",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guar",
+      "sufijos": [
+       "ete"
+      ],
+      "paginas": [
+       103,
+       175
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "jaguare",
+      "sufijos": [
+       "te"
+      ],
+      "paginas": [
+       69
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ñu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jepe'a",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "embosa'y",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "e",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mbosa'y",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "e",
+      "negacion": false,
+      "voces": [
+       "mbo"
+      ],
+      "raiz": "sa'y",
+      "sufijos": [],
+      "paginas": [
+       119,
+       165
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ñembohovái",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "estilo",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "e",
+      "negacion": false,
+      "voces": [],
+      "raiz": "stilo",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohasáva",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hasáva",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hasá",
+      "sufijos": [
+       "va"
+      ],
+      "paginas": [
+       103,
+       143
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ohasá",
+      "sufijos": [
+       "va"
+      ],
+      "paginas": [
+       229
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rasẽ",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "tasẽ",
+      "sufijos": [],
+      "paginas": [
+       315
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hembiasakue",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "hembiasa",
+      "sufijos": [
+       "kue"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "itaju",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "taju",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohechava'ekue",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hechava'ekue",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hec",
+      "sufijos": [
+       "ha",
+       "va'ekue"
+      ],
+      "paginas": [
+       103,
+       125,
+       145
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hecha",
+      "sufijos": [
+       "va'ekue"
+      ],
+      "paginas": [
+       103,
+       125
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ohechava'e",
+      "sufijos": [
+       "kue"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ndaikatúikuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": true,
+      "voces": [],
+      "raiz": "ikatúikur",
+      "sufijos": [],
+      "paginas": [
+       103,
+       115
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "ai",
+      "negacion": true,
+      "voces": [],
+      "raiz": "katúikur",
+      "sufijos": [],
+      "paginas": [
+       105,
+       115
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rohecha",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_excl",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hecha",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1pl_excl",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hec",
+      "sufijos": [
+       "ha"
+      ],
+      "paginas": [
+       103,
+       145
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hecha",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohechásapy'a",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hechásapy'a",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "opoipoi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "poipoi",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mbo'ipyre",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "mbo'i",
+      "sufijos": [
+       "pyre"
+      ],
+      "paginas": [
+       310
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "mbo'i",
+      "sufijos": [
+       "py",
+       "re"
+      ],
+      "paginas": [
+       59,
+       310
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "mbo'i",
+      "sufijos": [
+       "py",
+       "re"
+      ],
+      "paginas": [
+       207,
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "yryvu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jerokyhápe",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "jerokyhá",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "jeroky",
+      "sufijos": [
+       "há",
+       "pe"
+      ],
+      "paginas": [
+       79,
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hemby",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": "h",
+      "raiz": "temby",
+      "sufijos": [],
+      "paginas": [
+       315
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "he",
+      "sufijos": [
+       "mby"
+      ],
+      "paginas": [
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "sapy'arei",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "opiã",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "piã",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "upevarevoi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oimo'ã'ỹre",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "imo'ã'ỹre",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "oi",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mo'ã'ỹre",
+      "sufijos": [],
+      "paginas": [
+       105
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "oi",
+      "negacion": false,
+      "voces": [
+       "mo"
+      ],
+      "raiz": "'ã'ỹre",
+      "sufijos": [],
+      "paginas": [
+       105,
+       119
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "oimo'ã'ỹ",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       59
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "oimo'ã'ỹ",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "oimo'ã",
+      "sufijos": [
+       "'ỹre"
+      ],
+      "paginas": [
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "katuetei",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "he",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ojupe",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jupe",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "oju",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "he'ímiva'erã",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "he'ímiva'e",
+      "sufijos": [
+       "rã"
+      ],
+      "paginas": [
+       59
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mbokara'ỹi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hemikotevẽ",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "typycha",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oñeme'ẽkuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñeme'ẽkuri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñeme'ẽ",
+      "sufijos": [
+       "kuri"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ñe"
+      ],
+      "raiz": "me'ẽkuri",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ñemuháme",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ñemu",
+      "sufijos": [
+       "há",
+       "me"
+      ],
+      "paginas": [
+       79,
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "ñemuhá",
+      "sufijos": [
+       "me"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oñesũ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñesũ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ñe"
+      ],
+      "raiz": "sũ",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ojuhúkuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "juhúkuri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "juhú",
+      "sufijos": [
+       "kuri"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "kojói",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hovyũ",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ojogapo",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jogapo",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "joga",
+      "sufijos": [
+       "po"
+      ],
+      "paginas": [
+       103,
+       141
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "jo"
+      ],
+      "raiz": "gapo",
+      "sufijos": [],
+      "paginas": [
+       103,
+       119
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oñembopupu",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñembopupu",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ñe"
+      ],
+      "raiz": "mbopupu",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ñe",
+       "mbo"
+      ],
+      "raiz": "pupu",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117,
+       119
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jaguereko",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guereko",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guere",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       103,
+       149
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "jaguere",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       311
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "jague",
+      "sufijos": [
+       "re",
+       "ko"
+      ],
+      "paginas": [
+       59,
+       311
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "jague",
+      "sufijos": [
+       "re",
+       "ko"
+      ],
+      "paginas": [
+       207,
+       311
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ka'aguy'ípe",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ka'aguy'í",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "ka'aguy",
+      "sufijos": [
+       "'í",
+       "pe"
+      ],
+      "paginas": [
+       207,
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "omanókuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "manókuri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "manó",
+      "sufijos": [
+       "kuri"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "itavyrainunga",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "tavyrainunga",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "tavyrai",
+      "sufijos": [
+       "nunga"
+      ],
+      "paginas": [
+       101,
+       147
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "upéicharamo",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mboka",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jahána",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hána",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jeýta",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "sapy'apy'a",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mba'evéma",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "nomombe'úi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": true,
+      "voces": [],
+      "raiz": "mombe'ú",
+      "sufijos": [],
+      "paginas": [
+       103,
+       115
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": true,
+      "voces": [
+       "mo"
+      ],
+      "raiz": "mbe'ú",
+      "sufijos": [],
+      "paginas": [
+       103,
+       115,
+       119
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ka'irãime",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ka'irãi",
+      "sufijos": [
+       "me"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "tesay",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ndaha'evéima",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohohápente",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hohápente",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hohápe",
+      "sufijos": [
+       "nte"
+      ],
+      "paginas": [
+       103,
+       161
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "hohápen",
+      "sufijos": [
+       "te"
+      ],
+      "paginas": [
+       103,
+       175
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "horyvéva",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "horyvé",
+      "sufijos": [
+       "va"
+      ],
+      "paginas": [
+       229
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "hory",
+      "sufijos": [
+       "vé",
+       "va"
+      ],
+      "paginas": [
+       67,
+       229
+      ]
+     },
+     {
+      "posesivo": "h",
+      "raiz": "tory",
+      "sufijos": [
+       "vé",
+       "va"
+      ],
+      "paginas": [
+       67,
+       229,
+       315
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "yképe",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "yké",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hogaykeregua",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "hogaykere",
+      "sufijos": [
+       "gua"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "hogayke",
+      "sufijos": [
+       "re",
+       "gua"
+      ],
+      "paginas": [
+       59,
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "yvórape",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "yvóra",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "karugua",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "karu",
+      "sufijos": [
+       "gua"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "pytu'u",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oñotỹ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñotỹ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ño"
+      ],
+      "raiz": "tỹ",
+      "sufijos": [],
+      "paginas": [
+       103,
+       119
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "pu'aka",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ojesareko",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jesareko",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jesare",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       103,
+       149
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "je"
+      ],
+      "raiz": "sareko",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ojesare",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       311
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "ojesa",
+      "sufijos": [
+       "re",
+       "ko"
+      ],
+      "paginas": [
+       59,
+       311
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "ojesa",
+      "sufijos": [
+       "re",
+       "ko"
+      ],
+      "paginas": [
+       207,
+       311
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ñembo'eguasu",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "g̃uaig̃uimi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "g̃uaig̃ui",
+      "sufijos": [
+       "mi"
+      ],
+      "paginas": [
+       309
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "osẽjey",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sẽjey",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sẽ",
+      "sufijos": [
+       "jey"
+      ],
+      "paginas": [
+       103,
+       171
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ojapyhýkuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "japyhýkuri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "japyhý",
+      "sufijos": [
+       "kuri"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "tesape",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "tesa",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "tekombo'e",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oparupirei",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "parupirei",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "parupi",
+      "sufijos": [
+       "rei"
+      ],
+      "paginas": [
+       103,
+       157
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mba'yrúpe",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "mba'yrú",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "henyhẽva",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "henyhẽ",
+      "sufijos": [
+       "va"
+      ],
+      "paginas": [
+       229
+      ]
+     },
+     {
+      "posesivo": "h",
+      "raiz": "tenyhẽ",
+      "sufijos": [
+       "va"
+      ],
+      "paginas": [
+       229,
+       315
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "korapy",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "kora",
+      "sufijos": [
+       "py"
+      ],
+      "paginas": [
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rojupi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_excl",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jupi",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jupi",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "guýpe",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "guý",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "sa'íma",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hembýva",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "hembý",
+      "sufijos": [
+       "va"
+      ],
+      "paginas": [
+       229
+      ]
+     },
+     {
+      "posesivo": "h",
+      "raiz": "temby",
+      "sufijos": [
+       "va"
+      ],
+      "paginas": [
+       229,
+       315
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "he",
+      "sufijos": [
+       "mbý",
+       "va"
+      ],
+      "paginas": [
+       229,
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jehasa",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ohenói",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "henói",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "porãmba",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "piro'y",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rapykuéri",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "aheka",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "heka",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mbujape",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "mbuja",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "aipóna",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ipóna",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "ai",
+      "negacion": false,
+      "voces": [],
+      "raiz": "póna",
+      "sufijos": [],
+      "paginas": [
+       105
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "omyenyhẽ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "myenyhẽ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "poyvi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "alapínta",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "lapínta",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "lapín",
+      "sufijos": [
+       "ta"
+      ],
+      "paginas": [
+       103,
+       131
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oparupiete",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "parupiete",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "parupi",
+      "sufijos": [
+       "ete"
+      ],
+      "paginas": [
+       103,
+       175
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "oparupi",
+      "sufijos": [
+       "ete"
+      ],
+      "paginas": [
+       69
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "oparupie",
+      "sufijos": [
+       "te"
+      ],
+      "paginas": [
+       69
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oñemyatymói",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñemyatymói",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ñe"
+      ],
+      "raiz": "myatymói",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ambohovái",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mbohovái",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [
+       "mbo"
+      ],
+      "raiz": "hovái",
+      "sufijos": [],
+      "paginas": [
+       103,
+       119
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ka'arupytũme",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ka'arupytũ",
+      "sufijos": [
+       "me"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rejuhúta",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "re",
+      "negacion": false,
+      "voces": [],
+      "raiz": "juhúta",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "re",
+      "negacion": false,
+      "voces": [],
+      "raiz": "juhú",
+      "sufijos": [
+       "ta"
+      ],
+      "paginas": [
+       103,
+       131
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ijajúrigui",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "ij",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ajúrigui",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "i",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jajúrigui",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": "ij",
+      "raiz": "ajúrigui",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     },
+     {
+      "posesivo": "i",
+      "raiz": "jajúrigui",
+      "sufijos": [],
+      "paginas": [
+       77
+      ]
+     },
+     {
+      "posesivo": "ij",
+      "raiz": "ajúri",
+      "sufijos": [
+       "gui"
+      ],
+      "paginas": [
+       77,
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "regueraha",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "re",
+      "negacion": false,
+      "voces": [],
+      "raiz": "gueraha",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "re",
+      "negacion": false,
+      "voces": [],
+      "raiz": "guera",
+      "sufijos": [
+       "ha"
+      ],
+      "paginas": [
+       103,
+       145
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "reguera",
+      "sufijos": [
+       "ha"
+      ],
+      "paginas": [
+       79
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "jaheja",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ja",
+      "negacion": false,
+      "voces": [],
+      "raiz": "heja",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ñamboyke",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ña",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mboyke",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1pl_incl",
+      "prefijo": "ña",
+      "negacion": false,
+      "voces": [
+       "mbo"
+      ],
+      "raiz": "yke",
+      "sufijos": [],
+      "paginas": [
+       103,
+       119
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "aníkena",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "níkena",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "apañuái",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "pañuái",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "sushi",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rakãre",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "rakã",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       59
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "rakã",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "takã",
+      "sufijos": [
+       "re"
+      ],
+      "paginas": [
+       59,
+       315
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "aponde'a",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ponde'a",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "arahaku",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "rahaku",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oñopehẽnguéva",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñopehẽnguéva",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñopehẽngué",
+      "sufijos": [
+       "va"
+      ],
+      "paginas": [
+       103,
+       143
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ño"
+      ],
+      "raiz": "pehẽnguéva",
+      "sufijos": [],
+      "paginas": [
+       103,
+       119
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "oñopehẽngué",
+      "sufijos": [
+       "va"
+      ],
+      "paginas": [
+       229
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "oñopehẽ",
+      "sufijos": [
+       "ngué",
+       "va"
+      ],
+      "paginas": [
+       59,
+       229
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "aratiri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ratiri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "arriéro",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "rriéro",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "asẽta",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sẽta",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "sẽ",
+      "sufijos": [
+       "ta"
+      ],
+      "paginas": [
+       103,
+       131
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "mburuvicha",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "yvyrapã",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hu'y",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ndoguerekói",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": true,
+      "voces": [],
+      "raiz": "guerekó",
+      "sufijos": [],
+      "paginas": [
+       103,
+       115
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": true,
+      "voces": [],
+      "raiz": "guere",
+      "sufijos": [
+       "kó"
+      ],
+      "paginas": [
+       103,
+       115,
+       149
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "hevéva",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "hevé",
+      "sufijos": [
+       "va"
+      ],
+      "paginas": [
+       229
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "he",
+      "sufijos": [
+       "vé",
+       "va"
+      ],
+      "paginas": [
+       67,
+       229
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "héva",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "hé",
+      "sufijos": [
+       "va"
+      ],
+      "paginas": [
+       229
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "omombe'úkuri",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mombe'úkuri",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "mombe'ú",
+      "sufijos": [
+       "kuri"
+      ],
+      "paginas": [
+       103,
+       127
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "mo"
+      ],
+      "raiz": "mbe'úkuri",
+      "sufijos": [],
+      "paginas": [
+       103,
+       119
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "oñembosako'íma",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñembosako'íma",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñembosako'í",
+      "sufijos": [
+       "ma"
+      ],
+      "paginas": [
+       103,
+       161
+      ]
+     },
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [
+       "ñe"
+      ],
+      "raiz": "mbosako'íma",
+      "sufijos": [],
+      "paginas": [
+       103,
+       117
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "vakara'y",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "piári",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "cheka'aru",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "che",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ka'aru",
+      "sufijos": [],
+      "paginas": [
+       101
+      ]
+     },
+     {
+      "persona": "1sg",
+      "prefijo": "che",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ka'aru",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "okirirĩ",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "3",
+      "prefijo": "o",
+      "negacion": false,
+      "voces": [],
+      "raiz": "kirirĩ",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "rogaykereguápe",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1pl_excl",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "gaykereguápe",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "ro",
+      "negacion": false,
+      "voces": [],
+      "raiz": "gaykereguápe",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "rogaykereguá",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "narãha",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "narã",
+      "sufijos": [
+       "ha"
+      ],
+      "paginas": [
+       79
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "chéniko",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "chéni",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       311
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "amyrỹi",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "1sg",
+      "prefijo": "a",
+      "negacion": false,
+      "voces": [],
+      "raiz": "myrỹi",
+      "sufijos": [],
+      "paginas": [
+       103
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "pohãnohárape",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "pohãnohára",
+      "sufijos": [
+       "pe"
+      ],
+      "paginas": [
+       207
+      ]
+     },
+     {
+      "posesivo": null,
+      "raiz": "pohãno",
+      "sufijos": [
+       "hára",
+       "pe"
+      ],
+      "paginas": [
+       207,
+       309
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "eiko",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "e",
+      "negacion": false,
+      "voces": [],
+      "raiz": "iko",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ei",
+      "sufijos": [
+       "ko"
+      ],
+      "paginas": [
+       311
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "ejeity",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "e",
+      "negacion": false,
+      "voces": [],
+      "raiz": "jeity",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "e",
+      "negacion": false,
+      "voces": [
+       "je"
+      ],
+      "raiz": "ity",
+      "sufijos": [],
+      "paginas": [
+       117,
+       165
+      ]
+     }
+    ],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "ejei",
+      "sufijos": [
+       "ty"
+      ],
+      "paginas": [
+       310
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "guampa",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "eñangarekóke",
+   "laboratorio": {
+    "verbo": [
+     {
+      "persona": "2sg",
+      "prefijo": "e",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñangarekóke",
+      "sufijos": [],
+      "paginas": [
+       165
+      ]
+     },
+     {
+      "persona": "2sg",
+      "prefijo": "e",
+      "negacion": false,
+      "voces": [],
+      "raiz": "ñangarekó",
+      "sufijos": [
+       "ke"
+      ],
+      "paginas": [
+       165,
+       167
+      ]
+     }
+    ],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "yno'õme",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": [
+     {
+      "posesivo": null,
+      "raiz": "yno'õ",
+      "sufijos": [
+       "me"
+      ],
+      "paginas": [
+       207
+      ]
+     }
+    ]
+   },
+   "motor_alan": null
+  },
+  {
+   "conjunto": "planilla_300",
+   "palabra": "vokóikema",
+   "laboratorio": {
+    "verbo": [],
+    "sustantivo": []
+   },
+   "motor_alan": null
+  }
+ ]
+}
