@@ -15,7 +15,8 @@ import { buildCorpusIndex, rankByAttestation, type Attestation } from "@/lib/mor
 import { checkWord, type OrthographyIssue } from "@/lib/morph/orthography";
 import { CLOSED_CLASS_LABEL, lookupClosed } from "@/lib/morph/closed-classes";
 import { analyzeNominal, type NominalAnalysis } from "@/lib/morph/nominal-analyzer";
-import { getLabCorpus } from "@/lib/laboratorio.functions";
+import { getLabBook, getLabCorpus } from "@/lib/laboratorio.functions";
+import { buildBookIndex, type BookIndex } from "@/lib/morph/book-lexicon";
 
 /**
  * Laboratorio Morfológico (privado, solo admin).
@@ -136,11 +137,16 @@ function LaboratorioPage() {
   const corpusFn = useServerFn(getLabCorpus);
   const corpus = useQuery({ queryKey: ["lab-corpus"], queryFn: () => corpusFn(), staleTime: 5 * 60_000 });
   const index = useMemo(() => (corpus.data ? buildCorpusIndex(corpus.data.entries) : null), [corpus.data]);
-  const ranked = useMemo(() => rankByAttestation(results, index), [results, index]);
+  // Formas que imprime la Gramática ALG 2020 (solo servidor/admin): atestiguación por la fuente oficial.
+  const bookFn = useServerFn(getLabBook);
+  const bookQ = useQuery({ queryKey: ["lab-book"], queryFn: () => bookFn(), staleTime: Infinity });
+  const book = useMemo(() => (bookQ.data ? buildBookIndex(bookQ.data.forms) : null), [bookQ.data]);
+  const ranked = useMemo(() => rankByAttestation(results, index, book), [results, index, book]);
   const wordInCorpus: Attestation | null = submitted && index ? index.word(submitted) : null;
 
   const closed = useMemo(() => (submitted ? lookupClosed(submitted) : []), [submitted]);
   const nominal = useMemo(() => (submitted ? analyzeNominal(submitted) : []), [submitted]);
+  const nominalRanked = useMemo(() => rankByAttestation(nominal, index, book), [nominal, index, book]);
 
   const run = (word: string) => {
     const w = word.trim();
@@ -271,6 +277,14 @@ function LaboratorioPage() {
           <section className="mt-8" aria-live="polite">
             <OrthographyPanel word={submitted} />
             {closed.length > 0 && <ClosedClassPanel matches={closed} />}
+            {book && bookQ.data && (
+              <BookPanel
+                word={submitted}
+                book={book}
+                observaciones={bookQ.data.observaciones}
+                showCompounds={![...ranked, ...nominalRanked].some((r) => r.attestation.level !== "none") && closed.length === 0}
+              />
+            )}
             {results.length === 0 && nominal.length === 0 && closed.length === 0 ? (
               <Card className="border-amber-300/60 bg-amber-50/60 dark:bg-amber-500/10">
                 <CardContent className="flex items-start gap-3 pt-6">
@@ -309,7 +323,7 @@ function LaboratorioPage() {
                 )}
               </>
             )}
-            {nominal.length > 0 && <NominalReadings readings={nominal} />}
+            {nominal.length > 0 && <NominalReadings readings={nominalRanked} />}
           </section>
         )}
 
@@ -362,6 +376,76 @@ function OrthographyPanel({ word }: { word: string }) {
   );
 }
 
+/**
+ * ¿La palabra aparece tal cual en la Gramática? Si no, formas del libro parecidas y lecturas de
+ * compuesto (pág. 53). No es una corrección: solo muestra palabras que el libro imprime.
+ */
+function BookPanel({
+  word,
+  book,
+  observaciones,
+  showCompounds,
+}: {
+  word: string;
+  book: BookIndex;
+  observaciones: Record<string, { pages: number[]; issues: string[] }>;
+  showCompounds: boolean;
+}) {
+  const hit = useMemo(() => book.lookup(word), [book, word]);
+  const observed = observaciones[normalizeWord(word)];
+  const similar = useMemo(() => (hit ? [] : book.similar(word, 2, 5)), [book, word, hit]);
+  const compounds = useMemo(() => (hit || !showCompounds ? [] : book.compounds(word).slice(0, 3)), [book, word, hit, showCompounds]);
+  return (
+    <div className="mb-4 rounded-xl border border-border/60 bg-card px-4 py-3 text-sm">
+      <p className="flex items-center gap-2 font-semibold text-foreground">
+        <Library className="h-4 w-4 text-primary" aria-hidden />
+        En la Gramática oficial ({book.size} formas)
+      </p>
+      {hit ? (
+        <p className="mt-1 text-foreground">
+          «{hit.form}» aparece en el libro (pág. {hit.pages.slice(0, 6).join(", ")}).
+          {hit.accentDiffers && <span className="text-amber-700 dark:text-amber-300"> El libro la escribe con otra tilde.</span>}
+        </p>
+      ) : observed ? (
+        <p className="mt-1 text-foreground">
+          El libro la imprime así (pág. {observed.pages.join(", ")}), pero el corrector marca: {observed.issues.join("; ")}. Queda como observación para especialistas.
+        </p>
+      ) : (
+        <p className="mt-1 text-muted-foreground">No aparece tal cual en el libro.</p>
+      )}
+      {similar.length > 0 && (
+        <div className="mt-2">
+          <p className="text-xs text-muted-foreground">Formas del libro parecidas (no es una corrección; decide un especialista):</p>
+          <ul className="mt-1 flex flex-wrap gap-2">
+            {similar.map((s) => (
+              <li key={s.form}>
+                <Badge variant="outline">
+                  {s.form} · pág. {s.pages[0]}
+                </Badge>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {compounds.length > 0 && (
+        <div className="mt-2">
+          <p className="text-xs text-muted-foreground">Posible palabra compuesta (pág. 53: dos núcleos que se unen sin pérdida de elementos):</p>
+          <ul className="mt-1 space-y-1">
+            {compounds.map((c) => (
+              <li key={c.parts.map((p) => p.form).join("+")} className="text-foreground">
+                {c.parts[0].form} + {c.parts[1].form}{" "}
+                <span className="text-xs text-muted-foreground">
+                  (págs. {c.parts[0].pages[0]} y {c.parts[1].pages[0]})
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /** La palabra está en una de las listas cerradas del libro (pronombres, adverbios, conjunciones…). */
 function ClosedClassPanel({ matches }: { matches: ReturnType<typeof lookupClosed> }) {
   return (
@@ -394,7 +478,7 @@ const HARMONY_LABEL: Record<NominalAnalysis["harmony"], string | null> = {
 };
 
 /** Lecturas como sustantivo, adjetivo o adverbio (págs. 49–85 y 207). */
-function NominalReadings({ readings }: { readings: NominalAnalysis[] }) {
+function NominalReadings({ readings }: { readings: { reading: NominalAnalysis; attestation: Attestation }[] }) {
   const [all, setAll] = useState(false);
   const shown = all ? readings : readings.slice(0, VISIBLE_READINGS);
   return (
@@ -402,7 +486,7 @@ function NominalReadings({ readings }: { readings: NominalAnalysis[] }) {
       <h2 className="font-display text-lg font-bold text-foreground">Lecturas como sustantivo, adjetivo o adverbio</h2>
       <p className="mt-1 text-xs text-muted-foreground">Según las reglas del sustantivo y del adjetivo (págs. 49–85). La correcta la decide un especialista.</p>
       <div className="mt-3 space-y-3">
-        {shown.map((a, i) => (
+        {shown.map(({ reading: a, attestation }, i) => (
           <Card key={`${a.possessor?.form ?? ""}-${a.root}-${a.suffixes.map((s) => s.ruleId).join("+")}-${i}`}>
             <CardContent className="space-y-2 pt-5 text-sm">
               <p className="font-display text-base">
@@ -424,6 +508,7 @@ function NominalReadings({ readings }: { readings: NominalAnalysis[] }) {
                 ))}
                 {HARMONY_LABEL[a.harmony] && <li>{HARMONY_LABEL[a.harmony]}</li>}
               </ul>
+              <AttestationNote attestation={attestation} />
               <Badge variant="outline" className="border-accent/40 text-accent">Pendiente de validación</Badge>
             </CardContent>
           </Card>
@@ -446,8 +531,8 @@ function CorpusStatus({ loading, failed, size, word, inWord }: { loading: boolea
     <div className="mt-3 flex items-start gap-2 text-xs text-muted-foreground">
       <Library className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
       <span>
-        Ordenadas según el vocabulario de Jaikuaa ({size} palabras publicadas): primero las raíces validadas por docentes, después las
-        que aparecen en el vocabulario.
+        Ordenadas así: primero las raíces validadas por docentes, después las que están en la Gramática oficial y después las del
+        vocabulario de Jaikuaa ({size} palabras publicadas, aún sin validar).
         {inWord && inWord.level !== "none" && (
           <strong className="text-foreground">
             {" "}«{word}» figura tal cual en el vocabulario{inWord.level === "validated" ? ", validada por docentes." : " (aún sin validación de docentes)."}
@@ -463,6 +548,14 @@ function AttestationNote({ attestation }: { attestation: Attestation }) {
     return <p className="text-xs text-muted-foreground">La raíz no aparece en el vocabulario de la plataforma.</p>;
   }
   const words = attestation.examples.map((w) => `«${w}»`).join(", ");
+  if (attestation.level === "book") {
+    return (
+      <p className="flex items-start gap-1.5 text-xs font-medium text-foreground">
+        <BookOpen className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
+        La raíz aparece tal cual en la Gramática oficial: {words} (pág. {attestation.pages.join(", ")}).
+      </p>
+    );
+  }
   return attestation.level === "validated" ? (
     <p className="flex items-start gap-1.5 text-xs font-medium text-emerald-800 dark:text-emerald-200">
       <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />

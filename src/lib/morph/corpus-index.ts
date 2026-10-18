@@ -23,8 +23,15 @@ export interface CorpusEntry {
 
 export type Attestation =
   | { level: "validated"; examples: string[] }
+  /** La raíz aparece tal cual en la Gramática ALG 2020 (fuente oficial), con sus páginas. */
+  | { level: "book"; examples: string[]; pages: number[] }
   | { level: "published"; examples: string[] }
   | { level: "none"; examples: [] };
+
+/** Lo mínimo que se necesita del índice del libro (ver book-lexicon.ts). */
+export interface BookLookup {
+  lookup(word: string): { form: string; pages: number[] } | null;
+}
 
 export interface CorpusIndex {
   /** ¿La raíz aparece en alguna palabra del vocabulario? Devuelve hasta 3 palabras de ejemplo. */
@@ -73,12 +80,29 @@ export function buildCorpusIndex(entries: CorpusEntry[]): CorpusIndex {
   };
 }
 
-const RANK: Record<Attestation["level"], number> = { validated: 0, published: 1, none: 2 };
+/** Docente validador > libro oficial > vocabulario publicado sin validar > nada. */
+const RANK: Record<Attestation["level"], number> = { validated: 0, book: 1, published: 2, none: 3 };
 
-/** Ordena lecturas: primero raíces validadas, después raíces del vocabulario; dentro de cada grupo, el orden del analizador. */
-export function rankByAttestation<T extends { root: string }>(readings: T[], index: CorpusIndex | null): { reading: T; attestation: Attestation }[] {
+/** Atestiguación de una raíz combinando el vocabulario de la plataforma y el libro. */
+export function attestRoot(root: string, index: CorpusIndex | null, book?: BookLookup | null): Attestation {
+  const fromCorpus: Attestation = index ? index.root(root) : { level: "none", examples: [] };
+  if (fromCorpus.level === "validated") return fromCorpus;
+  const hit = book?.lookup(root);
+  if (hit) return { level: "book", examples: [hit.form], pages: hit.pages.slice(0, 5) };
+  return fromCorpus;
+}
+
+/**
+ * Ordena lecturas: primero raíces validadas por docentes, después las que están en el libro,
+ * después las del vocabulario sin validar; dentro de cada grupo, el orden del analizador.
+ */
+export function rankByAttestation<T extends { root: string }>(
+  readings: T[],
+  index: CorpusIndex | null,
+  book?: BookLookup | null,
+): { reading: T; attestation: Attestation }[] {
   return readings
-    .map((reading, i) => ({ reading, i, attestation: index ? index.root(reading.root) : ({ level: "none", examples: [] } as Attestation) }))
+    .map((reading, i) => ({ reading, i, attestation: attestRoot(reading.root, index, book) }))
     .sort((x, y) => RANK[x.attestation.level] - RANK[y.attestation.level] || x.i - y.i)
     .map(({ reading, attestation }) => ({ reading, attestation }));
 }

@@ -184,7 +184,7 @@ describe("27. Ordinal, posposiciones unidas e interrogativas (págs. 79, 207, 18
   });
 
   it("las partículas cargadas citan su página", () => {
-    expect(NOMINAL_SUFFIXES.every((s) => s.source.page >= 59 && s.source.page <= 207)).toBe(true);
+    expect(NOMINAL_SUFFIXES.every((s) => s.source.page >= 59 && s.source.page <= 229)).toBe(true);
   });
 });
 

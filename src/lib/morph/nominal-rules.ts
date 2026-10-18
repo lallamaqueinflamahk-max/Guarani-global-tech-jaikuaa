@@ -26,7 +26,7 @@ export type NominalCondition =
   | "raiz-oral"
   | "raiz-nasal";
 
-export type NominalSuffixType = "tiempo-nominal" | "plural" | "grado" | "ordinal" | "posposicion" | "interrogativa";
+export type NominalSuffixType = "tiempo-nominal" | "plural" | "grado" | "ordinal" | "posposicion" | "interrogativa" | "adjetivante";
 
 export interface NominalSuffixRule {
   id: string;
@@ -95,6 +95,11 @@ export const NOMINAL_SUFFIXES: NominalSuffixRule[] = [
   r("posp-re", "posposicion", "re", "por", 207, [], "ninguna", "Pág. 37: oúre (apócope de «ou rehe»)."),
   r("posp-ndi", "posposicion", "ndi", "con (apócope de «ndive»)", 207, []),
 
+  // Pág. 229: partículas adjetivantes «va», «hague» (también «ha», «va'ekue», «va'erã», cargadas con el verbo).
+  // Pág. 231 las usa con sustantivos y adverbios: araguáva, tendaguáva, tekoguáva, ramóva.
+  r("adjetivante-va", "adjetivante", "va", "partícula adjetivante", 229, [], "ninguna", "Pág. 231: araguáva, tendaguáva, tekoguáva, ramóva. Pág. 195: kóva, péva."),
+  r("adjetivante-hague", "adjetivante", "hague", "partícula adjetivante", 229, [], "ninguna", "Pág. 231: haguépe, haguéicha."),
+
   // Pág. 185 (y pág. 115 con el verbo): partículas interrogativas sufijas, átonas.
   r("interrogativa-pa", "interrogativa", "pa", "partícula interrogativa", 185, [], "ninguna", "Pág. 181: «Moõpa reiko»."),
   r("interrogativa-piko", "interrogativa", "piko", "partícula interrogativa", 185, [], "ninguna", "Pág. 181: «Moõpiko reiko»."),
@@ -109,6 +114,7 @@ export const NOMINAL_SUFFIXES: NominalSuffixRule[] = [
  */
 export const NOMINAL_SUFFIX_LEVEL: Record<NominalSuffixType, number> = {
   interrogativa: 0,
+  adjetivante: 0,
   posposicion: 0,
   plural: 0,
   "tiempo-nominal": 1,

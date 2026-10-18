@@ -36,3 +36,19 @@ export const getLabCorpus = createServerFn({ method: "GET" })
       entries: (words ?? []).map((w) => ({ gn: w.gn, validated: !!w.validated_by && editors.has(w.validated_by) })),
     };
   });
+
+/**
+ * Formas que imprime la Gramática ALG 2020, con sus páginas (solo admin, uso interno).
+ * Sirve para saber si una raíz está atestiguada por la fuente oficial y para mostrar formas
+ * parecidas. El archivo vive solo en el servidor: no se envía a alumnos ni se publica.
+ */
+export const getLabBook = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data: isAdmin } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
+    if (isAdmin !== true) throw new Error("Forbidden");
+    const mod = (await import("@/lib/morph/data/gramatica-alg-2020-formas.json")) as unknown as {
+      default: { forms: Record<string, number[]>; observaciones: Record<string, { pages: number[]; issues: string[] }> };
+    };
+    return { forms: mod.default.forms, observaciones: mod.default.observaciones };
+  });
