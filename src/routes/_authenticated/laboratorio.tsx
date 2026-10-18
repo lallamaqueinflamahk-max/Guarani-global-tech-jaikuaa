@@ -15,7 +15,8 @@ import { buildCorpusIndex, rankByAttestation, type Attestation } from "@/lib/mor
 import { checkWord, type OrthographyIssue } from "@/lib/morph/orthography";
 import { CLOSED_CLASS_LABEL, lookupClosed } from "@/lib/morph/closed-classes";
 import { analyzeNominal, type NominalAnalysis } from "@/lib/morph/nominal-analyzer";
-import { getLabBook, getLabCorpus } from "@/lib/laboratorio.functions";
+import { getLabBook, getLabCorpus, getLabWiktionary } from "@/lib/laboratorio.functions";
+import { buildWiktionaryIndex, FORM_OF_LABEL, POS_LABEL, type WiktionaryHit, type WiktionaryIndex } from "@/lib/morph/wikcionario";
 import { buildBookIndex, type BookIndex } from "@/lib/morph/book-lexicon";
 import { buildCalcoIndex, type CalcoIndex } from "@/lib/morph/calcos";
 import { checkText } from "@/lib/morph/orthography";
@@ -145,6 +146,10 @@ function LaboratorioPage() {
   const book = useMemo(() => (bookQ.data ? buildBookIndex(bookQ.data.forms) : null), [bookQ.data]);
   const calcos = useMemo(() => (bookQ.data ? buildCalcoIndex(bookQ.data.calcos) : null), [bookQ.data]);
   const ranked = useMemo(() => rankByAttestation(results, index, book), [results, index, book]);
+  // Significados del Wikcionario (CC BY-SA, solo admin): fuente externa, se muestra aparte y citada.
+  const wikFn = useServerFn(getLabWiktionary);
+  const wikQ = useQuery({ queryKey: ["lab-wiktionary"], queryFn: () => wikFn(), staleTime: Infinity });
+  const wik = useMemo(() => (wikQ.data ? buildWiktionaryIndex(wikQ.data.entries) : null), [wikQ.data]);
   const wordInCorpus: Attestation | null = submitted && index ? index.word(submitted) : null;
 
   const closed = useMemo(() => (submitted ? lookupClosed(submitted) : []), [submitted]);
@@ -289,6 +294,15 @@ function LaboratorioPage() {
                 book={book}
                 observaciones={bookQ.data.observaciones}
                 showCompounds={![...ranked, ...nominalRanked].some((r) => r.attestation.level !== "none") && closed.length === 0}
+              />
+            )}
+            {wik && wikQ.data && (
+              <WiktionaryPanel
+                word={submitted}
+                wik={wik}
+                attribution={wikQ.data.source.atribucion}
+                license={wikQ.data.source.licencia}
+                roots={[...ranked.slice(0, 3).map((r) => r.reading.root), ...nominalRanked.slice(0, 3).map((r) => r.reading.root)]}
               />
             )}
             {results.length === 0 && nominal.length === 0 && closed.length === 0 ? (
@@ -537,6 +551,83 @@ function BookPanel({
           </ul>
         </div>
       )}
+    </div>
+  );
+}
+
+/** Definiciones de una entrada del Wikcionario, tal cual (en inglés). */
+function WiktionaryLine({ hit }: { hit: WiktionaryHit }) {
+  const { entry, accentDiffers, lemma } = hit;
+  const flagged =
+    !["character", "suffix", "prefix", "circumfix"].includes(entry.pos) &&
+    entry.word.split(/\s+/).some((w) => checkWord(w).some((i) => i.severity === "error"));
+  return (
+    <li className="space-y-0.5">
+      <p className="text-foreground">
+        <strong>{entry.word}</strong> <span className="text-xs text-muted-foreground">({POS_LABEL[entry.pos] ?? entry.pos})</span>{" "}
+        {entry.formOf ? (
+          <span>
+            {FORM_OF_LABEL[entry.formOf.kind]} «{entry.formOf.lemma}»
+            {lemma && lemma.length > 0 && <span className="text-muted-foreground"> — {lemma.flatMap((l) => l.glosses).slice(0, 3).join("; ")}</span>}
+          </span>
+        ) : (
+          <span>{entry.glosses.join("; ")}</span>
+        )}
+      </p>
+      {accentDiffers && <p className="text-xs text-amber-700 dark:text-amber-300">La fuente la escribe con otra tilde.</p>}
+      {flagged && <p className="text-xs text-amber-700 dark:text-amber-300">El corrector marca esta escritura según las reglas de la Gramática ALG (págs. 19–37).</p>}
+    </li>
+  );
+}
+
+/**
+ * Significados del Wikcionario: fuente colaborativa externa (CC BY-SA 4.0), en inglés y sin
+ * validar. Busca la palabra; si no está, las raíces de las lecturas. No traduce ni corrige.
+ */
+function WiktionaryPanel({ word, wik, roots, attribution, license }: { word: string; wik: WiktionaryIndex; roots: string[]; attribution: string; license: string }) {
+  const direct = useMemo(() => wik.lookup(word), [wik, word]);
+  const viaRoots = useMemo(() => {
+    if (direct.length > 0) return [];
+    const seen = new Set<string>();
+    const out: { root: string; hits: WiktionaryHit[] }[] = [];
+    for (const r of roots) {
+      const k = normalizeWord(r);
+      if (!k || seen.has(k)) continue;
+      seen.add(k);
+      const hits = wik.lookup(r);
+      if (hits.length > 0) out.push({ root: r, hits });
+    }
+    return out.slice(0, 3);
+  }, [wik, word, roots, direct]);
+  if (direct.length === 0 && viaRoots.length === 0) return null;
+  return (
+    <div className="mb-4 rounded-xl border border-dashed border-border px-4 py-3 text-sm">
+      <p className="flex flex-wrap items-center gap-2 font-semibold text-foreground">
+        <Info className="h-4 w-4 text-muted-foreground" aria-hidden />
+        Significado según el Wikcionario (fuente externa, en inglés)
+        <Badge variant="outline" className="whitespace-nowrap">Wikcionario · CC BY-SA</Badge>
+      </p>
+      {direct.length > 0 ? (
+        <ul className="mt-2 space-y-1.5">
+          {direct.map((h, k) => (
+            <WiktionaryLine key={`${h.entry.word}-${h.entry.pos}-${k}`} hit={h} />
+          ))}
+        </ul>
+      ) : (
+        viaRoots.map(({ root, hits }) => (
+          <div key={root} className="mt-2">
+            <p className="text-xs text-muted-foreground">La palabra no está; sí la raíz «{root}» de una de las lecturas:</p>
+            <ul className="mt-1 space-y-1.5">
+              {hits.map((h, k) => (
+                <WiktionaryLine key={`${h.entry.word}-${h.entry.pos}-${k}`} hit={h} />
+              ))}
+            </ul>
+          </div>
+        ))
+      )}
+      <p className="mt-2 text-xs text-muted-foreground">
+        {attribution}. Licencia {license}. No es la Gramática de la Academia ni está validado por docentes de Jaikuaa.
+      </p>
     </div>
   );
 }

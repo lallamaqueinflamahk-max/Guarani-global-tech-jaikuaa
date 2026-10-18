@@ -56,3 +56,20 @@ export const getLabBook = createServerFn({ method: "GET" })
     };
     return { forms: mod.default.forms, observaciones: mod.default.observaciones, calcos: calcos.default.pares };
   });
+
+/**
+ * Significados del Wikcionario (Wiktionary en inglés, vía kaikki.org), licencia CC BY-SA 4.0 /
+ * GFDL (solo admin). Fuente colaborativa externa, no validada: el Laboratorio la muestra aparte
+ * de la Gramática ALG 2020 y siempre con su atribución.
+ */
+export const getLabWiktionary = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data: isAdmin } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
+    if (isAdmin !== true) throw new Error("Forbidden");
+    const mod = (await import("@/lib/morph/data/wikcionario-gn.json")) as unknown as {
+      default: { fuente: string; url: string; atribucion: string; licencia: string; fecha_de_descarga: string; entradas: [string, string, string[]][] };
+    };
+    const { entradas, ...source } = mod.default;
+    return { source, entries: entradas };
+  });
