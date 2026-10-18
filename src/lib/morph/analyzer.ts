@@ -70,7 +70,26 @@ export interface Analysis {
 
 /** Minúsculas, NFC, puso unificado y sin guiones (el libro separa a veces con guion: agueru-va'ekue). */
 export const normalizeWord = (w: string) =>
-  w.normalize("NFC").toLowerCase().trim().replace(/[’‘´`]/g, "'").replace(/-/g, "");
+  w
+    .normalize("NFC")
+    .replace(/[\u1FD6\u1E20\u1E21\u1FE6]/g, (c) => HOMOGLYPHS[c] ?? c)
+    .normalize("NFC")
+    .toLowerCase()
+    .trim()
+    .replace(PUSO_VARIANTS, "'")
+    .replace(/[-\u00AD]/g, "");
+
+/**
+ * Variantes del puso que usa la gente al escribir: ’ ‘ ´ ` y la «ʼ» (U+02BC), muy común en
+ * teclados y textos en guaraní (la súper prueba con Common Voice la encontró 569 veces).
+ */
+export const PUSO_VARIANTS = /[’‘´`\u02BC\u02BB]/g;
+
+/**
+ * Caracteres que se ven iguales a una letra del alfabeto pero son otros (textos copiados de PDF o
+ * de teclados): «ῖ» griega por «ĩ» (Gramática, págs. 246 y 249), «ḡ» por «g̃» y «ῦ» por «ũ».
+ */
+const HOMOGLYPHS: Record<string, string> = { "\u1FD6": "ĩ", "\u1E20": "G\u0303", "\u1E21": "g\u0303", "\u1FE6": "ũ" };
 
 const base = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "");
 /** Quita solo el acento agudo (no la tilde nasal): el libro desplaza el acento antes de partículas átonas (akarúkuri). */

@@ -54,14 +54,8 @@ const LOAN = new Set(["d", "f", "ll"]);
 
 export const isVowel = (letter: string) => VOWELS.has(letter);
 
-/**
- * Caracteres que se ven iguales a una letra del alfabeto pero son otros (aparecen en textos copiados
- * de PDF; el archivo digital de la Gramática trae «ῖ» griega en lugar de «ĩ» en las págs. 246 y 249).
- */
-const HOMOGLYPHS: Record<string, string> = { "\u1FD6": "ĩ" };
-
-/** Normaliza como el analizador (NFC, minúsculas, puso unificado, sin guiones) y cambia homoglifos. */
-export const normalizeForCheck = (w: string) => normalizeWord(w.replace(/[\u1FD6]/g, (c) => HOMOGLYPHS[c] ?? c));
+/** Normaliza como el analizador: NFC, minúsculas, variantes del puso, homoglifos y sin guiones. */
+export const normalizeForCheck = normalizeWord;
 
 /**
  * Separa una palabra en letras del alfabeto. Respeta los dígrafos (pág. 33) y la g̃, y separa la
@@ -213,7 +207,7 @@ const MONO_AMBIGUOUS = new Set(["pe", "me", "re"]);
 
 /** Separa un texto en palabras (conserva el puso y la g̃). */
 export function tokenize(text: string): string[] {
-  return (text.normalize("NFC").match(/[\p{L}\p{M}'’‘´`-]+/gu) ?? []).map(normalizeForCheck).filter((t) => t.replace(/'/g, "").length > 0);
+  return (text.normalize("NFC").match(/[\p{L}\p{M}'’‘´`\u02BC\u02BB\u00AD-]+/gu) ?? []).map(normalizeForCheck).filter((t) => t.replace(/'/g, "").length > 0);
 }
 
 export interface CheckTextOptions {

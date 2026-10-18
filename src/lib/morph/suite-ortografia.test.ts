@@ -32,6 +32,11 @@ describe("16. Primera regla: alfabeto oficial (pág. 33)", () => {
     expect(graphemes("ñe’ẽ").map((g) => g.letter)).toEqual(["ñ", "e", "'", "ẽ"]);
   });
 
+  it("el puso escrito como «ʼ» (U+02BC), muy común en textos reales, es la misma letra: 'ñeʼẽ' = 'ñe'ẽ'", () => {
+    expect(graphemes("ñeʼẽ").map((g) => g.letter)).toEqual(["ñ", "e", "'", "ẽ"]);
+    expect(rules("mbaʼe")).toEqual([]);
+  });
+
   it("archivo digital: 'Amoneῖse' (pág. 249) trae «ῖ» griega por «ĩ» → se unifica y no da aviso", () => {
     expect(graphemes("amoneῖse").map((g) => g.letter)).toContain("ĩ");
     expect(rules("Amoneῖse")).toEqual([]);

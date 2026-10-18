@@ -8,6 +8,7 @@
  * "pending_validation".
  */
 import type { Person, RuleStatus } from "./academia-rules";
+import { normalizeWord } from "./analyzer";
 
 export type ClosedClass =
   | "demostrativo-presencia"
@@ -346,7 +347,7 @@ export const CLOSED_CLASSES: { status: RuleStatus; source: { book: "Gramática G
 };
 
 const stripAcute = (s: string) => s.normalize("NFD").replace(/́/g, "").normalize("NFC");
-const norm = (s: string) => s.normalize("NFC").toLowerCase().trim().replace(/[’‘´`]/g, "'");
+const norm = (s: string) => normalizeWord(s);
 
 const BY_FORM = new Map<string, ClosedEntry[]>();
 const BY_BARE = new Map<string, ClosedEntry[]>();
