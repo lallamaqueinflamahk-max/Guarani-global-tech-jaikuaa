@@ -11,7 +11,9 @@
 import { describe, expect, it } from "vitest";
 import { analyze, normalizeWord, type Analysis } from "./analyzer";
 import { ALPHABET, HAREAL_ROOTS, NEGATION, PERSON_PREFIXES, negationPrefix, negationSuffix } from "./academia-rules";
-import { ALL_SUFFIX_RULES, MOOD_SUFFIXES, SUFFIX_ORDER, TENSE_SUFFIXES } from "./suffixes-rules";
+import { ALL_SUFFIX_RULES, SUFFIX_ORDER } from "./suffixes-rules";
+import { VOICE_RULES } from "./voices-rules";
+import { IMPERATIVE_PREFIXES } from "./imperative-rules";
 
 /** ¿Hay una lectura con estas partes? */
 function reading(
@@ -178,10 +180,10 @@ describe("5. Negación discontinua (págs. 23–25 y 115)", () => {
 
 /* -------------------------------------------------------------------------- */
 describe("6. Sufijos de tiempo y modo (págs. 123–161)", () => {
-  it("págs. 125–161: cada sufijo cargado tiene página entre 123 y 171 y queda pendiente de validación", () => {
+  it("págs. 125–177: cada sufijo cargado tiene página entre 123 y 177 y queda pendiente de validación", () => {
     for (const r of ALL_SUFFIX_RULES) {
       expect(r.page).toBeGreaterThanOrEqual(123);
-      expect(r.page).toBeLessThanOrEqual(171);
+      expect(r.page).toBeLessThanOrEqual(177);
       expect(r.status).toBe("pending_validation");
     }
   });
@@ -267,7 +269,7 @@ describe("7. Casos límite y antialucinación", () => {
     for (const w of ["aguapy", "ñamaña", "ha'a", "akarúkuri", "agueru-va'ekue", "ndojeporuva'erãi", "noñaníri"]) {
       const word = normalizeWord(w);
       for (const a of analyze(w)) {
-        const core = a.prefix + a.root + a.suffixes.map((s) => s.form).join("");
+        const core = a.prefix + a.voices.map((v) => v.form).join("") + a.root + a.suffixes.map((s) => s.form).join("");
         expect(word.includes(core)).toBe(true);
       }
     }
@@ -279,8 +281,9 @@ describe("7. Casos límite y antialucinación", () => {
       PERSON_PREFIXES.aireal.source.page,
       PERSON_PREFIXES.hareal.source.page,
       NEGATION.source.page,
-      ...TENSE_SUFFIXES.map((r) => r.page),
-      ...MOOD_SUFFIXES.map((r) => r.page),
+      IMPERATIVE_PREFIXES.source.page,
+      ...ALL_SUFFIX_RULES.map((r) => r.page),
+      ...VOICE_RULES.map((r) => r.page),
     ]);
     for (const w of ["aguapy", "aipota", "ha'u", "ndojapói", "aguapyse", "akarúkuri", "ndojeporuva'erãi"]) {
       for (const a of analyze(w)) {
@@ -300,7 +303,7 @@ describe("7. Casos límite y antialucinación", () => {
     expect(reading("aguata", { root: "guata", suffixes: [] })).toBeDefined();
   });
 
-  it("'kuaa' e 'ima' no están cargados como sufijos: el libro no los define en las págs. 123–171", () => {
+  it("'kuaa' e 'ima' no están cargados como sufijos: el libro no los define en las págs. 123–177", () => {
     const forms = ALL_SUFFIX_RULES.flatMap((r) => r.forms);
     expect(forms).not.toContain("kuaa");
     expect(forms).not.toContain("ima");

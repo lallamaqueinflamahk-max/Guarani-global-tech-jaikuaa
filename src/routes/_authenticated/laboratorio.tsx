@@ -1,14 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState, type FormEvent } from "react";
-import { BookOpen, FlaskConical, Info, Search, ShieldAlert } from "lucide-react";
+import { useMemo, useRef, useState, type FormEvent } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { BookOpen, CheckCircle2, FlaskConical, Info, Library, Search, ShieldAlert } from "lucide-react";
 import { PrivateGate } from "@/components/private-gate";
 import { ValidationNotice } from "@/components/validation-notice";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { analyze, normalizeWord, type Analysis } from "@/lib/morph/analyzer";
-import type { Paradigm, Person } from "@/lib/morph/academia-rules";
+import { analyze, normalizeWord, type Analysis, type AnalysisParadigm } from "@/lib/morph/analyzer";
+import type { Person } from "@/lib/morph/academia-rules";
+import { buildCorpusIndex, rankByAttestation, type Attestation } from "@/lib/morph/corpus-index";
+import { getLabCorpus } from "@/lib/laboratorio.functions";
 
 /**
  * Laboratorio Morfológico (privado, solo admin).
@@ -45,7 +49,14 @@ const BOOK_EXAMPLES: { word: string; page: number; note: string }[] = [
   { word: "aguapyse", page: 139, note: "modo volitivo -se" },
   { word: "akarúkuri", page: 129, note: "pretérito reciente -kuri" },
   { word: "ndojeporuva'erãi", page: 184, note: "negación con futuro obligatorio" },
+  { word: "amboguata", page: 119, note: "voz coactiva mbo-" },
+  { word: "ajapouka", page: 145, note: "modo mediativo -uka" },
+  { word: "tapytáke", page: 167, note: "imperativo conminativo -ke" },
+  { word: "amba'apove", page: 175, note: "grado comparativo -ve" },
 ];
+
+/** Cuántas lecturas se muestran antes de "Ver las demás". */
+const VISIBLE_READINGS = 3;
 
 const PERSON_LABEL: Record<Person, { label: string; pronoun: string }> = {
   "1sg": { label: "1.ª persona singular", pronoun: "Che" },
@@ -56,22 +67,24 @@ const PERSON_LABEL: Record<Person, { label: string; pronoun: string }> = {
   "2pl": { label: "2.ª persona plural", pronoun: "Peẽ" },
 };
 
-const PARADIGM_LABEL: Record<Paradigm, string> = {
+const PARADIGM_LABEL: Record<AnalysisParadigm, string> = {
   areal: "Areal (regular)",
   aireal: "Aireal (regular, 1.ª conjugación)",
   hareal: "Hareal (regular, 2.ª conjugación)",
+  imperativo: "Imperativo / optativo (pág. 165)",
 };
 
-type Block = { kind: "neg" | "person" | "root" | "suffix"; text: string; label: string };
+type Block = { kind: "neg" | "person" | "voice" | "root" | "suffix"; text: string; label: string };
 
 /** Arma los bloques a partir de lo que devolvió el analizador; no agrega letras propias. */
 function toBlocks(a: Analysis): Block[] {
   const word = normalizeWord(a.word);
-  const core = a.prefix + a.root + a.suffixes.map((x) => x.form).join("");
+  const core = a.prefix + a.voices.map((v) => v.form).join("") + a.root + a.suffixes.map((x) => x.form).join("");
   const start = word.indexOf(core);
   const blocks: Block[] = [];
   if (a.negated && start > 0) blocks.push({ kind: "neg", text: word.slice(0, start), label: "Negación (prefijo)" });
-  blocks.push({ kind: "person", text: a.prefix, label: "Persona" });
+  blocks.push({ kind: "person", text: a.prefix, label: a.paradigm === "imperativo" ? "Persona (imperativo)" : "Persona" });
+  for (const v of a.voices) blocks.push({ kind: "voice", text: v.form, label: `${v.meaning} · pág. ${v.page}` });
   blocks.push({ kind: "root", text: a.root, label: "Raíz verbal" });
   for (const sfx of a.suffixes) {
     blocks.push({ kind: "suffix", text: sfx.form, label: `${sfx.meaning} · pág. ${sfx.page}` });
@@ -84,6 +97,7 @@ function toBlocks(a: Analysis): Block[] {
 const BLOCK_STYLE: Record<Block["kind"], string> = {
   neg: "border-red-300 bg-red-50 text-red-900 dark:border-red-400/40 dark:bg-red-500/10 dark:text-red-100",
   person: "border-blue-300 bg-blue-50 text-blue-900 dark:border-blue-400/40 dark:bg-blue-500/10 dark:text-blue-100",
+  voice: "border-violet-300 bg-violet-50 text-violet-900 dark:border-violet-400/40 dark:bg-violet-500/10 dark:text-violet-100",
   suffix: "border-amber-300 bg-amber-50 text-amber-900 dark:border-amber-400/40 dark:bg-amber-500/10 dark:text-amber-100",
   root: "border-emerald-300 bg-emerald-50 text-emerald-900 dark:border-emerald-400/40 dark:bg-emerald-500/10 dark:text-emerald-100",
 };
@@ -92,12 +106,21 @@ function LaboratorioPage() {
   const [value, setValue] = useState("");
   const [submitted, setSubmitted] = useState<string | null>(null);
   const [results, setResults] = useState<Analysis[]>([]);
+  const [showAll, setShowAll] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Vocabulario de la plataforma: sirve para ordenar lecturas y mostrar evidencia, nunca para inventar.
+  const corpusFn = useServerFn(getLabCorpus);
+  const corpus = useQuery({ queryKey: ["lab-corpus"], queryFn: () => corpusFn(), staleTime: 5 * 60_000 });
+  const index = useMemo(() => (corpus.data ? buildCorpusIndex(corpus.data.entries) : null), [corpus.data]);
+  const ranked = useMemo(() => rankByAttestation(results, index), [results, index]);
+  const wordInCorpus: Attestation | null = submitted && index ? index.word(submitted) : null;
 
   const run = (word: string) => {
     const w = word.trim();
     setSubmitted(w || null);
     setResults(w ? analyze(w) : []);
+    setShowAll(false);
   };
 
   const onSubmit = (e: FormEvent) => {
@@ -239,11 +262,23 @@ function LaboratorioPage() {
                     </p>
                   )}
                 </div>
+                <CorpusStatus loading={corpus.isLoading} failed={corpus.isError} size={index?.size ?? 0} word={submitted} inWord={wordInCorpus} />
                 <div className="mt-4 space-y-4">
-                  {results.map((a, i) => (
-                    <AnalysisCard key={`${a.paradigm}-${a.person}-${a.prefix}-${a.negated}-${i}`} analysis={a} index={i + 1} total={results.length} />
+                  {(showAll ? ranked : ranked.slice(0, VISIBLE_READINGS)).map(({ reading: a, attestation }, i) => (
+                    <AnalysisCard
+                      key={`${a.paradigm}-${a.person}-${a.prefix}-${a.negated}-${a.root}-${i}`}
+                      analysis={a}
+                      attestation={attestation}
+                      index={i + 1}
+                      total={results.length}
+                    />
                   ))}
                 </div>
+                {!showAll && ranked.length > VISIBLE_READINGS && (
+                  <Button type="button" variant="outline" className="mt-4 w-full" onClick={() => setShowAll(true)}>
+                    Ver las {ranked.length - VISIBLE_READINGS} lecturas restantes
+                  </Button>
+                )}
               </>
             )}
           </section>
@@ -259,7 +294,44 @@ function LaboratorioPage() {
   );
 }
 
-function AnalysisCard({ analysis: a, index, total }: { analysis: Analysis; index: number; total: number }) {
+/** Estado del vocabulario y si la palabra escrita está tal cual en él. */
+function CorpusStatus({ loading, failed, size, word, inWord }: { loading: boolean; failed: boolean; size: number; word: string; inWord: Attestation | null }) {
+  if (loading) return <p className="mt-3 text-xs text-muted-foreground">Cargando el vocabulario de la plataforma…</p>;
+  if (failed) return <p className="mt-3 text-xs text-muted-foreground">No se pudo cargar el vocabulario: las lecturas se muestran en el orden del analizador.</p>;
+  return (
+    <div className="mt-3 flex items-start gap-2 text-xs text-muted-foreground">
+      <Library className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
+      <span>
+        Ordenadas según el vocabulario de Jaikuaa ({size} palabras publicadas): primero las raíces validadas por docentes, después las
+        que aparecen en el vocabulario.
+        {inWord && inWord.level !== "none" && (
+          <strong className="text-foreground">
+            {" "}«{word}» figura tal cual en el vocabulario{inWord.level === "validated" ? ", validada por docentes." : " (aún sin validación de docentes)."}
+          </strong>
+        )}
+      </span>
+    </div>
+  );
+}
+
+function AttestationNote({ attestation }: { attestation: Attestation }) {
+  if (attestation.level === "none") {
+    return <p className="text-xs text-muted-foreground">La raíz no aparece en el vocabulario de la plataforma.</p>;
+  }
+  const words = attestation.examples.map((w) => `«${w}»`).join(", ");
+  return attestation.level === "validated" ? (
+    <p className="flex items-start gap-1.5 text-xs font-medium text-emerald-800 dark:text-emerald-200">
+      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
+      Raíz validada por docentes: aparece en {words}.
+    </p>
+  ) : (
+    <p className="text-xs text-foreground">
+      La raíz aparece en el vocabulario de Jaikuaa ({words}), aún sin validación de docentes.
+    </p>
+  );
+}
+
+function AnalysisCard({ analysis: a, attestation, index, total }: { analysis: Analysis; attestation: Attestation; index: number; total: number }) {
   const blocks = toBlocks(a);
   const person = PERSON_LABEL[a.person];
   const pages = [...new Set(a.pages)].sort((x, y) => x - y);
@@ -300,9 +372,19 @@ function AnalysisCard({ analysis: a, index, total }: { analysis: Analysis; index
             <dd className="mt-0.5 font-medium text-foreground">{PARADIGM_LABEL[a.paradigm]}</dd>
           </div>
           <div>
-            <dt className="text-xs uppercase tracking-wide text-muted-foreground">Tiempo y modo</dt>
+            <dt className="text-xs uppercase tracking-wide text-muted-foreground">Voz</dt>
             <dd className="mt-0.5 font-medium text-foreground">
-              {a.suffixes.length ? a.suffixes.map((x) => x.meaning).join(" · ") : "Sin partículas: presente y modo indicativo simple (págs. 123 y 139)"}
+              {a.voices.length ? a.voices.map((v) => v.meaning).join(" · ") : "Voz activa simple, sin partícula (pág. 117)"}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-xs uppercase tracking-wide text-muted-foreground">Tiempo, modo y grado</dt>
+            <dd className="mt-0.5 font-medium text-foreground">
+              {a.suffixes.length
+                ? a.suffixes.map((x) => x.meaning).join(" · ")
+                : a.paradigm === "imperativo"
+                  ? "Modo imperativo sin partícula (pág. 165)"
+                  : "Sin partículas: presente y modo indicativo simple (págs. 123 y 139)"}
             </dd>
           </div>
           <div>
@@ -316,6 +398,7 @@ function AnalysisCard({ analysis: a, index, total }: { analysis: Analysis; index
             </dd>
           </div>
         </dl>
+        <AttestationNote attestation={attestation} />
       </CardContent>
     </Card>
   );

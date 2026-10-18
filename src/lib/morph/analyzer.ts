@@ -1,11 +1,35 @@
 /**
- * Analizador morfológico mínimo: separa negación, prefijo personal y sufijos
- * usando SOLO las reglas transcriptas en academia-rules.ts y suffixes-rules.ts.
+ * Analizador morfológico mínimo: separa negación, prefijo personal, voz y sufijos
+ * usando SOLO las reglas transcriptas del libro (academia-rules.ts, voices-rules.ts,
+ * suffixes-rules.ts e imperative-rules.ts).
  * No inventa raíces ni formas: devuelve todas las lecturas candidatas,
  * siempre "pending_validation". La lectura correcta la decide un especialista.
  */
 import { HAREAL_ROOTS, NEGATION, PERSON_PREFIXES, type Paradigm, type Person } from "./academia-rules";
-import { MOOD_SUFFIXES, SUFFIX_ORDER, TENSE_SUFFIXES, type SuffixRule, type SuffixType } from "./suffixes-rules";
+import { IMPERATIVE_PREFIXES } from "./imperative-rules";
+import {
+  GRADE_SUFFIXES,
+  IMPERATIVE_MOOD_SUFFIXES,
+  MOOD_SUFFIXES,
+  SUFFIX_ORDER,
+  TENSE_SUFFIXES,
+  type SuffixRule,
+  type SuffixType,
+} from "./suffixes-rules";
+import { VOICE_ORDER, VOICE_RULES, type VoiceRule } from "./voices-rules";
+
+/** Conjugaciones del libro más el imperativo / optativo (pág. 165). */
+export type AnalysisParadigm = Paradigm | "imperativo";
+
+export interface AnalysisVoice {
+  /** La forma tal como aparece en la palabra analizada. */
+  form: string;
+  meaning: string;
+  page: number;
+}
+
+/** Personas plurales (más la 3.ª, que el libro usa para singular y plural). */
+const PLURAL_OK: readonly Person[] = ["1pl_incl", "1pl_excl", "2pl", "3"];
 
 export interface AnalysisSuffix {
   /** La forma tal como aparece en la palabra analizada. */
@@ -18,9 +42,11 @@ export interface AnalysisSuffix {
 export interface Analysis {
   word: string;
   negated: boolean;
-  paradigm: Paradigm;
+  paradigm: AnalysisParadigm;
   person: Person;
   prefix: string;
+  /** Partículas de voz entre el prefijo y la raíz (págs. 117–123), en orden de aparición. */
+  voices: AnalysisVoice[];
   root: string;
   /** En el orden en que aparecen en la palabra (de la raíz hacia afuera). */
   suffixes: AnalysisSuffix[];
@@ -70,76 +96,129 @@ function matchSuffix(stem: string, rule: SuffixRule): { rest: string; suffix: An
 }
 
 /**
- * Lecturas posibles de sufijos para un tema verbal (lo que queda después del prefijo).
- * Siempre incluye la lectura sin sufijos. Orden de trabajo: raíz + modo(s) + tiempo.
+ * Lecturas posibles de sufijos para un tema verbal (lo que queda después del prefijo y la voz).
+ * Siempre incluye la lectura sin sufijos. Orden de trabajo: raíz + modo(s) o grado + tiempo.
  */
-function suffixReadings(stem: string): { root: string; suffixes: AnalysisSuffix[] }[] {
-  const readings: { root: string; suffixes: AnalysisSuffix[] }[] = [{ root: stem, suffixes: [] }];
+type SuffixReading = { root: string; suffixes: AnalysisSuffix[]; rules: SuffixRule[] };
+
+function suffixReadings(stem: string, inner: SuffixRule[], withTense: boolean, maxInner: number): SuffixReading[] {
+  const readings: SuffixReading[] = [{ root: stem, suffixes: [], rules: [] }];
 
   // Paso 1: como mucho un sufijo de tiempo, en el borde derecho.
-  const afterTense: { rest: string; tense: AnalysisSuffix[] }[] = [{ rest: stem, tense: [] }];
-  if (SUFFIX_ORDER.maxTenses > 0) {
+  const afterTense: { rest: string; tense: AnalysisSuffix[]; rules: SuffixRule[] }[] = [{ rest: stem, tense: [], rules: [] }];
+  if (withTense && SUFFIX_ORDER.maxTenses > 0) {
     for (const rule of TENSE_SUFFIXES) {
       const m = matchSuffix(stem, rule);
-      if (m) afterTense.push({ rest: m.rest, tense: [m.suffix] });
+      if (m) afterTense.push({ rest: m.rest, tense: [m.suffix], rules: [rule] });
     }
   }
 
-  // Paso 2: hasta maxMoods sufijos de modo antes del tiempo.
-  for (const { rest, tense } of afterTense) {
-    let frontier: { rest: string; moods: AnalysisSuffix[] }[] = [{ rest, moods: [] }];
-    for (let depth = 0; depth < SUFFIX_ORDER.maxMoods; depth++) {
+  // Paso 2: hasta maxInner sufijos de modo o grado antes del tiempo.
+  for (const { rest, tense, rules } of afterTense) {
+    let frontier: { rest: string; moods: AnalysisSuffix[]; rules: SuffixRule[] }[] = [{ rest, moods: [], rules: [] }];
+    for (let depth = 0; depth < maxInner; depth++) {
       const next: typeof frontier = [];
       for (const item of frontier) {
-        for (const rule of MOOD_SUFFIXES) {
-          if (item.moods.some((m) => m.meaning === rule.meaning)) continue;
+        for (const rule of inner) {
+          if (item.rules.some((r) => r.id === rule.id)) continue;
           const m = matchSuffix(item.rest, rule);
-          if (m) next.push({ rest: m.rest, moods: [m.suffix, ...item.moods] });
+          if (m) next.push({ rest: m.rest, moods: [m.suffix, ...item.moods], rules: [rule, ...item.rules] });
         }
       }
-      for (const n of next) readings.push({ root: n.rest, suffixes: [...n.moods, ...tense] });
+      for (const n of next) readings.push({ root: n.rest, suffixes: [...n.moods, ...tense], rules: [...n.rules, ...rules] });
       frontier = next;
     }
-    if (tense.length) readings.push({ root: rest, suffixes: tense });
+    if (tense.length) readings.push({ root: rest, suffixes: tense, rules });
   }
 
   // Sin duplicados.
   const seen = new Set<string>();
   return readings.filter((r) => {
-    const key = `${r.root}|${r.suffixes.map((s) => s.form).join("+")}`;
+    const key = `${r.root}|${r.suffixes.map((s) => `${s.form}:${s.meaning}`).join("+")}`;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
 }
 
+/** Lecturas de voz: ninguna, o hasta VOICE_ORDER.maxVoices partículas distintas al comienzo del tema. */
+function voiceReadings(stem: string): { rest: string; voices: AnalysisVoice[]; rules: VoiceRule[] }[] {
+  const out: { rest: string; voices: AnalysisVoice[]; rules: VoiceRule[] }[] = [{ rest: stem, voices: [], rules: [] }];
+  let frontier = out.slice();
+  for (let depth = 0; depth < VOICE_ORDER.maxVoices; depth++) {
+    const next: typeof frontier = [];
+    for (const item of frontier) {
+      for (const rule of VOICE_RULES) {
+        if (item.rules.some((r) => r.id === rule.id)) continue;
+        for (const form of rule.forms) {
+          if (item.rest.startsWith(form) && item.rest.length > form.length) {
+            next.push({
+              rest: item.rest.slice(form.length),
+              voices: [...item.voices, { form, meaning: rule.meaning, page: rule.page }],
+              rules: [...item.rules, rule],
+            });
+          }
+        }
+      }
+    }
+    out.push(...next);
+    frontier = next;
+  }
+  return out;
+}
+
+type PrefixSet = { paradigm: AnalysisParadigm; page: number; prefixes: Record<Person, string[]> };
+
+const PREFIX_SETS: PrefixSet[] = [
+  ...(Object.entries(PERSON_PREFIXES) as [Paradigm, (typeof PERSON_PREFIXES)[Paradigm]][]).map(([paradigm, rule]) => ({
+    paradigm,
+    page: rule.source.page,
+    prefixes: rule.prefixes,
+  })),
+  { paradigm: "imperativo", page: IMPERATIVE_PREFIXES.source.page, prefixes: IMPERATIVE_PREFIXES.prefixes },
+];
+
+const INDICATIVE_INNER = [...MOOD_SUFFIXES, ...GRADE_SUFFIXES];
+
 export function analyze(input: string): Analysis[] {
   const w = normalizeWord(input);
   if (!w || /\s/.test(w)) return [];
   const results: Analysis[] = [];
   for (const { core, negated } of stripNegation(w)) {
-    for (const [paradigm, rule] of Object.entries(PERSON_PREFIXES) as [Paradigm, (typeof PERSON_PREFIXES)[Paradigm]][]) {
-      for (const [person, prefixes] of Object.entries(rule.prefixes) as [Person, string[]][]) {
+    for (const set of PREFIX_SETS) {
+      const imperative = set.paradigm === "imperativo";
+      // La negación nd-/n- … -i/-ri (págs. 25 y 115) se describe con los prefijos del indicativo.
+      if (imperative && negated) continue;
+      for (const [person, prefixes] of Object.entries(set.prefixes) as [Person, string[]][]) {
         for (const prefix of prefixes) {
           if (!core.startsWith(prefix) || core.length <= prefix.length) continue;
-          for (const { root, suffixes } of suffixReadings(core.slice(prefix.length))) {
-            if (!root) continue;
-            // El libro identifica solo 5 verbos hareales (pág. 105): fuera de esas raíces no hay lectura hareal.
-            if (paradigm === "hareal" && !(HAREAL_ROOTS.roots as readonly string[]).includes(root)) continue;
-            const pages = [rule.source.page];
-            if (negated) pages.push(NEGATION.source.page);
-            for (const s of suffixes) pages.push(s.page);
-            results.push({
-              word: input,
-              negated,
-              paradigm,
-              person,
-              prefix,
-              root,
-              suffixes,
-              status: "pending_validation",
-              pages: [...new Set(pages)],
-            });
+          for (const v of voiceReadings(core.slice(prefix.length))) {
+            if (v.rules.some((r) => r.pluralOnly) && !PLURAL_OK.includes(person)) continue;
+            const readings = imperative
+              ? suffixReadings(v.rest, IMPERATIVE_MOOD_SUFFIXES, false, 1)
+              : suffixReadings(v.rest, INDICATIVE_INNER, true, SUFFIX_ORDER.maxMoods);
+            for (const { root, suffixes, rules } of readings) {
+              if (!root) continue;
+              // El libro identifica solo 5 verbos hareales (pág. 105): fuera de esas raíces no hay lectura hareal.
+              if (set.paradigm === "hareal" && !(HAREAL_ROOTS.roots as readonly string[]).includes(root)) continue;
+              if (rules.some((r) => r.pluralOnly) && !PLURAL_OK.includes(person)) continue;
+              const pages = [set.page];
+              if (negated) pages.push(NEGATION.source.page);
+              for (const x of v.voices) pages.push(x.page);
+              for (const x of suffixes) pages.push(x.page);
+              results.push({
+                word: input,
+                negated,
+                paradigm: set.paradigm,
+                person,
+                prefix,
+                voices: v.voices,
+                root,
+                suffixes,
+                status: "pending_validation",
+                pages: [...new Set(pages)],
+              });
+            }
           }
         }
       }
