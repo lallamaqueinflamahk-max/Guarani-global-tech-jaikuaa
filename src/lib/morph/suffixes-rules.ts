@@ -10,7 +10,7 @@
  * "kuaa" (capacidad/saber) e "ima" (variante de "ma"). Se agregan solo si un
  * especialista indica la página.
  */
-import type { RuleStatus } from "./academia-rules";
+import type { Person, RuleStatus } from "./academia-rules";
 
 export type SuffixType = "tense" | "mood" | "aspect" | "grade";
 
@@ -31,6 +31,8 @@ export interface SuffixRule {
   examples?: string[];
   /** El libro dice que solo se conjuga en plural. */
   pluralOnly?: boolean;
+  /** La partícula concuerda con una persona (aspecto, págs. 135–137). */
+  person?: Person;
   /** Fila de la tabla del libro que parece no seguir el patrón: se pregunta a los especialistas, no se corrige. */
   bookObservation?: string;
   status: RuleStatus;
@@ -104,7 +106,101 @@ export const TENSE_SUFFIXES: SuffixRule[] = [
     examples: ["ajohei'arã", "amokã'arã"],
     status: pending,
   },
+  // Agregados en la súper prueba del 18/10/2026: estaban en el libro y faltaban.
+  {
+    id: "preterito-imperfecto",
+    forms: ["mi"],
+    type: "tense",
+    meaning: "Pretérito imperfecto",
+    page: 127,
+    note: "Partícula átona «mi» unida al lexema.",
+    examples: ["ajokó-mi", "añatõi-mi"],
+    status: pending,
+  },
+  {
+    id: "preterito-remoto",
+    forms: ["raka'e"],
+    type: "tense",
+    meaning: "Pretérito remoto",
+    page: 129,
+    note: "Partícula átona «raka'e».",
+    examples: ["akéraka'e", "añomíraka'e"],
+    status: pending,
+  },
+  {
+    id: "preterito-anterior",
+    forms: ["ra'e"],
+    type: "tense",
+    meaning: "Pretérito anterior",
+    page: 129,
+    examplesPage: 131,
+    note: "Partícula átona «ra'e».",
+    examples: ["akáira'e", "akañýra'e"],
+    status: pending,
+  },
+  {
+    id: "futuro-proximo",
+    forms: ["pota", "mbota"],
+    type: "tense",
+    meaning: "Futuro próximo",
+    page: 133,
+    examplesPage: 135,
+    note: "Partículas tónicas «pota» para verbos orales y «mbota» para verbos nasales, por armonización nasal.",
+    examples: ["ajahupota", "asẽmbota"],
+    status: pending,
+  },
+  {
+    id: "futuro-dudoso",
+    forms: ["ne"],
+    type: "tense",
+    meaning: "Futuro dudoso",
+    page: 135,
+    note: "Partícula átona «ne».",
+    examples: ["ajohéine", "ambyatyrõne"],
+    status: pending,
+  },
 ];
+
+/**
+ * Aspecto (págs. 135–137): «ína» (imperfectivo) e «ikóni» (intermitente), con la forma de cada
+ * persona que muestra la tabla de la pág. 137. Pueden ir después de una partícula de tiempo
+ * («Aguatava'erã'aína», «oñe'ẽnehikóni»).
+ */
+const ASPECT_TABLE: [Person, string, string][] = [
+  ["1sg", "'aína", "'aikóni"],
+  ["2sg", "reína", "reikóni"],
+  ["3", "hína", "hikóni"],
+  ["1pl_incl", "ñaína", "ñaikóni"],
+  ["1pl_excl", "roína", "roikóni"],
+  ["2pl", "peína", "peikóni"],
+];
+
+export const ASPECT_SUFFIXES: SuffixRule[] = ASPECT_TABLE.flatMap(([person, ina, ikoni]) => [
+  {
+    id: `aspecto-imperfectivo-${person}`,
+    forms: [ina],
+    type: "aspect" as const,
+    meaning: "Aspecto imperfectivo",
+    page: 135,
+    examplesPage: 137,
+    note: "Partícula «ína»; con la 1.ª plural usa «ña» en vez de «ja» (pág. 137).",
+    examples: [],
+    person,
+    status: pending,
+  },
+  {
+    id: `aspecto-intermitente-${person}`,
+    forms: [ikoni],
+    type: "aspect" as const,
+    meaning: "Aspecto intermitente",
+    page: 135,
+    examplesPage: 137,
+    note: "Partícula «ikóni».",
+    examples: [],
+    person,
+    status: pending,
+  },
+]);
 
 /**
  * Modos indicativos (págs. 139–173). El modo indicativo simple no lleva partícula (pág. 139).
@@ -191,10 +287,12 @@ export const GRADE_SUFFIXES: SuffixRule[] = [
  */
 export const SUFFIX_ORDER = {
   status: pending,
-  order: ["mood", "tense"] as const,
+  order: ["mood", "tense", "aspect"] as const,
   /** Partículas de modo o grado antes del tiempo. */
   maxMoods: 2,
   maxTenses: 1,
+  /** El aspecto va después del tiempo (pág. 137: «Aguatava'erã'aína»). */
+  maxAspects: 1,
 };
 
-export const ALL_SUFFIX_RULES: SuffixRule[] = [...TENSE_SUFFIXES, ...MOOD_SUFFIXES, ...IMPERATIVE_MOOD_SUFFIXES, ...GRADE_SUFFIXES];
+export const ALL_SUFFIX_RULES: SuffixRule[] = [...TENSE_SUFFIXES, ...ASPECT_SUFFIXES, ...MOOD_SUFFIXES, ...IMPERATIVE_MOOD_SUFFIXES, ...GRADE_SUFFIXES];

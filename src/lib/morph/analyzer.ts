@@ -9,6 +9,7 @@ import { HAREAL_ROOTS, NEGATION, PERSON_PREFIXES, type Paradigm, type Person } f
 import { IMPERATIVE_PREFIXES } from "./imperative-rules";
 import { IRREGULAR_LEXEMES, PREDICATIVE_PREFIXES, PRONOMINAL_PREFIXES } from "./predicative-rules";
 import {
+  ASPECT_SUFFIXES,
   GRADE_SUFFIXES,
   IMPERATIVE_MOOD_SUFFIXES,
   MOOD_SUFFIXES,
@@ -123,12 +124,24 @@ type SuffixReading = { root: string; suffixes: AnalysisSuffix[]; rules: SuffixRu
 function suffixReadings(stem: string, inner: SuffixRule[], withTense: boolean, maxInner: number): SuffixReading[] {
   const readings: SuffixReading[] = [{ root: stem, suffixes: [], rules: [] }];
 
-  // Paso 1: como mucho un sufijo de tiempo, en el borde derecho.
-  const afterTense: { rest: string; tense: AnalysisSuffix[]; rules: SuffixRule[] }[] = [{ rest: stem, tense: [], rules: [] }];
-  if (withTense && SUFFIX_ORDER.maxTenses > 0) {
-    for (const rule of TENSE_SUFFIXES) {
+  // Paso 0: como mucho un sufijo de aspecto en el borde derecho (págs. 135–137).
+  const afterAspect: { rest: string; outer: AnalysisSuffix[]; rules: SuffixRule[] }[] = [{ rest: stem, outer: [], rules: [] }];
+  if (withTense && SUFFIX_ORDER.maxAspects > 0) {
+    for (const rule of ASPECT_SUFFIXES) {
       const m = matchSuffix(stem, rule);
-      if (m) afterTense.push({ rest: m.rest, tense: [m.suffix], rules: [rule] });
+      if (m) afterAspect.push({ rest: m.rest, outer: [m.suffix], rules: [rule] });
+    }
+  }
+
+  // Paso 1: como mucho un sufijo de tiempo, antes del aspecto.
+  const afterTense: { rest: string; tense: AnalysisSuffix[]; rules: SuffixRule[] }[] = [];
+  for (const a of afterAspect) {
+    afterTense.push({ rest: a.rest, tense: a.outer, rules: a.rules });
+    if (withTense && SUFFIX_ORDER.maxTenses > 0) {
+      for (const rule of TENSE_SUFFIXES) {
+        const m = matchSuffix(a.rest, rule);
+        if (m) afterTense.push({ rest: m.rest, tense: [m.suffix, ...a.outer], rules: [rule, ...a.rules] });
+      }
     }
   }
 
@@ -240,6 +253,8 @@ export function analyze(input: string): Analysis[] {
               // El libro identifica solo 5 verbos hareales (pág. 105): fuera de esas raíces no hay lectura hareal.
               if (set.paradigm === "hareal" && !(HAREAL_ROOTS.roots as readonly string[]).includes(root)) continue;
               if (rules.some((r) => r.pluralOnly) && !PLURAL_OK.includes(person)) continue;
+              // El aspecto concuerda con la persona (tabla de la pág. 137).
+              if (rules.some((r) => r.person && r.person !== person)) continue;
               const pages = [set.page];
               if (negated) pages.push(NEGATION.source.page);
               for (const x of v.voices) pages.push(x.page);
@@ -264,9 +279,10 @@ export function analyze(input: string): Analysis[] {
     // Lexemas variables (pág. 97): la forma entera es la persona + el lexema; después pueden venir sufijos.
     const firstChar = core[0];
     if (!euphonic && firstChar && IRREGULAR_FIRST_CHARS.has(firstChar)) {
-      for (const { root, suffixes } of suffixReadings(core, INDICATIVE_INNER, true, SUFFIX_ORDER.maxMoods)) {
+      for (const { root, suffixes, rules } of suffixReadings(core, INDICATIVE_INNER, true, SUFFIX_ORDER.maxMoods)) {
         const hit = IRREGULAR_BY_FORM.get(stripAcute(root));
         if (!hit) continue;
+        if (rules.some((r) => r.person && r.person !== hit.f.person)) continue;
         const pages = [hit.lex.page];
         if (negated) pages.push(NEGATION.source.page);
         for (const x of suffixes) pages.push(x.page);

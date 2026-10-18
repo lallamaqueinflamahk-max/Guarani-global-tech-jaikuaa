@@ -246,7 +246,7 @@ describe("Combinaciones construidas (no aparecen literales en el libro)", () => 
     expect(a?.pages).toEqual([103, 139, 131]);
     // El orden raíz + modo + tiempo queda pendiente del Comité.
     expect(SUFFIX_ORDER.status).toBe("pending_validation");
-    expect([...SUFFIX_ORDER.order]).toEqual(["mood", "tense"]);
+    expect([...SUFFIX_ORDER.order]).toEqual(["mood", "tense", "aspect"]);
   });
 
   it("construida con las reglas de las págs. 115 y 139: 'ndojaposéi' → nd- + o + japo + -se + -i", () => {
