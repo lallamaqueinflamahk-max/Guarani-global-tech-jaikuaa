@@ -83,6 +83,105 @@ export type Database = {
         }
         Relationships: []
       }
+      content_proposals: {
+        Row: {
+          es: string
+          gn: string
+          history: Json
+          id: string
+          kind: string
+          notes: string
+          proposed_at: string
+          proposed_by: string
+          published_word_id: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          source: string
+          status: string
+          target_word_id: string | null
+          updated_at: string
+          validated_at: string | null
+          validated_by: string | null
+          validation_note: string | null
+        }
+        Insert: {
+          es: string
+          gn: string
+          history?: Json
+          id?: string
+          kind: string
+          notes?: string
+          proposed_at?: string
+          proposed_by: string
+          published_word_id?: string | null
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          source?: string
+          status?: string
+          target_word_id?: string | null
+          updated_at?: string
+          validated_at?: string | null
+          validated_by?: string | null
+          validation_note?: string | null
+        }
+        Update: {
+          es?: string
+          gn?: string
+          history?: Json
+          id?: string
+          kind?: string
+          notes?: string
+          proposed_at?: string
+          proposed_by?: string
+          published_word_id?: string | null
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          source?: string
+          status?: string
+          target_word_id?: string | null
+          updated_at?: string
+          validated_at?: string | null
+          validated_by?: string | null
+          validation_note?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_proposals_published_word_id_fkey"
+            columns: ["published_word_id"]
+            isOneToOne: false
+            referencedRelation: "corpus_words"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_proposals_target_word_id_fkey"
+            columns: ["target_word_id"]
+            isOneToOne: false
+            referencedRelation: "corpus_words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content_reviewers: {
+        Row: {
+          added_by: string | null
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          added_by?: string | null
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          added_by?: string | null
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       corpus_sentence_words: {
         Row: {
           created_at: string
