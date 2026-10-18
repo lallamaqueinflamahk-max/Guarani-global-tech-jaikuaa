@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { analyze, type Analysis } from "@/lib/morph/analyzer";
+import { analyze, normalizeWord, type Analysis } from "@/lib/morph/analyzer";
 import type { Paradigm, Person } from "@/lib/morph/academia-rules";
 
 /**
@@ -42,6 +42,9 @@ const BOOK_EXAMPLES: { word: string; page: number; note: string }[] = [
   { word: "noñaníri", page: 25, note: "negación nasal n- … -ri" },
   { word: "aipota", page: 105, note: "aireal" },
   { word: "ha'a", page: 105, note: "hareal, con puso" },
+  { word: "aguapyse", page: 139, note: "modo volitivo -se" },
+  { word: "akarúkuri", page: 129, note: "pretérito reciente -kuri" },
+  { word: "ndojeporuva'erãi", page: 184, note: "negación con futuro obligatorio" },
 ];
 
 const PERSON_LABEL: Record<Person, { label: string; pronoun: string }> = {
@@ -59,17 +62,20 @@ const PARADIGM_LABEL: Record<Paradigm, string> = {
   hareal: "Hareal (regular, 2.ª conjugación)",
 };
 
-type Block = { kind: "neg" | "person" | "root"; text: string; label: string };
+type Block = { kind: "neg" | "person" | "root" | "suffix"; text: string; label: string };
 
 /** Arma los bloques a partir de lo que devolvió el analizador; no agrega letras propias. */
 function toBlocks(a: Analysis): Block[] {
-  const word = a.word.normalize("NFC").toLowerCase().trim().replace(/[’‘´`]/g, "'");
-  const core = a.prefix + a.root;
+  const word = normalizeWord(a.word);
+  const core = a.prefix + a.root + a.suffixes.map((x) => x.form).join("");
   const start = word.indexOf(core);
   const blocks: Block[] = [];
   if (a.negated && start > 0) blocks.push({ kind: "neg", text: word.slice(0, start), label: "Negación (prefijo)" });
   blocks.push({ kind: "person", text: a.prefix, label: "Persona" });
   blocks.push({ kind: "root", text: a.root, label: "Raíz verbal" });
+  for (const sfx of a.suffixes) {
+    blocks.push({ kind: "suffix", text: sfx.form, label: `${sfx.meaning} · pág. ${sfx.page}` });
+  }
   const end = start >= 0 ? start + core.length : word.length;
   if (a.negated && end < word.length) blocks.push({ kind: "neg", text: word.slice(end), label: "Negación (sufijo)" });
   return blocks;
@@ -78,6 +84,7 @@ function toBlocks(a: Analysis): Block[] {
 const BLOCK_STYLE: Record<Block["kind"], string> = {
   neg: "border-red-300 bg-red-50 text-red-900 dark:border-red-400/40 dark:bg-red-500/10 dark:text-red-100",
   person: "border-blue-300 bg-blue-50 text-blue-900 dark:border-blue-400/40 dark:bg-blue-500/10 dark:text-blue-100",
+  suffix: "border-amber-300 bg-amber-50 text-amber-900 dark:border-amber-400/40 dark:bg-amber-500/10 dark:text-amber-100",
   root: "border-emerald-300 bg-emerald-50 text-emerald-900 dark:border-emerald-400/40 dark:bg-emerald-500/10 dark:text-emerald-100",
 };
 
@@ -291,6 +298,12 @@ function AnalysisCard({ analysis: a, index, total }: { analysis: Analysis; index
           <div>
             <dt className="text-xs uppercase tracking-wide text-muted-foreground">Conjugación</dt>
             <dd className="mt-0.5 font-medium text-foreground">{PARADIGM_LABEL[a.paradigm]}</dd>
+          </div>
+          <div>
+            <dt className="text-xs uppercase tracking-wide text-muted-foreground">Tiempo y modo</dt>
+            <dd className="mt-0.5 font-medium text-foreground">
+              {a.suffixes.length ? a.suffixes.map((x) => x.meaning).join(" · ") : "Sin partículas: presente y modo indicativo simple (págs. 123 y 139)"}
+            </dd>
           </div>
           <div>
             <dt className="text-xs uppercase tracking-wide text-muted-foreground">Forma</dt>
