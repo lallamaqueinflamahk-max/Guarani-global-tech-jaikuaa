@@ -73,3 +73,20 @@ export const getLabWiktionary = createServerFn({ method: "GET" })
     const { entradas, ...source } = mod.default;
     return { source, entries: entradas };
   });
+
+/**
+ * Entradas del diccionario monolingüe de la Academia de la Lengua Guaraní que publica la SPL
+ * (solo admin, uso interno). Solo entrada, abreviatura y enlace: las definiciones se leen en el
+ * sitio de la SPL.
+ */
+export const getLabDictionary = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data: isAdmin } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
+    if (isAdmin !== true) throw new Error("Forbidden");
+    const mod = (await import("@/lib/morph/data/spl-diccionario-alg.json")) as unknown as {
+      default: { fuente: string; url: string; autoria: string; publica: string; fecha_de_consulta: string; uso: string; entradas: [string, string, string, number, string[]?][] };
+    };
+    const { entradas, ...source } = mod.default;
+    return { source, entries: entradas };
+  });

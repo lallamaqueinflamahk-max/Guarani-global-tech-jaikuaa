@@ -15,7 +15,8 @@ import { buildCorpusIndex, rankByAttestation, type Attestation } from "@/lib/mor
 import { checkWord, type OrthographyIssue } from "@/lib/morph/orthography";
 import { CLOSED_CLASS_LABEL, lookupClosed } from "@/lib/morph/closed-classes";
 import { analyzeNominal, type NominalAnalysis } from "@/lib/morph/nominal-analyzer";
-import { getLabBook, getLabCorpus, getLabWiktionary } from "@/lib/laboratorio.functions";
+import { getLabBook, getLabCorpus, getLabDictionary, getLabWiktionary } from "@/lib/laboratorio.functions";
+import { buildSplIndex, posLabel, splUrl, type SplIndex } from "@/lib/morph/spl-dictionary";
 import { buildWiktionaryIndex, FORM_OF_LABEL, POS_LABEL, type WiktionaryHit, type WiktionaryIndex } from "@/lib/morph/wikcionario";
 import { buildBookIndex, type BookIndex } from "@/lib/morph/book-lexicon";
 import { buildCalcoIndex, type CalcoIndex } from "@/lib/morph/calcos";
@@ -145,7 +146,11 @@ function LaboratorioPage() {
   const bookQ = useQuery({ queryKey: ["lab-book"], queryFn: () => bookFn(), staleTime: Infinity });
   const book = useMemo(() => (bookQ.data ? buildBookIndex(bookQ.data.forms) : null), [bookQ.data]);
   const calcos = useMemo(() => (bookQ.data ? buildCalcoIndex(bookQ.data.calcos) : null), [bookQ.data]);
-  const ranked = useMemo(() => rankByAttestation(results, index, book), [results, index, book]);
+  // Diccionario de la Academia publicado por la SPL (solo entrada y enlace; uso interno, admin).
+  const dictFn = useServerFn(getLabDictionary);
+  const dictQ = useQuery({ queryKey: ["lab-dictionary"], queryFn: () => dictFn(), staleTime: Infinity });
+  const dict = useMemo(() => (dictQ.data ? buildSplIndex(dictQ.data.entries) : null), [dictQ.data]);
+  const ranked = useMemo(() => rankByAttestation(results, index, book, dict), [results, index, book, dict]);
   // Significados del Wikcionario (CC BY-SA, solo admin): fuente externa, se muestra aparte y citada.
   const wikFn = useServerFn(getLabWiktionary);
   const wikQ = useQuery({ queryKey: ["lab-wiktionary"], queryFn: () => wikFn(), staleTime: Infinity });
@@ -154,7 +159,7 @@ function LaboratorioPage() {
 
   const closed = useMemo(() => (submitted ? lookupClosed(submitted) : []), [submitted]);
   const nominal = useMemo(() => (submitted ? analyzeNominal(submitted) : []), [submitted]);
-  const nominalRanked = useMemo(() => rankByAttestation(nominal, index, book), [nominal, index, book]);
+  const nominalRanked = useMemo(() => rankByAttestation(nominal, index, book, dict), [nominal, index, book, dict]);
 
   const run = (word: string) => {
     const w = word.trim();
@@ -296,6 +301,7 @@ function LaboratorioPage() {
                 showCompounds={![...ranked, ...nominalRanked].some((r) => r.attestation.level !== "none") && closed.length === 0}
               />
             )}
+            {dict && <SplPanel word={submitted} dict={dict} />}
             {wik && wikQ.data && (
               <WiktionaryPanel
                 word={submitted}
@@ -555,6 +561,42 @@ function BookPanel({
   );
 }
 
+/**
+ * ¿La palabra es una entrada del diccionario monolingüe de la Academia que publica la SPL? Solo
+ * muestra la entrada, su abreviatura y el enlace: la definición se lee en el sitio de la SPL.
+ */
+function SplPanel({ word, dict }: { word: string; dict: SplIndex }) {
+  const hits = useMemo(() => dict.lookup(word), [dict, word]);
+  if (hits.length === 0) return null;
+  return (
+    <div className="mb-4 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 text-sm">
+      <p className="flex items-center gap-2 font-semibold text-foreground">
+        <BookOpen className="h-4 w-4 text-primary" aria-hidden />
+        En el diccionario de la Academia publicado por la SPL ({dict.size} entradas)
+      </p>
+      <ul className="mt-2 space-y-1.5">
+        {hits.map((h, k) => (
+          <li key={`${h.entry.ref}-${k}`} className="flex flex-wrap items-baseline gap-2">
+            <a href={splUrl(h.entry.ref)} target="_blank" rel="noreferrer" className="font-medium text-foreground underline">
+              {h.entry.headword}
+            </a>
+            {h.entry.pos && (
+              <Badge variant="outline" className="whitespace-nowrap">
+                {h.entry.pos}
+                {posLabel(h.entry.pos) ? ` · ${posLabel(h.entry.pos)}` : ""}
+              </Badge>
+            )}
+            {h.accentDiffers && <span className="text-xs text-amber-700 dark:text-amber-300">(el diccionario la escribe con otra tilde)</span>}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-2 text-xs text-muted-foreground">
+        Diccionario de la Academia de la Lengua Guaraní, publicado por la Secretaría de Políticas Lingüísticas. La definición se lee en su sitio.
+      </p>
+    </div>
+  );
+}
+
 /** Definiciones de una entrada del Wikcionario, tal cual (en inglés). */
 function WiktionaryLine({ hit }: { hit: WiktionaryHit }) {
   const { entry, accentDiffers, lemma } = hit;
@@ -746,6 +788,22 @@ function AttestationNote({ attestation }: { attestation: Attestation }) {
     return <p className="text-xs text-muted-foreground">La raíz no aparece en el vocabulario de la plataforma.</p>;
   }
   const words = attestation.examples.map((w) => `«${w}»`).join(", ");
+  if (attestation.level === "dictionary") {
+    return (
+      <p className="flex items-start gap-1.5 text-xs font-medium text-foreground">
+        <BookOpen className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
+        <span>
+          La raíz es una entrada del diccionario de la Academia publicado por la SPL:{" "}
+          {attestation.examples.map((w, k) => (
+            <a key={w} href={splUrl(attestation.refs[k] ?? attestation.refs[0] ?? "")} target="_blank" rel="noreferrer" className="underline">
+              «{w}»
+            </a>
+          ))}
+          .
+        </span>
+      </p>
+    );
+  }
   if (attestation.level === "book") {
     return (
       <p className="flex items-start gap-1.5 text-xs font-medium text-foreground">

@@ -25,12 +25,19 @@ export type Attestation =
   | { level: "validated"; examples: string[] }
   /** La raíz aparece tal cual en la Gramática ALG 2020 (fuente oficial), con sus páginas. */
   | { level: "book"; examples: string[]; pages: number[] }
+  /** La raíz es una entrada del diccionario de la Academia publicado por la SPL (enlace a la entrada). */
+  | { level: "dictionary"; examples: string[]; refs: string[] }
   | { level: "published"; examples: string[] }
   | { level: "none"; examples: [] };
 
 /** Lo mínimo que se necesita del índice del libro (ver book-lexicon.ts). */
 export interface BookLookup {
   lookup(word: string): { form: string; pages: number[] } | null;
+}
+
+/** Lo mínimo que se necesita del diccionario de la SPL (ver spl-dictionary.ts). */
+export interface DictionaryLookup {
+  lookup(word: string): { form: string; entry: { ref: string } }[];
 }
 
 export interface CorpusIndex {
@@ -80,29 +87,39 @@ export function buildCorpusIndex(entries: CorpusEntry[]): CorpusIndex {
   };
 }
 
-/** Docente validador > libro oficial > vocabulario publicado sin validar > nada. */
-const RANK: Record<Attestation["level"], number> = { validated: 0, book: 1, published: 2, none: 3 };
+/** Docente validador > libro oficial > diccionario de la Academia > vocabulario sin validar > nada. */
+const RANK: Record<Attestation["level"], number> = { validated: 0, book: 1, dictionary: 2, published: 3, none: 4 };
 
 /** Atestiguación de una raíz combinando el vocabulario de la plataforma y el libro. */
-export function attestRoot(root: string, index: CorpusIndex | null, book?: BookLookup | null): Attestation {
+export function attestRoot(
+  root: string,
+  index: CorpusIndex | null,
+  book?: BookLookup | null,
+  dictionary?: DictionaryLookup | null,
+): Attestation {
   const fromCorpus: Attestation = index ? index.root(root) : { level: "none", examples: [] };
   if (fromCorpus.level === "validated") return fromCorpus;
   const hit = book?.lookup(root);
   if (hit) return { level: "book", examples: [hit.form], pages: hit.pages.slice(0, 5) };
+  const dict = dictionary?.lookup(root) ?? [];
+  if (dict.length > 0) {
+    return { level: "dictionary", examples: [...new Set(dict.map((d) => d.form))].slice(0, 3), refs: dict.map((d) => d.entry.ref).slice(0, 3) };
+  }
   return fromCorpus;
 }
 
 /**
  * Ordena lecturas: primero raíces validadas por docentes, después las que están en el libro,
- * después las del vocabulario sin validar; dentro de cada grupo, el orden del analizador.
+ * después las del diccionario de la Academia (SPL), después las del vocabulario sin validar; dentro de cada grupo, el orden del analizador.
  */
 export function rankByAttestation<T extends { root: string }>(
   readings: T[],
   index: CorpusIndex | null,
   book?: BookLookup | null,
+  dictionary?: DictionaryLookup | null,
 ): { reading: T; attestation: Attestation }[] {
   return readings
-    .map((reading, i) => ({ reading, i, attestation: attestRoot(reading.root, index, book) }))
+    .map((reading, i) => ({ reading, i, attestation: attestRoot(reading.root, index, book, dictionary) }))
     .sort((x, y) => RANK[x.attestation.level] - RANK[y.attestation.level] || x.i - y.i)
     .map(({ reading, attestation }) => ({ reading, attestation }));
 }
