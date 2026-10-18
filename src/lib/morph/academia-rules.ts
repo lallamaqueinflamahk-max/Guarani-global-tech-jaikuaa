@@ -69,6 +69,11 @@ export const NEGATION = {
   source: src(115),
   prefix: { oral: "nd", nasal: "n" },
   suffix: { default: "i", afterFinalI: "ri" },
+  /**
+   * Vocal eufónica entre la negación y el prefijo personal (tabla de la pág. 115 y pág. 29:
+   * "Nd-e-rejapó-i"): nde-re, nda-ja / na-ña, ndo-ro, nda-pe / na-pe.
+   */
+  euphonic: { "2sg": "e", "1pl_incl": "a", "1pl_excl": "o", "2pl": "a" } as Partial<Record<Person, string>>,
 };
 
 /** Elige el sufijo de negación según la regla de la pág. 25. */

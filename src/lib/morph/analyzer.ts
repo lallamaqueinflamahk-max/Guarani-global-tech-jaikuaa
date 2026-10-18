@@ -75,16 +75,22 @@ const base = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "");
 /** Quita solo el acento agudo (no la tilde nasal): el libro desplaza el acento antes de partículas átonas (akarúkuri). */
 const stripAcute = (s: string) => s.normalize("NFD").replace(/́/g, "").normalize("NFC");
 
-function stripNegation(w: string): { core: string; negated: boolean }[] {
-  const out = [{ core: w, negated: false }];
+type NegationCut = { core: string; negated: boolean; euphonic?: { vowel: string; person: Person } };
+
+function stripNegation(w: string): NegationCut[] {
+  const out: NegationCut[] = [{ core: w, negated: false }];
   for (const pre of [NEGATION.prefix.oral, NEGATION.prefix.nasal]) {
     if (!w.startsWith(pre)) continue;
     const rest = w.slice(pre.length);
     // "ri" solo si queda una "i" final antes (pág. 25); si no, "i".
-    if (rest.endsWith(NEGATION.suffix.afterFinalI) && base(rest.slice(0, -2)).endsWith("i")) {
-      out.push({ core: rest.slice(0, -2), negated: true });
-    } else if (rest.endsWith(NEGATION.suffix.default) && rest.length > 2) {
-      out.push({ core: rest.slice(0, -1), negated: true });
+    let core: string | null = null;
+    if (rest.endsWith(NEGATION.suffix.afterFinalI) && base(rest.slice(0, -2)).endsWith("i")) core = rest.slice(0, -2);
+    else if (rest.endsWith(NEGATION.suffix.default) && rest.length > 2) core = rest.slice(0, -1);
+    if (core === null) continue;
+    out.push({ core, negated: true });
+    // Vocal eufónica entre la negación y el prefijo (pág. 115): nde-re…, nda-ja…, ndo-ro…, nda-pe…
+    for (const [person, vowel] of Object.entries(NEGATION.euphonic) as [Person, string][]) {
+      if (core.startsWith(vowel) && core.length > 2) out.push({ core: core.slice(vowel.length), negated: true, euphonic: { vowel, person } });
     }
   }
   return out;
@@ -212,13 +218,15 @@ export function analyze(input: string): Analysis[] {
   const w = normalizeWord(input);
   if (!w || /\s/.test(w)) return [];
   const results: Analysis[] = [];
-  for (const { core, negated } of stripNegation(w)) {
+  for (const { core, negated, euphonic } of stripNegation(w)) {
     for (const set of PREFIX_SETS) {
       const imperative = set.paradigm === "imperativo";
       const nominal = isNominal(set.paradigm);
       // La negación nd-/n- … -i/-ri (págs. 25 y 115) se describe con los prefijos del indicativo.
       if ((imperative || nominal) && negated) continue;
       for (const [person, prefixes] of Object.entries(set.prefixes) as [Person, string[]][]) {
+        // Con vocal eufónica, solo la persona que la tabla de la pág. 115 asigna a esa vocal.
+        if (euphonic && euphonic.person !== person) continue;
         for (const prefix of prefixes) {
           if (!core.startsWith(prefix) || core.length <= prefix.length) continue;
           const stem = core.slice(prefix.length);
@@ -255,7 +263,7 @@ export function analyze(input: string): Analysis[] {
     }
     // Lexemas variables (pág. 97): la forma entera es la persona + el lexema; después pueden venir sufijos.
     const firstChar = core[0];
-    if (firstChar && IRREGULAR_FIRST_CHARS.has(firstChar)) {
+    if (!euphonic && firstChar && IRREGULAR_FIRST_CHARS.has(firstChar)) {
       for (const { root, suffixes } of suffixReadings(core, INDICATIVE_INNER, true, SUFFIX_ORDER.maxMoods)) {
         const hit = IRREGULAR_BY_FORM.get(stripAcute(root));
         if (!hit) continue;

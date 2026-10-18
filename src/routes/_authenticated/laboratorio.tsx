@@ -13,6 +13,8 @@ import { analyze, normalizeWord, type Analysis, type AnalysisParadigm } from "@/
 import type { Person } from "@/lib/morph/academia-rules";
 import { buildCorpusIndex, rankByAttestation, type Attestation } from "@/lib/morph/corpus-index";
 import { checkWord, type OrthographyIssue } from "@/lib/morph/orthography";
+import { CLOSED_CLASS_LABEL, lookupClosed } from "@/lib/morph/closed-classes";
+import { analyzeNominal, type NominalAnalysis } from "@/lib/morph/nominal-analyzer";
 import { getLabCorpus } from "@/lib/laboratorio.functions";
 
 /**
@@ -57,6 +59,9 @@ const BOOK_EXAMPLES: { word: string; page: number; note: string }[] = [
   { word: "iporã", page: 93, note: "predicativo i-" },
   { word: "chejuhu", page: 103, note: "pronominal (objeto che-)" },
   { word: "oho", page: 97, note: "lexema variable «ho»" },
+  { word: "rógakuéra", page: 83, note: "triforme óga + plural -kuéra" },
+  { word: "iñakãngue", page: 59, note: "posesivo iñ- + preteritiva -ngue" },
+  { word: "ndajajuhúi", page: 115, note: "negación con vocal eufónica" },
 ];
 
 /** Cuántas lecturas se muestran antes de "Ver las demás". */
@@ -133,6 +138,9 @@ function LaboratorioPage() {
   const index = useMemo(() => (corpus.data ? buildCorpusIndex(corpus.data.entries) : null), [corpus.data]);
   const ranked = useMemo(() => rankByAttestation(results, index), [results, index]);
   const wordInCorpus: Attestation | null = submitted && index ? index.word(submitted) : null;
+
+  const closed = useMemo(() => (submitted ? lookupClosed(submitted) : []), [submitted]);
+  const nominal = useMemo(() => (submitted ? analyzeNominal(submitted) : []), [submitted]);
 
   const run = (word: string) => {
     const w = word.trim();
@@ -262,7 +270,8 @@ function LaboratorioPage() {
         {submitted && (
           <section className="mt-8" aria-live="polite">
             <OrthographyPanel word={submitted} />
-            {results.length === 0 ? (
+            {closed.length > 0 && <ClosedClassPanel matches={closed} />}
+            {results.length === 0 && nominal.length === 0 && closed.length === 0 ? (
               <Card className="border-amber-300/60 bg-amber-50/60 dark:bg-amber-500/10">
                 <CardContent className="flex items-start gap-3 pt-6">
                   <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-700 dark:text-amber-300" aria-hidden />
@@ -271,7 +280,7 @@ function LaboratorioPage() {
                   </p>
                 </CardContent>
               </Card>
-            ) : (
+            ) : results.length === 0 ? null : (
               <>
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <h2 className="font-display text-xl font-bold text-foreground">Análisis de «{submitted}»</h2>
@@ -300,6 +309,7 @@ function LaboratorioPage() {
                 )}
               </>
             )}
+            {nominal.length > 0 && <NominalReadings readings={nominal} />}
           </section>
         )}
 
@@ -347,6 +357,82 @@ function OrthographyPanel({ word }: { word: string }) {
             </li>
           ))}
         </ul>
+      )}
+    </div>
+  );
+}
+
+/** La palabra está en una de las listas cerradas del libro (pronombres, adverbios, conjunciones…). */
+function ClosedClassPanel({ matches }: { matches: ReturnType<typeof lookupClosed> }) {
+  return (
+    <div className="mb-4 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3 text-sm">
+      <p className="flex items-center gap-2 font-semibold text-foreground">
+        <BookOpen className="h-4 w-4 text-primary" aria-hidden />
+        Está en las listas del libro
+      </p>
+      <ul className="mt-2 space-y-1.5">
+        {matches.map(({ entry, accentDiffers }, k) => (
+          <li key={`${entry.cls}-${k}`} className="flex flex-wrap items-baseline gap-2">
+            <Badge variant="outline" className="whitespace-nowrap">pág. {entry.page}</Badge>
+            <span className="text-foreground">
+              {CLOSED_CLASS_LABEL[entry.cls]}: «{entry.form}»{entry.gloss ? ` — ${entry.gloss}` : ""}
+            </span>
+            {accentDiffers && <span className="text-xs text-amber-700 dark:text-amber-300">(el libro la escribe con otra tilde)</span>}
+            {entry.note && <span className="w-full text-xs text-muted-foreground">{entry.note}</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+const HARMONY_LABEL: Record<NominalAnalysis["harmony"], string | null> = {
+  ok: "Armonía nasal correcta (págs. 29 y 61)",
+  no: "La partícula no corresponde a la armonía nasal de la raíz (págs. 29 y 61; ver excepciones de la pág. 63)",
+  duda: "Armonía nasal en duda: el libro no decide con consonantes naso-orales",
+  "no-aplica": null,
+};
+
+/** Lecturas como sustantivo, adjetivo o adverbio (págs. 49–85 y 207). */
+function NominalReadings({ readings }: { readings: NominalAnalysis[] }) {
+  const [all, setAll] = useState(false);
+  const shown = all ? readings : readings.slice(0, VISIBLE_READINGS);
+  return (
+    <div className="mt-8">
+      <h2 className="font-display text-lg font-bold text-foreground">Lecturas como sustantivo, adjetivo o adverbio</h2>
+      <p className="mt-1 text-xs text-muted-foreground">Según las reglas del sustantivo y del adjetivo (págs. 49–85). La correcta la decide un especialista.</p>
+      <div className="mt-3 space-y-3">
+        {shown.map((a, i) => (
+          <Card key={`${a.possessor?.form ?? ""}-${a.root}-${a.suffixes.map((s) => s.ruleId).join("+")}-${i}`}>
+            <CardContent className="space-y-2 pt-5 text-sm">
+              <p className="font-display text-base">
+                {a.possessor && <span className="text-accent">{a.possessor.form}-</span>}
+                <strong className="text-foreground">{a.root}</strong>
+                {a.suffixes.map((s) => (
+                  <span key={s.ruleId} className="text-primary">-{s.form}</span>
+                ))}
+              </p>
+              <ul className="space-y-1 text-muted-foreground">
+                {a.possessor && <li>Índice de posesión de 3.ª persona «{a.possessor.form}» (pág. {a.possessor.page})</li>}
+                {a.multiform && (
+                  <li>
+                    Sustantivo {a.multiform.kind}: «{a.multiform.form}» es forma de «{a.multiform.absolute}» (pág. {a.multiform.page})
+                  </li>
+                )}
+                {a.suffixes.map((s) => (
+                  <li key={`m-${s.ruleId}`}>«{s.form}»: {s.meaning} (pág. {s.page})</li>
+                ))}
+                {HARMONY_LABEL[a.harmony] && <li>{HARMONY_LABEL[a.harmony]}</li>}
+              </ul>
+              <Badge variant="outline" className="border-accent/40 text-accent">Pendiente de validación</Badge>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      {!all && readings.length > VISIBLE_READINGS && (
+        <Button type="button" variant="outline" className="mt-3 w-full" onClick={() => setAll(true)}>
+          Ver las {readings.length - VISIBLE_READINGS} lecturas restantes
+        </Button>
       )}
     </div>
   );
