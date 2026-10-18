@@ -1,81 +1,104 @@
 import { describe, expect, it } from "vitest";
 import { analyze } from "./analyzer";
-import { MESSAGE_PENDING, MESSAGE_VERIFIED, rootKey, verifyWithCorpus } from "./corpus-matcher";
+import {
+  MESSAGE_PENDING,
+  MESSAGE_VERIFIED,
+  createMemoryLookup,
+  lookupVariants,
+  matchWithCorpus,
+  rootKey,
+  verifyWithCorpus,
+} from "./corpus-matcher";
 
 /**
- * Raíces de PRUEBA, tomadas de las tablas del libro (págs. 103, 105, 115, 129).
- * Solo sirven para ejercitar el código: no son el corpus validado de la plataforma.
+ * Corpus de PRUEBA: raíces tomadas de las tablas del libro (págs. 25, 101, 103, 105, 129).
+ * Solo ejercitan el código; no son el corpus validado de la plataforma.
+ * "sẽ" va con tilde nasal (pág. 101), no con diéresis.
  */
-const TEST_ROOTS = ["guapy", "maña", "karu", "'a"];
+const MOCK_ROOTS = ["guapy", "maña", "japo", "japó", "ñani", "ñaní", "karu", "sẽ", "pota"];
+const lookup = createMemoryLookup(MOCK_ROOTS);
 
-describe("verifyWithCorpus", () => {
-  it("raíz presente → rootVerified, confianza alta y mensaje de verificación (pág. 103: 'aguapy')", () => {
-    const [v] = verifyWithCorpus(
-      analyze("aguapy").filter((a) => a.root === "guapy"),
-      TEST_ROOTS,
-    );
-    expect(v?.rootVerified).toBe(true);
-    expect(v?.confidence).toBe("high");
-    expect(v?.message).toBe(MESSAGE_VERIFIED);
+describe("matchWithCorpus", () => {
+  it("pág. 103: 'aguapy' → raíz 'guapy' en el corpus → verified, 1.0", async () => {
+    const r = (await matchWithCorpus("aguapy", lookup)).find((m) => m.root === "guapy");
+    expect(r?.rootFoundInCorpus).toBe(true);
+    expect(r?.status).toBe("verified");
+    expect(r?.confidence).toBe(1);
+    expect(r?.validationMessage).toBe(MESSAGE_VERIFIED);
+    expect(r?.sourceReference).toBe("Gramática Guaraní, Academia de la Lengua Guaraní (2020), pág. 103");
   });
 
-  it("raíz ausente → sin verificar, revisión humana y mensaje prudente (pág. 105: 'aipota')", () => {
-    const verified = verifyWithCorpus(analyze("aipota"), TEST_ROOTS);
-    expect(verified.length).toBeGreaterThan(0);
-    for (const v of verified) {
-      expect(v.rootVerified).toBe(false);
-      expect(v.confidence).toBe("pending_human_review");
-      expect(v.message).toBe(MESSAGE_PENDING);
-    }
+  it("pág. 25: 'ndojapói' → raíz 'japó' en el corpus → verified, 1.0, citando la negación", async () => {
+    const r = (await matchWithCorpus("ndojapói", lookup)).find((m) => m.analysis.negated);
+    expect(r?.root).toBe("japó");
+    expect(r?.status).toBe("verified");
+    expect(r?.confidence).toBe(1);
+    expect(r?.sourceReference).toContain("págs. 103, 115");
   });
 
-  it("acepta un Set o un arreglo y da el mismo resultado", () => {
-    const fromArray = verifyWithCorpus(analyze("ñamaña"), TEST_ROOTS);
-    const fromSet = verifyWithCorpus(analyze("ñamaña"), new Set(TEST_ROOTS));
-    expect(fromSet).toEqual(fromArray);
+  it("pág. 95: 'areko' → estructura válida (a-) pero 'reko' no está → pending_human_review, 0.5", async () => {
+    const results = await matchWithCorpus("areko", lookup);
+    const r = results.find((m) => m.analysis.prefix === "a" && m.root === "reko");
+    expect(r).toBeDefined();
+    expect(r?.rootFoundInCorpus).toBe(false);
+    expect(r?.status).toBe("pending_human_review");
+    expect(r?.confidence).toBe(0.5);
+    expect(r?.validationMessage).toBe(MESSAGE_PENDING);
+    expect(results.every((m) => m.status === "pending_human_review")).toBe(true);
   });
 
-  it("ignora el acento desplazado: 'akarúkuri' (pág. 129) da raíz 'karú' y coincide con 'karu'", () => {
-    const v = verifyWithCorpus(analyze("akarúkuri"), TEST_ROOTS).find((x) => x.root === "karú");
-    expect(v?.rootVerified).toBe(true);
+  it("acento gráfico: la raíz 'japó' se encuentra aunque el corpus solo tenga 'japo'", async () => {
+    expect(lookupVariants("japó")).toEqual(["japó", "japo"]);
+    const onlyPlain = createMemoryLookup(["japo"]);
+    const r = (await matchWithCorpus("ndojapói", onlyPlain)).find((m) => m.analysis.negated);
+    expect(r?.status).toBe("verified");
   });
 
-  it("unifica el puso tipográfico (pág. 105): 'ha’a' coincide con 'a; 'ho’u' no, porque 'u no está en la lista", () => {
-    const v = verifyWithCorpus(analyze("ha’a"), TEST_ROOTS).find((x) => x.paradigm === "hareal");
-    expect(v?.rootVerified).toBe(true);
-    const u = verifyWithCorpus(analyze("ho’u"), TEST_ROOTS).find((x) => x.paradigm === "hareal");
-    expect(u?.rootVerified).toBe(false);
+  it("acento gráfico, al revés: el corpus con 'karú' acepta la raíz 'karu'", async () => {
+    const r = (await matchWithCorpus("akarúkuri", createMemoryLookup(["karú"]))).find((m) => m.root === "karú");
+    expect(r?.status).toBe("verified");
   });
 
-  it("la ñ es otra letra (pág. 33): 'mana' no verifica la raíz 'maña'", () => {
+  it("no desnasaliza: 'mana' en el corpus no valida la raíz 'maña' (pág. 33: ñ es otra letra)", async () => {
     expect(rootKey("maña")).not.toBe(rootKey("mana"));
-    const v = verifyWithCorpus(analyze("ñamaña"), ["mana"]);
-    expect(v.every((x) => !x.rootVerified)).toBe(true);
+    const results = await matchWithCorpus("ñamaña", createMemoryLookup(["mana"]));
+    expect(results.every((m) => m.status === "pending_human_review")).toBe(true);
   });
 
-  it("no busca parecidos: una raíz cercana no alcanza ('guapy' frente a 'guapý' sí; 'guap' no)", () => {
-    expect(verifyWithCorpus(analyze("aguapy"), ["guapý"]).some((x) => x.rootVerified)).toBe(true);
-    expect(verifyWithCorpus(analyze("aguapy"), ["guap"]).some((x) => x.rootVerified)).toBe(false);
+  it("no desnasaliza: 'se' sin tilde no valida la raíz 'sẽ' (pág. 101)", async () => {
+    const results = await matchWithCorpus("ñasẽ", createMemoryLookup(["se"]));
+    expect(results.every((m) => !m.rootFoundInCorpus)).toBe(true);
   });
 
-  it("con el corpus vacío todo queda en revisión humana", () => {
-    const v = verifyWithCorpus(analyze("ndojapói"), []);
-    expect(v.length).toBeGreaterThan(0);
-    expect(v.every((x) => x.confidence === "pending_human_review")).toBe(true);
+  it("acepta un buscador asíncrono, como una consulta a la base de datos", async () => {
+    const asyncLookup = async (root: string) => {
+      await Promise.resolve();
+      return MOCK_ROOTS.includes(root);
+    };
+    const r = (await matchWithCorpus("aipota", asyncLookup)).find((m) => m.root === "pota");
+    expect(r?.status).toBe("verified");
   });
 
-  it("conserva el análisis original y la regla sigue pendiente de validación", () => {
+  it("palabra sin lectura posible → []", async () => {
+    expect(await matchWithCorpus("", lookup)).toEqual([]);
+    expect(await matchWithCorpus("xyz", lookup)).toEqual([]);
+  });
+
+  it("conserva el análisis original y la regla sigue pendiente de validación", async () => {
+    const results = await matchWithCorpus("aguapyse", lookup);
     const original = analyze("aguapyse");
-    const verified = verifyWithCorpus(original, TEST_ROOTS);
-    verified.forEach((v, i) => {
-      expect(v.root).toBe(original[i]?.root);
-      expect(v.pages).toEqual(original[i]?.pages);
-      expect(v.suffixes).toEqual(original[i]?.suffixes);
-      expect(v.status).toBe("pending_validation");
+    results.forEach((m, i) => {
+      expect(m.analysis).toEqual(original[i]);
+      expect(m.analysis.status).toBe("pending_validation");
     });
   });
+});
 
-  it("sin análisis devuelve []", () => {
-    expect(verifyWithCorpus([], TEST_ROOTS)).toEqual([]);
+describe("verifyWithCorpus (versión síncrona)", () => {
+  it("raíz presente → high; ausente → pending_human_review", () => {
+    const ok = verifyWithCorpus(analyze("aguapy"), MOCK_ROOTS).find((a) => a.root === "guapy");
+    expect(ok?.confidence).toBe("high");
+    const missing = verifyWithCorpus(analyze("areko"), MOCK_ROOTS);
+    expect(missing.every((a) => a.confidence === "pending_human_review")).toBe(true);
   });
 });

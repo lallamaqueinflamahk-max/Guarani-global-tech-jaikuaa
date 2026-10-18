@@ -1,16 +1,113 @@
 /**
- * Cruce del análisis morfológico con el corpus validado.
+ * Cruce del análisis morfológico con el corpus léxico validado.
  *
- * Regla anti-alucinación: la confianza alta solo existe cuando la raíz figura,
- * tal cual, en la lista de raíces que recibió la función. No se deducen raíces,
- * no se buscan parecidas y no se corrige nada: lo que no está, va a revisión humana.
+ * REGLA DE ORO: el motor nunca valida una raíz que no figure en el corpus.
+ * - Raíz encontrada  → "verified" (confianza 1.0): la raíz existe en el corpus validado.
+ *   Las reglas morfológicas que la descompusieron siguen "pending_validation"
+ *   hasta la ficha de regla del Comité; el mensaje lo dice.
+ * - Raíz no encontrada → "pending_human_review" (confianza 0.5).
  *
- * `knownRoots` tiene que ser una lista explícita de RAÍCES aprobadas por especialistas
- * (no palabras conjugadas ni palabras solo publicadas). Hoy el corpus de la plataforma
- * guarda palabras, y ninguna figura todavía con validación docente: hasta que exista
- * esa lista, toda lectura queda en "pending_human_review".
+ * Normalización permitida al buscar: minúsculas, NFC, puso unificado, sin guiones
+ * y sin acento agudo (el libro desplaza la tilde acentual: akarúkuri → karú; pág. 33).
+ * NO se desnasaliza: ã/a, ñ/n o g̃/g son letras distintas del alfabeto oficial (pág. 33)
+ * y confundirlas daría por "validadas" raíces que no lo están.
+ *
+ * Sirve en el cliente (lista en memoria) y en el servidor (consulta a la base de datos).
  */
-import { normalizeWord, type Analysis } from "./analyzer";
+import { analyze, normalizeWord, type Analysis } from "./analyzer";
+
+/** Candidato morfológico tal como lo devuelve analyze(). */
+export type MorphAnalysisCandidate = Analysis;
+
+/** Búsqueda de una raíz en el corpus: síncrona (lista en memoria) o asíncrona (base de datos). */
+export type CorpusWordLookup = (root: string) => boolean | Promise<boolean>;
+
+export type MatchStatus = "verified" | "pending_human_review";
+
+export interface MatchResult {
+  originalWord: string;
+  analysis: MorphAnalysisCandidate;
+  root: string;
+  rootFoundInCorpus: boolean;
+  status: MatchStatus;
+  confidence: number;
+  validationMessage: string;
+  sourceReference: string;
+}
+
+export const BOOK_REFERENCE = "Gramática Guaraní, Academia de la Lengua Guaraní (2020)";
+
+export const MESSAGE_VERIFIED =
+  "Raíz validada en el corpus. Estructura morfológica según la Gramática de la Academia (2020); reglas pendientes de validación del Comité.";
+export const MESSAGE_PENDING =
+  "Estructura morfológica válida, pero la raíz requiere verificación de especialistas.";
+
+export const CONFIDENCE: Record<MatchStatus, number> = { verified: 1, pending_human_review: 0.5 };
+
+/** Quita solo el acento agudo; conserva la tilde nasal y la ñ. */
+const stripAcute = (s: string) => s.normalize("NFD").replace(/́/g, "").normalize("NFC");
+
+/** Clave de comparación de una raíz. */
+export function rootKey(root: string): string {
+  return stripAcute(normalizeWord(root));
+}
+
+/**
+ * Formas a consultar para una raíz, en orden: la forma escrita y la forma sin acento agudo.
+ * Ejemplo: "japó" → ["japó", "japo"]. Nunca se agregan variantes sin tilde nasal.
+ */
+export function lookupVariants(root: string): string[] {
+  const written = normalizeWord(root);
+  return [...new Set([written, rootKey(written)])].filter(Boolean);
+}
+
+export function sourceReferenceFor(pages: number[]): string {
+  const sorted = [...new Set(pages)].sort((a, b) => a - b);
+  if (sorted.length === 0) return BOOK_REFERENCE;
+  return `${BOOK_REFERENCE}, ${sorted.length > 1 ? "págs." : "pág."} ${sorted.join(", ")}`;
+}
+
+/** Arma un buscador en memoria a partir de una lista de lemas validados (normaliza igual que rootKey). */
+export function createMemoryLookup(validatedRoots: Iterable<string>): CorpusWordLookup {
+  const keys = new Set<string>();
+  for (const r of validatedRoots) {
+    const k = rootKey(r);
+    if (k) keys.add(k);
+  }
+  return (root: string) => keys.has(rootKey(root));
+}
+
+async function rootInCorpus(root: string, lookup: CorpusWordLookup): Promise<boolean> {
+  for (const variant of lookupVariants(root)) {
+    if (await lookup(variant)) return true;
+  }
+  return false;
+}
+
+/** Cruza cada lectura de analyze(word) con el corpus. Sin lecturas, devuelve []. */
+export async function matchWithCorpus(word: string, lookup: CorpusWordLookup): Promise<MatchResult[]> {
+  const candidates = analyze(word);
+  const results: MatchResult[] = [];
+  for (const analysis of candidates) {
+    const found = await rootInCorpus(analysis.root, lookup);
+    const status: MatchStatus = found ? "verified" : "pending_human_review";
+    results.push({
+      originalWord: word,
+      analysis,
+      root: analysis.root,
+      rootFoundInCorpus: found,
+      status,
+      confidence: CONFIDENCE[status],
+      validationMessage: found ? MESSAGE_VERIFIED : MESSAGE_PENDING,
+      sourceReference: sourceReferenceFor(analysis.pages),
+    });
+  }
+  return results;
+}
+
+/* ----------------------------------------------------------------------------
+ * Versión síncrona sobre análisis ya calculados (la usa el Laboratorio).
+ * -------------------------------------------------------------------------- */
 
 export interface VerifiedAnalysis extends Analysis {
   rootVerified: boolean;
@@ -18,37 +115,12 @@ export interface VerifiedAnalysis extends Analysis {
   message: string;
 }
 
-export const MESSAGE_VERIFIED =
-  "Estructura morfológica conforme a la Gramática de la Academia (2020) y raíz validada en el corpus.";
-export const MESSAGE_PENDING =
-  "Estructura morfológica válida, pero la raíz no figura en el corpus validado. Requiere revisión humana.";
-
-/**
- * Forma de comparación: minúsculas, NFC, puso unificado, sin guiones y sin acento agudo.
- * El acento agudo se quita porque el libro lo desplaza antes de partículas átonas
- * (akarúkuri → karú) y la tilde acentual no se escribe en la vocal final (pág. 33).
- * La tilde nasal (ã, ẽ, ĩ, õ, ũ, ỹ, g̃) se conserva: cambia la palabra.
- */
-export function rootKey(root: string): string {
-  return normalizeWord(root).normalize("NFD").replace(/́/g, "").normalize("NFC");
-}
-
-function toKeySet(knownRoots: Set<string> | string[]): Set<string> {
-  const keys = new Set<string>();
-  for (const r of knownRoots) {
-    const k = rootKey(r);
-    if (k) keys.add(k);
-  }
-  return keys;
-}
-
 export function verifyWithCorpus(analyses: Analysis[], knownRoots: Set<string> | string[]): VerifiedAnalysis[] {
-  const keys = toKeySet(knownRoots);
+  const has = createMemoryLookup(knownRoots) as (root: string) => boolean;
   return analyses.map((a) => {
-    const rootVerified = keys.has(rootKey(a.root));
+    const rootVerified = lookupVariants(a.root).some((v) => has(v));
     return {
       ...a,
-      // La regla gramatical sigue pendiente de validación aunque la raíz esté en el corpus.
       status: "pending_validation",
       rootVerified,
       confidence: rootVerified ? "high" : "pending_human_review",
