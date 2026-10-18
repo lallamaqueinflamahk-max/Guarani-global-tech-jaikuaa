@@ -3,7 +3,7 @@
  * SOLO las reglas transcriptas en academia-rules.ts. No inventa raíces ni
  * formas: devuelve candidatos, siempre "pending_validation".
  */
-import { NEGATION, PERSON_PREFIXES, type Paradigm, type Person } from "./academia-rules";
+import { HAREAL_ROOTS, NEGATION, PERSON_PREFIXES, type Paradigm, type Person } from "./academia-rules";
 
 export interface Analysis {
   word: string;
@@ -43,6 +43,8 @@ export function analyze(input: string): Analysis[] {
       for (const [person, prefixes] of Object.entries(rule.prefixes) as [Person, string[]][]) {
         for (const prefix of prefixes) {
           if (!core.startsWith(prefix) || core.length <= prefix.length) continue;
+          // El libro identifica solo 5 verbos hareales (pág. 105): fuera de esas raíces no hay lectura hareal.
+          if (paradigm === "hareal" && !(HAREAL_ROOTS.roots as readonly string[]).includes(core.slice(prefix.length))) continue;
           results.push({
             word: input,
             negated,

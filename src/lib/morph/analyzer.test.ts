@@ -15,6 +15,12 @@ describe("analizador morfológico", () => {
   it("noñaníri → negada con -ri, raíz ñaní", () => {
     expect(analyze("noñaníri").some((a) => a.negated && a.root === "ñaní")).toBe(true);
   });
+  it("ñamaña no se lee como hareal: solo hay 5 raíces hareales (pág. 105)", () => {
+    expect(analyze("ñamaña").some((a) => a.paradigm === "hareal")).toBe(false);
+  });
+  it("ha'a → hareal 1sg, raíz 'a (pág. 105)", () => {
+    expect(analyze("ha'a").some((a) => a.paradigm === "hareal" && a.person === "1sg" && a.root === "'a")).toBe(true);
+  });
   it("todo resultado queda pendiente de validación", () => {
     expect(analyze("ndojapói").every((a) => a.status === "pending_validation")).toBe(true);
   });
