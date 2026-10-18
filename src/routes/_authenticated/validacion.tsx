@@ -317,6 +317,9 @@ function HistoryToggle({ id }: { id: string }) {
 
 /* ---------------------------- Revisar / Validar ---------------------------- */
 
+/** Respuesta común de revisar y validar (validar puede avisar que hay que regrabar el audio). */
+type DecideResult = { ok: true; audioWarning?: boolean } | { ok: false; error: string };
+
 function Queue({ step }: { step: "revisar" | "validar" }) {
   const qc = useQueryClient();
   const listFn = useServerFn(listQueue);
@@ -326,9 +329,9 @@ function Queue({ step }: { step: "revisar" | "validar" }) {
   const [notes, setNotes] = useState<Record<string, string>>({});
 
   const decide = useMutation({
-    mutationFn: (v: { id: string; decision: "aprobar" | "devolver" | "rechazar" }) => {
+    mutationFn: async (v: { id: string; decision: "aprobar" | "devolver" | "rechazar" }): Promise<DecideResult> => {
       const payload = { data: { ...v, note: notes[v.id] ?? "" } };
-      return step === "revisar" ? reviewFn(payload) : validateFn(payload);
+      return step === "revisar" ? await reviewFn(payload) : await validateFn(payload);
     },
     onSuccess: (d) => {
       if (!d.ok) return toast.error(d.error);
@@ -393,6 +396,8 @@ function Queue({ step }: { step: "revisar" | "validar" }) {
 
 /* ------------------------------ Revisores ------------------------------ */
 
+type ReviewerRow = { userId: string; name: string; email: string; reviewed: number };
+
 function Reviewers() {
   const qc = useQueryClient();
   const listFn = useServerFn(listReviewers);
@@ -427,7 +432,7 @@ function Reviewers() {
         </Button>
       </div>
       <ul className="divide-y">
-        {(q.data?.reviewers ?? []).map((r) => (
+        {((q.data?.reviewers ?? []) as ReviewerRow[]).map((r) => (
           <li key={r.userId} className="flex items-center justify-between py-2 text-sm">
             <span>
               {r.name || r.email} <span className="text-muted-foreground">· {r.reviewed} revisadas</span>
