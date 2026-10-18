@@ -18,7 +18,13 @@ import {
   type NominalSuffixRule,
   type NominalSuffixType,
 } from "./nominal-rules";
-import { graphemes, isVowel, rootNasality } from "./orthography";
+import { EXTERNAL_SUFFIXES, RELATIONAL_ROOTS, relationalForms } from "./external-rules";
+import { NASAL_CONSONANTS, NASAL_VOWELS } from "./orthography-rules";
+import { graphemes, isVowel, syllabify } from "./orthography";
+
+/** Reglas del libro primero; las de la fuente externa (Estigarribia 2020) van marcadas. */
+const ALL_NOMINAL_RULES: NominalSuffixRule[] = [...NOMINAL_SUFFIXES, ...EXTERNAL_SUFFIXES];
+const isExternal = (rule: NominalSuffixRule) => rule.source.book !== "Gramática Guaraní ALG 2020";
 
 export interface NominalSuffix {
   form: string;
@@ -26,6 +32,8 @@ export interface NominalSuffix {
   meaning: string;
   page: number;
   ruleId: string;
+  /** true si la partícula viene de la fuente académica externa (Estigarribia 2020), no del libro ALG. */
+  external?: boolean;
 }
 
 export interface NominalAnalysis {
@@ -34,7 +42,7 @@ export interface NominalAnalysis {
   /** Índice de posesión de 3.ª persona (págs. 75–77). */
   possessor?: { form: string; page: number };
   /** Si la raíz es una forma de un sustantivo multiforme listado (págs. 51–53). */
-  multiform?: { kind: MultiformKind; absolute: string; form: string; page: number };
+  multiform?: { kind: MultiformKind; absolute: string; form: string; page: number; external?: boolean };
   /** De la raíz hacia afuera. */
   suffixes: NominalSuffix[];
   /**
@@ -92,7 +100,7 @@ function peel(word: string): Peeled[] {
   const out: Peeled[] = [];
   const walk = (stem: string, minLevel: number, suffixes: NominalSuffix[], rules: NominalSuffixRule[]) => {
     out.push({ stem, suffixes, rules });
-    for (const rule of NOMINAL_SUFFIXES) {
+    for (const rule of ALL_NOMINAL_RULES) {
       const level = NOMINAL_SUFFIX_LEVEL[rule.type];
       if (level < minLevel || rules.some((r) => r.type === rule.type)) continue;
       const rest = cut(stem, rule);
@@ -103,6 +111,7 @@ function peel(word: string): Peeled[] {
         meaning: rule.meaning,
         page: rule.source.page,
         ruleId: rule.id,
+        ...(isExternal(rule) ? { external: true } : {}),
       };
       walk(rest, level, [hit, ...suffixes], [rule, ...rules]);
     }
@@ -111,13 +120,33 @@ function peel(word: string): Peeled[] {
   return out;
 }
 
+const NASAL_V = new Set<string>(NASAL_VOWELS);
+const NASAL_C = new Set<string>(NASAL_CONSONANTS);
+
+/**
+ * ¿La partícula que se agrega a la derecha debe ser nasal? Mira la ÚLTIMA sílaba de la raíz:
+ * la Gramática ALG pide «tener en cuenta la cercanía o la lejanía de los fonemas nasales»
+ * (pág. 63), y Estigarribia (2020, págs. 41–43) precisa que la nasalidad avanza hacia la derecha
+ * solo hasta la sílaba siguiente y que las naso-orales (mb, nd, ng, nt) no la propagan.
+ * Ejemplos del libro: mitãnguéra, ñúme, akãme, osẽmba; karaikuéra, ka'aguýpe, mbo'eharakuéra.
+ */
+export function suffixNasality(root: string): "oral" | "nasal" {
+  const { syllables } = syllabify(root);
+  const last = syllables[syllables.length - 1];
+  if (!last) return "oral";
+  const onset = last.onset.replace(/u$/, "") || last.onset;
+  return NASAL_V.has(last.vowel.letter) || NASAL_C.has(onset) ? "nasal" : "oral";
+}
+
 function harmonyOf(root: string, rules: NominalSuffixRule[]): NominalAnalysis["harmony"] {
   const relevant = rules.filter((r) => r.condition === "raiz-oral" || r.condition === "raiz-nasal");
   if (relevant.length === 0) return "no-aplica";
-  const nas = rootNasality(root);
-  if (nas === "duda") return "duda";
+  const nas = suffixNasality(root);
   return relevant.every((r) => (r.condition === "raiz-nasal") === (nas === "nasal")) ? "ok" : "no";
 }
+
+const RELATIONAL = new Map<string, { absolute: string; prefix: "r" | "h" }>();
+for (const [form, v] of relationalForms()) RELATIONAL.set(form.normalize("NFD").replace(/\u0301/g, "").normalize("NFC"), v);
 
 const MULTI_BY_FORM = new Map<string, { kind: MultiformKind; absolute: string; form: string; page: number }>();
 for (const mf of MULTIFORM_NOUNS) {
@@ -165,7 +194,12 @@ export function analyzeNominal(word: string): NominalAnalysis[] {
 
   for (const { stem, suffixes, rules } of peel(w)) {
     const pages = [...new Set(suffixes.map((s) => s.page))];
-    const multi = MULTI_BY_FORM.get(stripAcute(stem));
+    const multi =
+      MULTI_BY_FORM.get(stripAcute(stem)) ??
+      (() => {
+        const rel = RELATIONAL.get(stripAcute(stem));
+        return rel ? { kind: "triforme" as MultiformKind, absolute: rel.absolute, form: stem, page: RELATIONAL_ROOTS.pages[0], external: true } : undefined;
+      })();
     if (multi) {
       add({
         word: w,
@@ -193,7 +227,8 @@ export function analyzeNominal(word: string): NominalAnalysis[] {
       add({ word: w, root: stem, suffixes, harmony: harmonyOf(stem, rules), status: "pending_validation", pages: pages.sort((a, b) => a - b) });
     }
   }
-  // Primero las que respetan la armonía, después las de menos partículas.
+  // Primero las que respetan la armonía, después las que usan solo el libro ALG, después las de menos partículas.
   const rank = { ok: 0, "no-aplica": 1, duda: 2, no: 3 } as const;
-  return readings.sort((a, b) => rank[a.harmony] - rank[b.harmony] || a.suffixes.length - b.suffixes.length);
+  const ext = (a: NominalAnalysis) => a.suffixes.filter((s) => s.external).length + (a.multiform?.external ? 1 : 0);
+  return readings.sort((a, b) => rank[a.harmony] - rank[b.harmony] || ext(a) - ext(b) || a.suffixes.length - b.suffixes.length);
 }

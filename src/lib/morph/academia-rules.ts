@@ -15,6 +15,17 @@ export interface RuleSource {
   page: number;
 }
 
+/**
+ * Fuente académica externa con licencia abierta, usada solo donde el libro de la Academia no
+ * decide o no lista: Bruno Estigarribia, «A Grammar of Paraguayan Guarani», UCL Press, 2020
+ * (CC BY 4.0). La autoridad sigue siendo la Gramática ALG; lo externo se muestra marcado.
+ */
+export interface ExternalSource {
+  book: "Estigarribia 2020";
+  page: number;
+  license: "CC BY 4.0";
+}
+
 const src = (page: number): RuleSource => ({ book: "Gramática Guaraní ALG 2020", page });
 
 /** Regla 1 (pág. 33): alfabeto oficial de 33 grafemas. */

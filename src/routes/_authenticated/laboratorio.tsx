@@ -565,9 +565,18 @@ function ClosedClassPanel({ matches }: { matches: ReturnType<typeof lookupClosed
   );
 }
 
+/** Pieza tomada de la fuente académica externa (no del libro de la Academia). */
+function ExternalTag({ page }: { page: number }) {
+  return (
+    <span className="text-amber-700 dark:text-amber-300">
+      (fuente académica externa: Estigarribia 2020, pág. {page}; no está en la Gramática ALG)
+    </span>
+  );
+}
+
 const HARMONY_LABEL: Record<NominalAnalysis["harmony"], string | null> = {
-  ok: "Armonía nasal correcta (págs. 29 y 61)",
-  no: "La partícula no corresponde a la armonía nasal de la raíz (págs. 29 y 61; ver excepciones de la pág. 63)",
+  ok: "Armonía nasal correcta según la última sílaba de la raíz (págs. 29, 61 y 63)",
+  no: "La partícula no corresponde a la armonía nasal de la última sílaba de la raíz (págs. 29, 61 y 63)",
   duda: "Armonía nasal en duda: el libro no decide con consonantes naso-orales",
   "no-aplica": null,
 };
@@ -595,11 +604,14 @@ function NominalReadings({ readings }: { readings: { reading: NominalAnalysis; a
                 {a.possessor && <li>Índice de posesión de 3.ª persona «{a.possessor.form}» (pág. {a.possessor.page})</li>}
                 {a.multiform && (
                   <li>
-                    Sustantivo {a.multiform.kind}: «{a.multiform.form}» es forma de «{a.multiform.absolute}» (pág. {a.multiform.page})
+                    Sustantivo {a.multiform.kind}: «{a.multiform.form}» es forma de «{a.multiform.absolute}»{" "}
+                    {a.multiform.external ? <ExternalTag page={a.multiform.page} /> : `(pág. ${a.multiform.page})`}
                   </li>
                 )}
                 {a.suffixes.map((s) => (
-                  <li key={`m-${s.ruleId}`}>«{s.form}»: {s.meaning} (pág. {s.page})</li>
+                  <li key={`m-${s.ruleId}`}>
+                    «{s.form}»: {s.meaning} {s.external ? <ExternalTag page={s.page} /> : `(pág. ${s.page})`}
+                  </li>
                 ))}
                 {HARMONY_LABEL[a.harmony] && <li>{HARMONY_LABEL[a.harmony]}</li>}
               </ul>

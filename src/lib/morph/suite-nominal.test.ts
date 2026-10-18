@@ -77,8 +77,10 @@ describe("23. Sustantivos biformes, triformes y cuatriformes (págs. 51–53)", 
     expect(nominal("mymba", { root: "tymba", multiform: "cuatriforme" })).toBeDefined();
   });
 
-  it("'hesa' (pág. 75) no está en las tablas: no se deduce ninguna forma absoluta", () => {
-    expect(analyzeNominal("hesa").some((a) => a.multiform)).toBe(false);
+  it("'hesa' (pág. 75) no está en las tablas del libro ALG: solo la fuente externa (Estigarribia, pág. 317) da «tesa», marcada", () => {
+    const m = analyzeNominal("hesa").filter((a) => a.multiform);
+    expect(m.every((a) => a.multiform?.external === true)).toBe(true);
+    expect(m[0]?.root).toBe("tesa");
   });
 });
 
@@ -115,8 +117,8 @@ describe("25. Número del sustantivo (págs. 61–63)", () => {
     }
   });
 
-  it("pág. 63: 'mbo'eharakuéra' — el libro prefiere «kuéra»; con solo naso-orales la armonía queda en duda", () => {
-    expect(nominal("mbo'eharakuéra", { root: "mbo'ehara", suffixes: ["kuéra"] })?.harmony).toBe("duda");
+  it("pág. 63: 'mbo'eharakuéra' — «kuéra» por la cercanía de los fonemas nasales: la última sílaba («ra») es oral", () => {
+    expect(nominal("mbo'eharakuéra", { root: "mbo'ehara", suffixes: ["kuéra"] })?.harmony).toBe("ok");
   });
 });
 

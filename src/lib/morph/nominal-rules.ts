@@ -9,7 +9,7 @@
  * Todo queda "pending_validation". Donde el libro da una condición (vocal débil o fuerte, raíz
  * oral o nasal), se respeta; donde no la da, no se inventa.
  */
-import type { RuleSource, RuleStatus } from "./academia-rules";
+import type { ExternalSource, RuleSource, RuleStatus } from "./academia-rules";
 
 const src = (page: number): RuleSource => ({ book: "Gramática Guaraní ALG 2020", page });
 
@@ -26,7 +26,16 @@ export type NominalCondition =
   | "raiz-oral"
   | "raiz-nasal";
 
-export type NominalSuffixType = "tiempo-nominal" | "plural" | "grado" | "ordinal" | "posposicion" | "interrogativa" | "adjetivante";
+export type NominalSuffixType =
+  | "tiempo-nominal"
+  | "plural"
+  | "grado"
+  | "ordinal"
+  | "posposicion"
+  | "interrogativa"
+  | "adjetivante"
+  | "enclitico"
+  | "derivativo";
 
 export interface NominalSuffixRule {
   id: string;
@@ -37,7 +46,8 @@ export interface NominalSuffixRule {
   examples: string[];
   note?: string;
   status: RuleStatus;
-  source: RuleSource;
+  /** Gramática ALG (autoridad) o, marcada, una fuente académica externa con licencia abierta. */
+  source: RuleSource | ExternalSource;
 }
 
 const r = (
@@ -115,6 +125,8 @@ export const NOMINAL_SUFFIXES: NominalSuffixRule[] = [
 export const NOMINAL_SUFFIX_LEVEL: Record<NominalSuffixType, number> = {
   interrogativa: 0,
   adjetivante: 0,
+  enclitico: 0,
+  derivativo: 4,
   posposicion: 0,
   plural: 0,
   "tiempo-nominal": 1,
