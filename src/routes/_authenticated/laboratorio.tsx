@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { analyze, normalizeWord, type Analysis, type AnalysisParadigm } from "@/lib/morph/analyzer";
 import type { Person } from "@/lib/morph/academia-rules";
 import { buildCorpusIndex, rankByAttestation, type Attestation } from "@/lib/morph/corpus-index";
+import { checkWord, type OrthographyIssue } from "@/lib/morph/orthography";
 import { getLabCorpus } from "@/lib/laboratorio.functions";
 
 /**
@@ -260,6 +261,7 @@ function LaboratorioPage() {
         {/* Resultados */}
         {submitted && (
           <section className="mt-8" aria-live="polite">
+            <OrthographyPanel word={submitted} />
             {results.length === 0 ? (
               <Card className="border-amber-300/60 bg-amber-50/60 dark:bg-amber-500/10">
                 <CardContent className="flex items-start gap-3 pt-6">
@@ -307,6 +309,45 @@ function LaboratorioPage() {
           no es una herramienta de la Academia ni cuenta con su aprobación. Ningún resultado se usa en clase sin validación de especialistas.
         </p>
       </main>
+    </div>
+  );
+}
+
+const SEVERITY_LABEL: Record<OrthographyIssue["severity"], string> = {
+  error: "No cumple la regla",
+  revisar: "Revisar",
+  prestamo: "Préstamo",
+};
+
+/** Avisos de las reglas ortográficas del libro (págs. 19–37). Solo verifica: no corrige ni propone formas. */
+function OrthographyPanel({ word }: { word: string }) {
+  const issues = useMemo(() => checkWord(word), [word]);
+  return (
+    <div className="mb-4 rounded-xl border border-border/60 bg-card px-4 py-3 text-sm">
+      <p className="flex items-center gap-2 font-semibold text-foreground">
+        {issues.length === 0 ? (
+          <CheckCircle2 className="h-4 w-4 text-primary" aria-hidden />
+        ) : (
+          <ShieldAlert className="h-4 w-4 text-amber-600 dark:text-amber-300" aria-hidden />
+        )}
+        Ortografía (reglas de las págs. 19–37)
+      </p>
+      {issues.length === 0 ? (
+        <p className="mt-1 text-muted-foreground">
+          Sin avisos en alfabeto, tilde, sílabas nasales y sílaba directa. Esto no confirma que la palabra exista.
+        </p>
+      ) : (
+        <ul className="mt-2 space-y-1.5">
+          {issues.map((i, k) => (
+            <li key={`${i.rule}-${k}`} className="flex flex-wrap items-baseline gap-2">
+              <Badge variant="outline" className="whitespace-nowrap">
+                {SEVERITY_LABEL[i.severity]} · pág. {i.page}
+              </Badge>
+              <span className="text-foreground">{i.message}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
