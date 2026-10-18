@@ -1,0 +1,1224 @@
+{
+ "source": "Guarani Ñe'ẽtekuaa / Gramática Guaraní, ALG, 2020 — cap. 6, «Guía práctica para recuperar la sintaxis guaraní», págs. 246–253",
+ "description": "Pares del libro: «Péicha oje'e ko'ág̃a rupi – Como se dice» (páginas pares) y «Péicha ja'eva'erã – Como debe decirse» (páginas impares). Uso interno (solo admin).",
+ "notes": [
+  "El archivo digital trae «§» por «g̃» (verificado con la imagen de la pág. 252, n.º 90) y «ῖ» griega por «ĩ» (n.º 1 y 27); se transcribe la letra impresa.",
+  "El libro repite el n.º 94 en el n.º 101 («Ajohéita che akã» → «Añeakãky'óta»)."
+ ],
+ "count": 110,
+ "pares": [
+  {
+   "n": 1,
+   "calco": "Jajapóta peteĩ aty ko'ẽrõ.",
+   "correcta": [
+    "Ñañombyatýta ko'ẽrõ."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 2,
+   "calco": "Ógape iko'ẽ che ndive.",
+   "correcta": [
+    "Rojogueroko'ẽ ógape."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 3,
+   "calco": "Rovy'a oñondive.",
+   "correcta": [
+    "Roñombovy'a."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 4,
+   "calco": "Che amongaruva'ekue.",
+   "correcta": [
+    "Cheremimongarukue."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 5,
+   "calco": "Ajapose peteĩ porandu.",
+   "correcta": [
+    "Amba'eporandusemi."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 6,
+   "calco": "Tapicha ikatúva ojapo pe tembiapo.",
+   "correcta": [
+    "Tapicha ikatúva ojapo upéva."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 7,
+   "calco": "Rojapo mokõi jotopa.",
+   "correcta": [
+    "Mokõi jey pojojuhu."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 8,
+   "calco": "Romoñepyrũ ñemongeta.",
+   "correcta": [
+    "Roñomongetañepyrũ."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 9,
+   "calco": "Ñomongeta rojapova'ekue.",
+   "correcta": [
+    "Roñomongeta ramo guare."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 10,
+   "calco": "Mba'evépa ikatu jajapo.",
+   "correcta": [
+    "Mba'épa jajapovekuaa."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 11,
+   "calco": "Guaraníngo oguereko kapasida.",
+   "correcta": [
+    "Guarani niko hetepyrusu."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 12,
+   "calco": "Ndarekói maranduhai.",
+   "correcta": [
+    "Nachemaranduhaíri."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 13,
+   "calco": "Oha'arõ ñandehegui pytyvõ.",
+   "correcta": [
+    "Oipota ñaipytyvõmi"
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 14,
+   "calco": "Ahenduse peẽme.",
+   "correcta": [
+    "Pohenduse."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 15,
+   "calco": "Mba'e tembiapópa oĩ.",
+   "correcta": [
+    "Mba'épa tembiaporã."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 16,
+   "calco": "Oĩtavove tembiapo ojejapova'erã.",
+   "correcta": [
+    "Oñemba'apóta vove."
+   ],
+   "paginas": [
+    246,
+    247
+   ]
+  },
+  {
+   "n": 17,
+   "calco": "Ikatu hag̃uáicha oĩ jokupyty.",
+   "correcta": [
+    "Jajokupyty hag̃ua."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 18,
+   "calco": "Ñamboguatáta vove tembiapokuéra.",
+   "correcta": [
+    "Ñamba'apóta vove."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 19,
+   "calco": "Mba'eporandu ojapova'ekue.",
+   "correcta": [
+    "Omba'eporanduva'ekue."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 20,
+   "calco": "Ojapo hag̃ua hembiapo.",
+   "correcta": [
+    "Omba'apo hag̃ua."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 21,
+   "calco": "Ombopya'emi pe mba'apo.",
+   "correcta": [
+    "Omba'apo pya'emive."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 22,
+   "calco": "Ojepuru tembipurúramo.",
+   "correcta": [
+    "Oñeñemohembiporu hese."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 23,
+   "calco": "Jajerure pytyvõ.",
+   "correcta": [
+    "Ñañepytyvõuka."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 24,
+   "calco": "Heta tembiapo ojapóva.",
+   "correcta": [
+    "Hembiapokue heta."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 25,
+   "calco": "Oguereko ijepuru.",
+   "correcta": [
+    "Hekoitépe ojeporu."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 26,
+   "calco": "Opáma che aravo.",
+   "correcta": [
+    "Che'aravopáma."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 27,
+   "calco": "Ame'ẽse che moneĩ.",
+   "correcta": [
+    "Amoneĩse."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 28,
+   "calco": "Oguerekópa kuatia.",
+   "correcta": [
+    "Ikuatiápa."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 29,
+   "calco": "Oikéta umi mba'ejerure.",
+   "correcta": [
+    "Ojegueroikéta tembijerure."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 30,
+   "calco": "Oikóta peteĩ atyguasu Volíviape.",
+   "correcta": [
+    "Oñeñombyatykakuaáta Volíviape."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 31,
+   "calco": "Ndarekói viru.",
+   "correcta": [
+    "Ndachevirúi",
+    "chesogue."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 32,
+   "calco": "Omboguapy hag̃ua téra",
+   "correcta": [
+    "Oñemboheraguapy hag̃ua"
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 33,
+   "calco": "Oĩgui tekotevẽ.",
+   "correcta": [
+    "Oñekotevẽgui."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 34,
+   "calco": "Jajapo jeýtama ñane amandaje.",
+   "correcta": [
+    "Ñañemoamandaje jeýtama."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 35,
+   "calco": "Oĩvo peteĩ techakuaa guasu.",
+   "correcta": [
+    "Ojehechakuaaguasúvo."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 36,
+   "calco": "Omoĩ mbo'y jeguaka.",
+   "correcta": [
+    "Oñemombo'y jeguaka."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 37,
+   "calco": "Ñame'ẽ ko mbo'y jeguaka",
+   "correcta": [
+    "Japoromombo'y jeguaka"
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 38,
+   "calco": "Erejo'ami aravo.",
+   "correcta": [
+    "Mba'e aravótiko."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 39,
+   "calco": "Oĩ peteĩ jerure.",
+   "correcta": [
+    "Oime peteĩ mba'e ojejerureva'ekue."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 40,
+   "calco": "Tekotevẽma ojejapo pe aty.",
+   "correcta": [
+    "Oñeñombyatymava'erã."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 41,
+   "calco": "Ana Ojerure ñe'ẽ.",
+   "correcta": [
+    "Ana oñe'ẽse."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 42,
+   "calco": "Oguereko pe kuatia'atã.",
+   "correcta": [
+    "Ikuatia'atã."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 43,
+   "calco": "Ome'ẽ kuatia'atã.",
+   "correcta": [
+    "Oporombokuati'a'atã."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 44,
+   "calco": "Ojejapóma kuri pe jeporavo.",
+   "correcta": [
+    "Ojeporavómakuri."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 45,
+   "calco": "Emboguapy nde réra.",
+   "correcta": [
+    "Eñemboheraguapy."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 46,
+   "calco": "Jaike apañuãipe.",
+   "correcta": [
+    "Ñane'apañuái."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 47,
+   "calco": "Hetáma omba'apo guarani ñepysyrõre.",
+   "correcta": [
+    "Oipysyrõ hetáma guaraníme."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 48,
+   "calco": "Tembiapo jajapóva.",
+   "correcta": [
+    "Ñane rembiapo."
+   ],
+   "paginas": [
+    248,
+    249
+   ]
+  },
+  {
+   "n": 49,
+   "calco": "Ojepytasova'ekue ñane ñe'ẽ defendévo.",
+   "correcta": [
+    "Odefendeva'ekue ñane ñe'ẽ."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 50,
+   "calco": "Oiko jave ore aty.",
+   "correcta": [
+    "Roñombyaty jave."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 51,
+   "calco": "Ha'e ombouka hekovekue.",
+   "correcta": [
+    "Ojehekovekuekuaauka."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 52,
+   "calco": "Ñamoñepyrũ ñomongeta hendive.",
+   "correcta": [
+    "Ñañomongeta ñepyrũ hendive."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 53,
+   "calco": "Omopu'ã pe guarani rekombo'e ha jehayhu.",
+   "correcta": [
+    "Oporombo'e mbarete ha ohayhukave guarani."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 54,
+   "calco": "Oreko heta temiandu.",
+   "correcta": [
+    "Hemianduheta."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 55,
+   "calco": "Omba'apo ñoha'angápe.",
+   "correcta": [
+    "Oñoha'anga'apo."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 56,
+   "calco": "Oguereko tembiapo ñoha'anga rehegua.",
+   "correcta": [
+    "Oreko hembiapopy ñoha'angarãva."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 57,
+   "calco": "Oguereko tembiapo.",
+   "correcta": [
+    "Hembiapo."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 58,
+   "calco": "Ambojoapyse che ñe'ẽ.",
+   "correcta": [
+    "Añe'ẽseve."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 59,
+   "calco": "Ajapo guaraní rayhu rehegua mbo'e.",
+   "correcta": [
+    "Amba'apo guarani jehayhukáre."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 60,
+   "calco": "Ome'ẽ oréve techakuaa.",
+   "correcta": [
+    "Imba'erechakuaa orendive."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 61,
+   "calco": "Nañame'ẽi chupe pa'ũ oñe'ẽ hag̃ua.",
+   "correcta": [
+    "Ndajahejái chupe oñe'ẽ."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 62,
+   "calco": "Peteĩ tesamombópe oikuaapaitéma.",
+   "correcta": [
+    "Oikuaapa sapy'aitépe."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 63,
+   "calco": "Tembiapo ojejapóva guive ápe.",
+   "correcta": [
+    "Mba'e ojejapóva guive ko'ápe."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 64,
+   "calco": "Ndojehechakuaái pira pirépe.",
+   "correcta": [
+    "Ndojehepyme'ẽi."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 65,
+   "calco": "Ára ha ára oñeporandu chéve.",
+   "correcta": [
+    "Ko'ẽreíre oñeporandu chéve."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 66,
+   "calco": "Guaranígui araka'eve ndapoimo'ãi.",
+   "correcta": [
+    "Guaranígui ndapoichéne araka'eve."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 67,
+   "calco": "Oguapy che rehe peteĩ py'apy.",
+   "correcta": [
+    "Ajepy'apy apytávo."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 68,
+   "calco": "Tome'ẽ ñandéve po'a, py'aguasu ha mbarete.",
+   "correcta": [
+    "Tañanembopo'a, tañanembopy'aguasu ha tañanemombarete."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 69,
+   "calco": "Peteĩ jepopete guasu mokõivépe.",
+   "correcta": [
+    "Jajepopete kakuaa mokõivévape."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 70,
+   "calco": "Jaikemavoi pe jeporavópe.",
+   "correcta": [
+    "Jaiporavoñepyrũma."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 71,
+   "calco": "Oreko pa'ũ.",
+   "correcta": [
+    "Ipa'ũ."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 72,
+   "calco": "Opavave omoĩma heraguapy.",
+   "correcta": [
+    "Oñeñemboheraguapyjoaitéma."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 73,
+   "calco": "Ikatu hag̃uáicha oiko chugui upe myakãhára.",
+   "correcta": [
+    "Omyakãkuaa hag̃ua",
+    "Omandakuaa hag̃ua."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 74,
+   "calco": "Ñame'ẽmi ñande aguyje.",
+   "correcta": [
+    "Ja'aguyjeme'ẽmi."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 75,
+   "calco": "Ñandejára ome'ẽta ñandéve arandu.",
+   "correcta": [
+    "Ñandejára ñanemo'arandúta."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 76,
+   "calco": "Ha'e ombopu mbaraka.",
+   "correcta": [
+    "Ha'e ombarakapu."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 77,
+   "calco": "Omboguapyva'erã héra.",
+   "correcta": [
+    "Oñemboheraguapyva'erã."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 78,
+   "calco": "Toguereko tesãi ha vy'a.",
+   "correcta": [
+    "Tahesãi ha tovy'a."
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 79,
+   "calco": "Ñandejára nde'íriramo tove.",
+   "correcta": [
+    "Ñandejára nombotovéiramo"
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 80,
+   "calco": "Ndohupíri hesa.",
+   "correcta": [
+    "Ndojesaupíri"
+   ],
+   "paginas": [
+    250,
+    251
+   ]
+  },
+  {
+   "n": 81,
+   "calco": "Eme'ẽke chupe y.",
+   "correcta": [
+    "Emboy´úke"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 82,
+   "calco": "Ikatúpa che ajapo mokõi porandu.",
+   "correcta": [
+    "Ikatúpa aporandumi mokõi mba'e"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 83,
+   "calco": "Jajapóta peteĩ aty.",
+   "correcta": [
+    "Ñañombyatýta"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 84,
+   "calco": "ko arapy sarambi apytépe tajajuhu vy'a.",
+   "correcta": [
+    "ko arapy sarambípe tajavy'aite"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 85,
+   "calco": "Che ñembyasy mbo'ehára nendive.",
+   "correcta": [
+    "Ambyasy mbo'ehára nendive"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 86,
+   "calco": "Tupãme ajerure tome'ẽ ndéve tekove puku.",
+   "correcta": [
+    "Tupãme ajerure tanemoingove pukuete"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 87,
+   "calco": "Ajohéita che py.",
+   "correcta": [
+    "Ajepyhéita"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 88,
+   "calco": "Ajohéita che po.",
+   "correcta": [
+    "Ajepohéita"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 89,
+   "calco": "Tembi'u ndorekóiva so´o.",
+   "correcta": [
+    "Tembi'u nda'iso'óiva",
+    "Tembi'u iso'o'ỹva"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 90,
+   "calco": "Pojopy ndéve g̃uarã.",
+   "correcta": [
+    "Roipojopy"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 91,
+   "calco": "Ndaguerekóinte aravo.",
+   "correcta": [
+    "Ndache'aravóinte"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 92,
+   "calco": "Ñandejára ome'ẽta ndéve mbarete.",
+   "correcta": [
+    "Ñandejára nemombareténe"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 93,
+   "calco": "Ajapóta che rogarã.",
+   "correcta": [
+    "Ajogapóta"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 94,
+   "calco": "Ajohéita che akã.",
+   "correcta": [
+    "Añeakãky'óta"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 95,
+   "calco": "Ajohéita ao.",
+   "correcta": [
+    "Ajaojohéita"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 96,
+   "calco": "Ja'u terere.",
+   "correcta": [
+    "Jaterere"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 97,
+   "calco": "Ja'u ka'ay.",
+   "correcta": [
+    "Jaka'ay'u"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 98,
+   "calco": "Hasy chéve che akã.",
+   "correcta": [
+    "Cheakãrasy"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 99,
+   "calco": "Ame'ẽta chupe aguyje.",
+   "correcta": [
+    "Amboaguyjéta"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 100,
+   "calco": "Ome'ẽ chéve po'a.",
+   "correcta": [
+    "Chembopo'a"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 101,
+   "calco": "Ajohéita che akã.",
+   "correcta": [
+    "Añeakãky'óta"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 102,
+   "calco": "Heta mba'e ajogua ñemuhágui.",
+   "correcta": [
+    "Heta amba'e jogua"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 103,
+   "calco": "Aguereko kyhyje.",
+   "correcta": [
+    "Chekyhyje"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 104,
+   "calco": "Aporanduse ndéve peteĩ mba'e.",
+   "correcta": [
+    "Amba'eporanduse ndéve"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 105,
+   "calco": "Aiko mombyry ndehegui.",
+   "correcta": [
+    "Chemombyry ndehegui"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 106,
+   "calco": "Karai ho'u terere.",
+   "correcta": [
+    "Karai oterere"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 107,
+   "calco": "Che sy ome'ẽ chéve jopói.",
+   "correcta": [
+    "Che sy chembojopói"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 108,
+   "calco": "Ojapo'ỹre pararã.",
+   "correcta": [
+    "Omopararã'ỹre"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 109,
+   "calco": "Oguereko katupyry.",
+   "correcta": [
+    "Ikatupyry"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  },
+  {
+   "n": 110,
+   "calco": "Ome'ẽ chéve techakuaa.",
+   "correcta": [
+    "Ohechakuaa chéve"
+   ],
+   "paginas": [
+    252,
+    253
+   ]
+  }
+ ]
+}

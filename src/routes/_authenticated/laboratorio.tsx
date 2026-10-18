@@ -17,6 +17,8 @@ import { CLOSED_CLASS_LABEL, lookupClosed } from "@/lib/morph/closed-classes";
 import { analyzeNominal, type NominalAnalysis } from "@/lib/morph/nominal-analyzer";
 import { getLabBook, getLabCorpus } from "@/lib/laboratorio.functions";
 import { buildBookIndex, type BookIndex } from "@/lib/morph/book-lexicon";
+import { buildCalcoIndex, type CalcoIndex } from "@/lib/morph/calcos";
+import { checkText } from "@/lib/morph/orthography";
 
 /**
  * Laboratorio Morfológico (privado, solo admin).
@@ -141,6 +143,7 @@ function LaboratorioPage() {
   const bookFn = useServerFn(getLabBook);
   const bookQ = useQuery({ queryKey: ["lab-book"], queryFn: () => bookFn(), staleTime: Infinity });
   const book = useMemo(() => (bookQ.data ? buildBookIndex(bookQ.data.forms) : null), [bookQ.data]);
+  const calcos = useMemo(() => (bookQ.data ? buildCalcoIndex(bookQ.data.calcos) : null), [bookQ.data]);
   const ranked = useMemo(() => rankByAttestation(results, index, book), [results, index, book]);
   const wordInCorpus: Attestation | null = submitted && index ? index.word(submitted) : null;
 
@@ -272,6 +275,9 @@ function LaboratorioPage() {
           </div>
         </section>
 
+        {/* Frases: ortografía y calcos del capítulo 6 */}
+        <SentenceChecker calcos={calcos} loading={bookQ.isLoading} />
+
         {/* Resultados */}
         {submitted && (
           <section className="mt-8" aria-live="polite">
@@ -373,6 +379,95 @@ function OrthographyPanel({ word }: { word: string }) {
         </ul>
       )}
     </div>
+  );
+}
+
+/**
+ * Revisión de una frase: avisos de ortografía (págs. 19–37) y comparación con los 110 pares de
+ * calcos del capítulo 6 (págs. 246–253). Solo cita al libro; no reescribe la frase.
+ */
+function SentenceChecker({ calcos, loading }: { calcos: CalcoIndex | null; loading: boolean }) {
+  const [text, setText] = useState("");
+  const [checked, setChecked] = useState<string | null>(null);
+  const issues = useMemo(() => (checked ? checkText(checked) : []), [checked]);
+  const matches = useMemo(() => (checked && calcos ? calcos.check(checked) : []), [checked, calcos]);
+  const HOW: Record<"exacta" | "contiene" | "parecida", string> = { exacta: "igual", contiene: "la contiene", parecida: "difiere en una palabra" };
+  return (
+    <Card className="mt-6">
+      <CardHeader>
+        <CardTitle className="text-base">Revisar una frase</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3 text-sm">
+        <form
+          className="flex flex-col gap-3 sm:flex-row"
+          onSubmit={(ev: FormEvent) => {
+            ev.preventDefault();
+            setChecked(text.trim() || null);
+          }}
+        >
+          <Input
+            value={text}
+            onChange={(ev: { target: { value: string } }) => setText(ev.target.value)}
+            maxLength={300}
+            autoComplete="off"
+            spellCheck={false}
+            className="h-11"
+            placeholder="Escribí una frase en guaraní"
+            aria-label="Frase en guaraní"
+          />
+          <Button type="submit" variant="outline" className="h-11" disabled={!text.trim()}>
+            Revisar frase
+          </Button>
+        </form>
+        <p className="text-xs text-muted-foreground">
+          Compara con los 110 pares «Como se dice / Como debe decirse» del capítulo 6 (págs. 246–253) y revisa la ortografía.
+          {loading && " Cargando los pares del libro…"}
+        </p>
+        {checked && (
+          <div className="space-y-3">
+            {matches.length === 0 ? (
+              <p className="text-muted-foreground">No coincide con ninguno de los pares del capítulo 6.</p>
+            ) : (
+              <ul className="space-y-2">
+                {matches.map((m) => (
+                  <li key={`${m.pair.n}-${m.kind}`} className="rounded-lg border border-border/60 px-3 py-2">
+                    {m.kind === "calco" ? (
+                      <>
+                        <p className="font-medium text-amber-800 dark:text-amber-200">
+                          El libro da esta frase como calco ({HOW[m.how]}, n.º {m.pair.n}, pág. {m.pair.paginas[0]}): «{m.pair.calco}»
+                        </p>
+                        <p className="text-foreground">
+                          Como debe decirse según el libro (pág. {m.pair.paginas[1]}): {m.pair.correcta.map((c) => `«${c}»`).join(" o ")}
+                        </p>
+                      </>
+                    ) : (
+                      <p className="text-emerald-800 dark:text-emerald-200">
+                        Es la forma que el libro recomienda ({HOW[m.how]}, n.º {m.pair.n}, pág. {m.pair.paginas[1]}), en lugar de «{m.pair.calco}».
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {issues.length > 0 ? (
+              <ul className="space-y-1">
+                {issues.map((i, k) => (
+                  <li key={`${i.word}-${k}`} className="flex flex-wrap items-baseline gap-2">
+                    <Badge variant="outline">{SEVERITY_LABEL[i.severity]} · pág. {i.page}</Badge>
+                    <span>
+                      «{i.word}»: {i.message}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-muted-foreground">Sin avisos de ortografía.</p>
+            )}
+            <p className="text-xs text-muted-foreground">Pendiente de validación: la decisión final es de un especialista.</p>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 
