@@ -181,7 +181,7 @@ export const GRADE_SUFFIXES: SuffixRule[] = [
   grade({ id: "grado-supersuperlativo", forms: ["eterei", "iterei"], meaning: "Grado supersuperlativo", page: 175, examplesPage: 177, examples: ["omyakỹeterei", "rejehe'aiterei"], note: "Partículas tónicas «eterei» (vocales débiles) e «iterei» (vocales fuertes)." }),
   grade({ id: "grado-superlativisimo", forms: ["rasa"], meaning: "Grado superlativísimo", page: 177, examples: ["pepitarasa", "omohe'õrasa"], note: "Partícula tónica «rasa»." }),
   grade({ id: "grado-ultrasuperlativo", forms: ["etereirasa", "itereirasa"], meaning: "Grado ultrasuperlativo", page: 177, examples: ["omomorãitereirasa"], note: "Partículas tónicas «etereirasa» / «itereirasa»." }),
-  grade({ id: "grado-superlativo-relativo", forms: ["eteve", "iteve"], meaning: "Grado superlativo relativo", page: 177, examples: ["ijaguaraiteve", "iñarandueteve"], note: "Partículas «eteve» / «iteve»; el segundo elemento lleva «gui». Los ejemplos del libro llevan i- / iñ-, que el analizador todavía no separa." }),
+  grade({ id: "grado-superlativo-relativo", forms: ["eteve", "iteve"], meaning: "Grado superlativo relativo", page: 177, examples: ["ijaguaraiteve", "iñarandueteve"], note: "Partículas «eteve» / «iteve»; el segundo elemento lleva «gui». Los ejemplos del libro llevan los prefijos predicativos i- / iñ- (pág. 101)." }),
 ];
 
 /**

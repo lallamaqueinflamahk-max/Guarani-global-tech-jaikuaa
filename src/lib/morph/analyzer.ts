@@ -7,6 +7,7 @@
  */
 import { HAREAL_ROOTS, NEGATION, PERSON_PREFIXES, type Paradigm, type Person } from "./academia-rules";
 import { IMPERATIVE_PREFIXES } from "./imperative-rules";
+import { IRREGULAR_LEXEMES, PREDICATIVE_PREFIXES, PRONOMINAL_PREFIXES } from "./predicative-rules";
 import {
   GRADE_SUFFIXES,
   IMPERATIVE_MOOD_SUFFIXES,
@@ -18,8 +19,18 @@ import {
 } from "./suffixes-rules";
 import { VOICE_ORDER, VOICE_RULES, type VoiceRule } from "./voices-rules";
 
-/** Conjugaciones del libro más el imperativo / optativo (pág. 165). */
-export type AnalysisParadigm = Paradigm | "imperativo";
+/**
+ * Conjugaciones del libro: regulares (págs. 103–105), imperativo / optativo (pág. 165),
+ * predicativos (págs. 93 y 101), pronominales (pág. 103) y lexemas variables (pág. 97).
+ */
+export type AnalysisParadigm = Paradigm | "imperativo" | "predicativo" | "pronominal" | "irregular";
+
+export interface AnalysisLexeme {
+  /** Lexema variable del libro («ho», «ju», «'e»). */
+  form: string;
+  meaning: string;
+  page: number;
+}
 
 export interface AnalysisVoice {
   /** La forma tal como aparece en la palabra analizada. */
@@ -50,6 +61,8 @@ export interface Analysis {
   root: string;
   /** En el orden en que aparecen en la palabra (de la raíz hacia afuera). */
   suffixes: AnalysisSuffix[];
+  /** Solo en formas de los lexemas variables (pág. 97). */
+  lexeme?: AnalysisLexeme;
   status: "pending_validation";
   pages: number[];
 }
@@ -176,7 +189,22 @@ const PREFIX_SETS: PrefixSet[] = [
     prefixes: rule.prefixes,
   })),
   { paradigm: "imperativo", page: IMPERATIVE_PREFIXES.source.page, prefixes: IMPERATIVE_PREFIXES.prefixes },
+  { paradigm: "predicativo", page: PREDICATIVE_PREFIXES.source.page, prefixes: PREDICATIVE_PREFIXES.prefixes },
+  {
+    paradigm: "pronominal",
+    page: PRONOMINAL_PREFIXES.source.page,
+    prefixes: { "1sg": [], "2sg": [], "3": [], "1pl_incl": [], "1pl_excl": [], "2pl": [], ...PRONOMINAL_PREFIXES.prefixes },
+  },
 ];
+
+/** Índice de las formas de los lexemas variables (pág. 97), para buscarlas una sola vez por palabra. */
+const IRREGULAR_BY_FORM = new Map(
+  IRREGULAR_LEXEMES.flatMap((lex) => lex.forms.map((f) => [f.form, { lex, f }] as const)),
+);
+const IRREGULAR_FIRST_CHARS = new Set([...IRREGULAR_BY_FORM.keys()].map((k) => k[0]));
+
+/** Predicativos y pronominales: el libro no los describe con voces ni con la negación nd- … -i. */
+const isNominal = (p: AnalysisParadigm) => p === "predicativo" || p === "pronominal";
 
 const INDICATIVE_INNER = [...MOOD_SUFFIXES, ...GRADE_SUFFIXES];
 
@@ -187,12 +215,14 @@ export function analyze(input: string): Analysis[] {
   for (const { core, negated } of stripNegation(w)) {
     for (const set of PREFIX_SETS) {
       const imperative = set.paradigm === "imperativo";
+      const nominal = isNominal(set.paradigm);
       // La negación nd-/n- … -i/-ri (págs. 25 y 115) se describe con los prefijos del indicativo.
-      if (imperative && negated) continue;
+      if ((imperative || nominal) && negated) continue;
       for (const [person, prefixes] of Object.entries(set.prefixes) as [Person, string[]][]) {
         for (const prefix of prefixes) {
           if (!core.startsWith(prefix) || core.length <= prefix.length) continue;
-          for (const v of voiceReadings(core.slice(prefix.length))) {
+          const stem = core.slice(prefix.length);
+          for (const v of nominal ? [{ rest: stem, voices: [] as AnalysisVoice[], rules: [] as VoiceRule[] }] : voiceReadings(stem)) {
             if (v.rules.some((r) => r.pluralOnly) && !PLURAL_OK.includes(person)) continue;
             const readings = imperative
               ? suffixReadings(v.rest, IMPERATIVE_MOOD_SUFFIXES, false, 1)
@@ -221,6 +251,30 @@ export function analyze(input: string): Analysis[] {
             }
           }
         }
+      }
+    }
+    // Lexemas variables (pág. 97): la forma entera es la persona + el lexema; después pueden venir sufijos.
+    const firstChar = core[0];
+    if (firstChar && IRREGULAR_FIRST_CHARS.has(firstChar)) {
+      for (const { root, suffixes } of suffixReadings(core, INDICATIVE_INNER, true, SUFFIX_ORDER.maxMoods)) {
+        const hit = IRREGULAR_BY_FORM.get(stripAcute(root));
+        if (!hit) continue;
+        const pages = [hit.lex.page];
+        if (negated) pages.push(NEGATION.source.page);
+        for (const x of suffixes) pages.push(x.page);
+        results.push({
+          word: input,
+          negated,
+          paradigm: "irregular",
+          person: hit.f.person,
+          prefix: "",
+          voices: [],
+          root,
+          suffixes,
+          lexeme: { form: hit.lex.lexeme, meaning: hit.lex.meaning, page: hit.lex.page },
+          status: "pending_validation",
+          pages: [...new Set(pages)],
+        });
       }
     }
   }

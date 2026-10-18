@@ -53,6 +53,9 @@ const BOOK_EXAMPLES: { word: string; page: number; note: string }[] = [
   { word: "ajapouka", page: 145, note: "modo mediativo -uka" },
   { word: "tapytáke", page: 167, note: "imperativo conminativo -ke" },
   { word: "amba'apove", page: 175, note: "grado comparativo -ve" },
+  { word: "iporã", page: 93, note: "predicativo i-" },
+  { word: "chejuhu", page: 103, note: "pronominal (objeto che-)" },
+  { word: "oho", page: 97, note: "lexema variable «ho»" },
 ];
 
 /** Cuántas lecturas se muestran antes de "Ver las demás". */
@@ -72,6 +75,9 @@ const PARADIGM_LABEL: Record<AnalysisParadigm, string> = {
   aireal: "Aireal (regular, 1.ª conjugación)",
   hareal: "Hareal (regular, 2.ª conjugación)",
   imperativo: "Imperativo / optativo (pág. 165)",
+  predicativo: "Predicativo: sustantivo, adjetivo o adverbio conjugado (págs. 93 y 101)",
+  pronominal: "Pronominal: la persona es el objeto de la acción (pág. 103)",
+  irregular: "Lexema variable (pág. 97)",
 };
 
 type Block = { kind: "neg" | "person" | "voice" | "root" | "suffix"; text: string; label: string };
@@ -83,9 +89,20 @@ function toBlocks(a: Analysis): Block[] {
   const start = word.indexOf(core);
   const blocks: Block[] = [];
   if (a.negated && start > 0) blocks.push({ kind: "neg", text: word.slice(0, start), label: "Negación (prefijo)" });
-  blocks.push({ kind: "person", text: a.prefix, label: a.paradigm === "imperativo" ? "Persona (imperativo)" : "Persona" });
+  if (a.prefix) {
+    const personLabel = a.paradigm === "imperativo" ? "Persona (imperativo)" : a.paradigm === "pronominal" ? "Persona (objeto)" : "Persona";
+    blocks.push({ kind: "person", text: a.prefix, label: personLabel });
+  }
   for (const v of a.voices) blocks.push({ kind: "voice", text: v.form, label: `${v.meaning} · pág. ${v.page}` });
-  blocks.push({ kind: "root", text: a.root, label: "Raíz verbal" });
+  blocks.push({
+    kind: "root",
+    text: a.root,
+    label: a.lexeme
+      ? `Forma de «${a.lexeme.form}» (${a.lexeme.meaning}) · pág. ${a.lexeme.page}`
+      : a.paradigm === "predicativo"
+        ? "Raíz (nombre o adjetivo)"
+        : "Raíz verbal",
+  });
   for (const sfx of a.suffixes) {
     blocks.push({ kind: "suffix", text: sfx.form, label: `${sfx.meaning} · pág. ${sfx.page}` });
   }
@@ -362,7 +379,7 @@ function AnalysisCard({ analysis: a, attestation, index, total }: { analysis: An
         {/* Ficha técnica */}
         <dl className="grid gap-x-6 gap-y-3 text-sm sm:grid-cols-2">
           <div>
-            <dt className="text-xs uppercase tracking-wide text-muted-foreground">Sujeto / persona</dt>
+            <dt className="text-xs uppercase tracking-wide text-muted-foreground">{a.paradigm === "pronominal" ? "Objeto (a quién)" : "Sujeto / persona"}</dt>
             <dd className="mt-0.5 font-medium text-foreground">
               {person.label} <span className="text-muted-foreground">({person.pronoun})</span>
             </dd>
@@ -374,7 +391,11 @@ function AnalysisCard({ analysis: a, attestation, index, total }: { analysis: An
           <div>
             <dt className="text-xs uppercase tracking-wide text-muted-foreground">Voz</dt>
             <dd className="mt-0.5 font-medium text-foreground">
-              {a.voices.length ? a.voices.map((v) => v.meaning).join(" · ") : "Voz activa simple, sin partícula (pág. 117)"}
+              {a.voices.length
+                ? a.voices.map((v) => v.meaning).join(" · ")
+                : a.paradigm === "predicativo" || a.paradigm === "pronominal"
+                  ? "No aplica en estas reglas"
+                  : "Voz activa simple, sin partícula (pág. 117)"}
             </dd>
           </div>
           <div>
