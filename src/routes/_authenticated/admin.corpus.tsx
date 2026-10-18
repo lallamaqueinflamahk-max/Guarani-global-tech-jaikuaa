@@ -170,6 +170,12 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
           ← Volver al panel
         </Link>
         <Link
+          to="/validacion"
+          className="ml-4 text-sm font-semibold text-primary hover:underline"
+        >
+          Circuito de validación →
+        </Link>
+        <Link
           to="/cuaderno"
           className="ml-4 text-sm font-semibold text-primary hover:underline"
         >

@@ -28,6 +28,7 @@ import { Route as AuthenticatedAgroRouteImport } from './routes/_authenticated/a
 import { Route as AuthenticatedCertificadoRouteImport } from './routes/_authenticated/certificado'
 import { Route as AuthenticatedCuadernoRouteImport } from './routes/_authenticated/cuaderno'
 import { Route as AuthenticatedLaboratorioRouteImport } from './routes/_authenticated/laboratorio'
+import { Route as AuthenticatedValidacionRouteImport } from './routes/_authenticated/validacion'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
 import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
@@ -161,6 +162,11 @@ const AuthenticatedCuadernoRoute = AuthenticatedCuadernoRouteImport.update({
 const AuthenticatedLaboratorioRoute = AuthenticatedLaboratorioRouteImport.update({
   id: '/laboratorio',
   path: '/laboratorio',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedValidacionRoute = AuthenticatedValidacionRouteImport.update({
+  id: '/validacion',
+  path: '/validacion',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
@@ -404,6 +410,7 @@ export interface FileRoutesByFullPath {
   '/certificado': typeof AuthenticatedCertificadoRoute
   '/cuaderno': typeof AuthenticatedCuadernoRoute
   '/laboratorio': typeof AuthenticatedLaboratorioRoute
+  '/validacion': typeof AuthenticatedValidacionRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/logros': typeof AuthenticatedLogrosRoute
@@ -463,6 +470,7 @@ export interface FileRoutesByTo {
   '/certificado': typeof AuthenticatedCertificadoRoute
   '/cuaderno': typeof AuthenticatedCuadernoRoute
   '/laboratorio': typeof AuthenticatedLaboratorioRoute
+  '/validacion': typeof AuthenticatedValidacionRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/logros': typeof AuthenticatedLogrosRoute
   '/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
@@ -521,6 +529,7 @@ export interface FileRoutesById {
   '/_authenticated/certificado': typeof AuthenticatedCertificadoRoute
   '/_authenticated/cuaderno': typeof AuthenticatedCuadernoRoute
   '/_authenticated/laboratorio': typeof AuthenticatedLaboratorioRoute
+  '/_authenticated/validacion': typeof AuthenticatedValidacionRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
   '/_authenticated/logros': typeof AuthenticatedLogrosRoute
@@ -582,6 +591,7 @@ export interface FileRouteTypes {
     | '/certificado'
     | '/cuaderno'
     | '/laboratorio'
+    | '/validacion'
     | '/dashboard'
     | '/guarani-escolar'
     | '/logros'
@@ -641,6 +651,7 @@ export interface FileRouteTypes {
     | '/certificado'
     | '/cuaderno'
     | '/laboratorio'
+    | '/validacion'
     | '/dashboard'
     | '/logros'
     | '/nhe-mbytepe'
@@ -698,6 +709,7 @@ export interface FileRouteTypes {
     | '/_authenticated/certificado'
     | '/_authenticated/cuaderno'
     | '/_authenticated/laboratorio'
+    | '/_authenticated/validacion'
     | '/_authenticated/dashboard'
     | '/_authenticated/guarani-escolar'
     | '/_authenticated/logros'
@@ -894,6 +906,13 @@ declare module '@tanstack/react-router' {
       path: '/laboratorio'
       fullPath: '/laboratorio'
       preLoaderRoute: typeof AuthenticatedLaboratorioRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/validacion': {
+      id: '/_authenticated/validacion'
+      path: '/validacion'
+      fullPath: '/validacion'
+      preLoaderRoute: typeof AuthenticatedValidacionRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/dashboard': {
@@ -1235,6 +1254,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCertificadoRoute: typeof AuthenticatedCertificadoRoute
   AuthenticatedCuadernoRoute: typeof AuthenticatedCuadernoRoute
   AuthenticatedLaboratorioRoute: typeof AuthenticatedLaboratorioRoute
+  AuthenticatedValidacionRoute: typeof AuthenticatedValidacionRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedGuaraniEscolarRoute: typeof AuthenticatedGuaraniEscolarRouteWithChildren
   AuthenticatedLogrosRoute: typeof AuthenticatedLogrosRoute
@@ -1269,6 +1289,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCertificadoRoute: AuthenticatedCertificadoRoute,
   AuthenticatedCuadernoRoute: AuthenticatedCuadernoRoute,
   AuthenticatedLaboratorioRoute: AuthenticatedLaboratorioRoute,
+  AuthenticatedValidacionRoute: AuthenticatedValidacionRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedGuaraniEscolarRoute:
     AuthenticatedGuaraniEscolarRouteWithChildren,
