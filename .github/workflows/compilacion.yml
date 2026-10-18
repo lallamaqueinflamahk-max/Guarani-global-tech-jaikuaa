@@ -1,0 +1,29 @@
+# Verifica que el sitio compile (la misma compilación que hace Lovable al publicar)
+# y muestra los errores de tipos del motor y del Laboratorio, sin bloquear.
+name: Compilación del sitio
+
+on:
+  push:
+    paths:
+      - "src/**"
+      - ".github/workflows/compilacion.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compilar:
+    name: vite build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Instalar dependencias
+        run: bun install --frozen-lockfile
+      - name: Compilar
+        run: bun run build
+      - name: Tipos (informativo)
+        continue-on-error: true
+        run: bunx tsc --noEmit -p tsconfig.json 2>&1 | grep -E "src/(lib/morph|routes/_authenticated/laboratorio|lib/laboratorio)" || echo "Sin errores de tipos en el motor ni en el Laboratorio"
