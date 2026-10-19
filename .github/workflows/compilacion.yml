@@ -24,6 +24,15 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Compilar
         run: bun run build
+      - name: Tamaño del paquete (informativo)
+        continue-on-error: true
+        run: |
+          for d in .output dist; do [ -d "$d" ] && du -sh "$d"/* 2>/dev/null | sed 's/^/::notice::tamaño /'; done
+          SERVER=$(ls -d .output/server dist/server 2>/dev/null | head -1)
+          if [ -n "$SERVER" ]; then
+            echo "::notice::servidor sin comprimir $(du -sb "$SERVER" | cut -f1) bytes; comprimido $(tar -cz -C "$SERVER" . | wc -c) bytes"
+            find "$SERVER" -type f -printf '%s %p\n' | sort -rn | head -8 | sed 's/^/::notice::archivo grande /'
+          fi
       - name: Tipos (informativo)
         continue-on-error: true
         run: |
