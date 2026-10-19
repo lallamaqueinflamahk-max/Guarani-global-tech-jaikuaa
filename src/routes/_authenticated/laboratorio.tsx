@@ -2,13 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useRef, useState, type FormEvent } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { BookOpen, CheckCircle2, FlaskConical, Info, Library, Search, ShieldAlert } from "lucide-react";
+import { BookOpen, CheckCircle2, FlaskConical, Info, Library, ScrollText, Search, ShieldAlert } from "lucide-react";
 import { PrivateGate } from "@/components/private-gate";
 import { ValidationNotice } from "@/components/validation-notice";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { analyze, normalizeWord, type Analysis, type AnalysisParadigm } from "@/lib/morph/analyzer";
 import type { Person } from "@/lib/morph/academia-rules";
 import { buildCorpusIndex, rankByAttestation, type Attestation } from "@/lib/morph/corpus-index";
@@ -21,6 +22,16 @@ import { buildWiktionaryIndex, FORM_OF_LABEL, POS_LABEL, type WiktionaryHit, typ
 import { buildBookIndex, type BookIndex } from "@/lib/morph/book-lexicon";
 import { buildCalcoIndex, type CalcoIndex } from "@/lib/morph/calcos";
 import { checkText } from "@/lib/morph/orthography";
+import {
+  analyzeText,
+  buildBookRootIndex,
+  MAX_TEXT_WORDS,
+  type BookRootIndex,
+  type Evidence,
+  type RootSource,
+  type TextSources,
+  type WordStatus,
+} from "@/lib/morph/text-analyzer";
 
 /**
  * Laboratorio Morfológico (privado, solo admin).
@@ -192,6 +203,14 @@ function LaboratorioPage() {
     run(word);
   };
 
+  const textSources = useMemo<TextSources>(() => ({ book, dictionary: dict, wiktionary: wik, corpus: index }), [book, dict, wik, index]);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  /** Desde el texto completo: analiza la palabra tocada y baja hasta su análisis. */
+  const pickFromText = (word: string) => {
+    tryExample(word);
+    requestAnimationFrame(() => resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <ValidationNotice />
@@ -285,10 +304,14 @@ function LaboratorioPage() {
           </div>
         </section>
 
+        {/* Texto completo: semáforo palabra por palabra */}
+        <TextAnalyzerPanel sources={textSources} bookForms={bookQ.data?.forms ?? null} loading={bookQ.isLoading || dictQ.isLoading || wikQ.isLoading} onPick={pickFromText} />
+
         {/* Frases: ortografía y calcos del capítulo 6 */}
         <SentenceChecker calcos={calcos} loading={bookQ.isLoading} />
 
         {/* Resultados */}
+        <div ref={resultsRef} className="scroll-mt-4" />
         {submitted && (
           <section className="mt-8" aria-live="polite">
             <OrthographyPanel word={submitted} />
@@ -484,6 +507,215 @@ function SentenceChecker({ calcos, loading }: { calcos: CalcoIndex | null; loadi
               <p className="text-muted-foreground">Sin avisos de ortografía.</p>
             )}
             <p className="text-xs text-muted-foreground">Pendiente de validación: la decisión final es de un especialista.</p>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+const TEXT_STATUS: Record<WordStatus, { label: string; short: string; chip: string; dot: string }> = {
+  respaldada: {
+    label: "Respaldada: la palabra está tal cual en una fuente",
+    short: "Respaldada",
+    chip: "bg-emerald-100 text-emerald-950 ring-emerald-300 dark:bg-emerald-500/20 dark:text-emerald-50 dark:ring-emerald-400/40",
+    dot: "bg-emerald-500",
+  },
+  armada: {
+    label: "Armada por el motor con las reglas del libro, sobre una raíz respaldada",
+    short: "Armada por el motor",
+    chip: "bg-amber-100 text-amber-950 ring-amber-300 dark:bg-amber-500/20 dark:text-amber-50 dark:ring-amber-400/40",
+    dot: "bg-amber-500",
+  },
+  sin_respaldo: {
+    label: "Sin respaldo: el motor no la reconoce (va a la lista de los docentes)",
+    short: "Sin respaldo",
+    chip: "bg-red-100 text-red-950 ring-red-300 dark:bg-red-500/20 dark:text-red-50 dark:ring-red-400/40",
+    dot: "bg-red-500",
+  },
+  fuera_alfabeto: {
+    label: "Fuera del alfabeto oficial (castellano, nombre propio o error de escritura); no se cuenta",
+    short: "Fuera del alfabeto",
+    chip: "bg-muted text-muted-foreground ring-border",
+    dot: "bg-muted-foreground/50",
+  },
+};
+
+const ROOT_SOURCE_LABEL: Record<RootSource, string> = {
+  libro: "en la Gramática ALG 2020",
+  "libro-forma": "en la Gramática ALG 2020 dentro de otra forma",
+  diccionario: "en el diccionario de la Academia (SPL)",
+  wikcionario: "en el Wikcionario (no validado)",
+  docente: "validada por un docente",
+};
+
+/** Explica en una línea de dónde sale el estado de una palabra. */
+function evidenceText(e: Evidence): string {
+  switch (e.kind) {
+    case "libro":
+      return `Aparece tal cual en la Gramática ALG 2020, pág. ${e.pages.join(", ")}.`;
+    case "lista-del-libro":
+      return `Está en las listas de palabras del libro, pág. ${e.page}.`;
+    case "diccionario":
+      return "Es una entrada del diccionario de la Academia publicado por la SPL.";
+    case "wikcionario":
+      return "Está en el Wikcionario (fuente colaborativa, no validada).";
+    case "docente":
+      return "Validada por un docente en Jaikuaa.";
+    case "reglas":
+      return `El motor la arma así: ${e.parts.join(" + ")}. La raíz «${e.root}» está ${ROOT_SOURCE_LABEL[e.rootSource]}${e.inForm ? ` («${e.inForm}»)` : ""}${e.pages.length ? `, pág. ${e.pages.slice(0, 3).join(", ")}` : ""}.`;
+    case "ninguna":
+      return e.readings > 0
+        ? "El motor ve cómo podría separarse, pero ninguna raíz tiene respaldo en las fuentes."
+        : "El motor no la reconoce con las reglas cargadas.";
+    case "alfabeto":
+      return e.message;
+  }
+}
+
+/**
+ * Vista «semáforo»: un texto completo, palabra por palabra, con el respaldo de cada una.
+ * No corrige ni completa nada: solo muestra lo que las fuentes y las reglas del libro respaldan.
+ */
+function TextAnalyzerPanel({
+  sources,
+  bookForms,
+  loading,
+  onPick,
+}: {
+  sources: TextSources;
+  bookForms: Record<string, number[]> | null;
+  loading: boolean;
+  onPick: (word: string) => void;
+}) {
+  const [text, setText] = useState("");
+  const [checked, setChecked] = useState<string | null>(null);
+  const [selected, setSelected] = useState<number | null>(null);
+  // Las raíces dentro de las formas del libro se arman una sola vez, recién al analizar el primer texto.
+  const rootsRef = useRef<{ forms: Record<string, number[]>; index: BookRootIndex } | null>(null);
+  const result = useMemo(() => {
+    if (!checked) return null;
+    if (bookForms && rootsRef.current?.forms !== bookForms) rootsRef.current = { forms: bookForms, index: buildBookRootIndex(bookForms) };
+    return analyzeText(checked, { ...sources, bookRoots: bookForms ? rootsRef.current?.index : null });
+  }, [checked, sources, bookForms]);
+  const pick = result && selected !== null ? result.pieces[selected] : null;
+  const word = pick && pick.kind === "word" ? pick : null;
+  const splRefs = word && (word.evidence.kind === "diccionario" || word.evidence.kind === "reglas") ? word.evidence.refs : [];
+
+  return (
+    <Card className="mt-6 border-primary/30">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-base">
+          <ScrollText className="h-4 w-4 text-primary" aria-hidden />
+          Analizar un texto completo
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4 text-sm">
+        <form
+          className="space-y-3"
+          onSubmit={(ev: FormEvent) => {
+            ev.preventDefault();
+            setChecked(text.trim() || null);
+            setSelected(null);
+          }}
+        >
+          <Textarea
+            value={text}
+            onChange={(ev: { target: { value: string } }) => setText(ev.target.value)}
+            maxLength={20000}
+            rows={5}
+            spellCheck={false}
+            placeholder="Pegá un texto en guaraní: un artículo de una ley, una noticia, un cuento…"
+            aria-label="Texto en guaraní"
+          />
+          <div className="flex flex-wrap items-center gap-3">
+            <Button type="submit" variant="cta" disabled={!text.trim() || loading}>
+              Analizar texto
+            </Button>
+            {loading && <span className="text-xs text-muted-foreground">Cargando el libro, el diccionario y el Wikcionario…</span>}
+            {!loading && (
+              <span className="text-xs text-muted-foreground">Hasta {MAX_TEXT_WORDS.toLocaleString("es-PY")} palabras. Tocá una palabra para ver de dónde sale.</span>
+            )}
+          </div>
+        </form>
+
+        {result && (
+          <div className="space-y-4" aria-live="polite">
+            <div className="rounded-xl border border-border/60 bg-card p-4">
+              {result.recognized === null ? (
+                <p className="text-muted-foreground">No se encontraron palabras en guaraní para analizar.</p>
+              ) : (
+                <p className="text-foreground">
+                  <span className="font-display text-3xl font-bold">{result.recognized.toLocaleString("es-PY")} %</span>{" "}
+                  <span className="text-muted-foreground">
+                    de las {result.guarani.toLocaleString("es-PY")} palabras en guaraní tiene respaldo o la arma el motor.
+                  </span>
+                </p>
+              )}
+              <ul className="mt-3 grid gap-1.5 sm:grid-cols-2">
+                {(Object.keys(TEXT_STATUS) as WordStatus[]).map((s) => (
+                  <li key={s} className="flex items-center gap-2">
+                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${TEXT_STATUS[s].dot}`} aria-hidden />
+                    <span className="text-foreground">{TEXT_STATUS[s].short}</span>
+                    <span className="ml-auto tabular-nums text-muted-foreground">{result.counts[s].toLocaleString("es-PY")}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="max-h-[28rem] overflow-y-auto whitespace-pre-wrap rounded-xl border border-border/60 bg-background p-4 text-base leading-9">
+              {result.pieces.map((p, i) =>
+                p.kind === "gap" ? (
+                  <span key={i}>{p.text}</span>
+                ) : (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setSelected(i)}
+                    title={`${TEXT_STATUS[p.status].short}: ${evidenceText(p.evidence)}`}
+                    aria-label={`${p.surface}: ${TEXT_STATUS[p.status].short}`}
+                    className={`rounded px-0.5 ring-1 transition hover:ring-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${TEXT_STATUS[p.status].chip} ${selected === i ? "ring-2 ring-primary" : ""}`}
+                  >
+                    {p.surface}
+                  </button>
+                ),
+              )}
+            </div>
+
+            {word && (
+              <div className="rounded-xl border border-border/60 bg-card p-4">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-display text-lg font-semibold text-foreground">{word.surface}</span>
+                  <Badge variant="outline" className="gap-1.5">
+                    <span className={`h-2 w-2 rounded-full ${TEXT_STATUS[word.status].dot}`} aria-hidden />
+                    {TEXT_STATUS[word.status].short}
+                  </Badge>
+                </div>
+                <p className="mt-2 text-foreground">{evidenceText(word.evidence)}</p>
+                {splRefs.length > 0 && (
+                  <p className="mt-1 text-xs">
+                    <a
+                      href={splUrl(splRefs[0]!)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-primary underline underline-offset-2"
+                    >
+                      Ver la entrada en el sitio de la SPL
+                    </a>
+                  </p>
+                )}
+                {word.status !== "fuera_alfabeto" && (
+                  <Button type="button" variant="outline" size="sm" className="mt-3" onClick={() => onPick(word.word)}>
+                    Ver el análisis completo de «{word.word}»
+                  </Button>
+                )}
+              </div>
+            )}
+
+            <p className="text-xs text-muted-foreground">
+              «Respaldada» y «armada» no quieren decir «correcta»: la lectura final la valida un docente. Las palabras sin
+              respaldo pueden ser guaraní que todavía falta en las fuentes, nombres propios o errores de escritura.
+            </p>
           </div>
         )}
       </CardContent>
