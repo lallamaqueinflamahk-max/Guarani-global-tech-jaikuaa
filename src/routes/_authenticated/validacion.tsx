@@ -13,6 +13,7 @@ import {
   addReviewer,
   getCircuitRoles,
   getProposalHistory,
+  getVerificationQueue,
   listMyProposals,
   listQueue,
   listReviewers,
@@ -23,6 +24,8 @@ import {
   searchWordsForCorrection,
   validateProposal,
   type ProposalStatus,
+  type VerificationState,
+  type VerificationWord,
 } from "@/lib/validation-circuit.functions";
 
 export const Route = createFileRoute("/_authenticated/validacion")({
@@ -84,6 +87,7 @@ function ValidationCircuitPage() {
         <TabsList className="flex h-auto flex-wrap justify-start">
           <TabsTrigger value="proponer">Proponer</TabsTrigger>
           <TabsTrigger value="mias">Mis propuestas</TabsTrigger>
+          {r?.canReview && <TabsTrigger value="verificar">Palabras para verificar</TabsTrigger>}
           {r?.canReview && <TabsTrigger value="revisar">Revisar</TabsTrigger>}
           {r?.canValidate && <TabsTrigger value="validar">Validar</TabsTrigger>}
           {r?.isAdmin && <TabsTrigger value="revisores">Revisores</TabsTrigger>}
@@ -94,6 +98,11 @@ function ValidationCircuitPage() {
         <TabsContent value="mias">
           <MyProposals />
         </TabsContent>
+        {r?.canReview && (
+          <TabsContent value="verificar">
+            <VerificationQueue />
+          </TabsContent>
+        )}
         {r?.canReview && (
           <TabsContent value="revisar">
             <Queue step="revisar" />
@@ -224,6 +233,183 @@ function ProposeForm() {
       >
         {send.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         Enviar propuesta
+      </Button>
+    </div>
+  );
+}
+
+/* ----------------------- Palabras para verificar ----------------------- */
+
+const SOURCE_LABEL: Record<VerificationWord["fuente"], { short: string; cite: string }> = {
+  "common-voice": { short: "Common Voice", cite: "Mozilla Common Voice, guaraní (CC0)" },
+  jojajovai: { short: "Jojajovai", cite: "Corpus Jojajovai (Grupo PLN, Universidad de la República, 2022)" },
+};
+
+const STATE_LABEL: Record<VerificationState, string> = {
+  pendiente: "Pendiente",
+  en_circuito: "Ya está en el circuito",
+  en_corpus: "Ya está en el corpus",
+};
+
+/**
+ * Palabras frecuentes en textos reales que todavía no tienen respaldo. El docente confirma si la
+ * palabra está bien escrita y escribe el significado con sus palabras; al enviarla entra al
+ * circuito como propuesta suya (después la revisa otra persona y la valida un docente).
+ */
+function VerificationQueue() {
+  const fn = useServerFn(getVerificationQueue);
+  const q = useQuery({ queryKey: ["verification-queue"], queryFn: () => fn() });
+  const [filter, setFilter] = useState<"pendiente" | "todas">("pendiente");
+  const [source, setSource] = useState<"todas" | VerificationWord["fuente"]>("todas");
+  const [search, setSearch] = useState("");
+  const [skipped, setSkipped] = useState<Set<string>>(new Set());
+  const [sent, setSent] = useState<Set<string>>(new Set());
+  const [open, setOpen] = useState<string | null>(null);
+  const [shown, setShown] = useState(30);
+
+  if (q.isLoading) return <Loader2 className="mx-auto mt-8 h-5 w-5 animate-spin text-primary" />;
+  if (q.isError || !q.data) return <p className="mt-6 text-sm text-muted-foreground">No se pudo cargar la lista.</p>;
+  const { palabras, state, dailyLimit } = q.data;
+  const stateOf = (gn: string): VerificationState => (sent.has(gn) ? "en_circuito" : state[gn] ?? "pendiente");
+  const needle = search.trim().toLowerCase();
+  const list = palabras.filter(
+    (p) =>
+      !skipped.has(p.gn) &&
+      (filter === "todas" || stateOf(p.gn) === "pendiente") &&
+      (source === "todas" || p.fuente === source) &&
+      (!needle || p.gn.toLowerCase().includes(needle)),
+  );
+  const pending = palabras.filter((p) => stateOf(p.gn) === "pendiente").length;
+
+  return (
+    <div className="mt-4 space-y-4">
+      <div className="rounded-2xl border border-border/60 bg-card p-4 text-sm">
+        <p className="text-foreground">
+          Estas palabras aparecen muchas veces en textos reales en guaraní, pero todavía no tienen respaldo en Jaikuaa.
+          Si la palabra está bien escrita, escribí su significado con tus palabras y enviala: entra al circuito como
+          propuesta tuya. Si no es guaraní o está mal escrita, tocá «Saltar».
+        </p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          {pending} pendientes de {palabras.length}. Máximo {dailyLimit} propuestas por día por persona. La lectura del motor es
+          automática y no está validada: no la copies si no estás de acuerdo.
+        </p>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <Button size="sm" variant={filter === "pendiente" ? "default" : "outline"} onClick={() => setFilter("pendiente")}>
+          Pendientes
+        </Button>
+        <Button size="sm" variant={filter === "todas" ? "default" : "outline"} onClick={() => setFilter("todas")}>
+          Todas
+        </Button>
+        <span className="mx-1 h-5 w-px bg-border" aria-hidden />
+        {(["todas", "common-voice", "jojajovai"] as const).map((s) => (
+          <Button key={s} size="sm" variant={source === s ? "secondary" : "ghost"} onClick={() => setSource(s)}>
+            {s === "todas" ? "Todas las fuentes" : SOURCE_LABEL[s].short}
+          </Button>
+        ))}
+        <Input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Buscar palabra"
+          className="h-9 w-full sm:ml-auto sm:w-48"
+          aria-label="Buscar palabra"
+        />
+      </div>
+
+      {list.length === 0 ? (
+        <p className="text-sm text-muted-foreground">No hay palabras con este filtro.</p>
+      ) : (
+        <ul className="space-y-2">
+          {list.slice(0, shown).map((p) => (
+            <li key={p.gn} className="rounded-xl border border-border/60 bg-card p-4">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div className="min-w-0">
+                  <p className="font-display text-xl font-semibold text-foreground">{p.gn}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">
+                    {p.veces} veces · {SOURCE_LABEL[p.fuente].short}
+                    {p.lectura && <> · el motor la lee: {p.lectura}</>}
+                  </p>
+                  {p.ejemplo && <p className="mt-1 text-sm italic text-muted-foreground">«{p.ejemplo}»</p>}
+                </div>
+                {stateOf(p.gn) === "pendiente" ? (
+                  <div className="flex gap-2">
+                    <Button size="sm" variant="outline" onClick={() => setOpen(open === p.gn ? null : p.gn)}>
+                      <CheckCircle2 className="mr-1 h-4 w-4" />
+                      Está bien escrita
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => setSkipped((s) => new Set([...s, p.gn]))}
+                      aria-label={`Saltar ${p.gn}`}
+                    >
+                      <X className="mr-1 h-4 w-4" />
+                      Saltar
+                    </Button>
+                  </div>
+                ) : (
+                  <Badge variant="outline">{STATE_LABEL[stateOf(p.gn)]}</Badge>
+                )}
+              </div>
+              {open === p.gn && (
+                <VerifyForm
+                  word={p}
+                  onSent={() => {
+                    setSent((s) => new Set([...s, p.gn]));
+                    setOpen(null);
+                  }}
+                />
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+      {list.length > shown && (
+        <Button variant="outline" className="w-full" onClick={() => setShown((n) => n + 30)}>
+          Ver 30 más ({list.length - shown} restantes)
+        </Button>
+      )}
+    </div>
+  );
+}
+
+function VerifyForm({ word, onSent }: { word: VerificationWord; onSent: () => void }) {
+  const qc = useQueryClient();
+  const proposeFn = useServerFn(proposeContent);
+  const [gn, setGn] = useState(word.gn);
+  const [es, setEs] = useState("");
+  const [notes, setNotes] = useState("");
+  const send = useMutation({
+    mutationFn: () =>
+      proposeFn({ data: { kind: "nueva", targetWordId: null, gn, es, notes, source: `${SOURCE_LABEL[word.fuente].cite}; verificada por docente` } }),
+    onSuccess: (d) => {
+      if (!d.ok) return toast.error(d.error);
+      toast.success("Enviada al circuito. Ahora la revisa otra persona.");
+      qc.invalidateQueries({ queryKey: ["my-proposals"] });
+      onSent();
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+  return (
+    <div className="mt-3 space-y-3 border-t border-border/60 pt-3">
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div>
+          <label className="text-sm font-medium">En guaraní (corregí si hace falta)</label>
+          <Input value={gn} onChange={(e) => setGn(e.target.value)} maxLength={200} />
+        </div>
+        <div>
+          <label className="text-sm font-medium">Qué significa, en castellano</label>
+          <Input value={es} onChange={(e) => setEs(e.target.value)} maxLength={300} />
+        </div>
+      </div>
+      <div>
+        <label className="text-sm font-medium">Notas (uso, región, si es una forma conjugada)</label>
+        <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} maxLength={1000} rows={2} />
+      </div>
+      <Button variant="cta" size="sm" onClick={() => send.mutate()} disabled={!gn.trim() || !es.trim() || send.isPending}>
+        {send.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        Enviar al circuito
       </Button>
     </div>
   );

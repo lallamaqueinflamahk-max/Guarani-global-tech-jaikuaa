@@ -1,0 +1,4294 @@
+{
+ "descripcion": "Palabras frecuentes en textos reales en guaraní que todavía no tienen respaldo en Jaikuaa. Un docente confirma si están bien escritas y escribe su significado; recién ahí entran al circuito de validación.",
+ "fuentes": {
+  "common-voice": "Mozilla Common Voice, guaraní (frases CC0). Se muestra una frase de ejemplo.",
+  "jojajovai": "Corpus Jojajovai (Grupo PLN, Universidad de la República, LREC 2022): solo la palabra y cuántas veces aparece; no se copian las frases."
+ },
+ "fecha": "2026-10-18",
+ "palabras": [
+  {
+   "gn": "ary",
+   "veces": 46,
+   "fuente": "common-voice",
+   "lectura": "a+ry",
+   "ejemplo": "Ary Pyahúpe."
+  },
+  {
+   "gn": "og̃uahẽ",
+   "veces": 41,
+   "fuente": "common-voice",
+   "lectura": "o+g̃uahẽ",
+   "ejemplo": "Aipóna og̃uahẽ ne aramboty"
+  },
+  {
+   "gn": "ohasa",
+   "veces": 31,
+   "fuente": "common-voice",
+   "lectura": "o+hasa",
+   "ejemplo": "Aníke ohasa ndehegui."
+  },
+  {
+   "gn": "mama",
+   "veces": 30,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Aguyje mama"
+  },
+  {
+   "gn": "pohãnohára",
+   "veces": 29,
+   "fuente": "common-voice",
+   "lectura": "pohãno+hára",
+   "ejemplo": "Ajúniko mombyrýgui añandumívo pohãnohára Duarte-­pe."
+  },
+  {
+   "gn": "upémarõ",
+   "veces": 28,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Onohẽ upémarõ ikyha ha oke upépe."
+  },
+  {
+   "gn": "mamá",
+   "veces": 24,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ahendu sapy'a mamá py ryapu"
+  },
+  {
+   "gn": "ojuhu",
+   "veces": 23,
+   "fuente": "common-voice",
+   "lectura": "o+juhu",
+   "ejemplo": "Ha oipe'ávo ojuhu hyepypegua omimbipáva."
+  },
+  {
+   "gn": "opu'ã",
+   "veces": 21,
+   "fuente": "common-voice",
+   "lectura": "o+pu'ã",
+   "ejemplo": "Ambue ára opu'ã ha ohojeýkuri omba'apohag̃uáicha."
+  },
+  {
+   "gn": "vaicháku",
+   "veces": 21,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ohasávo umi ára ndaje karai Anata vaicháku hekoambuéva."
+  },
+  {
+   "gn": "upérupi",
+   "veces": 19,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ha ohendu hikuái chupe mbohapy chokokue omba'apovahína upérupi."
+  },
+  {
+   "gn": "omano",
+   "veces": 19,
+   "fuente": "common-voice",
+   "lectura": "o+mano",
+   "ejemplo": "Ha ovevemo'ã jave umi siete yryvu ho'a avei omano."
+  },
+  {
+   "gn": "mba'éiko",
+   "veces": 18,
+   "fuente": "common-voice",
+   "lectura": "mba'éi+ko",
+   "ejemplo": "Ha mba'éiko ajapokuaa."
+  },
+  {
+   "gn": "akóinte",
+   "veces": 17,
+   "fuente": "common-voice",
+   "lectura": "a+kóinte",
+   "ejemplo": "Akóinte ahendu"
+  },
+  {
+   "gn": "okẽ",
+   "veces": 16,
+   "fuente": "common-voice",
+   "lectura": "o+kẽ",
+   "ejemplo": "Ag̃uahẽta jave okẽ oĩháme añandu opoi chehegui."
+  },
+  {
+   "gn": "ohendu",
+   "veces": 16,
+   "fuente": "common-voice",
+   "lectura": "o+hendu",
+   "ejemplo": "Ha ohendu hikuái chupe mbohapy chokokue omba'apovahína upérupi."
+  },
+  {
+   "gn": "ae",
+   "veces": 16,
+   "fuente": "common-voice",
+   "lectura": "a+e",
+   "ejemplo": "Ha upéi ae omoinge chupe ikoty'ípe."
+  },
+  {
+   "gn": "maravichu",
+   "veces": 14,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Chéngo ndaikuaái mba'épa pe maravichu oitýva chéve ko karia'y."
+  },
+  {
+   "gn": "osẽkuri",
+   "veces": 14,
+   "fuente": "common-voice",
+   "lectura": "o+sẽkuri",
+   "ejemplo": "Ha okay'u aja hembirekomi ndive, osẽkuri he'i chupe torypaitépe."
+  },
+  {
+   "gn": "ni",
+   "veces": 14,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ni chéve nderejuveiva'ekue cherecha."
+  },
+  {
+   "gn": "angirũ",
+   "veces": 13,
+   "fuente": "common-voice",
+   "lectura": "a+ngirũ",
+   "ejemplo": "Aha peteĩ che angirũ rógape."
+  },
+  {
+   "gn": "og̃uahẽvo",
+   "veces": 13,
+   "fuente": "common-voice",
+   "lectura": "o+g̃uahẽvo",
+   "ejemplo": "Ha jeko og̃uahẽvo peteĩ mbokaja tuja renondépe."
+  },
+  {
+   "gn": "nimbora'e",
+   "veces": 13,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Nimbora'e Chopombe okyhyje kurusu ha vuágui."
+  },
+  {
+   "gn": "upéinte",
+   "veces": 13,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Upéinte ndaipuvéi pe radio."
+  },
+  {
+   "gn": "pohã",
+   "veces": 12,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ha hi'ariete ome'ẽ avei oréve pohã."
+  },
+  {
+   "gn": "kururu",
+   "veces": 11,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Aguapyhápevoi aju he'i kururu oñeme'ẽrõ chupe apyka oguapy hag̃ua"
+  },
+  {
+   "gn": "asaje",
+   "veces": 11,
+   "fuente": "common-voice",
+   "lectura": "a+saje",
+   "ejemplo": "Asaje katu, jekaru mboyve, oĩ terere jopy."
+  },
+  {
+   "gn": "py'ỹinte",
+   "veces": 11,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ha py'ỹinte mokõivéva ohomiva'erã jerokyhápe hamba'e."
+  },
+  {
+   "gn": "uperiremínte",
+   "veces": 11,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Uperiremínte og̃uahẽ oúvo Ceferino."
+  },
+  {
+   "gn": "tesapeha",
+   "veces": 10,
+   "fuente": "common-voice",
+   "lectura": "tesape+ha",
+   "ejemplo": "Ajevývo che róga gotyo cheresaraietevoi ajoguava'erãha tesapeha pyahu."
+  },
+  {
+   "gn": "ka'arupytũ",
+   "veces": 10,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ambue ka'arupytũ ojehujeýkuri upe mba'e."
+  },
+  {
+   "gn": "marandu",
+   "veces": 10,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ambue marandu."
+  },
+  {
+   "gn": "ág̃akatu",
+   "veces": 10,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Cherehénteramo ikatu jagueru, ág̃akatu che ru ndoipotamo'ãi."
+  },
+  {
+   "gn": "ohechakuaa",
+   "veces": 10,
+   "fuente": "common-voice",
+   "lectura": "o+hechakuaa",
+   "ejemplo": "Ha ohechakuaa añetehápe omanohague."
+  },
+  {
+   "gn": "ohendúvo",
+   "veces": 10,
+   "fuente": "common-voice",
+   "lectura": "o+hendúvo",
+   "ejemplo": "Ha'e ohendúvo oñemombe'úva chupe oñepyrũ hasẽ."
+  },
+  {
+   "gn": "oñangareko",
+   "veces": 10,
+   "fuente": "common-voice",
+   "lectura": "o+ñangareko",
+   "ejemplo": "Ha'e oñangareko ogapýre."
+  },
+  {
+   "gn": "rey",
+   "veces": 10,
+   "fuente": "common-voice",
+   "lectura": "re+y",
+   "ejemplo": "Ha'ekuéra ndohechaporãi rey rembiapo."
+  },
+  {
+   "gn": "mba'asy",
+   "veces": 10,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Mba'asy ha ñembyahýi mante ogueru ondive."
+  },
+  {
+   "gn": "kakuaa",
+   "veces": 9,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Aikuaa ko karia'y kakuaa, avevo."
+  },
+  {
+   "gn": "mondaha",
+   "veces": 9,
+   "fuente": "common-voice",
+   "lectura": "monda+ha",
+   "ejemplo": "Ani anga oujeýmba'e peichahágui upe mondaha."
+  },
+  {
+   "gn": "avati",
+   "veces": 9,
+   "fuente": "common-voice",
+   "lectura": "a+vati",
+   "ejemplo": "Avati, mandi'o, jety, kurapepẽ umíva."
+  },
+  {
+   "gn": "jepiveguáicha",
+   "veces": 9,
+   "fuente": "common-voice",
+   "lectura": "jepiveguá+icha",
+   "ejemplo": "Che katu jepiveguáicha cheresaráinte aikóvo."
+  },
+  {
+   "gn": "hembireko",
+   "veces": 9,
+   "fuente": "common-voice",
+   "lectura": "hembire+ko",
+   "ejemplo": "Hembireko ha ita'yramimi oikova'ekue Ysyry Sakãme."
+  },
+  {
+   "gn": "pyharepyte",
+   "veces": 9,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Og̃uahẽvo pyharepyte angirũmi oje'ói ha opa pajemi"
+  },
+  {
+   "gn": "ykére",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "yké+re",
+   "ejemplo": "Akóinte oñemoĩ umi hekoʼasy ha imboriahuvéva ykére."
+  },
+  {
+   "gn": "ojuka",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "o+juka",
+   "ejemplo": "Ani hag̃ua omoperõ térã ojuka chupekuéra"
+  },
+  {
+   "gn": "kesu",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ani re’u ko kesu. Itujáma."
+  },
+  {
+   "gn": "ko'águi",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "ko'á+gui",
+   "ejemplo": "Aníke remýi ko'águi."
+  },
+  {
+   "gn": "ojehuva'ekue",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "o+jehuva'ekue",
+   "ejemplo": "Ayvúko oikókuri ojekuaakuévo upe ojehuva'ekue."
+  },
+  {
+   "gn": "kavure",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "kavu+re",
+   "ejemplo": "Chipa andai ha chipa kavure"
+  },
+  {
+   "gn": "ka'a",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Guasu ho'u ka'a."
+  },
+  {
+   "gn": "hi'ã",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ha chéko hi'ã chéve amanótantema péicha"
+  },
+  {
+   "gn": "onohẽ",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "o+nohẽ",
+   "ejemplo": "Ha onohẽ ichupe upégui."
+  },
+  {
+   "gn": "opuka",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "o+puka",
+   "ejemplo": "Ha’ekuéra opuka che aóre."
+  },
+  {
+   "gn": "okaháre",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "o+kaháre",
+   "ejemplo": "Hetave ojeiko okaháre."
+  },
+  {
+   "gn": "itúvape",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "i+túvape",
+   "ejemplo": "Itúvape g̃uarã"
+  },
+  {
+   "gn": "mitãkaria'y",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Jeko upéicha rupi upe mitãkaria'y ohójepi oandúvo mitãkuñamíme"
+  },
+  {
+   "gn": "oñembosako'i",
+   "veces": 8,
+   "fuente": "common-voice",
+   "lectura": "o+ñembosako'i",
+   "ejemplo": "Mba'éicha oñembosako'i."
+  },
+  {
+   "gn": "saite",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "sa+ite",
+   "ejemplo": "Ahechahechapátavaicha tio Roberto-pe kavaju ra'y saite rapykuéri."
+  },
+  {
+   "gn": "ramói",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ahechamíniko che képe che ramói amyrỹime."
+  },
+  {
+   "gn": "korapýpe",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "korapý+pe",
+   "ejemplo": "Aikéma katu korapýpe."
+  },
+  {
+   "gn": "ka'arúpe",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "ka'arú+pe",
+   "ejemplo": "Akóinte ojehuháicha heta tapicha oĩkuri upe kaʼarúpe."
+  },
+  {
+   "gn": "mborevi",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ambue árape ojejuhu peteĩ tuicháva mborevi ndive."
+  },
+  {
+   "gn": "jahecha",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "ja+hecha",
+   "ejemplo": "Arambépe jahecha kuarahy"
+  },
+  {
+   "gn": "aranduka",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "a+randuka",
+   "ejemplo": "Aranduka Guarani Pytyvõrã."
+  },
+  {
+   "gn": "hi'upyrã",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "hi'u+pyrã",
+   "ejemplo": "Chavuku nomba'apóigui ndoguerekói hi'upyrã"
+  },
+  {
+   "gn": "lo",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Chéniko sapy'amimi aipytyvõ lo mitãme."
+  },
+  {
+   "gn": "kurusu",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Emboguapýke pe kurusu nde rye ári."
+  },
+  {
+   "gn": "ohasávo",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "o+hasávo",
+   "ejemplo": "Ha jasy ohasávo ipoty"
+  },
+  {
+   "gn": "pya'evoi",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ha pya'evoi hasykatu ñepyrũ."
+  },
+  {
+   "gn": "jekoraka'e",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ha upeichaite jekoraka'e ojapo hikuái."
+  },
+  {
+   "gn": "hasẽ",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "htasẽ",
+   "ejemplo": "Ha'e ohendúvo oñemombe'úva chupe oñepyrũ hasẽ."
+  },
+  {
+   "gn": "oñeha'ã",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "o+ñeha'ã",
+   "ejemplo": "Heta jeko oñeha'ã Choperu."
+  },
+  {
+   "gn": "hi'a",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Hi'a hi'upy."
+  },
+  {
+   "gn": "sãmbyhyhára",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "sãmbyhy+hára",
+   "ejemplo": "Imbo'ehao sãmbyhyhára oñeha'ãmbaitékuri oipytyvõ chupe."
+  },
+  {
+   "gn": "ipaíno",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "i+paíno",
+   "ejemplo": "Ipaíno he'i chupe."
+  },
+  {
+   "gn": "jahechápa",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "ja+hechápa",
+   "ejemplo": "Jahechápa ndoipurukái chupe pirapiremi."
+  },
+  {
+   "gn": "ka'aru",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Jatereréta ko ka'aru."
+  },
+  {
+   "gn": "sa'yju",
+   "veces": 7,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Jehe'a pytã ha sa'yju."
+  },
+  {
+   "gn": "rembe'ýpe",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "re+mbe'ýpe",
+   "ejemplo": "'Mbohapy ava oñembyaty peteĩ ysyry rembe'ýpe ha oñomongeta."
+  },
+  {
+   "gn": "ajuhu",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "a+juhu",
+   "ejemplo": "Ag̃uahẽ hendápe ha ajuhu peteĩ kuñakarai mbo'ehára ra'e upe óga jára."
+  },
+  {
+   "gn": "mitãrusu",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ahecha peteĩ mitãrusu ojerokýva."
+  },
+  {
+   "gn": "oĩkuri",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "o+ĩkuri",
+   "ejemplo": "Akóinte ojehuháicha heta tapicha oĩkuri upe kaʼarúpe."
+  },
+  {
+   "gn": "mboriahu",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ani reñembyasy ne mboriahu"
+  },
+  {
+   "gn": "apu'ã",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "a+pu'ã",
+   "ejemplo": "Apu'ã aimehágui"
+  },
+  {
+   "gn": "oipuru",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "o+ipuru",
+   "ejemplo": "Avei oipuru yvyrapã ha hu'y."
+  },
+  {
+   "gn": "jeroky",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Avei purahéi ñeʼẽpoty jeroky ha káso ñemombeʼu."
+  },
+  {
+   "gn": "chae",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Añetetémbora'e upe he'iva'ekue chupekuéra pohãnohára chae."
+  },
+  {
+   "gn": "peichaháguinte",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "pe+ichaháguinte",
+   "ejemplo": "Cháke, peichaháguinte Jasy Jatere ndereraháne."
+  },
+  {
+   "gn": "g̃uaig̃ui",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "G̃uaig̃ui omombe'u."
+  },
+  {
+   "gn": "rohendu",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "ro+hendu",
+   "ejemplo": "Ha ambotývo pe okẽ rohendu mokõive mba'éichapa ombota hikuái okáguio."
+  },
+  {
+   "gn": "ohupi",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "o+hupi",
+   "ejemplo": "Ha ipomi ohupi."
+  },
+  {
+   "gn": "mba'énepa",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "mba'éne+pa",
+   "ejemplo": "Ha nahesakãporãi mba'énepa mama he'iséva oréve."
+  },
+  {
+   "gn": "ohayhu",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "o+hayhu",
+   "ejemplo": "Ha ohayhu añete chupe."
+  },
+  {
+   "gn": "kirirĩháme",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "kirirĩ+há+me",
+   "ejemplo": "Ha ojepy'amongeta kirirĩháme."
+  },
+  {
+   "gn": "og̃uahẽkuri",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "o+g̃uahẽkuri",
+   "ejemplo": "Ha upe riremíma og̃uahẽkuri umi mitã."
+  },
+  {
+   "gn": "herava'ekue",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "herava'e+kue",
+   "ejemplo": "Ha'éniko herava'ekue Kame."
+  },
+  {
+   "gn": "imandu'a",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "i+mandu'a",
+   "ejemplo": "Imandu'a ko'ág̃a peve upe ka'aguy'ípe oikova'ekue."
+  },
+  {
+   "gn": "iñapysẽ",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "iñ+apysẽ",
+   "ejemplo": "Iñapysẽ mbeguekatu koʼẽ."
+  },
+  {
+   "gn": "tyvytýpe",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "tyvytý+pe",
+   "ejemplo": "Jeho tyvytýpe"
+  },
+  {
+   "gn": "ojehúkuri",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "o+jehúkuri",
+   "ejemplo": "Mavave ndoikuaái mba'éichapa ojehúkuri chupe upe mba'e."
+  },
+  {
+   "gn": "ñoha'ãnga",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Mombe'upuku, ñe'ẽpoty ha ñoha'ãnga rupive ikatu ñanohẽ heta mba'e."
+  },
+  {
+   "gn": "ohekávo",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "o+hekávo",
+   "ejemplo": "Ohekávo pohãno."
+  },
+  {
+   "gn": "ahechakuaa",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "a+hechakuaa",
+   "ejemplo": "Roñembojávo portónpe ahechakuaa mama oguapýma mesápe"
+  },
+  {
+   "gn": "tereréniko",
+   "veces": 6,
+   "fuente": "common-voice",
+   "lectura": "tere+réniko",
+   "ejemplo": "Tereréniko ho'u tavaguasuygua ha okaraygua."
+  },
+  {
+   "gn": "ag̃uahẽ",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "a+g̃uahẽ",
+   "ejemplo": "Ag̃uahẽ hendápe ha ajuhu peteĩ kuñakarai mbo'ehára ra'e upe óga jára."
+  },
+  {
+   "gn": "ahendu",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "a+hendu",
+   "ejemplo": "Ahendu sapy'a mamá py ryapu"
+  },
+  {
+   "gn": "kamby",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "ka+mby",
+   "ejemplo": "Aike ñemuhãme, ajogua kamby ha mbujape."
+  },
+  {
+   "gn": "póra",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Aipóva niko póra opytu'uporã'ỹva."
+  },
+  {
+   "gn": "ñepohãno",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ambue ñepohãno."
+  },
+  {
+   "gn": "tyre'ỹ",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "tyre+'ỹ",
+   "ejemplo": "Ani ha'e opyta ha'eño, tyre'ỹ."
+  },
+  {
+   "gn": "renyhẽ",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "re+nyhẽ",
+   "ejemplo": "Animba'éna jasy renyhẽ hína."
+  },
+  {
+   "gn": "rog̃uahẽ",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "ro+g̃uahẽ",
+   "ejemplo": "Aravo vaípe rog̃uahẽ."
+  },
+  {
+   "gn": "paraguaya",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Arpa paraguaya mbopuha."
+  },
+  {
+   "gn": "upémaramo",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Asẽ upémaramo okápe ahuvaitĩ che reindýpe."
+  },
+  {
+   "gn": "mba'evai",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ava reko porãniko heñóiva mba'evai tanimbukuégui"
+  },
+  {
+   "gn": "oñemitỹ",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "o+ñemitỹ",
+   "ejemplo": "Avei hembi'urã oñemitỹ."
+  },
+  {
+   "gn": "omongaru",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "o+mongaru",
+   "ejemplo": "Avei omongaru ha omboao'arã mbohapyvépe."
+  },
+  {
+   "gn": "ra'a",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Chekaigue, che ra'a."
+  },
+  {
+   "gn": "iñangirũ",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "iñ+angirũ",
+   "ejemplo": "Choperu upe aja ohókuri peteĩ iñangirũ rópape."
+  },
+  {
+   "gn": "hi'upy",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "hi'u+py",
+   "ejemplo": "Chopombe omoko'ẽmiva'erã Ña Antonia-pe hi'upy imboriahuete javérõ."
+  },
+  {
+   "gn": "ndaha'eivoi",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "a+ha'eivo",
+   "ejemplo": "Chéngo ndaha'eivoi arupigua"
+  },
+  {
+   "gn": "ehecha",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "e+hecha",
+   "ejemplo": "Ehecha avei."
+  },
+  {
+   "gn": "tapiaite",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "ta+piaite",
+   "ejemplo": "Eñyrõ ha ejerure ñyrõ tapiaite"
+  },
+  {
+   "gn": "ipiári",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "i+piári",
+   "ejemplo": "Ha aikuaávo mávapa vokóikema katu aha ipiári."
+  },
+  {
+   "gn": "omanohague",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "o+manohague",
+   "ejemplo": "Ha ohechakuaa añetehápe omanohague."
+  },
+  {
+   "gn": "osẽvo",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "o+sẽvo",
+   "ejemplo": "He'i osẽvo Petrona."
+  },
+  {
+   "gn": "ita'yrakuéra",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "i+ta'yrakuéra",
+   "ejemplo": "Hembireko ha itaʼyrakuéra ohaʼãróntema imano."
+  },
+  {
+   "gn": "ojeity",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "o+jeity",
+   "ejemplo": "Ho'a, opu'ã ha ojeity nde ári"
+  },
+  {
+   "gn": "imboka",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "i+mboka",
+   "ejemplo": "Imboka reheve ou ojuka hag̃ua Crispín-pe."
+  },
+  {
+   "gn": "itapỹi",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "i+tapỹi",
+   "ejemplo": "Itapỹi ypy rupi oñemitỹ."
+  },
+  {
+   "gn": "jehechakuaa",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Jehechakuaa ohupytýva."
+  },
+  {
+   "gn": "oturuñe'ẽ",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "o+turuñe'ẽ",
+   "ejemplo": "Ka'aguýpe ha ógape aime jave niko oturuñe'ẽ po'i puku chéve."
+  },
+  {
+   "gn": "ndaikatuvéima",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ko'ág̃a ndaikatuvéima rejapo mba'eve"
+  },
+  {
+   "gn": "ka'aguýre",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "ka'aguý+re",
+   "ejemplo": "Ko'ãva oiko ka'aguýre."
+  },
+  {
+   "gn": "maymávante",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Maymávante hesãi ha ijuruhe ijapytepekuéra"
+  },
+  {
+   "gn": "mba'evevoi",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Mba'evevoi nañambyasýi"
+  },
+  {
+   "gn": "vyrorei",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ndaha'éi vyrorei."
+  },
+  {
+   "gn": "poteĩ",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ndaikuaái, poteĩ aravo rupi mba'e."
+  },
+  {
+   "gn": "pokõi",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ndaikytĩmo'ãvéi Luchia'i akãrague omboty peve pokõi ary."
+  },
+  {
+   "gn": "mamáme",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "mamá+me",
+   "ejemplo": "Oguejy imba'yrúgui ha oike omomaitei mamáme."
+  },
+  {
+   "gn": "vare'águi",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "vare'á+gui",
+   "ejemplo": "Omano mboyve che mbarakajami ojuka avei vare'águi angujápe."
+  },
+  {
+   "gn": "ombyaku",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "o+mbyaku",
+   "ejemplo": "Ombyaku ñapy'ῦme kure ñandy ha opoipoi pype mandi'o mbo'ipyre."
+  },
+  {
+   "gn": "jopara",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Opa ko'ã mba'e rire, hi'ãiteva'erã opavavépe ohupyty pe jopara"
+  },
+  {
+   "gn": "oĩva'ekue",
+   "veces": 5,
+   "fuente": "common-voice",
+   "lectura": "o+ĩva'ekue",
+   "ejemplo": "Opaichagua mymba oĩva'ekue ndaje upérupi."
+  },
+  {
+   "gn": "aha'ãrõ",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "a+ha'ãrõ",
+   "ejemplo": "Aha'ãrõ ne mbohovái."
+  },
+  {
+   "gn": "ko'árupi",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Aikuaasemi moõpa ikatu ajogua mba'erovy ko'árupi."
+  },
+  {
+   "gn": "ogyke",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+gyke",
+   "ejemplo": "Ajesakytykyty ha amañajey ha ahechajey ogyke hesakãha."
+  },
+  {
+   "gn": "ro'y",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "ro+'y",
+   "ejemplo": "Ajépa ro'y."
+  },
+  {
+   "gn": "asajekue",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "a+sajekue",
+   "ejemplo": "Ajúta asajekue."
+  },
+  {
+   "gn": "haimete",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "haime+te",
+   "ejemplo": "Amo Ka'aguy Rokẽ guive haimete vapor-kue peve ojepysova'ekue pe yvy."
+  },
+  {
+   "gn": "oha'ãrõ",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+ha'ãrõ",
+   "ejemplo": "Amo mitã'i oha'ãrõ mba'yruguatápe."
+  },
+  {
+   "gn": "mba'eporã",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "mba'epo+rã",
+   "ejemplo": "Amombe'use peẽme mba'eporã ojehúva chéve."
+  },
+  {
+   "gn": "eheja",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "e+heja",
+   "ejemplo": "Anietéke eheja nderehe oñemomba'e"
+  },
+  {
+   "gn": "iñasãi",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "iñ+asãi",
+   "ejemplo": "Arai iñasãi"
+  },
+  {
+   "gn": "arapoteĩ",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "a+rapoteĩ",
+   "ejemplo": "Arapoteĩ ha'e ára ikirirĩvéva."
+  },
+  {
+   "gn": "sakã",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Arapy sakã"
+  },
+  {
+   "gn": "tyvy",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Are aguapy upépe papa tyvy ypýpe"
+  },
+  {
+   "gn": "ahuvaitĩ",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "a+huvaitĩ",
+   "ejemplo": "Asẽ okápe ahuvaitĩ che ryvýpe."
+  },
+  {
+   "gn": "tavarandu",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "ta+varandu",
+   "ejemplo": "Avano'õguigua tavarandu."
+  },
+  {
+   "gn": "ndikatúi",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Avave ijapytepekuéra ndikatúi ombojeʼo pe ñande reko."
+  },
+  {
+   "gn": "oisãmbyhy",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+isãmbyhy",
+   "ejemplo": "Avei oisãmbyhy."
+  },
+  {
+   "gn": "rembiasa",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "re+mbiasa",
+   "ejemplo": "Añetehápe upe guive Francia rembiasa iñambue."
+  },
+  {
+   "gn": "ome'ẽkuri",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+me'ẽkuri",
+   "ejemplo": "Boquerón omeʼẽkuri verapy Estigarribia rérape."
+  },
+  {
+   "gn": "akãrasy",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "a+kãrasy",
+   "ejemplo": "Che akãrasy ha cheresayparei."
+  },
+  {
+   "gn": "péichante",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Che péichante avei."
+  },
+  {
+   "gn": "chemandu'a",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "che+mandu'a",
+   "ejemplo": "Chemandu'a peteĩ jey ag̃uahẽva'ekue hendápe."
+  },
+  {
+   "gn": "chembohovái",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "che+mbohovái",
+   "ejemplo": "Chembohovái"
+  },
+  {
+   "gn": "ñe'ẽpapára",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Chupe g̃uarã ohai ñeʼẽpapára Teodoro S."
+  },
+  {
+   "gn": "eíra",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "e+íra",
+   "ejemplo": "Chákope oĩ papoichagua eíra."
+  },
+  {
+   "gn": "chénte",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Chénte aipota"
+  },
+  {
+   "gn": "jaguarete",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "ja+guarete",
+   "ejemplo": "Chéveramo g̃uarã ahechahague peteĩ jaguarete"
+  },
+  {
+   "gn": "ñu",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Eguatáta ñu rupi."
+  },
+  {
+   "gn": "jepe'a",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Eguerúna jepe'a."
+  },
+  {
+   "gn": "embosa'y",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "e+mbosa'y",
+   "ejemplo": "Embosa'y hovyũme."
+  },
+  {
+   "gn": "ñembohovái",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ere oréve ne maravichu ñembohovái."
+  },
+  {
+   "gn": "estilo",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "e+stilo",
+   "ejemplo": "Estilo iñe'ẽpotýpe."
+  },
+  {
+   "gn": "ohasáva",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+hasáva",
+   "ejemplo": "Festival ohasáva."
+  },
+  {
+   "gn": "rasẽ",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "tasẽ",
+   "ejemplo": "Guasu ra'y rasẽ mante oha'ãjepi."
+  },
+  {
+   "gn": "hembiasakue",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "hembiasa+kue",
+   "ejemplo": "Guyra Jakavere oguereko hembiasakue omombe'úva mba'érepa upéicha pe heko­ve."
+  },
+  {
+   "gn": "itaju",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "i+taju",
+   "ejemplo": "Ha amboja'opáta avei chupe che pirapire ha che itaju."
+  },
+  {
+   "gn": "ohechava'ekue",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+hechava'ekue",
+   "ejemplo": "Ha ka'arupytũvo ojuhúsapy'a upe óga guasu ohechava'ekue iképe."
+  },
+  {
+   "gn": "ndaikatúikuri",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "a+ikatúikur",
+   "ejemplo": "Ha mba'eve ndaikatúikuri ojapo hese."
+  },
+  {
+   "gn": "rohecha",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "ro+hecha",
+   "ejemplo": "Ha mba'evejeýnte rohecha."
+  },
+  {
+   "gn": "ohechásapy'a",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+hechásapy'a",
+   "ejemplo": "Ha ndaje oikéta jave hógape ohechásapy'a upéva."
+  },
+  {
+   "gn": "opoipoi",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+poipoi",
+   "ejemplo": "Ha opoipoi pype mandi'o mbo'ipyre oĩva aripaka ári."
+  },
+  {
+   "gn": "mbo'ipyre",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "mbo'i+pyre",
+   "ejemplo": "Ha opoipoi pype mandi'o mbo'ipyre oĩva aripaka ári."
+  },
+  {
+   "gn": "yryvu",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ha ovevemo'ã jave umi siete yryvu ho'a avei omano."
+  },
+  {
+   "gn": "jerokyhápe",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "jerokyhá+pe",
+   "ejemplo": "Ha py'ỹinte mokõivéva ohomiva'erã jerokyhápe hamba'e."
+  },
+  {
+   "gn": "hemby",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "htemby",
+   "ejemplo": "Ha pévantema hemby."
+  },
+  {
+   "gn": "sapy'arei",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ha sapy'arei ha'e ndoikuaairõ amomendáta hese che rajy."
+  },
+  {
+   "gn": "opiã",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+piã",
+   "ejemplo": "Ha umíva apytépe py'ỹinte ohendúkuri hikuái upe opiã katuíva."
+  },
+  {
+   "gn": "upevarevoi",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ha upevarevoi niko aju hendápe."
+  },
+  {
+   "gn": "oimo'ã'ỹre",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+imo'ã'ỹre",
+   "ejemplo": "Ha'evoi oimo'ã'ỹre."
+  },
+  {
+   "gn": "katuetei",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ha'éniko katuetei ojechaukava'erã maymávape ore rohasavai javérõ"
+  },
+  {
+   "gn": "he",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "He korócho"
+  },
+  {
+   "gn": "ojupe",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+jupe",
+   "ejemplo": "He'íje hikuái ojupe."
+  },
+  {
+   "gn": "he'ímiva'erã",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "he'ímiva'e+rã",
+   "ejemplo": "He'ímiva'erã Choperúpe itúva."
+  },
+  {
+   "gn": "mbokara'ỹi",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "He'ívo upéva oñapytĩma chupe mokõi mbokara'ỹi."
+  },
+  {
+   "gn": "hemikotevẽ",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Hemikotevẽ nde rehe ojuhu"
+  },
+  {
+   "gn": "typycha",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Heta niko ñambaʼapókuri typycha apópe."
+  },
+  {
+   "gn": "oñeme'ẽkuri",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+ñeme'ẽkuri",
+   "ejemplo": "Heta pirapire ndaje oñeme'ẽkuri chupe."
+  },
+  {
+   "gn": "ñemuháme",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "ñemu+há+me",
+   "ejemplo": "Hetaiterei roime roñemuséva ñemuháme"
+  },
+  {
+   "gn": "oñesũ",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+ñesũ",
+   "ejemplo": "Hetaitémaniko oñesũ."
+  },
+  {
+   "gn": "ojuhúkuri",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+juhúkuri",
+   "ejemplo": "Hilario katu ojuhúkuri irundy hymba vaka oñekarãi ha huguypáva."
+  },
+  {
+   "gn": "kojói",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ho'usete la kojói kambýre"
+  },
+  {
+   "gn": "hovyũ",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Hovyũ ha pytãngy."
+  },
+  {
+   "gn": "ojogapo",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+jogapo",
+   "ejemplo": "Hóga rape yke akatúa gotyo ndaje ojogapo karai Crispín."
+  },
+  {
+   "gn": "oñembopupu",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+ñembopupu",
+   "ejemplo": "Ijyképe avei oñembopupu mandi'o ojepurútava tembi'u týraramo."
+  },
+  {
+   "gn": "jaguereko",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "ja+guereko",
+   "ejemplo": "Ikatu hag̃uáicha jaguereko ko tembiporu guaraníme"
+  },
+  {
+   "gn": "ka'aguy'ípe",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "ka'aguy'í+pe",
+   "ejemplo": "Imandu'a ko'ág̃a peve upe ka'aguy'ípe oikova'ekue."
+  },
+  {
+   "gn": "omanókuri",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+manókuri",
+   "ejemplo": "Iména omanókuri Cháko ñorairõme."
+  },
+  {
+   "gn": "itavyrainunga",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "i+tavyrainunga",
+   "ejemplo": "Ipiru ha itavyrainunga opytávo."
+  },
+  {
+   "gn": "upéicharamo",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Iporãite upéicharamo opukavy kañy karai Réi."
+  },
+  {
+   "gn": "mboka",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Iñirũ onohẽ peteĩ mboka"
+  },
+  {
+   "gn": "jahána",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "ja+hána",
+   "ejemplo": "Jahána ag̃ave ñaha'ã vólei mba'e."
+  },
+  {
+   "gn": "jeýta",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Jajuecha jeýta upéi."
+  },
+  {
+   "gn": "sapy'apy'a",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Jepémo upéicha, sapy'apy'a, ojeitýjepi hi'arikuéra umi Pajagua ñaña"
+  },
+  {
+   "gn": "mba'evéma",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Jepérõ upéicha mba'evéma ndaikatúi ojapovévo hese."
+  },
+  {
+   "gn": "nomombe'úi",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+mombe'ú",
+   "ejemplo": "Karai Anata mavavetépe nomombe'úi upe mba'e."
+  },
+  {
+   "gn": "ka'irãime",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "ka'irãi+me",
+   "ejemplo": "Karai komi omoinge chupekuéra ka'irãime."
+  },
+  {
+   "gn": "tesay",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ko mbaʼe omeʼẽ chéve vyʼa oguerúva che resáre tesay."
+  },
+  {
+   "gn": "ndaha'evéima",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Koʼág̃a ndahaʼevéima."
+  },
+  {
+   "gn": "ohohápente",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+hohápente",
+   "ejemplo": "Kuimba'e retia'e hekópe ohohápente ogueraha imbaraka."
+  },
+  {
+   "gn": "horyvéva",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "horyvé+va",
+   "ejemplo": "Maitei horyvéva maymávape."
+  },
+  {
+   "gn": "yképe",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "yké+pe",
+   "ejemplo": "Mbohapyve ijao morotĩ reheve oguapýhina tape yképe."
+  },
+  {
+   "gn": "hogaykeregua",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "hogaykere+gua",
+   "ejemplo": "Mokõive ndaje imandu'ákuri upérõ umi hogaykeregua ñe'ẽnguére."
+  },
+  {
+   "gn": "yvórape",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "yvóra+pe",
+   "ejemplo": "Mávapa pe mbaʼe ipuʼakapáva ko yvórape?"
+  },
+  {
+   "gn": "karugua",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "karu+gua",
+   "ejemplo": "Ndaipóri kuimba'e ohasáva peichapéichante karugua kakuaaite."
+  },
+  {
+   "gn": "pytu'u",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ndaipóri pytuʼu."
+  },
+  {
+   "gn": "oñotỹ",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+ñotỹ",
+   "ejemplo": "Nde rete oñotỹ"
+  },
+  {
+   "gn": "pu'aka",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ndepypéngo oĩ pu'aka ha mbarete"
+  },
+  {
+   "gn": "ojesareko",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+jesareko",
+   "ejemplo": "Ndoipotaivoíkuri ave ojesareko ambue mitãkariaʼýre."
+  },
+  {
+   "gn": "ñembo'eguasu",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ohendu hikuái ñembo'eguasu"
+  },
+  {
+   "gn": "g̃uaig̃uimi",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "g̃uaig̃ui+mi",
+   "ejemplo": "Ohendúvo chupe upe g̃uaig̃uimi oñepyrũ hasẽ"
+  },
+  {
+   "gn": "osẽjey",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+sẽjey",
+   "ejemplo": "Oime'arãngo una semanahaguépe osẽjey."
+  },
+  {
+   "gn": "ojapyhýkuri",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+japyhýkuri",
+   "ejemplo": "Ojapyhýkuri ijaomimi ha oje'ói Itakyrýgui."
+  },
+  {
+   "gn": "tesape",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "tesa+pe",
+   "ejemplo": "Ojevýma tesape"
+  },
+  {
+   "gn": "tekombo'e",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Okahárare ndaipóri tekomboʼe"
+  },
+  {
+   "gn": "oparupirei",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+parupirei",
+   "ejemplo": "Oparupirei ogue­rahákuri chupe oipohánouka hag̃ua."
+  },
+  {
+   "gn": "mba'yrúpe",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "mba'yrú+pe",
+   "ejemplo": "Oporandu mba'e mba'yrúpe ojupiva'erã."
+  },
+  {
+   "gn": "henyhẽva",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "henyhẽ+va",
+   "ejemplo": "Oĩniko peteĩ tava'i iporãitereíva henyhẽva pajégui."
+  },
+  {
+   "gn": "korapy",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "kora+py",
+   "ejemplo": "Peru'i oike korapy ahénope."
+  },
+  {
+   "gn": "rojupi",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "ro+jupi",
+   "ejemplo": "Pya'épeko roguejy ha rojupi ore rymba ári."
+  },
+  {
+   "gn": "guýpe",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "guý+pe",
+   "ejemplo": "Pychãi opytu'u aja peteĩ yvyrajero'a guýpe."
+  },
+  {
+   "gn": "sa'íma",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Sa'íma hemby chéve."
+  },
+  {
+   "gn": "hembýva",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "hembý+va",
+   "ejemplo": "Sapy'areípa ndapeguerekói peteĩ haiha hembýva peẽme."
+  },
+  {
+   "gn": "jehasa",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Tombogue opaite jehasa asy"
+  },
+  {
+   "gn": "ohenói",
+   "veces": 4,
+   "fuente": "common-voice",
+   "lectura": "o+henói",
+   "ejemplo": "Upéi ohenói itúvape."
+  },
+  {
+   "gn": "porãmba",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "'Ndaha'éi añeñandu porãmba"
+  },
+  {
+   "gn": "piro'y",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Aguaiʼy Loma Grandepe opytuʼu piroʼy porã."
+  },
+  {
+   "gn": "rapykuéri",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ahechahechapátavaicha tio Roberto-pe kavaju ra'y saite rapykuéri."
+  },
+  {
+   "gn": "aheka",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+heka",
+   "ejemplo": "Aheka che sapaturã"
+  },
+  {
+   "gn": "mbujape",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "mbuja+pe",
+   "ejemplo": "Aike ñemuhãme, ajogua kamby ha mbujape."
+  },
+  {
+   "gn": "aipóna",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+ipóna",
+   "ejemplo": "Aipóna Pombérore oñemoangirũhaguére."
+  },
+  {
+   "gn": "omyenyhẽ",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "o+myenyhẽ",
+   "ejemplo": "Ajeve omyenyhẽ hikuái okẽ ha ovetã pindo karai kurusúgui."
+  },
+  {
+   "gn": "poyvi",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ajépa iporã ñande poyvi yvate ojajáiva."
+  },
+  {
+   "gn": "alapínta",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+lapínta",
+   "ejemplo": "Alapínta aretémapiko"
+  },
+  {
+   "gn": "oparupiete",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "o+parupiete",
+   "ejemplo": "Ama katu ojasuru ha osyry oparupiete"
+  },
+  {
+   "gn": "oñemyatymói",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "o+ñemyatymói",
+   "ejemplo": "Amba'y, jata'y ha tajy oñemyatymói"
+  },
+  {
+   "gn": "ambohovái",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+mbohovái",
+   "ejemplo": "Ambohovái"
+  },
+  {
+   "gn": "ka'arupytũme",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "ka'arupytũ+me",
+   "ejemplo": "Ambue kaʼarupytũme ojehujeýkuri upe mbaʼe."
+  },
+  {
+   "gn": "rejuhúta",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "re+juhúta",
+   "ejemplo": "Amo rejuhúta"
+  },
+  {
+   "gn": "ijajúrigui",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "ij+ajúrigui",
+   "ejemplo": "Amosãingokáta ijajúrigui opavave ohechatahápe."
+  },
+  {
+   "gn": "regueraha",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "re+gueraha",
+   "ejemplo": "Ani regueraha ao ky’a."
+  },
+  {
+   "gn": "jaheja",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "ja+heja",
+   "ejemplo": "Anietéke chupekuéra jaheja ha'eñomi"
+  },
+  {
+   "gn": "ñamboyke",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "ña+mboyke",
+   "ejemplo": "Anive ñamboyke jajahéi ha jaʼapoʼi chupekuéra."
+  },
+  {
+   "gn": "aníkena",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+níkena",
+   "ejemplo": "Aníkena eheja oiko ndehegui arayvoty yvotyʼỹre."
+  },
+  {
+   "gn": "apañuái",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+pañuái",
+   "ejemplo": "Apañuái."
+  },
+  {
+   "gn": "sushi",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Apensahína sushi rehe."
+  },
+  {
+   "gn": "rakãre",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "rakã+re",
+   "ejemplo": "Apepu rakãre."
+  },
+  {
+   "gn": "aponde'a",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+ponde'a",
+   "ejemplo": "Aponde'a imba'éva."
+  },
+  {
+   "gn": "arahaku",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+rahaku",
+   "ejemplo": "Arahaku térã roʼýgui."
+  },
+  {
+   "gn": "oñopehẽnguéva",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "o+ñopehẽnguéva",
+   "ejemplo": "Arapokõindy Marangatu jave opavave oñopehẽnguéva oñombyaty túva ha sy rógape"
+  },
+  {
+   "gn": "aratiri",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+ratiri",
+   "ejemplo": "Aravera ha aratiri."
+  },
+  {
+   "gn": "arriéro",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+rriéro",
+   "ejemplo": "Arriéro jurumeme kaseróla."
+  },
+  {
+   "gn": "asẽta",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+sẽta",
+   "ejemplo": "Asẽta aha mombyry ko'águi."
+  },
+  {
+   "gn": "mburuvicha",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Avañeʼẽ mburuvicha guasu."
+  },
+  {
+   "gn": "yvyrapã",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Avei oipuru yvyrapã ha hu'y."
+  },
+  {
+   "gn": "hu'y",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Avei oipuru yvyrapã ha hu'y."
+  },
+  {
+   "gn": "ndoguerekói",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "o+guerekó",
+   "ejemplo": "Chavuku nomba'apóigui ndoguerekói hi'upyrã"
+  },
+  {
+   "gn": "hevéva",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "hevé+va",
+   "ejemplo": "Che chipa la hevéva."
+  },
+  {
+   "gn": "héva",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "hé+va",
+   "ejemplo": "Che ha’use chipa héva."
+  },
+  {
+   "gn": "omombe'úkuri",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "o+mombe'úkuri",
+   "ejemplo": "Che jarýi omombe'úkuri chéve chemitãrõguare"
+  },
+  {
+   "gn": "oñembosako'íma",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "o+ñembosako'íma",
+   "ejemplo": "Che rapichakuéra oñembosako'íma"
+  },
+  {
+   "gn": "vakara'y",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Che ru chemondova'ekue peteĩ vakara'y piári."
+  },
+  {
+   "gn": "piári",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Che ru chemondova'ekue peteĩ vakara'y piári."
+  },
+  {
+   "gn": "cheka'aru",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "che+ka'aru",
+   "ejemplo": "Cheka'aru porã avei."
+  },
+  {
+   "gn": "okirirĩ",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "o+kirirĩ",
+   "ejemplo": "Choperu okirirĩ sapy'ami."
+  },
+  {
+   "gn": "rogaykereguápe",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "ro+gaykereguápe",
+   "ejemplo": "Chéko ajeruresemive ko'ã nde rogaykereguápe"
+  },
+  {
+   "gn": "narãha",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "narã+ha",
+   "ejemplo": "Chéngo pe angete aime'akue amo yvate narãha ári."
+  },
+  {
+   "gn": "chéniko",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "chéni+ko",
+   "ejemplo": "Chéniko añemoirũ karai Pyharére ha upévare chepo'a."
+  },
+  {
+   "gn": "amyrỹi",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "a+myrỹi",
+   "ejemplo": "Chéve niko chepytyvõjepi ne ramói amyrỹi."
+  },
+  {
+   "gn": "pohãnohárape",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "pohãnohára+pe",
+   "ejemplo": "Ehenói pohãnohárape ha tou nde rendápe, nde rógape, neandu hag̃ua."
+  },
+  {
+   "gn": "eiko",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "e+iko",
+   "ejemplo": "Eiko joayhu ha vy'apavẽme."
+  },
+  {
+   "gn": "ejeity",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "e+jeity",
+   "ejemplo": "Eipotárõ ejeity yvýre ha epuka."
+  },
+  {
+   "gn": "guampa",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ejoheimína la guampa."
+  },
+  {
+   "gn": "eñangarekóke",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "e+ñangarekóke",
+   "ejemplo": "Eñangarekóke che rembiayhukuérare"
+  },
+  {
+   "gn": "yno'õme",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "yno'õ+me",
+   "ejemplo": "Guasu ra'y katu oikejeýkuri yno'õme."
+  },
+  {
+   "gn": "vokóikema",
+   "veces": 3,
+   "fuente": "common-voice",
+   "lectura": "",
+   "ejemplo": "Ha aikuaávo mávapa vokóikema katu aha ipiári."
+  },
+  {
+   "gn": "orekóva",
+   "veces": 1973,
+   "fuente": "jojajovai",
+   "lectura": "o + rekóva"
+  },
+  {
+   "gn": "pñs",
+   "veces": 1011,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "ha'éva",
+   "veces": 872,
+   "fuente": "jojajovai",
+   "lectura": "ha'é + va"
+  },
+  {
+   "gn": "omoañete",
+   "veces": 693,
+   "fuente": "jojajovai",
+   "lectura": "o + moañete"
+  },
+  {
+   "gn": "ko'ágã",
+   "veces": 471,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "omotenonde",
+   "veces": 329,
+   "fuente": "jojajovai",
+   "lectura": "o + motenonde"
+  },
+  {
+   "gn": "ome'ẽva",
+   "veces": 302,
+   "fuente": "jojajovai",
+   "lectura": "o + me'ẽva"
+  },
+  {
+   "gn": "oipytyvõ",
+   "veces": 292,
+   "fuente": "jojajovai",
+   "lectura": "o + ipytyvõ"
+  },
+  {
+   "gn": "iñe'ẽ",
+   "veces": 270,
+   "fuente": "jojajovai",
+   "lectura": "iñ + e'ẽ"
+  },
+  {
+   "gn": "ohesa'ỹijo",
+   "veces": 262,
+   "fuente": "jojajovai",
+   "lectura": "o + hesa'ỹijo"
+  },
+  {
+   "gn": "omotenondéva",
+   "veces": 233,
+   "fuente": "jojajovai",
+   "lectura": "o + motenondéva"
+  },
+  {
+   "gn": "mburuvichakuéra",
+   "veces": 231,
+   "fuente": "jojajovai",
+   "lectura": "mburuvicha + kuéra"
+  },
+  {
+   "gn": "jepénte",
+   "veces": 226,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "ombosako'i",
+   "veces": 222,
+   "fuente": "jojajovai",
+   "lectura": "o + mbosako'i"
+  },
+  {
+   "gn": "arýpe",
+   "veces": 222,
+   "fuente": "jojajovai",
+   "lectura": "a + rýpe"
+  },
+  {
+   "gn": "tendáre",
+   "veces": 220,
+   "fuente": "jojajovai",
+   "lectura": "tendá + re"
+  },
+  {
+   "gn": "távape",
+   "veces": 215,
+   "fuente": "jojajovai",
+   "lectura": "táva + pe"
+  },
+  {
+   "gn": "omoherakuã",
+   "veces": 212,
+   "fuente": "jojajovai",
+   "lectura": "o + moherakuã"
+  },
+  {
+   "gn": "kolo'o",
+   "veces": 212,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oimeháme",
+   "veces": 212,
+   "fuente": "jojajovai",
+   "lectura": "o + imeháme"
+  },
+  {
+   "gn": "rérape",
+   "veces": 210,
+   "fuente": "jojajovai",
+   "lectura": "réra + pe"
+  },
+  {
+   "gn": "oipytyvõva",
+   "veces": 208,
+   "fuente": "jojajovai",
+   "lectura": "o + ipytyvõva"
+  },
+  {
+   "gn": "omomarandu",
+   "veces": 195,
+   "fuente": "jojajovai",
+   "lectura": "o + momarandu"
+  },
+  {
+   "gn": "yvy'ape",
+   "veces": 191,
+   "fuente": "jojajovai",
+   "lectura": "yvy'a + pe"
+  },
+  {
+   "gn": "ha'eha",
+   "veces": 189,
+   "fuente": "jojajovai",
+   "lectura": "ha'e + ha"
+  },
+  {
+   "gn": "orekóvo",
+   "veces": 184,
+   "fuente": "jojajovai",
+   "lectura": "o + rekóvo"
+  },
+  {
+   "gn": "oñomongeta",
+   "veces": 183,
+   "fuente": "jojajovai",
+   "lectura": "o + ñomongeta"
+  },
+  {
+   "gn": "he'ívo",
+   "veces": 181,
+   "fuente": "jojajovai",
+   "lectura": "he'í + vo"
+  },
+  {
+   "gn": "omopyendáva",
+   "veces": 179,
+   "fuente": "jojajovai",
+   "lectura": "o + mopyendáva"
+  },
+  {
+   "gn": "ñe'ẽasa",
+   "veces": 171,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oñombyaty",
+   "veces": 169,
+   "fuente": "jojajovai",
+   "lectura": "o + ñombyaty"
+  },
+  {
+   "gn": "ome'ẽvo",
+   "veces": 168,
+   "fuente": "jojajovai",
+   "lectura": "o + me'ẽvo"
+  },
+  {
+   "gn": "tavaguasúpe",
+   "veces": 161,
+   "fuente": "jojajovai",
+   "lectura": "ta + vaguasúpe"
+  },
+  {
+   "gn": "omoherakuãva",
+   "veces": 151,
+   "fuente": "jojajovai",
+   "lectura": "o + moherakuãva"
+  },
+  {
+   "gn": "ojerurévo",
+   "veces": 150,
+   "fuente": "jojajovai",
+   "lectura": "o + jerurévo"
+  },
+  {
+   "gn": "rógape",
+   "veces": 150,
+   "fuente": "jojajovai",
+   "lectura": "óga + pe"
+  },
+  {
+   "gn": "oñembyaty",
+   "veces": 149,
+   "fuente": "jojajovai",
+   "lectura": "o + ñembyaty"
+  },
+  {
+   "gn": "ohóvape",
+   "veces": 149,
+   "fuente": "jojajovai",
+   "lectura": "o + hóvape"
+  },
+  {
+   "gn": "ojuhúva",
+   "veces": 144,
+   "fuente": "jojajovai",
+   "lectura": "o + juhúva"
+  },
+  {
+   "gn": "ha'eháicha",
+   "veces": 141,
+   "fuente": "jojajovai",
+   "lectura": "ha'ehá + icha"
+  },
+  {
+   "gn": "pyharevépe",
+   "veces": 131,
+   "fuente": "jojajovai",
+   "lectura": "pyharevé + pe"
+  },
+  {
+   "gn": "oñemba'apo",
+   "veces": 129,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemba'apo"
+  },
+  {
+   "gn": "ombosako'íva",
+   "veces": 128,
+   "fuente": "jojajovai",
+   "lectura": "o + mbosako'íva"
+  },
+  {
+   "gn": "omoañetévo",
+   "veces": 125,
+   "fuente": "jojajovai",
+   "lectura": "o + moañetévo"
+  },
+  {
+   "gn": "oñemotenondéva",
+   "veces": 123,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemotenondéva"
+  },
+  {
+   "gn": "oikévo",
+   "veces": 120,
+   "fuente": "jojajovai",
+   "lectura": "o + ikévo"
+  },
+  {
+   "gn": "sambyhyhára",
+   "veces": 119,
+   "fuente": "jojajovai",
+   "lectura": "sambyhy + hára"
+  },
+  {
+   "gn": "tendápe",
+   "veces": 117,
+   "fuente": "jojajovai",
+   "lectura": "tendá + pe"
+  },
+  {
+   "gn": "moakãharapavẽ",
+   "veces": 117,
+   "fuente": "jojajovai",
+   "lectura": "moakãhara + pavẽ"
+  },
+  {
+   "gn": "oguenohẽ",
+   "veces": 114,
+   "fuente": "jojajovai",
+   "lectura": "o + guenohẽ"
+  },
+  {
+   "gn": "rehehápe",
+   "veces": 111,
+   "fuente": "jojajovai",
+   "lectura": "re + hehápe"
+  },
+  {
+   "gn": "omopyenda",
+   "veces": 109,
+   "fuente": "jojajovai",
+   "lectura": "o + mopyenda"
+  },
+  {
+   "gn": "ñemomorã",
+   "veces": 109,
+   "fuente": "jojajovai",
+   "lectura": "ñemomo + rã"
+  },
+  {
+   "gn": "anitei",
+   "veces": 106,
+   "fuente": "jojajovai",
+   "lectura": "a + nitei"
+  },
+  {
+   "gn": "omboty",
+   "veces": 105,
+   "fuente": "jojajovai",
+   "lectura": "o + mboty"
+  },
+  {
+   "gn": "upéichante",
+   "veces": 105,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "omokyre'ỹ",
+   "veces": 104,
+   "fuente": "jojajovai",
+   "lectura": "o + mokyre'ỹ"
+  },
+  {
+   "gn": "omohendáva",
+   "veces": 104,
+   "fuente": "jojajovai",
+   "lectura": "o + mohendáva"
+  },
+  {
+   "gn": "omoakã",
+   "veces": 103,
+   "fuente": "jojajovai",
+   "lectura": "o + moakã"
+  },
+  {
+   "gn": "oiporavo",
+   "veces": 102,
+   "fuente": "jojajovai",
+   "lectura": "o + iporavo"
+  },
+  {
+   "gn": "joajúpe",
+   "veces": 100,
+   "fuente": "jojajovai",
+   "lectura": "joajú + pe"
+  },
+  {
+   "gn": "oisãmbyhýva",
+   "veces": 100,
+   "fuente": "jojajovai",
+   "lectura": "o + isãmbyhýva"
+  },
+  {
+   "gn": "omboguatáva",
+   "veces": 99,
+   "fuente": "jojajovai",
+   "lectura": "o + mboguatáva"
+  },
+  {
+   "gn": "oñepyrũvo",
+   "veces": 99,
+   "fuente": "jojajovai",
+   "lectura": "o + ñepyrũvo"
+  },
+  {
+   "gn": "mba'apoharakuéra",
+   "veces": 98,
+   "fuente": "jojajovai",
+   "lectura": "mba'apohara + kuéra"
+  },
+  {
+   "gn": "oipyhýva",
+   "veces": 97,
+   "fuente": "jojajovai",
+   "lectura": "o + ipyhýva"
+  },
+  {
+   "gn": "rape'apo",
+   "veces": 95,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oñeha'ãva",
+   "veces": 94,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeha'ãva"
+  },
+  {
+   "gn": "pya'ete",
+   "veces": 92,
+   "fuente": "jojajovai",
+   "lectura": "pya'e + te"
+  },
+  {
+   "gn": "oñeme'ẽ",
+   "veces": 92,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeme'ẽ"
+  },
+  {
+   "gn": "oguerovia",
+   "veces": 90,
+   "fuente": "jojajovai",
+   "lectura": "o + guerovia"
+  },
+  {
+   "gn": "oñemoañete",
+   "veces": 90,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemoañete"
+  },
+  {
+   "gn": "omoakãva",
+   "veces": 90,
+   "fuente": "jojajovai",
+   "lectura": "o + moakãva"
+  },
+  {
+   "gn": "omyakã",
+   "veces": 89,
+   "fuente": "jojajovai",
+   "lectura": "o + myakã"
+  },
+  {
+   "gn": "ohasávape",
+   "veces": 89,
+   "fuente": "jojajovai",
+   "lectura": "o + hasávape"
+  },
+  {
+   "gn": "ohekáva",
+   "veces": 88,
+   "fuente": "jojajovai",
+   "lectura": "o + hekáva"
+  },
+  {
+   "gn": "ñeñongatu",
+   "veces": 88,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "mba'épe",
+   "veces": 87,
+   "fuente": "jojajovai",
+   "lectura": "mba'é + pe"
+  },
+  {
+   "gn": "oñomongetávo",
+   "veces": 86,
+   "fuente": "jojajovai",
+   "lectura": "o + ñomongetávo"
+  },
+  {
+   "gn": "omomýiva",
+   "veces": 86,
+   "fuente": "jojajovai",
+   "lectura": "o + momýiva"
+  },
+  {
+   "gn": "ombohape",
+   "veces": 84,
+   "fuente": "jojajovai",
+   "lectura": "o + mbohape"
+  },
+  {
+   "gn": "iñe'ẽngúva",
+   "veces": 84,
+   "fuente": "jojajovai",
+   "lectura": "iñ + e'ẽngúva"
+  },
+  {
+   "gn": "ojeguerekóva",
+   "veces": 83,
+   "fuente": "jojajovai",
+   "lectura": "o + jeguerekóva"
+  },
+  {
+   "gn": "ohaíva",
+   "veces": 82,
+   "fuente": "jojajovai",
+   "lectura": "o + haíva"
+  },
+  {
+   "gn": "choguy",
+   "veces": 82,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oñeikotevẽva",
+   "veces": 81,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeikotevẽva"
+  },
+  {
+   "gn": "ojeipysóva",
+   "veces": 81,
+   "fuente": "jojajovai",
+   "lectura": "o + jeipysóva"
+  },
+  {
+   "gn": "arapoteĩme",
+   "veces": 81,
+   "fuente": "jojajovai",
+   "lectura": "a + rapoteĩme"
+  },
+  {
+   "gn": "yasyretã",
+   "veces": 80,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oipysóva",
+   "veces": 80,
+   "fuente": "jojajovai",
+   "lectura": "o + ipysóva"
+  },
+  {
+   "gn": "otaky",
+   "veces": 80,
+   "fuente": "jojajovai",
+   "lectura": "o + taky"
+  },
+  {
+   "gn": "ohenóiva",
+   "veces": 76,
+   "fuente": "jojajovai",
+   "lectura": "o + henóiva"
+  },
+  {
+   "gn": "oasegura",
+   "veces": 75,
+   "fuente": "jojajovai",
+   "lectura": "o + asegura"
+  },
+  {
+   "gn": "oñemombarete",
+   "veces": 75,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemombarete"
+  },
+  {
+   "gn": "oñemomba'e",
+   "veces": 74,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemomba'e"
+  },
+  {
+   "gn": "ombotovévo",
+   "veces": 73,
+   "fuente": "jojajovai",
+   "lectura": "o + mbotovévo"
+  },
+  {
+   "gn": "oñeme'ẽva",
+   "veces": 73,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeme'ẽva"
+  },
+  {
+   "gn": "poguýpe",
+   "veces": 73,
+   "fuente": "jojajovai",
+   "lectura": "poguý + pe"
+  },
+  {
+   "gn": "ñemoasãi",
+   "veces": 73,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "tembiapópe",
+   "veces": 72,
+   "fuente": "jojajovai",
+   "lectura": "tembiapó + pe"
+  },
+  {
+   "gn": "oñehesa'ỹijo",
+   "veces": 72,
+   "fuente": "jojajovai",
+   "lectura": "o + ñehesa'ỹijo"
+  },
+  {
+   "gn": "ohesa'ỹijóta",
+   "veces": 70,
+   "fuente": "jojajovai",
+   "lectura": "o + hesa'ỹijóta"
+  },
+  {
+   "gn": "jehekombo'e",
+   "veces": 70,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oikove",
+   "veces": 69,
+   "fuente": "jojajovai",
+   "lectura": "o + ikove"
+  },
+  {
+   "gn": "ikatúta",
+   "veces": 68,
+   "fuente": "jojajovai",
+   "lectura": "i + katúta"
+  },
+  {
+   "gn": "hesekuéra",
+   "veces": 67,
+   "fuente": "jojajovai",
+   "lectura": "hese + kuéra"
+  },
+  {
+   "gn": "oipytyvõvo",
+   "veces": 67,
+   "fuente": "jojajovai",
+   "lectura": "o + ipytyvõvo"
+  },
+  {
+   "gn": "ohapejokóvo",
+   "veces": 66,
+   "fuente": "jojajovai",
+   "lectura": "o + hapejokóvo"
+  },
+  {
+   "gn": "ombyasy",
+   "veces": 66,
+   "fuente": "jojajovai",
+   "lectura": "o + mbyasy"
+  },
+  {
+   "gn": "oñemoherakuã",
+   "veces": 66,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemoherakuã"
+  },
+  {
+   "gn": "tuichaiterei",
+   "veces": 66,
+   "fuente": "jojajovai",
+   "lectura": "tuicha + iterei"
+  },
+  {
+   "gn": "arapópe",
+   "veces": 66,
+   "fuente": "jojajovai",
+   "lectura": "a + rapópe"
+  },
+  {
+   "gn": "ojapóvo",
+   "veces": 65,
+   "fuente": "jojajovai",
+   "lectura": "o + japóvo"
+  },
+  {
+   "gn": "omohendávo",
+   "veces": 65,
+   "fuente": "jojajovai",
+   "lectura": "o + mohendávo"
+  },
+  {
+   "gn": "omombarete",
+   "veces": 64,
+   "fuente": "jojajovai",
+   "lectura": "o + mombarete"
+  },
+  {
+   "gn": "ombohasáva",
+   "veces": 64,
+   "fuente": "jojajovai",
+   "lectura": "o + mbohasáva"
+  },
+  {
+   "gn": "oñembyatýva",
+   "veces": 64,
+   "fuente": "jojajovai",
+   "lectura": "o + ñembyatýva"
+  },
+  {
+   "gn": "omohu'ã",
+   "veces": 64,
+   "fuente": "jojajovai",
+   "lectura": "o + mohu'ã"
+  },
+  {
+   "gn": "oikuave'ẽ",
+   "veces": 63,
+   "fuente": "jojajovai",
+   "lectura": "o + ikuave'ẽ"
+  },
+  {
+   "gn": "ojoajuhápe",
+   "veces": 63,
+   "fuente": "jojajovai",
+   "lectura": "o + joajuhápe"
+  },
+  {
+   "gn": "oguahẽvo",
+   "veces": 62,
+   "fuente": "jojajovai",
+   "lectura": "o + guahẽvo"
+  },
+  {
+   "gn": "oipyhy",
+   "veces": 62,
+   "fuente": "jojajovai",
+   "lectura": "o + ipyhy"
+  },
+  {
+   "gn": "omotenondévo",
+   "veces": 62,
+   "fuente": "jojajovai",
+   "lectura": "o + motenondévo"
+  },
+  {
+   "gn": "ombyatýva",
+   "veces": 62,
+   "fuente": "jojajovai",
+   "lectura": "o + mbyatýva"
+  },
+  {
+   "gn": "oúvo",
+   "veces": 62,
+   "fuente": "jojajovai",
+   "lectura": "o + úvo"
+  },
+  {
+   "gn": "tavusúpe",
+   "veces": 62,
+   "fuente": "jojajovai",
+   "lectura": "ta + vusúpe"
+  },
+  {
+   "gn": "ojeipyso",
+   "veces": 61,
+   "fuente": "jojajovai",
+   "lectura": "o + jeipyso"
+  },
+  {
+   "gn": "oiméma",
+   "veces": 61,
+   "fuente": "jojajovai",
+   "lectura": "o + iméma"
+  },
+  {
+   "gn": "ohapejoko",
+   "veces": 61,
+   "fuente": "jojajovai",
+   "lectura": "o + hapejoko"
+  },
+  {
+   "gn": "hekoitépe",
+   "veces": 61,
+   "fuente": "jojajovai",
+   "lectura": "hekoité + pe"
+  },
+  {
+   "gn": "ikatuha",
+   "veces": 60,
+   "fuente": "jojajovai",
+   "lectura": "i + katuha"
+  },
+  {
+   "gn": "arapokõindýpe",
+   "veces": 60,
+   "fuente": "jojajovai",
+   "lectura": "a + rapokõindýpe"
+  },
+  {
+   "gn": "oñemoarandu",
+   "veces": 59,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemoarandu"
+  },
+  {
+   "gn": "ararundýpe",
+   "veces": 59,
+   "fuente": "jojajovai",
+   "lectura": "a + rarundýpe"
+  },
+  {
+   "gn": "oguahẽva",
+   "veces": 58,
+   "fuente": "jojajovai",
+   "lectura": "o + guahẽva"
+  },
+  {
+   "gn": "ohupytývo",
+   "veces": 58,
+   "fuente": "jojajovai",
+   "lectura": "o + hupytývo"
+  },
+  {
+   "gn": "oñe'ẽta",
+   "veces": 58,
+   "fuente": "jojajovai",
+   "lectura": "o + ñe'ẽta"
+  },
+  {
+   "gn": "oykeko",
+   "veces": 58,
+   "fuente": "jojajovai",
+   "lectura": "o + ykeko"
+  },
+  {
+   "gn": "itúva",
+   "veces": 57,
+   "fuente": "jojajovai",
+   "lectura": "i + túva"
+  },
+  {
+   "gn": "iñirũnguéra",
+   "veces": 56,
+   "fuente": "jojajovai",
+   "lectura": "iñ + irũnguéra"
+  },
+  {
+   "gn": "ýrõ",
+   "veces": 56,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "ohejáva",
+   "veces": 56,
+   "fuente": "jojajovai",
+   "lectura": "o + hejáva"
+  },
+  {
+   "gn": "reheguápe",
+   "veces": 56,
+   "fuente": "jojajovai",
+   "lectura": "re + heguápe"
+  },
+  {
+   "gn": "omoherakuãvo",
+   "veces": 55,
+   "fuente": "jojajovai",
+   "lectura": "o + moherakuãvo"
+  },
+  {
+   "gn": "imandu'ávo",
+   "veces": 55,
+   "fuente": "jojajovai",
+   "lectura": "i + mandu'ávo"
+  },
+  {
+   "gn": "ojegueromandu'a",
+   "veces": 55,
+   "fuente": "jojajovai",
+   "lectura": "o + jegueromandu'a"
+  },
+  {
+   "gn": "tembipurupyahu",
+   "veces": 55,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oñeikotevẽ",
+   "veces": 54,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeikotevẽ"
+  },
+  {
+   "gn": "tavayguakuéra",
+   "veces": 54,
+   "fuente": "jojajovai",
+   "lectura": "ta + vayguakuéra"
+  },
+  {
+   "gn": "oñeñangareko",
+   "veces": 54,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeñangareko"
+  },
+  {
+   "gn": "ikatúha",
+   "veces": 53,
+   "fuente": "jojajovai",
+   "lectura": "i + katúha"
+  },
+  {
+   "gn": "oñehenói",
+   "veces": 53,
+   "fuente": "jojajovai",
+   "lectura": "o + ñehenói"
+  },
+  {
+   "gn": "oñeñomongeta",
+   "veces": 53,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeñomongeta"
+  },
+  {
+   "gn": "jehupytyrã",
+   "veces": 53,
+   "fuente": "jojajovai",
+   "lectura": "jehupyty + rã"
+  },
+  {
+   "gn": "mbo'ehaovusúpe",
+   "veces": 53,
+   "fuente": "jojajovai",
+   "lectura": "mbo'ehaovusú + pe"
+  },
+  {
+   "gn": "háicha",
+   "veces": 53,
+   "fuente": "jojajovai",
+   "lectura": "há + icha"
+  },
+  {
+   "gn": "oñemopu'ã",
+   "veces": 52,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemopu'ã"
+  },
+  {
+   "gn": "ndikatúiva",
+   "veces": 52,
+   "fuente": "jojajovai",
+   "lectura": "ndikatúi + va"
+  },
+  {
+   "gn": "opaga",
+   "veces": 51,
+   "fuente": "jojajovai",
+   "lectura": "o + paga"
+  },
+  {
+   "gn": "opavavépe",
+   "veces": 51,
+   "fuente": "jojajovai",
+   "lectura": "o + pavavépe"
+  },
+  {
+   "gn": "temimbo'ekuéra",
+   "veces": 51,
+   "fuente": "jojajovai",
+   "lectura": "temimbo'e + kuéra"
+  },
+  {
+   "gn": "aty'i",
+   "veces": 51,
+   "fuente": "jojajovai",
+   "lectura": "a + ty'i"
+  },
+  {
+   "gn": "oñembohape",
+   "veces": 51,
+   "fuente": "jojajovai",
+   "lectura": "o + ñembohape"
+  },
+  {
+   "gn": "oipyso",
+   "veces": 50,
+   "fuente": "jojajovai",
+   "lectura": "o + ipyso"
+  },
+  {
+   "gn": "oikeséva",
+   "veces": 50,
+   "fuente": "jojajovai",
+   "lectura": "o + ikeséva"
+  },
+  {
+   "gn": "ombotývo",
+   "veces": 50,
+   "fuente": "jojajovai",
+   "lectura": "o + mbotývo"
+  },
+  {
+   "gn": "mo'ãi",
+   "veces": 50,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oguerohory",
+   "veces": 50,
+   "fuente": "jojajovai",
+   "lectura": "o + guerohory"
+  },
+  {
+   "gn": "oñepyrũta",
+   "veces": 50,
+   "fuente": "jojajovai",
+   "lectura": "o + ñepyrũta"
+  },
+  {
+   "gn": "mba'eha",
+   "veces": 50,
+   "fuente": "jojajovai",
+   "lectura": "mba'e + ha"
+  },
+  {
+   "gn": "oimévo",
+   "veces": 49,
+   "fuente": "jojajovai",
+   "lectura": "o + imévo"
+  },
+  {
+   "gn": "ohura",
+   "veces": 49,
+   "fuente": "jojajovai",
+   "lectura": "o + hura"
+  },
+  {
+   "gn": "ohapejokóva",
+   "veces": 49,
+   "fuente": "jojajovai",
+   "lectura": "o + hapejokóva"
+  },
+  {
+   "gn": "araapýpe",
+   "veces": 49,
+   "fuente": "jojajovai",
+   "lectura": "a + raapýpe"
+  },
+  {
+   "gn": "oipysóvo",
+   "veces": 48,
+   "fuente": "jojajovai",
+   "lectura": "o + ipysóvo"
+  },
+  {
+   "gn": "ombohováivo",
+   "veces": 48,
+   "fuente": "jojajovai",
+   "lectura": "o + mbohováivo"
+  },
+  {
+   "gn": "ojoguáva",
+   "veces": 48,
+   "fuente": "jojajovai",
+   "lectura": "o + joguáva"
+  },
+  {
+   "gn": "oñemohu'ã",
+   "veces": 48,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemohu'ã"
+  },
+  {
+   "gn": "oñemoherakuãva",
+   "veces": 48,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemoherakuãva"
+  },
+  {
+   "gn": "oñemotenondévo",
+   "veces": 48,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemotenondévo"
+  },
+  {
+   "gn": "oikuave'ẽva",
+   "veces": 48,
+   "fuente": "jojajovai",
+   "lectura": "o + ikuave'ẽva"
+  },
+  {
+   "gn": "itaipúpe",
+   "veces": 47,
+   "fuente": "jojajovai",
+   "lectura": "i + taipúpe"
+  },
+  {
+   "gn": "hembiapópe",
+   "veces": 47,
+   "fuente": "jojajovai",
+   "lectura": "hembiapó + pe"
+  },
+  {
+   "gn": "oñemboyke",
+   "veces": 47,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemboyke"
+  },
+  {
+   "gn": "peguápe",
+   "veces": 47,
+   "fuente": "jojajovai",
+   "lectura": "pe + guápe"
+  },
+  {
+   "gn": "paranáme",
+   "veces": 46,
+   "fuente": "jojajovai",
+   "lectura": "paraná + me"
+  },
+  {
+   "gn": "oĩháme",
+   "veces": 46,
+   "fuente": "jojajovai",
+   "lectura": "o + ĩháme"
+  },
+  {
+   "gn": "ogana",
+   "veces": 46,
+   "fuente": "jojajovai",
+   "lectura": "o + gana"
+  },
+  {
+   "gn": "omondóva",
+   "veces": 46,
+   "fuente": "jojajovai",
+   "lectura": "o + mondóva"
+  },
+  {
+   "gn": "ogueromandu'a",
+   "veces": 46,
+   "fuente": "jojajovai",
+   "lectura": "o + gueromandu'a"
+  },
+  {
+   "gn": "tetãnguéra",
+   "veces": 46,
+   "fuente": "jojajovai",
+   "lectura": "tetã + nguéra"
+  },
+  {
+   "gn": "puruhára",
+   "veces": 46,
+   "fuente": "jojajovai",
+   "lectura": "puru + hára"
+  },
+  {
+   "gn": "rapereka",
+   "veces": 46,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "roime",
+   "veces": 45,
+   "fuente": "jojajovai",
+   "lectura": "ro + ime"
+  },
+  {
+   "gn": "opurahéi",
+   "veces": 45,
+   "fuente": "jojajovai",
+   "lectura": "o + purahéi"
+  },
+  {
+   "gn": "ojesarekóva",
+   "veces": 45,
+   "fuente": "jojajovai",
+   "lectura": "o + jesarekóva"
+  },
+  {
+   "gn": "ojesarekóvo",
+   "veces": 45,
+   "fuente": "jojajovai",
+   "lectura": "o + jesarekóvo"
+  },
+  {
+   "gn": "oñeñongatu",
+   "veces": 45,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeñongatu"
+  },
+  {
+   "gn": "iñirũ",
+   "veces": 44,
+   "fuente": "jojajovai",
+   "lectura": "iñ + irũ"
+  },
+  {
+   "gn": "oikohápe",
+   "veces": 44,
+   "fuente": "jojajovai",
+   "lectura": "o + ikohápe"
+  },
+  {
+   "gn": "ohasáma",
+   "veces": 44,
+   "fuente": "jojajovai",
+   "lectura": "o + hasáma"
+  },
+  {
+   "gn": "apytégui",
+   "veces": 44,
+   "fuente": "jojajovai",
+   "lectura": "a + pytégui"
+  },
+  {
+   "gn": "ñe'ẽasahára",
+   "veces": 44,
+   "fuente": "jojajovai",
+   "lectura": "ñe'ẽasa + hára"
+  },
+  {
+   "gn": "oikundaha",
+   "veces": 43,
+   "fuente": "jojajovai",
+   "lectura": "o + ikundaha"
+  },
+  {
+   "gn": "oha'ãrõva",
+   "veces": 43,
+   "fuente": "jojajovai",
+   "lectura": "o + ha'ãrõva"
+  },
+  {
+   "gn": "imbarete",
+   "veces": 43,
+   "fuente": "jojajovai",
+   "lectura": "i + mbarete"
+  },
+  {
+   "gn": "oikókuri",
+   "veces": 43,
+   "fuente": "jojajovai",
+   "lectura": "o + ikókuri"
+  },
+  {
+   "gn": "gñr",
+   "veces": 43,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "haipýpe",
+   "veces": 43,
+   "fuente": "jojajovai",
+   "lectura": "haipý + pe"
+  },
+  {
+   "gn": "ha'égui",
+   "veces": 42,
+   "fuente": "jojajovai",
+   "lectura": "ha'é + gui"
+  },
+  {
+   "gn": "maymávape",
+   "veces": 42,
+   "fuente": "jojajovai",
+   "lectura": "maymáva + pe"
+  },
+  {
+   "gn": "omomýi",
+   "veces": 42,
+   "fuente": "jojajovai",
+   "lectura": "o + momýi"
+  },
+  {
+   "gn": "tekombo'épe",
+   "veces": 42,
+   "fuente": "jojajovai",
+   "lectura": "tekombo'é + pe"
+  },
+  {
+   "gn": "omokyre'ỹvo",
+   "veces": 42,
+   "fuente": "jojajovai",
+   "lectura": "o + mokyre'ỹvo"
+  },
+  {
+   "gn": "porãiterei",
+   "veces": 42,
+   "fuente": "jojajovai",
+   "lectura": "porã + iterei"
+  },
+  {
+   "gn": "oĩta",
+   "veces": 42,
+   "fuente": "jojajovai",
+   "lectura": "o + ĩta"
+  },
+  {
+   "gn": "oiporúvo",
+   "veces": 42,
+   "fuente": "jojajovai",
+   "lectura": "o + iporúvo"
+  },
+  {
+   "gn": "mba'ekuaapy",
+   "veces": 42,
+   "fuente": "jojajovai",
+   "lectura": "mba'ekuaa + py"
+  },
+  {
+   "gn": "pokatuvete",
+   "veces": 42,
+   "fuente": "jojajovai",
+   "lectura": "pokatuve + te"
+  },
+  {
+   "gn": "oikehápe",
+   "veces": 41,
+   "fuente": "jojajovai",
+   "lectura": "o + ikehápe"
+  },
+  {
+   "gn": "oñeinaugura",
+   "veces": 41,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeinaugura"
+  },
+  {
+   "gn": "oipykúiva",
+   "veces": 41,
+   "fuente": "jojajovai",
+   "lectura": "o + ipykúiva"
+  },
+  {
+   "gn": "ojeguerohory",
+   "veces": 41,
+   "fuente": "jojajovai",
+   "lectura": "o + jeguerohory"
+  },
+  {
+   "gn": "rembiapópe",
+   "veces": 41,
+   "fuente": "jojajovai",
+   "lectura": "re + mbiapópe"
+  },
+  {
+   "gn": "ojepytaso",
+   "veces": 41,
+   "fuente": "jojajovai",
+   "lectura": "o + jepytaso"
+  },
+  {
+   "gn": "he'ihápe",
+   "veces": 41,
+   "fuente": "jojajovai",
+   "lectura": "he'ihá + pe"
+  },
+  {
+   "gn": "heñóikuri",
+   "veces": 41,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "omýi",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "o + mýi"
+  },
+  {
+   "gn": "omantene",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "o + mantene"
+  },
+  {
+   "gn": "omoirũta",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "o + moirũta"
+  },
+  {
+   "gn": "oñemboguata",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemboguata"
+  },
+  {
+   "gn": "ojeike",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "o + jeike"
+  },
+  {
+   "gn": "ombohapéva",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "o + mbohapéva"
+  },
+  {
+   "gn": "iporãva",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "i + porãva"
+  },
+  {
+   "gn": "ndaikuaái",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "nd/n + a + ikuaá"
+  },
+  {
+   "gn": "ojehaíva",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "o + jehaíva"
+  },
+  {
+   "gn": "marãe'ỹ",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "marãe + 'ỹ"
+  },
+  {
+   "gn": "oñeguenohẽ",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeguenohẽ"
+  },
+  {
+   "gn": "hembiapokue",
+   "veces": 40,
+   "fuente": "jojajovai",
+   "lectura": "hembiapo + kue"
+  },
+  {
+   "gn": "ijapytépe",
+   "veces": 39,
+   "fuente": "jojajovai",
+   "lectura": "ij + apytépe"
+  },
+  {
+   "gn": "omohu'ãvo",
+   "veces": 39,
+   "fuente": "jojajovai",
+   "lectura": "o + mohu'ãvo"
+  },
+  {
+   "gn": "ndoikuaái",
+   "veces": 39,
+   "fuente": "jojajovai",
+   "lectura": "nd/n + o + ikuaá"
+  },
+  {
+   "gn": "oñemopyenda",
+   "veces": 39,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemopyenda"
+  },
+  {
+   "gn": "omyesakãva",
+   "veces": 39,
+   "fuente": "jojajovai",
+   "lectura": "o + myesakãva"
+  },
+  {
+   "gn": "arakõime",
+   "veces": 39,
+   "fuente": "jojajovai",
+   "lectura": "a + rakõime"
+  },
+  {
+   "gn": "ohypýiva",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": "o + hypýiva"
+  },
+  {
+   "gn": "orekógui",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": "o + rekógui"
+  },
+  {
+   "gn": "rembe'ýre",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": "re + mbe'ýre"
+  },
+  {
+   "gn": "oñemotenondéta",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemotenondéta"
+  },
+  {
+   "gn": "oñangarekóva",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": "o + ñangarekóva"
+  },
+  {
+   "gn": "ojeréva",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": "o + jeréva"
+  },
+  {
+   "gn": "otakýva",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": "o + takýva"
+  },
+  {
+   "gn": "oĩhápe",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": "o + ĩhápe"
+  },
+  {
+   "gn": "omopu'ãva",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": "o + mopu'ãva"
+  },
+  {
+   "gn": "hasýva",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": "hasý + va"
+  },
+  {
+   "gn": "pñ",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oñemoasãi",
+   "veces": 38,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemoasãi"
+  },
+  {
+   "gn": "oipykúi",
+   "veces": 37,
+   "fuente": "jojajovai",
+   "lectura": "o + ipykúi"
+  },
+  {
+   "gn": "ovota",
+   "veces": 37,
+   "fuente": "jojajovai",
+   "lectura": "o + vota"
+  },
+  {
+   "gn": "oguenohẽva",
+   "veces": 37,
+   "fuente": "jojajovai",
+   "lectura": "o + guenohẽva"
+  },
+  {
+   "gn": "ojejuhúva",
+   "veces": 37,
+   "fuente": "jojajovai",
+   "lectura": "o + jejuhúva"
+  },
+  {
+   "gn": "ohaiva'ekue",
+   "veces": 37,
+   "fuente": "jojajovai",
+   "lectura": "o + haiva'ekue"
+  },
+  {
+   "gn": "omohu'ãva",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "o + mohu'ãva"
+  },
+  {
+   "gn": "oipota",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "o + ipota"
+  },
+  {
+   "gn": "omondo",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "o + mondo"
+  },
+  {
+   "gn": "orekóta",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "o + rekóta"
+  },
+  {
+   "gn": "ojegueraha",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "o + jegueraha"
+  },
+  {
+   "gn": "jasypateĩme",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "ja + sypateĩme"
+  },
+  {
+   "gn": "jasypakõime",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "ja + sypakõime"
+  },
+  {
+   "gn": "kuatiápe",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "kuatiá + pe"
+  },
+  {
+   "gn": "tetãmegua",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "tetãme + gua"
+  },
+  {
+   "gn": "rembiapokue",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "re + mbiapokue"
+  },
+  {
+   "gn": "ayvúpe",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "a + yvúpe"
+  },
+  {
+   "gn": "oñeñeha'ã",
+   "veces": 36,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeñeha'ã"
+  },
+  {
+   "gn": "omoñepyrũva",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": "o + moñepyrũva"
+  },
+  {
+   "gn": "jepiguáicha",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": "jepiguá + icha"
+  },
+  {
+   "gn": "hetápe",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": "hetá + pe"
+  },
+  {
+   "gn": "omopyendávo",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": "o + mopyendávo"
+  },
+  {
+   "gn": "ojegueromandu'ávo",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": "o + jegueromandu'ávo"
+  },
+  {
+   "gn": "ohasava'ekue",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": "o + hasava'ekue"
+  },
+  {
+   "gn": "cháko",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": "chá + ko"
+  },
+  {
+   "gn": "oikuaaukávo",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": "o + ikuaaukávo"
+  },
+  {
+   "gn": "vívere",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": "víve + re"
+  },
+  {
+   "gn": "amandajépe",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": "a + mandajépe"
+  },
+  {
+   "gn": "ñe'ẽteekuaa",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "peguakuéra",
+   "veces": 35,
+   "fuente": "jojajovai",
+   "lectura": "pe + guakuéra"
+  },
+  {
+   "gn": "ogueroviáva",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": "o + gueroviáva"
+  },
+  {
+   "gn": "omomarandúva",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": "o + momarandúva"
+  },
+  {
+   "gn": "pyharépe",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": "pyharé + pe"
+  },
+  {
+   "gn": "oñeporandúvo",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeporandúvo"
+  },
+  {
+   "gn": "omyatyrõ",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": "o + myatyrõ"
+  },
+  {
+   "gn": "ohecháta",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": "o + hecháta"
+  },
+  {
+   "gn": "mbeguekatúpe",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": "mbeguekatú + pe"
+  },
+  {
+   "gn": "ipópe",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": "i + pópe"
+  },
+  {
+   "gn": "ojehupyty",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": "o + jehupyty"
+  },
+  {
+   "gn": "ijaty",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": "ij + aty"
+  },
+  {
+   "gn": "ñehesa'ỹijo",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "jasypoapýpe",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": "ja + sypoapýpe"
+  },
+  {
+   "gn": "teéramo",
+   "veces": 34,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "nde'íri",
+   "veces": 33,
+   "fuente": "jojajovai",
+   "lectura": "nde + 'íri"
+  },
+  {
+   "gn": "omombia",
+   "veces": 33,
+   "fuente": "jojajovai",
+   "lectura": "o + mombia"
+  },
+  {
+   "gn": "ambuére",
+   "veces": 33,
+   "fuente": "jojajovai",
+   "lectura": "a + mbuére"
+  },
+  {
+   "gn": "ombocháke",
+   "veces": 33,
+   "fuente": "jojajovai",
+   "lectura": "o + mbocháke"
+  },
+  {
+   "gn": "oñepyrũma",
+   "veces": 33,
+   "fuente": "jojajovai",
+   "lectura": "o + ñepyrũma"
+  },
+  {
+   "gn": "omomaitei",
+   "veces": 33,
+   "fuente": "jojajovai",
+   "lectura": "o + momaitei"
+  },
+  {
+   "gn": "ñe'ẽmbuku",
+   "veces": 33,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oñeha'ãrõ",
+   "veces": 33,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeha'ãrõ"
+  },
+  {
+   "gn": "mba'evete",
+   "veces": 33,
+   "fuente": "jojajovai",
+   "lectura": "mba'eve + te"
+  },
+  {
+   "gn": "oñemoañetévo",
+   "veces": 33,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemoañetévo"
+  },
+  {
+   "gn": "jeguerojera",
+   "veces": 33,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oipotáva",
+   "veces": 32,
+   "fuente": "jojajovai",
+   "lectura": "o + ipotáva"
+  },
+  {
+   "gn": "voluntario",
+   "veces": 32,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "arýma",
+   "veces": 32,
+   "fuente": "jojajovai",
+   "lectura": "a + rýma"
+  },
+  {
+   "gn": "hembipotápe",
+   "veces": 32,
+   "fuente": "jojajovai",
+   "lectura": "hembipotá + pe"
+  },
+  {
+   "gn": "ogueromandu'ávo",
+   "veces": 32,
+   "fuente": "jojajovai",
+   "lectura": "o + gueromandu'ávo"
+  },
+  {
+   "gn": "oñatendéva",
+   "veces": 32,
+   "fuente": "jojajovai",
+   "lectura": "o + ñatendéva"
+  },
+  {
+   "gn": "ojepysóta",
+   "veces": 32,
+   "fuente": "jojajovai",
+   "lectura": "o + jepysóta"
+  },
+  {
+   "gn": "omboheraguapy",
+   "veces": 32,
+   "fuente": "jojajovai",
+   "lectura": "o + mboheraguapy"
+  },
+  {
+   "gn": "avavépe",
+   "veces": 31,
+   "fuente": "jojajovai",
+   "lectura": "a + vavépe"
+  },
+  {
+   "gn": "imemby",
+   "veces": 31,
+   "fuente": "jojajovai",
+   "lectura": "i + memby"
+  },
+  {
+   "gn": "oity",
+   "veces": 31,
+   "fuente": "jojajovai",
+   "lectura": "o + ity"
+  },
+  {
+   "gn": "chéverõ",
+   "veces": 31,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "ñorãirõ",
+   "veces": 31,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "ñepytyvõme",
+   "veces": 31,
+   "fuente": "jojajovai",
+   "lectura": "ñepytyvõ + me"
+  },
+  {
+   "gn": "rapépe",
+   "veces": 31,
+   "fuente": "jojajovai",
+   "lectura": "rapé + pe"
+  },
+  {
+   "gn": "guasuete",
+   "veces": 31,
+   "fuente": "jojajovai",
+   "lectura": "guasu + ete"
+  },
+  {
+   "gn": "temimoĩmbýpe",
+   "veces": 31,
+   "fuente": "jojajovai",
+   "lectura": "temimoĩmbý + pe"
+  },
+  {
+   "gn": "ñemoñepyrũ",
+   "veces": 31,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "omýiva",
+   "veces": 30,
+   "fuente": "jojajovai",
+   "lectura": "o + mýiva"
+  },
+  {
+   "gn": "oguerohorýva",
+   "veces": 30,
+   "fuente": "jojajovai",
+   "lectura": "o + guerohorýva"
+  },
+  {
+   "gn": "vy'apópe",
+   "veces": 30,
+   "fuente": "jojajovai",
+   "lectura": "vy'apó + pe"
+  },
+  {
+   "gn": "oinaugura",
+   "veces": 30,
+   "fuente": "jojajovai",
+   "lectura": "o + inaugura"
+  },
+  {
+   "gn": "oipepirũ",
+   "veces": 30,
+   "fuente": "jojajovai",
+   "lectura": "o + ipepirũ"
+  },
+  {
+   "gn": "okúi",
+   "veces": 30,
+   "fuente": "jojajovai",
+   "lectura": "o + kúi"
+  },
+  {
+   "gn": "ojopy",
+   "veces": 30,
+   "fuente": "jojajovai",
+   "lectura": "o + jopy"
+  },
+  {
+   "gn": "pya'eterei",
+   "veces": 30,
+   "fuente": "jojajovai",
+   "lectura": "pya'e + terei"
+  },
+  {
+   "gn": "oñangarekóvo",
+   "veces": 30,
+   "fuente": "jojajovai",
+   "lectura": "o + ñangarekóvo"
+  },
+  {
+   "gn": "ndorekóigui",
+   "veces": 30,
+   "fuente": "jojajovai",
+   "lectura": "nd/n + o + rekóigu"
+  },
+  {
+   "gn": "aguaratata",
+   "veces": 30,
+   "fuente": "jojajovai",
+   "lectura": "a + guaratata"
+  },
+  {
+   "gn": "omopotĩ",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "o + mopotĩ"
+  },
+  {
+   "gn": "ojopýva",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "o + jopýva"
+  },
+  {
+   "gn": "itaipu",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "i + taipu"
+  },
+  {
+   "gn": "ỹme",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oipyhývo",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "o + ipyhývo"
+  },
+  {
+   "gn": "ndaipórigui",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "nd/n + a + ipórigu"
+  },
+  {
+   "gn": "pasajero",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "ita'ýra",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "i + ta'ýra"
+  },
+  {
+   "gn": "oñemopyendáva",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemopyendáva"
+  },
+  {
+   "gn": "mitãrusukuéra",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "mitãrusu + kuéra"
+  },
+  {
+   "gn": "ojejeruréva",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "o + jejeruréva"
+  },
+  {
+   "gn": "teete",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "tee + te"
+  },
+  {
+   "gn": "rekovépe",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "re + kovépe"
+  },
+  {
+   "gn": "terañemi",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "terañe + mi"
+  },
+  {
+   "gn": "atykuéra",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "a + tykuéra"
+  },
+  {
+   "gn": "atygua",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "a + tygua"
+  },
+  {
+   "gn": "ñehekombo'e",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "ojehesa'ỹijo",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "o + jehesa'ỹijo"
+  },
+  {
+   "gn": "oñemoñepyrũ",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "o + ñemoñepyrũ"
+  },
+  {
+   "gn": "oñeguenohẽta",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "o + ñeguenohẽta"
+  },
+  {
+   "gn": "memerã",
+   "veces": 29,
+   "fuente": "jojajovai",
+   "lectura": "meme + rã"
+  },
+  {
+   "gn": "ñemoherakuã",
+   "veces": 28,
+   "fuente": "jojajovai",
+   "lectura": ""
+  },
+  {
+   "gn": "oñatende",
+   "veces": 28,
+   "fuente": "jojajovai",
+   "lectura": "o + ñatende"
+  },
+  {
+   "gn": "ramoite",
+   "veces": 28,
+   "fuente": "jojajovai",
+   "lectura": "ramo + ite"
+  },
+  {
+   "gn": "oguerohorývo",
+   "veces": 28,
+   "fuente": "jojajovai",
+   "lectura": "o + guerohorývo"
+  }
+ ]
+}

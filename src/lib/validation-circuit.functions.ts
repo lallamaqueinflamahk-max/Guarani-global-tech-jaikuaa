@@ -458,3 +458,40 @@ export const searchWordsForCorrection = createServerFn({ method: "POST" })
       .limit(10);
     return { words: (words ?? []) as { id: string; gn: string; es: string }[] };
   });
+
+/* ------------------------- Palabras para verificar ------------------------- */
+
+export type VerificationWord = { gn: string; veces: number; fuente: "common-voice" | "jojajovai"; lectura: string; ejemplo?: string };
+export type VerificationState = "pendiente" | "en_circuito" | "en_corpus";
+
+const keyOf = (s: string) => s.normalize("NFC").toLowerCase().trim().replace(/[’‘´`ʼ]/g, "'");
+
+/**
+ * Palabras frecuentes en textos reales (Common Voice, Jojajovai) que todavía no tienen respaldo.
+ * Solo para revisores y docentes. El docente confirma la escritura y escribe el significado con
+ * sus palabras; recién ahí la palabra entra al circuito como propuesta suya. Nadie más escribe guaraní.
+ */
+export const getVerificationQueue = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const roles = await getCircuitRolesFor(context.supabase, context.userId);
+    if (!roles.canReview) throw new Error("Forbidden");
+    const mod = (await import("@/lib/morph/data/cola-verificacion.json")) as unknown as {
+      default: { fuentes: Record<string, string>; palabras: VerificationWord[] };
+    };
+    const db = await admin();
+    const [props, words] = await Promise.all([
+      db.from("content_proposals").select("gn, status").neq("status", "rechazada").limit(20000),
+      db.from("corpus_words").select("gn").limit(20000),
+    ]);
+    if (props.error) throw new Error(props.error.message);
+    if (words.error) throw new Error(words.error.message);
+    const inCorpus = new Set<string>((words.data ?? []).map((w: { gn: string }) => keyOf(w.gn)));
+    const inCircuit = new Set<string>((props.data ?? []).map((p: { gn: string }) => keyOf(p.gn)));
+    const state: Record<string, VerificationState> = {};
+    for (const p of mod.default.palabras) {
+      const k = keyOf(p.gn);
+      state[p.gn] = inCorpus.has(k) ? "en_corpus" : inCircuit.has(k) ? "en_circuito" : "pendiente";
+    }
+    return { fuentes: mod.default.fuentes, palabras: mod.default.palabras, state, dailyLimit: DAILY_LIMIT };
+  });
