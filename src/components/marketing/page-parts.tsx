@@ -5,6 +5,7 @@ import { BrandLogo } from "@/components/brand-logo";
 import { SUPPORT_WHATSAPP } from "@/lib/contact";
 
 const NAV_LINKS = [
+  { to: "/teclado", label: "Teclado" },
   { to: "/instituciones", label: "Instituciones" },
   { to: "/auspiciantes", label: "Auspiciantes" },
 ] as const;

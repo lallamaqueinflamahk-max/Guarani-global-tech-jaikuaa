@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { GuaraniCharBar } from "@/components/guarani-char-bar";
 import { WordAudioRecorder } from "@/components/corpus/word-audio-recorder";
 import { ValidationPanel } from "@/components/corpus/validation-panel";
 import { useMemo, useRef, useState } from "react";
@@ -181,6 +182,9 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
         >
           Abrir cuaderno digital →
         </Link>
+        <Link to="/laboratorio" className="ml-4 text-sm font-semibold text-primary hover:underline">
+          Laboratorio Morfológico →
+        </Link>
         <h1 className="mt-2 font-display text-3xl font-bold text-foreground sm:text-4xl">
           Corpus guaraní
         </h1>
@@ -189,6 +193,8 @@ function CorpusAdminContent({ isAdmin }: { isAdmin: boolean }) {
           reusan entre niveles.
         </p>
       </div>
+
+      <GuaraniCharBar />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <StatCard label="Palabras únicas" value={totals?.words ?? 0} />
