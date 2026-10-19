@@ -203,6 +203,11 @@ function TecladoPage() {
           </div>
         )}
       </section>
+
+      <div className="mt-6 rounded-lg border bg-card p-4 text-center">
+        <p className="text-sm text-foreground">¿Querés aprender guaraní jugando? Es gratis para paraguayos.</p>
+        <Link to="/comenzar" className="mt-2 inline-block text-sm font-semibold text-primary hover:underline">Creá tu cuenta gratis →</Link>
+      </div>
     </main>
   );
 }
