@@ -108,7 +108,11 @@ const base = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "");
 /** Quita solo el acento agudo (no la tilde nasal): el libro desplaza el acento antes de partículas átonas (akarúkuri). */
 const stripAcute = (s: string) => s.normalize("NFD").replace(/́/g, "").normalize("NFC");
 
-type NegationCut = { core: string; negated: boolean; euphonic?: { vowel: string; person: Person } };
+/**
+ * `inner`: la negación «-i/-ri» no está al final sino antes de las partículas que siguen al verbo
+ * (nd-o-gueroký-i-ramo). Se confirma recién después de quitar esas partículas: ver `innerNegation`.
+ */
+type NegationCut = { core: string; negated: boolean; inner?: boolean; euphonic?: { vowel: string; person: Person } };
 
 function stripNegation(w: string): NegationCut[] {
   const out: NegationCut[] = [{ core: w, negated: false }];
@@ -119,14 +123,39 @@ function stripNegation(w: string): NegationCut[] {
     let core: string | null = null;
     if (rest.endsWith(NEGATION.suffix.afterFinalI) && base(rest.slice(0, -2)).endsWith("i")) core = rest.slice(0, -2);
     else if (rest.endsWith(NEGATION.suffix.default) && rest.length > 2) core = rest.slice(0, -1);
-    if (core === null) continue;
-    out.push({ core, negated: true });
-    // Vocal eufónica entre la negación y el prefijo (pág. 115): nde-re…, nda-ja…, ndo-ro…, nda-pe…
-    for (const [person, vowel] of Object.entries(NEGATION.euphonic) as [Person, string][]) {
-      if (core.startsWith(vowel) && core.length > 2) out.push({ core: core.slice(vowel.length), negated: true, euphonic: { vowel, person } });
+    // Pleonasmo «iri» (pág. 115): con verbos no terminados en «i».
+    const emph = NEGATION.suffix.emphatic;
+    const emphCores: string[] = [];
+    if (rest.endsWith(emph) && rest.length > emph.length + 1 && !base(rest.slice(0, -emph.length)).endsWith("i")) emphCores.push(rest.slice(0, -emph.length));
+    for (const c of emphCores) out.push({ core: c, negated: true });
+    if (core !== null) {
+      out.push({ core, negated: true });
+      // Vocal eufónica entre la negación y el prefijo (pág. 115): nde-re…, nda-ja…, ndo-ro…, nda-pe…
+      for (const [person, vowel] of Object.entries(NEGATION.euphonic) as [Person, string][]) {
+        if (core.startsWith(vowel) && core.length > 2) out.push({ core: core.slice(vowel.length), negated: true, euphonic: { vowel, person } });
+      }
+    }
+    // «-i/-ri» antes de partículas (el libro escribe «ndorekóiramo», «ndopytáima», «nde'íriramo»).
+    if (rest.length > 3) {
+      out.push({ core: rest, negated: true, inner: true });
+      for (const [person, vowel] of Object.entries(NEGATION.euphonic) as [Person, string][]) {
+        if (rest.startsWith(vowel) && rest.length > 3) out.push({ core: rest.slice(vowel.length), negated: true, inner: true, euphonic: { vowel, person } });
+      }
     }
   }
   return out;
+}
+
+/**
+ * Con la negación antes de las partículas, lo que queda después de quitarlas tiene que terminar en
+ * «-i» (o «-ri» si antes hay una «i», pág. 25). Devuelve la raíz sin esa marca, o null.
+ */
+function innerNegation(root: string): string | null {
+  const emph = NEGATION.suffix.emphatic;
+  if (root.endsWith(emph) && root.length > emph.length + 1 && !base(root.slice(0, -emph.length)).endsWith("i")) return root.slice(0, -emph.length);
+  if (root.endsWith(NEGATION.suffix.afterFinalI) && base(root.slice(0, -2)).endsWith("i") && root.length > 3) return root.slice(0, -2);
+  if (root.endsWith(NEGATION.suffix.default) && root.length > 2) return root.slice(0, -1);
+  return null;
 }
 
 /** Si `stem` termina en alguna forma de la regla (ignorando el acento agudo), devuelve el corte. */
@@ -263,7 +292,7 @@ export function analyze(input: string): Analysis[] {
   const w = normalizeWord(input);
   if (!w || /\s/.test(w)) return [];
   const results: Analysis[] = [];
-  for (const { core, negated, euphonic } of stripNegation(w)) {
+  for (const { core, negated, inner, euphonic } of stripNegation(w)) {
     for (const set of PREFIX_SETS) {
       const imperative = set.paradigm === "imperativo";
       const nominal = isNominal(set.paradigm);
@@ -280,7 +309,10 @@ export function analyze(input: string): Analysis[] {
             const readings = imperative
               ? suffixReadings(v.rest, IMPERATIVE_MOOD_SUFFIXES, false, 1)
               : suffixReadings(v.rest, INDICATIVE_INNER, true, SUFFIX_ORDER.maxMoods);
-            for (const { root, suffixes, rules } of readings) {
+            for (const reading of readings) {
+              const { suffixes, rules } = reading;
+              // Negación antes de partículas: hace falta al menos una partícula y la marca «-i/-ri».
+              const root = inner ? (suffixes.length > 0 ? innerNegation(reading.root) : null) : reading.root;
               if (!root) continue;
               // El libro identifica solo 5 verbos hareales (pág. 105): fuera de esas raíces no hay lectura hareal.
               if (set.paradigm === "hareal" && !(HAREAL_ROOTS.roots as readonly string[]).includes(root)) continue;
@@ -311,7 +343,10 @@ export function analyze(input: string): Analysis[] {
     // Lexemas variables (pág. 97): la forma entera es la persona + el lexema; después pueden venir sufijos.
     const firstChar = core[0];
     if (!euphonic && firstChar && IRREGULAR_FIRST_CHARS.has(firstChar)) {
-      for (const { root, suffixes, rules } of suffixReadings(core, INDICATIVE_INNER, true, SUFFIX_ORDER.maxMoods)) {
+      for (const reading of suffixReadings(core, INDICATIVE_INNER, true, SUFFIX_ORDER.maxMoods)) {
+        const { suffixes, rules } = reading;
+        const root = inner ? (suffixes.length > 0 ? innerNegation(reading.root) : null) : reading.root;
+        if (!root) continue;
         const hit = IRREGULAR_BY_FORM.get(stripAcute(root));
         if (!hit) continue;
         if (rules.some((r) => r.person && r.person !== hit.f.person)) continue;

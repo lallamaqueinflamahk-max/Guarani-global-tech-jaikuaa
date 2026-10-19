@@ -79,7 +79,8 @@ export const NEGATION = {
   status: "pending_validation" as RuleStatus,
   source: src(115),
   prefix: { oral: "nd", nasal: "n" },
-  suffix: { default: "i", afterFinalI: "ri" },
+  /** «iri»: pleonasmo para dar énfasis, con verbos no terminados en «i» («ndoguatáiri», pág. 115). */
+  suffix: { default: "i", afterFinalI: "ri", emphatic: "iri" },
   /**
    * Vocal eufónica entre la negación y el prefijo personal (tabla de la pág. 115 y pág. 29:
    * "Nd-e-rejapó-i"): nde-re, nda-ja / na-ña, ndo-ro, nda-pe / na-pe.

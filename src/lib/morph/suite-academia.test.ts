@@ -149,7 +149,7 @@ describe("4. Verbos hareales (pág. 105)", () => {
 describe("5. Negación discontinua (págs. 23–25 y 115)", () => {
   it("pág. 115: prefijos nd- (oral) y n- (nasal); sufijo -ri tras i y -i en los demás casos", () => {
     expect(NEGATION.prefix).toEqual({ oral: "nd", nasal: "n" });
-    expect(NEGATION.suffix).toEqual({ default: "i", afterFinalI: "ri" });
+    expect(NEGATION.suffix).toEqual({ default: "i", afterFinalI: "ri", emphatic: "iri" });
     expect(negationPrefix(false)).toBe("nd");
     expect(negationPrefix(true)).toBe("n");
     // -ri cuando el verbo termina en i; -i en los demás casos.
