@@ -243,6 +243,7 @@ function ProposeForm() {
 const SOURCE_LABEL: Record<VerificationWord["fuente"], { short: string; cite: string }> = {
   "common-voice": { short: "Common Voice", cite: "Mozilla Common Voice, guaraní (CC0)" },
   jojajovai: { short: "Jojajovai", cite: "Corpus Jojajovai (Grupo PLN, Universidad de la República, 2022)" },
+  vikipeta: { short: "Vikipetã", cite: "Vikipetã, Wikipedia en guaraní (colaboradores de gn.wikipedia.org, CC BY-SA 4.0)" },
 };
 
 const STATE_LABEL: Record<VerificationState, string> = {
@@ -303,7 +304,7 @@ function VerificationQueue() {
           Todas
         </Button>
         <span className="mx-1 h-5 w-px bg-border" aria-hidden />
-        {(["todas", "common-voice", "jojajovai"] as const).map((s) => (
+        {(["todas", "common-voice", "jojajovai", "vikipeta"] as const).map((s) => (
           <Button key={s} size="sm" variant={source === s ? "secondary" : "ghost"} onClick={() => setSource(s)}>
             {s === "todas" ? "Todas las fuentes" : SOURCE_LABEL[s].short}
           </Button>

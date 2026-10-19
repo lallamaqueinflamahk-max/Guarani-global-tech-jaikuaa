@@ -2,7 +2,8 @@
  "descripcion": "Palabras frecuentes en textos reales en guaraní que todavía no tienen respaldo en Jaikuaa. Un docente confirma si están bien escritas y escribe su significado; recién ahí entran al circuito de validación.",
  "fuentes": {
   "common-voice": "Mozilla Common Voice, guaraní (frases CC0). Se muestra una frase de ejemplo.",
-  "jojajovai": "Corpus Jojajovai (Grupo PLN, Universidad de la República, LREC 2022): solo la palabra y cuántas veces aparece; no se copian las frases."
+  "jojajovai": "Corpus Jojajovai (Grupo PLN, Universidad de la República, LREC 2022): solo la palabra y cuántas veces aparece; no se copian las frases.",
+  "vikipeta": "Vikipetã, la Wikipedia en guaraní (colaboradores de gn.wikipedia.org, CC BY-SA 4.0), volcado del 2026-10: solo la palabra y cuántas veces aparece en las 5.000 palabras más usadas; no se copian los artículos."
  },
  "fecha": "2026-10-18",
  "palabras": [
@@ -4289,6 +4290,2154 @@
    "veces": 28,
    "fuente": "jojajovai",
    "lectura": "o + guerohorývo"
+  },
+  {
+   "gn": "vyretáña",
+   "veces": 879,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ojokuaikuaáva",
+   "veces": 764,
+   "fuente": "vikipeta",
+   "lectura": "o + jokuaikuaáva"
+  },
+  {
+   "gn": "itália",
+   "veces": 571,
+   "fuente": "vikipeta",
+   "lectura": "i + tália"
+  },
+  {
+   "gn": "antonio",
+   "veces": 482,
+   "fuente": "vikipeta",
+   "lectura": "a + ntonio"
+  },
+  {
+   "gn": "rio",
+   "veces": 444,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "são",
+   "veces": 321,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "európa",
+   "veces": 305,
+   "fuente": "vikipeta",
+   "lectura": "e + urópa"
+  },
+  {
+   "gn": "jokuaikuaahára",
+   "veces": 228,
+   "fuente": "vikipeta",
+   "lectura": "jokuaikuaa + hára"
+  },
+  {
+   "gn": "gyregoriopegua",
+   "veces": 225,
+   "fuente": "vikipeta",
+   "lectura": "gyregoriope + gua"
+  },
+  {
+   "gn": "ojeipuru",
+   "veces": 218,
+   "fuente": "vikipeta",
+   "lectura": "o + jeipuru"
+  },
+  {
+   "gn": "tymbachu'i",
+   "veces": 214,
+   "fuente": "vikipeta",
+   "lectura": "tymbachu + 'i"
+  },
+  {
+   "gn": "olivera",
+   "veces": 211,
+   "fuente": "vikipeta",
+   "lectura": "o + livera"
+  },
+  {
+   "gn": "rekuái",
+   "veces": 204,
+   "fuente": "vikipeta",
+   "lectura": "re + kuái"
+  },
+  {
+   "gn": "rróma",
+   "veces": 199,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "saro'y",
+   "veces": 190,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kuatiarogue",
+   "veces": 189,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "museo",
+   "veces": 177,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "santiago",
+   "veces": 172,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "pukukuévo",
+   "veces": 167,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "paulo",
+   "veces": 166,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "gyrésia",
+   "veces": 150,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "europa",
+   "veces": 148,
+   "fuente": "vikipeta",
+   "lectura": "e + uropa"
+  },
+  {
+   "gn": "jueheguasã",
+   "veces": 148,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "pupoty",
+   "veces": 142,
+   "fuente": "vikipeta",
+   "lectura": "pupo + ty"
+  },
+  {
+   "gn": "jekopytyjoja",
+   "veces": 128,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "parana",
+   "veces": 122,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kachíke",
+   "veces": 116,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "európape",
+   "veces": 115,
+   "fuente": "vikipeta",
+   "lectura": "e + urópape"
+  },
+  {
+   "gn": "ateneo",
+   "veces": 113,
+   "fuente": "vikipeta",
+   "lectura": "a + teneo"
+  },
+  {
+   "gn": "koréa",
+   "veces": 113,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "italiano",
+   "veces": 110,
+   "fuente": "vikipeta",
+   "lectura": "i + taliano"
+  },
+  {
+   "gn": "vaekue",
+   "veces": 108,
+   "fuente": "vikipeta",
+   "lectura": "vae + kue"
+  },
+  {
+   "gn": "ingyatérra",
+   "veces": 106,
+   "fuente": "vikipeta",
+   "lectura": "i + ngyatérra"
+  },
+  {
+   "gn": "ingeniero",
+   "veces": 103,
+   "fuente": "vikipeta",
+   "lectura": "i + ngeniero"
+  },
+  {
+   "gn": "irilánda",
+   "veces": 101,
+   "fuente": "vikipeta",
+   "lectura": "i + rilánda"
+  },
+  {
+   "gn": "polóña",
+   "veces": 100,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "tekoiterape",
+   "veces": 99,
+   "fuente": "vikipeta",
+   "lectura": "tekoitera + pe"
+  },
+  {
+   "gn": "tembiapoporã",
+   "veces": 98,
+   "fuente": "vikipeta",
+   "lectura": "tembiapopo + rã"
+  },
+  {
+   "gn": "ñesãmbyhy",
+   "veces": 98,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "volívia",
+   "veces": 97,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ginéa",
+   "veces": 96,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ypykatu",
+   "veces": 93,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "nova",
+   "veces": 93,
+   "fuente": "vikipeta",
+   "lectura": "no + va"
+  },
+  {
+   "gn": "italia",
+   "veces": 93,
+   "fuente": "vikipeta",
+   "lectura": "i + talia"
+  },
+  {
+   "gn": "ehíto",
+   "veces": 90,
+   "fuente": "vikipeta",
+   "lectura": "e + híto"
+  },
+  {
+   "gn": "ukyáña",
+   "veces": 87,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mora",
+   "veces": 86,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ojeiporu",
+   "veces": 86,
+   "fuente": "vikipeta",
+   "lectura": "o + jeiporu"
+  },
+  {
+   "gn": "jepivénte",
+   "veces": 80,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "chileno",
+   "veces": 79,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "indígena",
+   "veces": 79,
+   "fuente": "vikipeta",
+   "lectura": "i + ndígena"
+  },
+  {
+   "gn": "olánda",
+   "veces": 77,
+   "fuente": "vikipeta",
+   "lectura": "o + lánda"
+  },
+  {
+   "gn": "alemania",
+   "veces": 76,
+   "fuente": "vikipeta",
+   "lectura": "a + lemania"
+  },
+  {
+   "gn": "toiko",
+   "veces": 76,
+   "fuente": "vikipeta",
+   "lectura": "to + iko"
+  },
+  {
+   "gn": "tiaraju",
+   "veces": 76,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "arandupykuaaty",
+   "veces": 75,
+   "fuente": "vikipeta",
+   "lectura": "a + randupykuaaty"
+  },
+  {
+   "gn": "ñembyamérika",
+   "veces": 72,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hugo",
+   "veces": 72,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "véyhika",
+   "veces": 70,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "opamba'e",
+   "veces": 69,
+   "fuente": "vikipeta",
+   "lectura": "o + pamba'e"
+  },
+  {
+   "gn": "húngaro",
+   "veces": 69,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hetatetãgua",
+   "veces": 68,
+   "fuente": "vikipeta",
+   "lectura": "hetatetã + gua"
+  },
+  {
+   "gn": "rosario",
+   "veces": 68,
+   "fuente": "vikipeta",
+   "lectura": "ro + sario"
+  },
+  {
+   "gn": "guaira",
+   "veces": 67,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "rae",
+   "veces": 67,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "selánda",
+   "veces": 67,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "karíve",
+   "veces": 66,
+   "fuente": "vikipeta",
+   "lectura": "karí + ve"
+  },
+  {
+   "gn": "ojeiporúva",
+   "veces": 66,
+   "fuente": "vikipeta",
+   "lectura": "o + jeiporúva"
+  },
+  {
+   "gn": "huã",
+   "veces": 66,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "sosa",
+   "veces": 66,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "jokuaikuaa",
+   "veces": 64,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "arávia",
+   "veces": 61,
+   "fuente": "vikipeta",
+   "lectura": "a + rávia"
+  },
+  {
+   "gn": "jajuhukuaa",
+   "veces": 60,
+   "fuente": "vikipeta",
+   "lectura": "ja + juhukuaa"
+  },
+  {
+   "gn": "chino",
+   "veces": 60,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "joão",
+   "veces": 60,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "áuteria",
+   "veces": 60,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "tumingue'a",
+   "veces": 60,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "panama",
+   "veces": 59,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "gyregório",
+   "veces": 59,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "akytã'ai",
+   "veces": 59,
+   "fuente": "vikipeta",
+   "lectura": "a + kytã'ai"
+  },
+  {
+   "gn": "itáliagua",
+   "veces": 58,
+   "fuente": "vikipeta",
+   "lectura": "i + táliagua"
+  },
+  {
+   "gn": "antõnio",
+   "veces": 57,
+   "fuente": "vikipeta",
+   "lectura": "a + ntõnio"
+  },
+  {
+   "gn": "kímiko",
+   "veces": 57,
+   "fuente": "vikipeta",
+   "lectura": "kími + ko"
+  },
+  {
+   "gn": "emiliano",
+   "veces": 56,
+   "fuente": "vikipeta",
+   "lectura": "e + miliano"
+  },
+  {
+   "gn": "nási",
+   "veces": 56,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "yvyapy",
+   "veces": 56,
+   "fuente": "vikipeta",
+   "lectura": "yvya + py"
+  },
+  {
+   "gn": "auterália",
+   "veces": 56,
+   "fuente": "vikipeta",
+   "lectura": "a + uterália"
+  },
+  {
+   "gn": "ñembyamérikape",
+   "veces": 55,
+   "fuente": "vikipeta",
+   "lectura": "ñembyamérika + pe"
+  },
+  {
+   "gn": "jey'urã",
+   "veces": 55,
+   "fuente": "vikipeta",
+   "lectura": "jey'u + rã"
+  },
+  {
+   "gn": "vienã",
+   "veces": 54,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "jesuita",
+   "veces": 53,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "suísa",
+   "veces": 53,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ndinamáka",
+   "veces": 53,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "paraguari",
+   "veces": 52,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "roa",
+   "veces": 52,
+   "fuente": "vikipeta",
+   "lectura": "ro + a"
+  },
+  {
+   "gn": "irala",
+   "veces": 52,
+   "fuente": "vikipeta",
+   "lectura": "i + rala"
+  },
+  {
+   "gn": "ra'angamýi",
+   "veces": 52,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "otománo",
+   "veces": 50,
+   "fuente": "vikipeta",
+   "lectura": "o + tománo"
+  },
+  {
+   "gn": "tupao",
+   "veces": 49,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "heñoiva'ekue",
+   "veces": 49,
+   "fuente": "vikipeta",
+   "lectura": "heñoiva'e + kue"
+  },
+  {
+   "gn": "novo",
+   "veces": 49,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ko'ava",
+   "veces": 49,
+   "fuente": "vikipeta",
+   "lectura": "ko'a + va"
+  },
+  {
+   "gn": "ingyaterra",
+   "veces": 49,
+   "fuente": "vikipeta",
+   "lectura": "i + ngyaterra"
+  },
+  {
+   "gn": "rapero",
+   "veces": 49,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "virurekokuaa",
+   "veces": 48,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "eleménto",
+   "veces": 48,
+   "fuente": "vikipeta",
+   "lectura": "e + leménto"
+  },
+  {
+   "gn": "ararova",
+   "veces": 47,
+   "fuente": "vikipeta",
+   "lectura": "a + rarova"
+  },
+  {
+   "gn": "vorívia",
+   "veces": 46,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ray",
+   "veces": 46,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "rruánda",
+   "veces": 46,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ojeipapaháicha",
+   "veces": 46,
+   "fuente": "vikipeta",
+   "lectura": "o + jeipapaháicha"
+  },
+  {
+   "gn": "itakyra",
+   "veces": 45,
+   "fuente": "vikipeta",
+   "lectura": "i + takyra"
+  },
+  {
+   "gn": "katóliko",
+   "veces": 45,
+   "fuente": "vikipeta",
+   "lectura": "katóli + ko"
+  },
+  {
+   "gn": "ekósia",
+   "veces": 44,
+   "fuente": "vikipeta",
+   "lectura": "e + kósia"
+  },
+  {
+   "gn": "haiti",
+   "veces": 44,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "asio",
+   "veces": 44,
+   "fuente": "vikipeta",
+   "lectura": "a + sio"
+  },
+  {
+   "gn": "techapyrãrõ",
+   "veces": 43,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "káukaso",
+   "veces": 43,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "lara",
+   "veces": 43,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "péa",
+   "veces": 43,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kuarahyreikeguápe",
+   "veces": 43,
+   "fuente": "vikipeta",
+   "lectura": "kuarahyreikeguá + pe"
+  },
+  {
+   "gn": "ypykatúpe",
+   "veces": 43,
+   "fuente": "vikipeta",
+   "lectura": "ypykatú + pe"
+  },
+  {
+   "gn": "paletína",
+   "veces": 43,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "oĩrõ",
+   "veces": 42,
+   "fuente": "vikipeta",
+   "lectura": "o + ĩrõ"
+  },
+  {
+   "gn": "péysia",
+   "veces": 42,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "terra",
+   "veces": 42,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mboyraiha",
+   "veces": 42,
+   "fuente": "vikipeta",
+   "lectura": "mboyrai + ha"
+  },
+  {
+   "gn": "ypo'i",
+   "veces": 41,
+   "fuente": "vikipeta",
+   "lectura": "ypo + 'i"
+  },
+  {
+   "gn": "ypakarai",
+   "veces": 41,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "lago",
+   "veces": 41,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mba'ehero",
+   "veces": 41,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "jekopytyjojáva",
+   "veces": 40,
+   "fuente": "vikipeta",
+   "lectura": "jekopytyjojá + va"
+  },
+  {
+   "gn": "elisa",
+   "veces": 40,
+   "fuente": "vikipeta",
+   "lectura": "e + lisa"
+  },
+  {
+   "gn": "mongólia",
+   "veces": 40,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mali",
+   "veces": 40,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "jogapokuaahára",
+   "veces": 40,
+   "fuente": "vikipeta",
+   "lectura": "jogapokuaa + hára"
+  },
+  {
+   "gn": "naja",
+   "veces": 40,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hi'aguĩ",
+   "veces": 40,
+   "fuente": "vikipeta",
+   "lectura": "aguĩ"
+  },
+  {
+   "gn": "hungyria",
+   "veces": 39,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ojeiporavo",
+   "veces": 39,
+   "fuente": "vikipeta",
+   "lectura": "o + jeiporavo"
+  },
+  {
+   "gn": "korea",
+   "veces": 39,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "noruego",
+   "veces": 39,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "sierra",
+   "veces": 38,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mba'erekokuaa",
+   "veces": 38,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "vaerã",
+   "veces": 38,
+   "fuente": "vikipeta",
+   "lectura": "vae + rã"
+  },
+  {
+   "gn": "saára",
+   "veces": 38,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ága",
+   "veces": 37,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hose",
+   "veces": 37,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "jogapokuaa",
+   "veces": 37,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ugánda",
+   "veces": 37,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "amasóna",
+   "veces": 36,
+   "fuente": "vikipeta",
+   "lectura": "a + masóna"
+  },
+  {
+   "gn": "ko'a",
+   "veces": 36,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ygag̃uahẽha",
+   "veces": 36,
+   "fuente": "vikipeta",
+   "lectura": "ygag̃uahẽ + ha"
+  },
+  {
+   "gn": "iráke",
+   "veces": 36,
+   "fuente": "vikipeta",
+   "lectura": "i + ráke"
+  },
+  {
+   "gn": "mba'asyapypẽ",
+   "veces": 36,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "teólogo",
+   "veces": 36,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "rembiejakue",
+   "veces": 35,
+   "fuente": "vikipeta",
+   "lectura": "re + mbiejakue"
+  },
+  {
+   "gn": "ojeheroháicha",
+   "veces": 35,
+   "fuente": "vikipeta",
+   "lectura": "o + jeheroháicha"
+  },
+  {
+   "gn": "ndie",
+   "veces": 35,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ojogapokuaáva",
+   "veces": 35,
+   "fuente": "vikipeta",
+   "lectura": "o + jogapokuaáva"
+  },
+  {
+   "gn": "rrumáña",
+   "veces": 34,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "gujána",
+   "veces": 34,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "tuykía",
+   "veces": 34,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kímika",
+   "veces": 34,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mba'epytu",
+   "veces": 34,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kamerũ",
+   "veces": 34,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "maláui",
+   "veces": 34,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kuae",
+   "veces": 34,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "yave",
+   "veces": 34,
+   "fuente": "vikipeta",
+   "lectura": "ya + ve"
+  },
+  {
+   "gn": "ñakurutu",
+   "veces": 34,
+   "fuente": "vikipeta",
+   "lectura": "ña + kurutu"
+  },
+  {
+   "gn": "átomo",
+   "veces": 33,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "yrape",
+   "veces": 33,
+   "fuente": "vikipeta",
+   "lectura": "yra + pe"
+  },
+  {
+   "gn": "ka'asapa",
+   "veces": 33,
+   "fuente": "vikipeta",
+   "lectura": "ka'asa + pa"
+  },
+  {
+   "gn": "ojeipuruvéva",
+   "veces": 33,
+   "fuente": "vikipeta",
+   "lectura": "o + jeipuruvéva"
+  },
+  {
+   "gn": "rumano",
+   "veces": 33,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "tembiasaguasu",
+   "veces": 33,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "jemẽ",
+   "veces": 33,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "montenégyro",
+   "veces": 33,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "pya'eite",
+   "veces": 32,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "volivia",
+   "veces": 32,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "puente",
+   "veces": 32,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ñemoha'ãnga",
+   "veces": 32,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mbyguai",
+   "veces": 32,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "paulope",
+   "veces": 32,
+   "fuente": "vikipeta",
+   "lectura": "paulo + pe"
+  },
+  {
+   "gn": "vuenosáire",
+   "veces": 31,
+   "fuente": "vikipeta",
+   "lectura": "vuenosái + re"
+  },
+  {
+   "gn": "ýre",
+   "veces": 31,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "lambare",
+   "veces": 31,
+   "fuente": "vikipeta",
+   "lectura": "lamba + re"
+  },
+  {
+   "gn": "ayoreo",
+   "veces": 31,
+   "fuente": "vikipeta",
+   "lectura": "a + yoreo"
+  },
+  {
+   "gn": "yvateite",
+   "veces": 31,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "movimiento",
+   "veces": 31,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "televisa",
+   "veces": 31,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "heymáña",
+   "veces": 30,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "tuichakuévo",
+   "veces": 30,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ndominikagua",
+   "veces": 30,
+   "fuente": "vikipeta",
+   "lectura": "ndominika + gua"
+  },
+  {
+   "gn": "tetãpehẽ",
+   "veces": 30,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kuarahyresẽyguápe",
+   "veces": 30,
+   "fuente": "vikipeta",
+   "lectura": "kuarahyresẽyguá + pe"
+  },
+  {
+   "gn": "mákina",
+   "veces": 30,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "tekoveapỹi",
+   "veces": 30,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "gámbia",
+   "veces": 30,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hamáika",
+   "veces": 30,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kéña",
+   "veces": 30,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "sundã",
+   "veces": 30,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "europagua",
+   "veces": 29,
+   "fuente": "vikipeta",
+   "lectura": "e + uropagua"
+  },
+  {
+   "gn": "hikuéi",
+   "veces": 29,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kambója",
+   "veces": 29,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "rotary",
+   "veces": 29,
+   "fuente": "vikipeta",
+   "lectura": "ro + tary"
+  },
+  {
+   "gn": "rembiesarái",
+   "veces": 29,
+   "fuente": "vikipeta",
+   "lectura": "re + mbiesarái"
+  },
+  {
+   "gn": "chákope",
+   "veces": 28,
+   "fuente": "vikipeta",
+   "lectura": "cháko + pe"
+  },
+  {
+   "gn": "ikatuhag̃uáicha",
+   "veces": 28,
+   "fuente": "vikipeta",
+   "lectura": "i + katuhag̃uáicha"
+  },
+  {
+   "gn": "tendárupi",
+   "veces": 28,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "vy'aguasu",
+   "veces": 28,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ñavõ",
+   "veces": 28,
+   "fuente": "vikipeta",
+   "lectura": "ña + võ"
+  },
+  {
+   "gn": "ta'ãnga'ita",
+   "veces": 28,
+   "fuente": "vikipeta",
+   "lectura": "ta + 'ãnga'ita"
+  },
+  {
+   "gn": "serra",
+   "veces": 28,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "livéria",
+   "veces": 28,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "samóa",
+   "veces": 28,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "auteria",
+   "veces": 28,
+   "fuente": "vikipeta",
+   "lectura": "a + uteria"
+  },
+  {
+   "gn": "guinoi",
+   "veces": 28,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hesuitakuéra",
+   "veces": 27,
+   "fuente": "vikipeta",
+   "lectura": "hesuita + kuéra"
+  },
+  {
+   "gn": "remimono'õ",
+   "veces": 27,
+   "fuente": "vikipeta",
+   "lectura": "re + mimono'õ"
+  },
+  {
+   "gn": "nihéria",
+   "veces": 27,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mauritáña",
+   "veces": 27,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "nature",
+   "veces": 27,
+   "fuente": "vikipeta",
+   "lectura": "natu + re"
+  },
+  {
+   "gn": "jae",
+   "veces": 27,
+   "fuente": "vikipeta",
+   "lectura": "ja + e"
+  },
+  {
+   "gn": "guara",
+   "veces": 27,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "monumento",
+   "veces": 27,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "oseanía",
+   "veces": 27,
+   "fuente": "vikipeta",
+   "lectura": "o + seanía"
+  },
+  {
+   "gn": "ahyganitã",
+   "veces": 27,
+   "fuente": "vikipeta",
+   "lectura": "a + hyganitã"
+  },
+  {
+   "gn": "katára",
+   "veces": 27,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hesukirito",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "misionero",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ka'akupe",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": "ka'aku + pe"
+  },
+  {
+   "gn": "tetãmini",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "paraguarípe",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": "paraguarí + pe"
+  },
+  {
+   "gn": "vengali",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "chípere",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": "chípe + re"
+  },
+  {
+   "gn": "piraroto",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "netúno",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": "ne + túno"
+  },
+  {
+   "gn": "kimi",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": "ki + mi"
+  },
+  {
+   "gn": "aténa",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": "a + téna"
+  },
+  {
+   "gn": "membysẽ",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ka'akuaatyhára",
+   "veces": 26,
+   "fuente": "vikipeta",
+   "lectura": "ka'akuaaty + hára"
+  },
+  {
+   "gn": "vugária",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "yvateamérika",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hekosãso",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ponta",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "jeývo",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "porãi",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "guevara",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mike",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "house",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "riremínte",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "vae",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kavi",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kuãytasã",
+   "veces": 25,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hesuíta",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "tevikuary",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mosambíke",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "gynéa",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mérito",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "galería",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hilario",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "iporãmbajepéva",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": "i + porãmbajepéva"
+  },
+  {
+   "gn": "geólogo",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "tembiejakue",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": "tembieja + kue"
+  },
+  {
+   "gn": "visantíno",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mauro",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "eua",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": "e + ua"
+  },
+  {
+   "gn": "kávo",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "koronavíru",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "oĩrõguare",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": "o + ĩrõguare"
+  },
+  {
+   "gn": "ipuere",
+   "veces": 24,
+   "fuente": "vikipeta",
+   "lectura": "i + puere"
+  },
+  {
+   "gn": "mbisáu",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ñesãmbyhýpe",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": "ñesãmbyhý + pe"
+  },
+  {
+   "gn": "ñemongakuaa",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hemimo'ã",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ypyháicha",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": "ypyhá + icha"
+  },
+  {
+   "gn": "ñemyakã'i",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": "ñemyakã + 'i"
+  },
+  {
+   "gn": "pakitã",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "alehándoro",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": "a + lehándoro"
+  },
+  {
+   "gn": "gavõ",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "láo",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "taiuã",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": "ta + iuã"
+  },
+  {
+   "gn": "yvykorea",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mborookuai",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ghtml",
+   "veces": 23,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mbyteamérika",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ñorairõguasu",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "lúke",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "apytu'ũkuaaty",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": "a + pytu'ũkuaaty"
+  },
+  {
+   "gn": "ndaiporivéima",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": "a + iporivé + ma"
+  },
+  {
+   "gn": "hag̃uátei",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mba'eguasuite",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "tembiapoporãnguéra",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": "tembiapoporã + nguéra"
+  },
+  {
+   "gn": "kuarahysẽ",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "kike",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "tunísia",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "helena",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "arapasu",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": "a + rapasu"
+  },
+  {
+   "gn": "porãguerojera",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "lívano",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ñe'ẽngára",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "vutã",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "sámbia",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "gyresia",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "tekomboe",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "anambe",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": "a + nambe"
+  },
+  {
+   "gn": "simone",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "misiõ",
+   "veces": 22,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "chinese",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "rolandi",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": "ro + landi"
+  },
+  {
+   "gn": "mba'ehekove'ỹva",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": "mba'ehekove'ỹ + va"
+  },
+  {
+   "gn": "indoeuropa",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": "i + ndoeuropa"
+  },
+  {
+   "gn": "vugaria",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "sévia",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "uráno",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "vila",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hag̃uã",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "polo",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "jimbúti",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "simbávue",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "mborokuai",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ojerokykuaáva",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": "o + jerokykuaáva"
+  },
+  {
+   "gn": "añónde",
+   "veces": 21,
+   "fuente": "vikipeta",
+   "lectura": "a + ñónde"
+  },
+  {
+   "gn": "ñembykuarahyresẽ",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "europe",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "e + urope"
+  },
+  {
+   "gn": "retãyguágui",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "re + tãyguágui"
+  },
+  {
+   "gn": "chekía",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "che + kía"
+  },
+  {
+   "gn": "oje'eháicha",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "o + je'eháicha"
+  },
+  {
+   "gn": "tembikuaareka",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "upéa",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "taha'eha'éva",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "ta + ha'eha'éva"
+  },
+  {
+   "gn": "semanario",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "oikórõguare",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "o + ikórõguare"
+  },
+  {
+   "gn": "ho'ávo",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "euro",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "e + uro"
+  },
+  {
+   "gn": "moyndávia",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "masendóña",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "somália",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ta'anga'o",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "ta + 'anga'o"
+  },
+  {
+   "gn": "ñembosa'y",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ekuatogua",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "e + kuatogua"
+  },
+  {
+   "gn": "komóra",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "papúa",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ku'ekavoña",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "game",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "ga + me"
+  },
+  {
+   "gn": "santana",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "nepali",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "ne + pali"
+  },
+  {
+   "gn": "murray",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "páulo",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "torero",
+   "veces": 20,
+   "fuente": "vikipeta",
+   "lectura": "to + rero"
+  },
+  {
+   "gn": "jeroviakatu",
+   "veces": 19,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "ekuatóry",
+   "veces": 19,
+   "fuente": "vikipeta",
+   "lectura": "e + kuatóry"
+  },
+  {
+   "gn": "mborívia",
+   "veces": 19,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "europape",
+   "veces": 19,
+   "fuente": "vikipeta",
+   "lectura": "e + uropape"
+  },
+  {
+   "gn": "sãsõ",
+   "veces": 19,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "hyapu",
+   "veces": 19,
+   "fuente": "vikipeta",
+   "lectura": ""
+  },
+  {
+   "gn": "opakuévo",
+   "veces": 19,
+   "fuente": "vikipeta",
+   "lectura": "o + pakuévo"
   }
  ]
 }

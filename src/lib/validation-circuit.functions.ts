@@ -461,7 +461,7 @@ export const searchWordsForCorrection = createServerFn({ method: "POST" })
 
 /* ------------------------- Palabras para verificar ------------------------- */
 
-export type VerificationWord = { gn: string; veces: number; fuente: "common-voice" | "jojajovai"; lectura: string; ejemplo?: string };
+export type VerificationWord = { gn: string; veces: number; fuente: "common-voice" | "jojajovai" | "vikipeta"; lectura: string; ejemplo?: string };
 export type VerificationState = "pendiente" | "en_circuito" | "en_corpus";
 
 const keyOf = (s: string) => s.normalize("NFC").toLowerCase().trim().replace(/[’‘´`ʼ]/g, "'");
