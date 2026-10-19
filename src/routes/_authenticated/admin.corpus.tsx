@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { GuaraniCharBar } from "@/components/guarani-char-bar";
 import { WordAudioRecorder } from "@/components/corpus/word-audio-recorder";
 import { ValidationPanel } from "@/components/corpus/validation-panel";
 import { useMemo, useRef, useState } from "react";
