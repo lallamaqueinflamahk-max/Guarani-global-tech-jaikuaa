@@ -68,7 +68,10 @@ export interface Analysis {
   pages: number[];
 }
 
-/** Minúsculas, NFC, puso unificado y sin guiones (el libro separa a veces con guion: agueru-va'ekue). */
+/**
+ * Minúsculas, NFC, puso unificado, escritura con circunflejo pasada a tilde y sin guiones (el libro
+ * separa a veces con guion: agueru-va'ekue).
+ */
 export const normalizeWord = (w: string) =>
   w
     .normalize("NFC")
@@ -76,8 +79,18 @@ export const normalizeWord = (w: string) =>
     .normalize("NFC")
     .toLowerCase()
     .trim()
+    .replace(CIRCUMFLEX_VOWELS, (c) => CIRCUMFLEX_TO_TILDE[c] ?? c)
     .replace(PUSO_VARIANTS, "'")
     .replace(/[-\u00AD]/g, "");
+
+/**
+ * Escritura vieja de las vocales nasales con circunflejo (o «ÿ»), muy común en textos digitales:
+ * el Wikcionario la marca como «circumflex-system spelling» (morotî = morotĩ, ñe'ê = ñe'ẽ) y un
+ * tercio de las frases del corpus Jojajovai la usa. Solo cambia la forma de escribir la nasal: no
+ * toca el acento agudo (á é í ó ú ý), ni la diéresis de préstamos («ü»), ni el puso.
+ */
+export const CIRCUMFLEX_TO_TILDE: Record<string, string> = { "â": "ã", "ê": "ẽ", "î": "ĩ", "ô": "õ", "û": "ũ", "ŷ": "ỹ", "ÿ": "ỹ" };
+const CIRCUMFLEX_VOWELS = /[âêîôûŷÿ]/g;
 
 /**
  * Variantes del puso que usa la gente al escribir: ’ ‘ ´ ` y la «ʼ» (U+02BC), muy común en

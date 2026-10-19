@@ -166,6 +166,12 @@ export function checkWord(word: string): OrthographyIssue[] {
     out.push(issue("alfabeto", "prestamo", "Usa D, F o LL: letras admitidas solo para palabras de otras lenguas, una vez reglamentadas.", w));
   }
 
+  // Regla 1 (pág. 33): la nasal se escribe con tilde (˜). La escritura con circunflejo se lee igual,
+  // pero se avisa para que se escriba con la letra oficial.
+  if (/[âêîôûŷÿ]/i.test(word.normalize("NFC"))) {
+    out.push(issue("alfabeto", "revisar", "Escrita con circunflejo (^): el alfabeto oficial marca la vocal nasal con tilde (˜).", w));
+  }
+
   const vowels = g.map((x, i) => ({ x, i })).filter(({ x }) => isVowel(x.letter));
   if (vowels.length === 0) return out;
 
