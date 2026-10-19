@@ -16,7 +16,7 @@
   ]
  },
  "conjuntos": {
-  "pruebas_del_libro": "Palabras usadas en las 342 pruebas del Laboratorio, tomadas de las páginas de la Gramática ALG 2020 que cita cada prueba.",
+  "pruebas_del_libro": "Palabras usadas en las pruebas del Laboratorio, tomadas de las páginas de la Gramática ALG 2020 que cita cada prueba.",
   "planilla_300": "Las 300 palabras más frecuentes de Mozilla Common Voice (guaraní, CC0) que van a la planilla de validación de docentes."
  },
  "palabras": [
