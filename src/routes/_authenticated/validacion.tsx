@@ -7,6 +7,7 @@ import { CheckCircle2, History, Loader2, RotateCcw, Search, UserPlus, X, XCircle
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { GuaraniCharBar } from "@/components/guarani-char-bar";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -83,7 +84,8 @@ function ValidationCircuitPage() {
         registrado con nombre, fecha y hora.
       </p>
 
-      <Tabs defaultValue="proponer" className="mt-6">
+      <div className="mt-6"><GuaraniCharBar /></div>
+      <Tabs defaultValue="proponer">
         <TabsList className="flex h-auto flex-wrap justify-start">
           <TabsTrigger value="proponer">Proponer</TabsTrigger>
           <TabsTrigger value="mias">Mis propuestas</TabsTrigger>

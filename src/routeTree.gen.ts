@@ -22,22 +22,22 @@ import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as RecuperarRouteImport } from './routes/recuperar'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as TecladoRouteImport } from './routes/teclado'
 import { Route as TerminosRouteImport } from './routes/terminos'
 import { Route as TurismoRouteImport } from './routes/turismo'
 import { Route as AuthenticatedAgroRouteImport } from './routes/_authenticated/agro'
 import { Route as AuthenticatedCertificadoRouteImport } from './routes/_authenticated/certificado'
 import { Route as AuthenticatedCuadernoRouteImport } from './routes/_authenticated/cuaderno'
-import { Route as AuthenticatedLaboratorioRouteImport } from './routes/_authenticated/laboratorio'
-import { Route as AuthenticatedValidacionRouteImport } from './routes/_authenticated/validacion'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedGuaraniEscolarRouteImport } from './routes/_authenticated/guarani-escolar'
+import { Route as AuthenticatedLaboratorioRouteImport } from './routes/_authenticated/laboratorio'
 import { Route as AuthenticatedLogrosRouteImport } from './routes/_authenticated/logros'
 import { Route as AuthenticatedNheMbytepeRouteImport } from './routes/_authenticated/nhe-mbytepe'
 import { Route as AuthenticatedNheRapeRouteImport } from './routes/_authenticated/nhe-rape'
 import { Route as AuthenticatedRankingRouteImport } from './routes/_authenticated/ranking'
-import { Route as AuthenticatedTecladoRouteImport } from './routes/_authenticated/teclado'
 import { Route as AuthenticatedTraductorRouteImport } from './routes/_authenticated/traductor'
 import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
+import { Route as AuthenticatedValidacionRouteImport } from './routes/_authenticated/validacion'
 import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as StudioIndexRouteImport } from './routes/studio.index'
 import { Route as StudioSplatRouteImport } from './routes/studio.$'
@@ -133,6 +133,11 @@ const SobreRoute = SobreRouteImport.update({
   path: '/sobre',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TecladoRoute = TecladoRouteImport.update({
+  id: '/teclado',
+  path: '/teclado',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TerminosRoute = TerminosRouteImport.update({
   id: '/terminos',
   path: '/terminos',
@@ -159,16 +164,6 @@ const AuthenticatedCuadernoRoute = AuthenticatedCuadernoRouteImport.update({
   path: '/cuaderno',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedLaboratorioRoute = AuthenticatedLaboratorioRouteImport.update({
-  id: '/laboratorio',
-  path: '/laboratorio',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedValidacionRoute = AuthenticatedValidacionRouteImport.update({
-  id: '/validacion',
-  path: '/validacion',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -178,6 +173,12 @@ const AuthenticatedGuaraniEscolarRoute =
   AuthenticatedGuaraniEscolarRouteImport.update({
     id: '/guarani-escolar',
     path: '/guarani-escolar',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLaboratorioRoute =
+  AuthenticatedLaboratorioRouteImport.update({
+    id: '/laboratorio',
+    path: '/laboratorio',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedLogrosRoute = AuthenticatedLogrosRouteImport.update({
@@ -200,11 +201,6 @@ const AuthenticatedRankingRoute = AuthenticatedRankingRouteImport.update({
   path: '/ranking',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedTecladoRoute = AuthenticatedTecladoRouteImport.update({
-  id: '/teclado',
-  path: '/teclado',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedTraductorRoute = AuthenticatedTraductorRouteImport.update({
   id: '/traductor',
   path: '/traductor',
@@ -213,6 +209,11 @@ const AuthenticatedTraductorRoute = AuthenticatedTraductorRouteImport.update({
 const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
   id: '/tutor',
   path: '/tutor',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedValidacionRoute = AuthenticatedValidacionRouteImport.update({
+  id: '/validacion',
+  path: '/validacion',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ApiTutorRoute = ApiTutorRouteImport.update({
@@ -404,22 +405,22 @@ export interface FileRoutesByFullPath {
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
+  '/teclado': typeof TecladoRoute
   '/terminos': typeof TerminosRoute
   '/turismo': typeof TurismoRoute
   '/agro': typeof AuthenticatedAgroRoute
   '/certificado': typeof AuthenticatedCertificadoRoute
   '/cuaderno': typeof AuthenticatedCuadernoRoute
-  '/laboratorio': typeof AuthenticatedLaboratorioRoute
-  '/validacion': typeof AuthenticatedValidacionRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
+  '/laboratorio': typeof AuthenticatedLaboratorioRoute
   '/logros': typeof AuthenticatedLogrosRoute
   '/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
   '/nhe-rape': typeof AuthenticatedNheRapeRoute
   '/ranking': typeof AuthenticatedRankingRoute
-  '/teclado': typeof AuthenticatedTecladoRoute
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
+  '/validacion': typeof AuthenticatedValidacionRoute
   '/api/tutor': typeof ApiTutorRoute
   '/studio/$': typeof StudioSplatRoute
   '/verificar/$code': typeof VerificarCodeRoute
@@ -464,21 +465,21 @@ export interface FileRoutesByTo {
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
+  '/teclado': typeof TecladoRoute
   '/terminos': typeof TerminosRoute
   '/turismo': typeof TurismoRoute
   '/agro': typeof AuthenticatedAgroRoute
   '/certificado': typeof AuthenticatedCertificadoRoute
   '/cuaderno': typeof AuthenticatedCuadernoRoute
-  '/laboratorio': typeof AuthenticatedLaboratorioRoute
-  '/validacion': typeof AuthenticatedValidacionRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/laboratorio': typeof AuthenticatedLaboratorioRoute
   '/logros': typeof AuthenticatedLogrosRoute
   '/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
   '/nhe-rape': typeof AuthenticatedNheRapeRoute
   '/ranking': typeof AuthenticatedRankingRoute
-  '/teclado': typeof AuthenticatedTecladoRoute
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
+  '/validacion': typeof AuthenticatedValidacionRoute
   '/api/tutor': typeof ApiTutorRoute
   '/studio/$': typeof StudioSplatRoute
   '/verificar/$code': typeof VerificarCodeRoute
@@ -523,22 +524,22 @@ export interface FileRoutesById {
   '/recuperar': typeof RecuperarRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sobre': typeof SobreRoute
+  '/teclado': typeof TecladoRoute
   '/terminos': typeof TerminosRoute
   '/turismo': typeof TurismoRoute
   '/_authenticated/agro': typeof AuthenticatedAgroRoute
   '/_authenticated/certificado': typeof AuthenticatedCertificadoRoute
   '/_authenticated/cuaderno': typeof AuthenticatedCuadernoRoute
-  '/_authenticated/laboratorio': typeof AuthenticatedLaboratorioRoute
-  '/_authenticated/validacion': typeof AuthenticatedValidacionRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/guarani-escolar': typeof AuthenticatedGuaraniEscolarRouteWithChildren
+  '/_authenticated/laboratorio': typeof AuthenticatedLaboratorioRoute
   '/_authenticated/logros': typeof AuthenticatedLogrosRoute
   '/_authenticated/nhe-mbytepe': typeof AuthenticatedNheMbytepeRoute
   '/_authenticated/nhe-rape': typeof AuthenticatedNheRapeRoute
   '/_authenticated/ranking': typeof AuthenticatedRankingRoute
-  '/_authenticated/teclado': typeof AuthenticatedTecladoRoute
   '/_authenticated/traductor': typeof AuthenticatedTraductorRoute
   '/_authenticated/tutor': typeof AuthenticatedTutorRoute
+  '/_authenticated/validacion': typeof AuthenticatedValidacionRoute
   '/api/tutor': typeof ApiTutorRoute
   '/studio/$': typeof StudioSplatRoute
   '/verificar/$code': typeof VerificarCodeRoute
@@ -585,22 +586,22 @@ export interface FileRouteTypes {
     | '/recuperar'
     | '/reset-password'
     | '/sobre'
+    | '/teclado'
     | '/terminos'
     | '/turismo'
     | '/agro'
     | '/certificado'
     | '/cuaderno'
-    | '/laboratorio'
-    | '/validacion'
     | '/dashboard'
     | '/guarani-escolar'
+    | '/laboratorio'
     | '/logros'
     | '/nhe-mbytepe'
     | '/nhe-rape'
     | '/ranking'
-    | '/teclado'
     | '/traductor'
     | '/tutor'
+    | '/validacion'
     | '/api/tutor'
     | '/studio/$'
     | '/verificar/$code'
@@ -645,21 +646,21 @@ export interface FileRouteTypes {
     | '/recuperar'
     | '/reset-password'
     | '/sobre'
+    | '/teclado'
     | '/terminos'
     | '/turismo'
     | '/agro'
     | '/certificado'
     | '/cuaderno'
-    | '/laboratorio'
-    | '/validacion'
     | '/dashboard'
+    | '/laboratorio'
     | '/logros'
     | '/nhe-mbytepe'
     | '/nhe-rape'
     | '/ranking'
-    | '/teclado'
     | '/traductor'
     | '/tutor'
+    | '/validacion'
     | '/api/tutor'
     | '/studio/$'
     | '/verificar/$code'
@@ -703,22 +704,22 @@ export interface FileRouteTypes {
     | '/recuperar'
     | '/reset-password'
     | '/sobre'
+    | '/teclado'
     | '/terminos'
     | '/turismo'
     | '/_authenticated/agro'
     | '/_authenticated/certificado'
     | '/_authenticated/cuaderno'
-    | '/_authenticated/laboratorio'
-    | '/_authenticated/validacion'
     | '/_authenticated/dashboard'
     | '/_authenticated/guarani-escolar'
+    | '/_authenticated/laboratorio'
     | '/_authenticated/logros'
     | '/_authenticated/nhe-mbytepe'
     | '/_authenticated/nhe-rape'
     | '/_authenticated/ranking'
-    | '/_authenticated/teclado'
     | '/_authenticated/traductor'
     | '/_authenticated/tutor'
+    | '/_authenticated/validacion'
     | '/api/tutor'
     | '/studio/$'
     | '/verificar/$code'
@@ -765,6 +766,7 @@ export interface RootRouteChildren {
   RecuperarRoute: typeof RecuperarRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SobreRoute: typeof SobreRoute
+  TecladoRoute: typeof TecladoRoute
   TerminosRoute: typeof TerminosRoute
   TurismoRoute: typeof TurismoRoute
   ApiTutorRoute: typeof ApiTutorRoute
@@ -866,6 +868,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SobreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/teclado': {
+      id: '/teclado'
+      path: '/teclado'
+      fullPath: '/teclado'
+      preLoaderRoute: typeof TecladoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terminos': {
       id: '/terminos'
       path: '/terminos'
@@ -901,20 +910,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCuadernoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/laboratorio': {
-      id: '/_authenticated/laboratorio'
-      path: '/laboratorio'
-      fullPath: '/laboratorio'
-      preLoaderRoute: typeof AuthenticatedLaboratorioRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/validacion': {
-      id: '/_authenticated/validacion'
-      path: '/validacion'
-      fullPath: '/validacion'
-      preLoaderRoute: typeof AuthenticatedValidacionRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -927,6 +922,13 @@ declare module '@tanstack/react-router' {
       path: '/guarani-escolar'
       fullPath: '/guarani-escolar'
       preLoaderRoute: typeof AuthenticatedGuaraniEscolarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/laboratorio': {
+      id: '/_authenticated/laboratorio'
+      path: '/laboratorio'
+      fullPath: '/laboratorio'
+      preLoaderRoute: typeof AuthenticatedLaboratorioRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/logros': {
@@ -957,13 +959,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRankingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/teclado': {
-      id: '/_authenticated/teclado'
-      path: '/teclado'
-      fullPath: '/teclado'
-      preLoaderRoute: typeof AuthenticatedTecladoRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/traductor': {
       id: '/_authenticated/traductor'
       path: '/traductor'
@@ -976,6 +971,13 @@ declare module '@tanstack/react-router' {
       path: '/tutor'
       fullPath: '/tutor'
       preLoaderRoute: typeof AuthenticatedTutorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/validacion': {
+      id: '/_authenticated/validacion'
+      path: '/validacion'
+      fullPath: '/validacion'
+      preLoaderRoute: typeof AuthenticatedValidacionRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/tutor': {
@@ -1253,17 +1255,16 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAgroRoute: typeof AuthenticatedAgroRoute
   AuthenticatedCertificadoRoute: typeof AuthenticatedCertificadoRoute
   AuthenticatedCuadernoRoute: typeof AuthenticatedCuadernoRoute
-  AuthenticatedLaboratorioRoute: typeof AuthenticatedLaboratorioRoute
-  AuthenticatedValidacionRoute: typeof AuthenticatedValidacionRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedGuaraniEscolarRoute: typeof AuthenticatedGuaraniEscolarRouteWithChildren
+  AuthenticatedLaboratorioRoute: typeof AuthenticatedLaboratorioRoute
   AuthenticatedLogrosRoute: typeof AuthenticatedLogrosRoute
   AuthenticatedNheMbytepeRoute: typeof AuthenticatedNheMbytepeRoute
   AuthenticatedNheRapeRoute: typeof AuthenticatedNheRapeRoute
   AuthenticatedRankingRoute: typeof AuthenticatedRankingRoute
-  AuthenticatedTecladoRoute: typeof AuthenticatedTecladoRoute
   AuthenticatedTraductorRoute: typeof AuthenticatedTraductorRoute
   AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
+  AuthenticatedValidacionRoute: typeof AuthenticatedValidacionRoute
   AuthenticatedAdminCorpusRoute: typeof AuthenticatedAdminCorpusRoute
   AuthenticatedAdminInformeAuspicianteRoute: typeof AuthenticatedAdminInformeAuspicianteRoute
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
@@ -1288,18 +1289,17 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAgroRoute: AuthenticatedAgroRoute,
   AuthenticatedCertificadoRoute: AuthenticatedCertificadoRoute,
   AuthenticatedCuadernoRoute: AuthenticatedCuadernoRoute,
-  AuthenticatedLaboratorioRoute: AuthenticatedLaboratorioRoute,
-  AuthenticatedValidacionRoute: AuthenticatedValidacionRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedGuaraniEscolarRoute:
     AuthenticatedGuaraniEscolarRouteWithChildren,
+  AuthenticatedLaboratorioRoute: AuthenticatedLaboratorioRoute,
   AuthenticatedLogrosRoute: AuthenticatedLogrosRoute,
   AuthenticatedNheMbytepeRoute: AuthenticatedNheMbytepeRoute,
   AuthenticatedNheRapeRoute: AuthenticatedNheRapeRoute,
   AuthenticatedRankingRoute: AuthenticatedRankingRoute,
-  AuthenticatedTecladoRoute: AuthenticatedTecladoRoute,
   AuthenticatedTraductorRoute: AuthenticatedTraductorRoute,
   AuthenticatedTutorRoute: AuthenticatedTutorRoute,
+  AuthenticatedValidacionRoute: AuthenticatedValidacionRoute,
   AuthenticatedAdminCorpusRoute: AuthenticatedAdminCorpusRoute,
   AuthenticatedAdminInformeAuspicianteRoute:
     AuthenticatedAdminInformeAuspicianteRoute,
@@ -1338,6 +1338,7 @@ const rootRouteChildren: RootRouteChildren = {
   RecuperarRoute: RecuperarRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SobreRoute: SobreRoute,
+  TecladoRoute: TecladoRoute,
   TerminosRoute: TerminosRoute,
   TurismoRoute: TurismoRoute,
   ApiTutorRoute: ApiTutorRoute,

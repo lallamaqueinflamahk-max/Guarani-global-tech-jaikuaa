@@ -8,7 +8,7 @@ import { getGameWords } from "@/lib/games.functions";
 import { buildIndex, clean, isNasal, lastWord, PARES, type Fix } from "@/lib/limpiador";
 import jaiImg from "@/assets/jai-tradicional.png";
 
-export const Route = createFileRoute("/_authenticated/teclado")({
+export const Route = createFileRoute("/teclado")({
   head: () => ({
     meta: [
       { title: "Teclado Guaraní | Jaikuaa" },
@@ -128,7 +128,7 @@ function TecladoPage() {
 
   return (
     <main className="mx-auto max-w-xl px-4 py-6 pb-28">
-      <Link to="/dashboard" className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> Volver</Link>
+      <Link to="/" className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> Volver</Link>
       <h1 className="font-display text-2xl font-bold text-foreground">⌨️ Teclado Guaraní</h1>
       <p className="mt-1 text-sm text-muted-foreground">Escribí con tu teclado de siempre y usá estas teclas para las letras del Achegety. Después copiá o mandá por WhatsApp.</p>
 
@@ -203,6 +203,11 @@ function TecladoPage() {
           </div>
         )}
       </section>
+
+      <div className="mt-6 rounded-lg border bg-card p-4 text-center">
+        <p className="text-sm text-foreground">¿Querés aprender guaraní jugando? Es gratis para paraguayos.</p>
+        <Link to="/comenzar" className="mt-2 inline-block text-sm font-semibold text-primary hover:underline">Creá tu cuenta gratis →</Link>
+      </div>
     </main>
   );
 }
