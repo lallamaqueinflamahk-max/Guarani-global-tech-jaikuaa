@@ -16,7 +16,8 @@ import { buildCorpusIndex, rankByAttestation, type Attestation } from "@/lib/mor
 import { checkWord, type OrthographyIssue } from "@/lib/morph/orthography";
 import { CLOSED_CLASS_LABEL, lookupClosed } from "@/lib/morph/closed-classes";
 import { analyzeNominal, type NominalAnalysis } from "@/lib/morph/nominal-analyzer";
-import { getLabBook, getLabCorpus, getLabDictionary, getLabWiktionary } from "@/lib/laboratorio.functions";
+import { getAlanMotorReadings, getLabBook, getLabCorpus, getLabDictionary, getLabWiktionary } from "@/lib/laboratorio.functions";
+import { matchesLab, type LabReadingKey, type MotorToken } from "@/lib/morph/motor-contract";
 import { buildSplIndex, posLabel, splUrl, type SplIndex } from "@/lib/morph/spl-dictionary";
 import { buildWiktionaryIndex, FORM_OF_LABEL, POS_LABEL, type WiktionaryHit, type WiktionaryIndex } from "@/lib/morph/wikcionario";
 import { buildBookIndex, type BookIndex } from "@/lib/morph/book-lexicon";
@@ -373,6 +374,7 @@ function LaboratorioPage() {
               </>
             )}
             {nominal.length > 0 && <NominalReadings readings={nominalRanked} />}
+            <AlanMotorPanel word={submitted} lab={results.map((a) => ({ person: a.person, root: a.root, suffixes: a.suffixes.map((s) => s.form) }))} />
           </section>
         )}
 
@@ -511,6 +513,94 @@ function SentenceChecker({ calcos, loading }: { calcos: CalcoIndex | null; loadi
         )}
       </CardContent>
     </Card>
+  );
+}
+
+const MOTOR_STATUS_LABEL: Record<MotorToken["estado"], string> = {
+  sin_analisis: "No encontró análisis",
+  una_lectura: "Una lectura",
+  sin_resolver: "Varias lecturas, sin elegir (correcto: no hay evidencia para elegir)",
+  resuelta: "Varias lecturas; eligió una",
+};
+
+/**
+ * Lecturas del motor HFST/LEXC de Alan para la misma palabra (contrato 1.0), al lado de las del
+ * Laboratorio. Apagado hasta que el servicio esté configurado; nunca reemplaza a las del Laboratorio.
+ */
+function AlanMotorPanel({ word, lab }: { word: string; lab: LabReadingKey[] }) {
+  const fn = useServerFn(getAlanMotorReadings);
+  const q = useQuery({
+    queryKey: ["alan-motor", word],
+    queryFn: () => fn({ data: { text: word } }),
+    staleTime: 5 * 60_000,
+    retry: false,
+  });
+  const box = "mt-6 rounded-xl border p-4 text-sm";
+  if (q.isLoading) return <p className="mt-6 text-xs text-muted-foreground">Consultando el motor HFST…</p>;
+  if (q.isError || !q.data) return <p className={`${box} border-amber-300/60 text-foreground`}>No se pudo consultar el motor HFST.</p>;
+  if (q.data.status === "apagado") {
+    return (
+      <p className={`${box} border-dashed border-border/70 text-muted-foreground`}>
+        <strong className="text-foreground">Motor HFST (Alan):</strong> todavía no está conectado. Cuando su servicio esté en línea,
+        sus lecturas van a aparecer acá, al lado de las del Laboratorio.
+      </p>
+    );
+  }
+  if (q.data.status === "error") {
+    return (
+      <p className={`${box} border-amber-300/60 bg-amber-50/60 text-foreground dark:bg-amber-500/10`}>
+        <strong>Motor HFST (Alan):</strong> {q.data.message}. Se muestran solo las lecturas del Laboratorio.
+      </p>
+    );
+  }
+  const { response } = q.data;
+  const tokens = response.tokens.length > 0 ? response.tokens : [];
+  return (
+    <section className={`${box} border-violet-300/60`}>
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h3 className="font-display text-base font-semibold text-foreground">Motor HFST de Alan</h3>
+        <span className="text-xs text-muted-foreground">
+          {response.motor.nombre} {response.motor.version}
+          {response.motor.transductor ? ` · transductor ${response.motor.transductor}` : ""}
+        </span>
+      </div>
+      {tokens.length === 0 && <p className="mt-2 text-muted-foreground">El motor no devolvió palabras.</p>}
+      {tokens.map((t, ti) => (
+        <div key={ti} className="mt-3">
+          <p className="text-xs text-muted-foreground">
+            «{t.superficie}» · {MOTOR_STATUS_LABEL[t.estado]}
+          </p>
+          <ul className="mt-2 space-y-2">
+            {t.lecturas.map((r, ri) => {
+              const same = matchesLab(r, lab);
+              return (
+                <li key={ri} className="rounded-lg border border-border/60 px-3 py-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-medium text-foreground">
+                      {[...r.prefijos.map((p) => p.forma), r.raiz, ...r.sufijos.map((s) => s.forma)].join(" + ")}
+                    </span>
+                    {r.persona && <Badge variant="outline">{PERSON_LABEL[r.persona].label}</Badge>}
+                    {r.negacion && <Badge variant="outline">negación</Badge>}
+                    <Badge
+                      variant="outline"
+                      className={same ? "border-emerald-400/60 text-emerald-800 dark:text-emerald-200" : "border-amber-400/60 text-amber-800 dark:text-amber-200"}
+                    >
+                      {same ? "Coincide con el Laboratorio" : "Distinta al Laboratorio"}
+                    </Badge>
+                    {t.seleccion === ri && <Badge variant="outline">elegida ({t.metodo ?? "sin método"})</Badge>}
+                  </div>
+                  <p className="mt-1 break-all font-mono text-xs text-muted-foreground">{r.analisis_crudo}</p>
+                  {r.paginas.length > 0 && <p className="mt-0.5 text-xs text-muted-foreground">Gramática ALG 2020, pág. {r.paginas.join(", ")}</p>}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+      <p className="mt-3 text-xs text-muted-foreground">
+        Las diferencias entre los dos motores no se resuelven solas: las decide un docente.
+      </p>
+    </section>
   );
 }
 
