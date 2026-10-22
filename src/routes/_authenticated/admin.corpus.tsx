@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { GuaraniCharBar } from "@/components/guarani-char-bar";
 import { WordAudioRecorder } from "@/components/corpus/word-audio-recorder";
 import { ValidationPanel } from "@/components/corpus/validation-panel";
+import { PublishConfirmButton } from "@/components/corpus/publish-confirm-button";
 import { useMemo, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -994,9 +995,13 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
       notes?: string;
       category?: CorpusCategory | null;
     }) => updateFn({ data: v }),
-    onSuccess: () => {
+    onSuccess: async (_result, variables) => {
       setEditing(null);
       invalidate();
+      if (variables.status === "published") {
+        await qc.invalidateQueries({ queryKey: ["validation-undo-actions"] });
+        toast.success("Palabra publicada. Podés deshacer durante 15 minutos.");
+      }
     },
     onError: () => toast.error("No se pudo actualizar."),
   });
@@ -1167,18 +1172,21 @@ function WordsPanel({ levels, isAdmin }: { levels: Level[]; isAdmin: boolean }) 
                   void qc.invalidateQueries({ queryKey: ["corpus-overview"] });
                 }}
               />
-              <Button
-                size="sm"
-                variant={w.status === "published" ? "secondary" : "outline"}
-                onClick={() =>
-                  updateM.mutate({
-                    id: w.id,
-                    status: w.status === "published" ? "draft" : "published",
-                  })
-                }
-              >
-                {w.status === "published" ? "Publicada" : "Borrador"}
-              </Button>
+              {w.status === "published" ? (
+                <Button size="sm" variant="secondary" disabled={updateM.isPending} onClick={() => updateM.mutate({ id: w.id, status: "draft" })}>
+                  Pasar a borrador
+                </Button>
+              ) : (
+                <PublishConfirmButton
+                  wordLabel={w.gn}
+                  variant="outline"
+                  pending={updateM.isPending}
+                  onConfirm={() => updateM.mutate({ id: w.id, status: "published" })}
+                >
+                  {updateM.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                  Publicar
+                </PublishConfirmButton>
+              )}
               <Button
                 size="icon"
                 variant="ghost"
@@ -1876,9 +1884,10 @@ function LessonWordsEditor({ lessonId, onChanged }: { lessonId: string; onChange
   });
   const validateM = useMutation({
     mutationFn: (id: string) => updateFn({ data: { id, status: "published" } }),
-    onSuccess: () => {
-      toast.success("Palabra validada y publicada.");
+    onSuccess: async () => {
+      toast.success("Palabra publicada. Podés deshacer durante 15 minutos.");
       refresh();
+      await qc.invalidateQueries({ queryKey: ["validation-undo-actions"] });
     },
     onError: () => toast.error("No se pudo validar."),
   });
@@ -1965,10 +1974,15 @@ function LessonWordsEditor({ lessonId, onChanged }: { lessonId: string; onChange
                 </Badge>
                 {!w.has_audio && <Badge variant="outline">sin audio</Badge>}
                 {w.status !== "published" && (
-                  <Button size="sm" variant="cta" disabled={validateM.isPending} onClick={() => validateM.mutate(w.wordId)}>
-                    <CheckCircle2 className="mr-1 h-4 w-4" />
-                    Validar
-                  </Button>
+                  <PublishConfirmButton
+                    wordLabel={w.gn}
+                    variant="cta"
+                    pending={validateM.isPending}
+                    onConfirm={() => validateM.mutate(w.wordId)}
+                  >
+                    {validateM.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 />}
+                    Validar y publicar
+                  </PublishConfirmButton>
                 )}
                 {!onlyDrafts && (
                   <>

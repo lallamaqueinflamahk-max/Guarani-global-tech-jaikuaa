@@ -2,6 +2,8 @@ import { createFileRoute, Outlet, redirect, useMatches } from "@tanstack/react-r
 import { supabase } from "@/integrations/supabase/client";
 import { MobileBottomNav } from "@/components/navigation/mobile-bottom-nav";
 import { InstallBanner } from "@/components/navigation/install-banner";
+import { NetworkStatus } from "@/components/network-status";
+import { ValidationUndoNotice } from "@/components/corpus/validation-undo-notice";
 import { showsBottomNav } from "@/lib/bottom-nav";
 
 export const Route = createFileRoute("/_authenticated")({
@@ -25,6 +27,8 @@ function AuthenticatedLayout() {
       </div>
       <MobileBottomNav />
       <InstallBanner />
+      <NetworkStatus />
+      <ValidationUndoNotice />
     </>
   );
 }

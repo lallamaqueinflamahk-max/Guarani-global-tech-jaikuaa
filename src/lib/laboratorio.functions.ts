@@ -76,8 +76,8 @@ export const getLabWiktionary = createServerFn({ method: "GET" })
   });
 
 /**
- * Lecturas del motor HFST/LEXC de Alan (contrato 1.0, docs/motor/contrato-motores.md), solo admin.
- * Queda apagado hasta que existan los secretos ALAN_MOTOR_URL y ALAN_MOTOR_TOKEN en el servidor.
+ * Lecturas del motor HFST/LEXC de Alan (contrato 1.0), solo admin/docente validador.
+ * Si faltan los secretos del servicio, devuelve análisis locales explícitamente identificados.
  * La clave nunca sale del servidor. Si el servicio tarda o responde con otra forma, se informa y el
  * Laboratorio sigue con sus propias lecturas.
  */
@@ -85,11 +85,17 @@ export const getAlanMotorReadings = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ text: z.string().trim().min(1).max(300) }).parse(d))
   .handler(async ({ context, data }) => {
-    const { data: isAdmin } = await context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" });
-    if (isAdmin !== true) throw new Error("Forbidden");
+    const [adminRole, editorRole] = await Promise.all([
+      context.supabase.rpc("has_role", { _user_id: context.userId, _role: "admin" }),
+      context.supabase.rpc("has_role", { _user_id: context.userId, _role: "editor" }),
+    ]);
+    if (adminRole.data !== true && editorRole.data !== true) throw new Error("Forbidden");
     const url = process.env.ALAN_MOTOR_URL;
     const token = process.env.ALAN_MOTOR_TOKEN;
-    if (!url || !token) return { status: "apagado" as const };
+    if (!url || !token) {
+      const { analyze } = await import("@/lib/morph/analyzer");
+      return { status: "local" as const, analyses: analyze(data.text) };
+    }
     const { parseMotorResponse } = await import("@/lib/morph/motor-contract");
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 4000);

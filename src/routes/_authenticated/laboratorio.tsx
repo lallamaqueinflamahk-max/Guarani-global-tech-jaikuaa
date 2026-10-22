@@ -35,7 +35,7 @@ import {
 } from "@/lib/morph/text-analyzer";
 
 /**
- * Laboratorio Morfológico (privado, solo admin).
+ * Laboratorio Morfológico (privado, admin y docentes validadores/editor).
  * Muestra lo que devuelve analyze(): no genera, traduce ni corrige guaraní.
  * Toda forma queda "pendiente de validación" hasta que la apruebe un especialista.
  */
@@ -47,7 +47,7 @@ export const Route = createFileRoute("/_authenticated/laboratorio")({
     ],
   }),
   component: () => (
-    <PrivateGate>
+    <PrivateGate roles={["admin", "editor"]}>
       <LaboratorioPage />
     </PrivateGate>
   ),
@@ -538,6 +538,30 @@ function AlanMotorPanel({ word, lab }: { word: string; lab: LabReadingKey[] }) {
   const box = "mt-6 rounded-xl border p-4 text-sm";
   if (q.isLoading) return <p className="mt-6 text-xs text-muted-foreground">Consultando el motor HFST…</p>;
   if (q.isError || !q.data) return <p className={`${box} border-amber-300/60 text-foreground`}>No se pudo consultar el motor HFST.</p>;
+  if (q.data.status === "local") {
+    return (
+      <section className={`${box} border-dashed border-border/70 text-muted-foreground`}>
+        <h3 className="font-display text-base font-semibold text-foreground">Análisis local de respaldo</h3>
+        <p className="mt-1 text-xs">Motor HFST no configurado. Estas lecturas son candidatas locales, no una respuesta del servicio HFST.</p>
+        {q.data.analyses.length === 0 ? (
+          <p className="mt-2">El analizador local no encontró lecturas.</p>
+        ) : (
+          <ul className="mt-2 space-y-2">
+            {q.data.analyses.map((analysis, index) => (
+              <li key={`${analysis.root}-${analysis.person}-${index}`} className="rounded-lg border border-border/60 px-3 py-2">
+                <p className="font-medium text-foreground">
+                  {[analysis.prefix, ...analysis.voices.map((voice) => voice.form), analysis.root, ...analysis.suffixes.map((suffix) => suffix.form)]
+                    .filter(Boolean)
+                    .join(" + ")}
+                </p>
+                <p className="text-xs text-muted-foreground">{analysis.person} · pendiente de validación especializada</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+    );
+  }
   if (q.data.status === "apagado") {
     return (
       <p className={`${box} border-dashed border-border/70 text-muted-foreground`}>

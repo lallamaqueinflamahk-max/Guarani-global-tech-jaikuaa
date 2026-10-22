@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { CheckCircle2, History, Loader2, RotateCcw, Search, UserPlus, X, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PublishConfirmButton } from "@/components/corpus/publish-confirm-button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { GuaraniCharBar } from "@/components/guarani-char-bar";
@@ -149,7 +150,7 @@ function ProposeForm() {
       proposeFn({ data: { kind, targetWordId: target?.id ?? null, gn, es, notes, source } }),
     onSuccess: (d) => {
       if (!d.ok) return toast.error(d.error);
-      toast.success("Propuesta enviada. Ahora la revisa otra persona.");
+      toast.success(`Propuesta enviada. Ahora la revisa otra persona. Te quedan ${d.remainingToday} propuestas hoy.`);
       setGn("");
       setEs("");
       setNotes("");
@@ -388,7 +389,7 @@ function VerifyForm({ word, onSent }: { word: VerificationWord; onSent: () => vo
       proposeFn({ data: { kind: "nueva", targetWordId: null, gn, es, notes, source: `${SOURCE_LABEL[word.fuente].cite}; verificada por docente` } }),
     onSuccess: (d) => {
       if (!d.ok) return toast.error(d.error);
-      toast.success("Enviada al circuito. Ahora la revisa otra persona.");
+      toast.success(`Enviada al circuito. Te quedan ${d.remainingToday} propuestas hoy.`);
       qc.invalidateQueries({ queryKey: ["my-proposals"] });
       onSent();
     },
@@ -441,8 +442,11 @@ function MyProposals() {
           <p className="mt-1 text-xs text-muted-foreground">
             {p.kind === "correccion" ? "Corrección" : "Palabra nueva"} · enviada {fmt(p.proposed_at)}
           </p>
-          {(p.review_note || p.validation_note) && (
-            <p className="mt-2 rounded-lg bg-muted p-2 text-sm">{p.validation_note || p.review_note}</p>
+          {(p.status === "devuelta" || p.status === "rechazada") && (p.validation_note || p.review_note) && (
+            <div role="note" aria-label="Motivo del docente" className="mt-3 rounded-lg border border-amber-400/60 bg-amber-50 p-3 text-sm text-amber-950 dark:bg-amber-500/10 dark:text-amber-50">
+              <strong className="block text-xs uppercase">Motivo de {p.status === "devuelta" ? "la devolución" : "la decisión"}</strong>
+              <span>{p.validation_note || p.review_note}</span>
+            </div>
           )}
           {p.status === "devuelta" && <ResubmitForm proposal={p} />}
           <HistoryToggle id={p.id} />
@@ -507,7 +511,7 @@ function HistoryToggle({ id }: { id: string }) {
 /* ---------------------------- Revisar / Validar ---------------------------- */
 
 /** Respuesta común de revisar y validar (validar puede avisar que hay que regrabar el audio). */
-type DecideResult = { ok: true; audioWarning?: boolean } | { ok: false; error: string };
+type DecideResult = { ok: true; audioWarning?: boolean; undoId?: string; undoUntil?: string } | { ok: false; error: string };
 
 function Queue({ step }: { step: "revisar" | "validar" }) {
   const qc = useQueryClient();
@@ -524,9 +528,10 @@ function Queue({ step }: { step: "revisar" | "validar" }) {
     },
     onSuccess: (d) => {
       if (!d.ok) return toast.error(d.error);
-      toast.success(step === "revisar" ? "Revisión registrada." : "Validación registrada.");
+      toast.success(step === "revisar" ? "Revisión registrada." : "Palabra publicada. Podés deshacer durante 15 minutos.");
       if ("audioWarning" in d && d.audioWarning) toast.warning("Cambió la escritura: hay que volver a grabar el audio de esta palabra.");
       qc.invalidateQueries({ queryKey: ["circuit-queue"] });
+      if ("undoId" in d && d.undoId) void qc.invalidateQueries({ queryKey: ["validation-undo-actions"] });
     },
     onError: (e: Error) => toast.error(e.message.includes("motivo") ? "Escribí el motivo para devolver o no aceptar." : e.message),
   });
@@ -566,9 +571,21 @@ function Queue({ step }: { step: "revisar" | "validar" }) {
             onChange={(e) => setNotes({ ...notes, [p.id]: e.target.value })}
           />
           <div className="mt-2 flex flex-wrap gap-2">
-            <Button size="sm" onClick={() => decide.mutate({ id: p.id, decision: "aprobar" })} disabled={decide.isPending}>
-              <CheckCircle2 className="mr-1 h-4 w-4" /> {step === "revisar" ? "Aprobar revisión" : "Validar y publicar"}
-            </Button>
+            {step === "revisar" ? (
+              <Button size="sm" onClick={() => decide.mutate({ id: p.id, decision: "aprobar" })} disabled={decide.isPending}>
+                {decide.isPending ? <Loader2 className="mr-1 h-4 w-4 animate-spin" /> : <CheckCircle2 className="mr-1 h-4 w-4" />}
+                Aprobar revisión
+              </Button>
+            ) : (
+              <PublishConfirmButton
+                wordLabel={p.gn}
+                pending={decide.isPending}
+                onConfirm={() => decide.mutate({ id: p.id, decision: "aprobar" })}
+              >
+                {decide.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 />}
+                Validar y publicar
+              </PublishConfirmButton>
+            )}
             <Button size="sm" variant="outline" onClick={() => decide.mutate({ id: p.id, decision: "devolver" })} disabled={decide.isPending}>
               <RotateCcw className="mr-1 h-4 w-4" /> Devolver para corregir
             </Button>

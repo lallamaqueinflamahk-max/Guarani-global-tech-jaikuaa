@@ -3,22 +3,27 @@ import { Link } from "@tanstack/react-router";
 import { Lock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
-/** Strategic sections: visible only to signed-in admins. */
-export function PrivateGate({ children }: { children: ReactNode }) {
+type GateRole = "admin" | "editor";
+
+/** Strategic sections default to admins; individual routes can allow additional staff roles. */
+export function PrivateGate({ children, roles = ["admin"] }: { children: ReactNode; roles?: GateRole[] }) {
   const [state, setState] = useState<"loading" | "ok" | "denied">("loading");
+  const roleKey = roles.join(",");
   useEffect(() => {
     let alive = true;
     (async () => {
       const { data } = await supabase.auth.getUser();
       const uid = data.user?.id;
       if (!uid) return alive && setState("denied");
-      const { data: ok } = await supabase.rpc("has_role", { _user_id: uid, _role: "admin" });
-      if (alive) setState(ok ? "ok" : "denied");
+      const checks = await Promise.all(
+        (roleKey.split(",") as GateRole[]).map((role) => supabase.rpc("has_role", { _user_id: uid, _role: role })),
+      );
+      if (alive) setState(checks.some(({ data }) => data === true) ? "ok" : "denied");
     })();
     return () => {
       alive = false;
     };
-  }, []);
+  }, [roleKey]);
   if (state === "ok") return <>{children}</>;
   if (state === "loading") return <div className="min-h-screen bg-background" />;
   return (

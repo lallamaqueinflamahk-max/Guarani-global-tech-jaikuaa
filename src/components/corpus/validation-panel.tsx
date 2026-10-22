@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { WordAudioRecorder } from "@/components/corpus/word-audio-recorder";
+import { PublishConfirmButton } from "@/components/corpus/publish-confirm-button";
 import { listCorpusWords, updateCorpusWord } from "@/lib/corpus.functions";
 
 /** Bandeja del docente validador: palabras en borrador para aprobar en un toque. */
@@ -24,11 +25,12 @@ export function ValidationPanel() {
 
   const approve = useMutation({
     mutationFn: (id: string) => updateFn({ data: { id, status: "published" } }),
-    onSuccess: () => {
-      toast.success("Palabra validada y publicada.");
+    onSuccess: async () => {
+      toast.success("Palabra publicada. Podés deshacer durante 15 minutos.");
       void qc.invalidateQueries({ queryKey: ["validation-queue"] });
       void qc.invalidateQueries({ queryKey: ["corpus-words"] });
       void qc.invalidateQueries({ queryKey: ["corpus-overview"] });
+      await qc.invalidateQueries({ queryKey: ["validation-undo-actions"] });
     },
     onError: () => toast.error("No se pudo validar la palabra."),
   });
@@ -93,15 +95,16 @@ export function ValidationPanel() {
                   hasAudio={w.has_audio}
                   onSaved={() => void qc.invalidateQueries({ queryKey: ["validation-queue"] })}
                 />
-                <Button
+                <PublishConfirmButton
+                  wordLabel={w.gn}
                   variant="cta"
                   className="h-11 w-full sm:w-auto"
-                  disabled={approve.isPending}
-                  onClick={() => approve.mutate(w.id)}
+                  pending={approve.isPending}
+                  onConfirm={() => approve.mutate(w.id)}
                 >
-                  <CheckCircle2 className="mr-2 h-4 w-4" />
+                  {approve.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle2 className="mr-2 h-4 w-4" />}
                   Aprobar y publicar
-                </Button>
+                </PublishConfirmButton>
               </div>
             </li>
           ))}

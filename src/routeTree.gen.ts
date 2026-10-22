@@ -38,6 +38,7 @@ import { Route as AuthenticatedRankingRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedTraductorRouteImport } from './routes/_authenticated/traductor'
 import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated/tutor'
 import { Route as AuthenticatedValidacionRouteImport } from './routes/_authenticated/validacion'
+import { Route as AuthenticatedPracticaRouteImport } from './routes/_authenticated/practica'
 import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as StudioIndexRouteImport } from './routes/studio.index'
 import { Route as StudioSplatRouteImport } from './routes/studio.$'
@@ -214,6 +215,11 @@ const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
 const AuthenticatedValidacionRoute = AuthenticatedValidacionRouteImport.update({
   id: '/validacion',
   path: '/validacion',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPracticaRoute = AuthenticatedPracticaRouteImport.update({
+  id: '/practica',
+  path: '/practica',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ApiTutorRoute = ApiTutorRouteImport.update({
@@ -421,6 +427,7 @@ export interface FileRoutesByFullPath {
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
   '/validacion': typeof AuthenticatedValidacionRoute
+  '/practica': typeof AuthenticatedPracticaRoute
   '/api/tutor': typeof ApiTutorRoute
   '/studio/$': typeof StudioSplatRoute
   '/verificar/$code': typeof VerificarCodeRoute
@@ -480,6 +487,7 @@ export interface FileRoutesByTo {
   '/traductor': typeof AuthenticatedTraductorRoute
   '/tutor': typeof AuthenticatedTutorRoute
   '/validacion': typeof AuthenticatedValidacionRoute
+  '/practica': typeof AuthenticatedPracticaRoute
   '/api/tutor': typeof ApiTutorRoute
   '/studio/$': typeof StudioSplatRoute
   '/verificar/$code': typeof VerificarCodeRoute
@@ -540,6 +548,7 @@ export interface FileRoutesById {
   '/_authenticated/traductor': typeof AuthenticatedTraductorRoute
   '/_authenticated/tutor': typeof AuthenticatedTutorRoute
   '/_authenticated/validacion': typeof AuthenticatedValidacionRoute
+  '/_authenticated/practica': typeof AuthenticatedPracticaRoute
   '/api/tutor': typeof ApiTutorRoute
   '/studio/$': typeof StudioSplatRoute
   '/verificar/$code': typeof VerificarCodeRoute
@@ -602,6 +611,7 @@ export interface FileRouteTypes {
     | '/traductor'
     | '/tutor'
     | '/validacion'
+    | '/practica'
     | '/api/tutor'
     | '/studio/$'
     | '/verificar/$code'
@@ -661,6 +671,7 @@ export interface FileRouteTypes {
     | '/traductor'
     | '/tutor'
     | '/validacion'
+    | '/practica'
     | '/api/tutor'
     | '/studio/$'
     | '/verificar/$code'
@@ -720,6 +731,7 @@ export interface FileRouteTypes {
     | '/_authenticated/traductor'
     | '/_authenticated/tutor'
     | '/_authenticated/validacion'
+    | '/_authenticated/practica'
     | '/api/tutor'
     | '/studio/$'
     | '/verificar/$code'
@@ -978,6 +990,13 @@ declare module '@tanstack/react-router' {
       path: '/validacion'
       fullPath: '/validacion'
       preLoaderRoute: typeof AuthenticatedValidacionRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/practica': {
+      id: '/_authenticated/practica'
+      path: '/practica'
+      fullPath: '/practica'
+      preLoaderRoute: typeof AuthenticatedPracticaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/tutor': {
@@ -1265,6 +1284,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedTraductorRoute: typeof AuthenticatedTraductorRoute
   AuthenticatedTutorRoute: typeof AuthenticatedTutorRoute
   AuthenticatedValidacionRoute: typeof AuthenticatedValidacionRoute
+  AuthenticatedPracticaRoute: typeof AuthenticatedPracticaRoute
   AuthenticatedAdminCorpusRoute: typeof AuthenticatedAdminCorpusRoute
   AuthenticatedAdminInformeAuspicianteRoute: typeof AuthenticatedAdminInformeAuspicianteRoute
   AuthenticatedCursoLangRoute: typeof AuthenticatedCursoLangRouteWithChildren
@@ -1300,6 +1320,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedTraductorRoute: AuthenticatedTraductorRoute,
   AuthenticatedTutorRoute: AuthenticatedTutorRoute,
   AuthenticatedValidacionRoute: AuthenticatedValidacionRoute,
+  AuthenticatedPracticaRoute: AuthenticatedPracticaRoute,
   AuthenticatedAdminCorpusRoute: AuthenticatedAdminCorpusRoute,
   AuthenticatedAdminInformeAuspicianteRoute:
     AuthenticatedAdminInformeAuspicianteRoute,

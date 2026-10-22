@@ -396,11 +396,25 @@ export const updateCorpusWord = createServerFn({ method: "POST" })
     await assertRole(context.supabase, context.userId, "editor");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { id, ...rest } = data;
-    const patch: Record<string, unknown> = { ...rest };
     if (rest.status === "published") {
-      patch.validated_by = context.userId;
-      patch.validated_at = new Date().toISOString();
-    } else if (rest.status === "draft") {
+      if (rest.es !== undefined || rest.notes !== undefined || rest.category !== undefined) {
+        throw new Error("Guardá los cambios antes de publicar la palabra.");
+      }
+      const rpcClient = supabaseAdmin as unknown as {
+        rpc: (
+          name: string,
+          args: { p_word_id: string; p_actor_id: string },
+        ) => Promise<{ data: unknown; error: { message: string } | null }>;
+      };
+      const { data: result, error } = await rpcClient.rpc("publish_corpus_word_with_undo", {
+        p_word_id: id,
+        p_actor_id: context.userId,
+      });
+      if (error) throw new Error(error.message);
+      return result as { ok: true; undoId: string; undoUntil: string };
+    }
+    const patch: Record<string, unknown> = { ...rest };
+    if (rest.status === "draft") {
       patch.validated_by = null;
       patch.validated_at = null;
     }

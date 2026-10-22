@@ -138,7 +138,7 @@ export const proposeContent = createServerFn({ method: "POST" })
       history: [step("propuesta", context.userId)],
     });
     if (error) throw new Error(error.message);
-    return { ok: true as const };
+    return { ok: true as const, remainingToday: Math.max(0, DAILY_LIMIT - ((count ?? 0) + 1)) };
   });
 
 /** Quien propuso corrige y vuelve a enviar una propuesta devuelta. */
@@ -304,65 +304,57 @@ export const validateProposal = createServerFn({ method: "POST" })
       return { ok: true as const };
     }
 
-    // Aprobada: se aplica al corpus.
-    let wordId: string | null = null;
-    let audioWarning = false;
-    if (prop.kind === "nueva") {
-      const { data: exists } = await db.from("corpus_words").select("id").eq("gn", prop.gn).maybeSingle();
-      if (exists) return { ok: false as const, error: "Esa palabra ya entró al corpus por otro lado. Devolvela como duplicada." };
-      const { data: inserted, error } = await db
-        .from("corpus_words")
-        .insert({
-          gn: prop.gn,
-          es: prop.es,
-          notes: prop.notes,
-          audio_slug: slugify(prop.gn),
-          has_audio: false,
-          status: "published",
-          validated_by: context.userId,
-          validated_at: now,
-        })
-        .select("id")
-        .single();
-      if (error) throw new Error(error.message);
-      wordId = inserted.id;
-    } else {
-      const { data: target } = await db.from("corpus_words").select("id, gn").eq("id", prop.target_word_id).maybeSingle();
-      if (!target) return { ok: false as const, error: "La palabra a corregir ya no existe en el corpus." };
-      const patch: Record<string, unknown> = {
-        es: prop.es,
-        notes: prop.notes,
-        status: "published",
-        validated_by: context.userId,
-        validated_at: now,
-      };
-      if (target.gn !== prop.gn) {
-        // Cambió la escritura: el audio grabado corresponde a la forma anterior y hay que volver a grabarlo.
-        patch.gn = prop.gn;
-        patch.audio_slug = slugify(prop.gn);
-        patch.has_audio = false;
-        audioWarning = true;
-      }
-      const { error } = await db.from("corpus_words").update(patch).eq("id", target.id);
-      if (error) throw new Error(error.message);
-      wordId = target.id;
-    }
-
-    const { error } = await db
-      .from("content_proposals")
-      .update({
-        status: "validada",
-        validated_by: context.userId,
-        validated_at: now,
-        validation_note: data.note || null,
-        published_word_id: wordId,
-        history: [...prop.history, step("validada", context.userId, data.note)],
-        updated_at: now,
-      })
-      .eq("id", data.id)
-      .eq("status", "revisada");
+    const { data: result, error } = await db.rpc("publish_content_proposal_with_undo", {
+      p_proposal_id: data.id,
+      p_actor_id: context.userId,
+      p_audio_slug: slugify(prop.gn),
+      p_note: data.note || null,
+    });
     if (error) throw new Error(error.message);
-    return { ok: true as const, audioWarning };
+    return result as { ok: true; audioWarning: boolean; undoId: string; undoUntil: string };
+  });
+
+/** Active undo windows for the signed-in validator; only the minimum display data is returned. */
+export const listUndoableValidations = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const roles = await getCircuitRolesFor(context.supabase, context.userId);
+    if (!roles.canValidate) return { actions: [] as UndoableValidation[] };
+    const db = await admin();
+    const { data, error } = await db
+      .from("validation_undo_actions")
+      .select("id, proposal_id, word_id, undo_until, word_snapshot_after")
+      .eq("actor_id", context.userId)
+      .is("undone_at", null)
+      .gt("undo_until", new Date().toISOString())
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (error) throw new Error(error.message);
+    return {
+      actions: (data ?? []).map((action: { id: string; proposal_id: string | null; word_id: string; undo_until: string; word_snapshot_after: { gn?: string } }) => ({
+        id: action.id,
+        proposalId: action.proposal_id,
+        wordId: action.word_id,
+        word: action.word_snapshot_after?.gn ?? "palabra validada",
+        undoUntil: action.undo_until,
+      })),
+    };
+  });
+
+/** Undo is actor-bound and atomically restores the exact pre-publication corpus row. */
+export const undoValidation = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
+  .handler(async ({ context, data }) => {
+    const roles = await getCircuitRolesFor(context.supabase, context.userId);
+    if (!roles.canValidate) throw new Error("Forbidden");
+    const db = await admin();
+    const { data: result, error } = await db.rpc("undo_validation_action", {
+      p_action_id: data.id,
+      p_actor_id: context.userId,
+    });
+    if (error) throw new Error(error.message);
+    return result as { ok: true; status: "draft" | "revisada" };
   });
 
 /** Historial completo de una propuesta, con nombres. Para quien la propuso o el equipo docente. */
